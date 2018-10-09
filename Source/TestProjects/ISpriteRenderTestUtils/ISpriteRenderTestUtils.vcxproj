@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>15.0</VCProjectVersion>
+    <ProjectGuid>{2CC387AF-F2D4-40CE-8E66-87F8C61AF922}</ProjectGuid>
+    <RootNamespace>ISpriteRenderTestUtils</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>C:\SpriteRender\Out\Lib\Test\</OutDir>
+    <TargetExt>.lib</TargetExt>
+    <IntDir>C:\SpriteRender\Out\Test\Intermediate\ISpriteRenderTestUtils\</IntDir>
+    <TargetName>ISpriteRenderTestUtils_debug</TargetName>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);C:\SpriteRender\Source\;C:\SpriteRender\Source\Test\;C:\SpriteRender\Source\ThirdParty\boost_1_67_0\;</IncludePath>
+    <LibraryPath>$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(NETFXKitsDir)Lib\um\x86;C:\SpriteRender\Out\Lib\</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>C:\SpriteRender\Out\Lib\Test\</OutDir>
+    <TargetExt>.lib</TargetExt>
+    <IntDir>C:\SpriteRender\Out\Test\Intermediate\ISpriteRenderTestUtils\</IntDir>
+    <TargetName>ISpriteRenderTestUtils</TargetName>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);C:\SpriteRender\Source\;C:\SpriteRender\Source\Test\;C:\SpriteRender\Source\ThirdParty\boost_1_67_0\;</IncludePath>
+    <LibraryPath>$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(NETFXKitsDir)Lib\um\x86;C:\SpriteRender\Out\Lib\</LibraryPath>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
+      <AdditionalOptions>/wd5040 %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
+      <AdditionalOptions>/wd5040 %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <Link>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\Test\ISpriteRenderTestUtils\CONFIG\IMPL\TestConfig_Tester.cpp" />
+    <ClCompile Include="..\..\Test\ISpriteRenderTestUtils\CONFIG\IMPL\TesterConfig_Logging.cpp" />
+    <ClCompile Include="..\..\Test\ISpriteRenderTestUtils\Fixture\IMPL\FixtureBase.cpp" />
+    <ClCompile Include="..\..\Test\ISpriteRenderTestUtils\Fixture\IMPL\GlobFixtureBase.cpp" />
+    <ClCompile Include="..\..\Test\ISpriteRenderTestUtils\IMPL\D3DDevice\D3DDevice.cpp" />
+    <ClCompile Include="..\..\Test\ISpriteRenderTestUtils\IMPL\Environment.cpp" />
+    <ClCompile Include="..\..\Test\ISpriteRenderTestUtils\IMPL\MASTER.cpp" />
+    <ClCompile Include="..\..\Test\ISpriteRenderTestUtils\IMPL\Utils\Com.cpp" />
+    <ClCompile Include="..\..\Test\ISpriteRenderTestUtils\IMPL\Utils\DepthStencil.cpp" />
+    <ClCompile Include="..\..\Test\ISpriteRenderTestUtils\IMPL\Utils\Exception.cpp" />
+    <ClCompile Include="..\..\Test\ISpriteRenderTestUtils\IMPL\Utils\RenHRUtils.cpp" />
+    <ClCompile Include="..\..\Test\ISpriteRenderTestUtils\IMPL\Utils\WINDOW.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\Test\ISpriteRenderTestUtils\CONFIG\D3DDeviceConfig.h" />
+    <ClInclude Include="..\..\Test\ISpriteRenderTestUtils\CONFIG\TesterConfig_Logging.h" />
+    <ClInclude Include="..\..\Test\ISpriteRenderTestUtils\CONFIG\TesterConfig_Tester.h" />
+    <ClInclude Include="..\..\Test\ISpriteRenderTestUtils\CONFIG\TesterConfig_Viewport.h" />
+    <ClInclude Include="..\..\Test\ISpriteRenderTestUtils\Fixture\FixtureBase.h" />
+    <ClInclude Include="..\..\Test\ISpriteRenderTestUtils\Fixture\GlobFixtureBase.h" />
+    <ClInclude Include="..\..\Test\ISpriteRenderTestUtils\IMPL\D3DDevice\D3DDevice.h" />
+    <ClInclude Include="..\..\Test\ISpriteRenderTestUtils\IMPL\D3DDevice\D3DDeviceException.h" />
+    <ClInclude Include="..\..\Test\ISpriteRenderTestUtils\IMPL\D3DDevice\D3DDevice_CONFIG_CONST.h" />
+    <ClInclude Include="..\..\Test\ISpriteRenderTestUtils\IMPL\Environment.h" />
+    <ClInclude Include="..\..\Test\ISpriteRenderTestUtils\IMPL\Utils\Com.h" />
+    <ClInclude Include="..\..\Test\ISpriteRenderTestUtils\IMPL\Utils\DepthStencil.h" />
+    <ClInclude Include="..\..\Test\ISpriteRenderTestUtils\IMPL\Utils\Exception.h" />
+    <ClInclude Include="..\..\Test\ISpriteRenderTestUtils\IMPL\Utils\RenHRUtils.h" />
+    <ClInclude Include="..\..\Test\ISpriteRenderTestUtils\IMPL\Utils\Window.h" />
+    <ClInclude Include="..\..\Test\ISpriteRenderTestUtils\ISpriteRenderFwd.h" />
+    <ClInclude Include="..\..\Test\ISpriteRenderTestUtils\ISpriteRenderSubsystemManager.h" />
+    <ClInclude Include="..\..\Test\ISpriteRenderTestUtils\MASTER.h" />
+    <ClInclude Include="..\..\Test\ISpriteRenderTestUtils\TesterConfig.h" />
+    <ClInclude Include="..\..\Test\ISpriteRenderTestUtils\Utils\TestUtils.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

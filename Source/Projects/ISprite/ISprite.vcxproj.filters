@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Core">
+      <UniqueIdentifier>{9f90aa58-bf05-450a-ad44-33b79de5a853}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Core">
+      <UniqueIdentifier>{a77e2aed-b5ff-478a-a3c2-d189e48c5f82}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Core\IMPL">
+      <UniqueIdentifier>{5bd93d2f-4cc2-4b4e-b16e-ff14a7db2a3a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\IMPL">
+      <UniqueIdentifier>{07893b22-ad51-4120-a667-56264213ea40}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\IMPL\RenUtils">
+      <UniqueIdentifier>{e05aeff3-7f33-4ce1-9e59-a12b75cc4261}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Math">
+      <UniqueIdentifier>{aaed12ed-637b-4d99-b456-e330f3f32653}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\ISprite\Core\IMPL\SpriteRenderException.cpp">
+      <Filter>Core\Core\IMPL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\ISprite\IMPL\RenUtils\RenHRUtils.cpp">
+      <Filter>Core\IMPL\RenUtils</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\ISprite\Core\SpriteRenderException.h">
+      <Filter>Core\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\ISprite\IMPL\RenUtils\RenHRUtils.h">
+      <Filter>Core\IMPL\RenUtils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\ISprite\Math\MathMinimal.h">
+      <Filter>Core\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\ISprite\Math\Size.h">
+      <Filter>Core\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\ISprite\Math\SpriteTransform.h">
+      <Filter>Core\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\ISprite\Math\Vec2.h">
+      <Filter>Core\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\ISprite\SpriteCanvasProps.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\ISprite\SpriteCanvasTypedefs.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\ISprite\SpriteMaterialSystemConstants.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\ISprite\SpriteMaterialTypedefs.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\ISprite\SpriteProps.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\ISprite\SpriteRenderMode.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\ISprite\SpriteTypedefs.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\ISprite\SpriteTypes.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

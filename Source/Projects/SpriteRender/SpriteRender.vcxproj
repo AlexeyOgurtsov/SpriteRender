@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\SpriteRender\IMPL\Canvas\Canvas.cpp" />
+    <ClCompile Include="..\..\SpriteRender\IMPL\Environment\AmbientContext.cpp" />
+    <ClCompile Include="..\..\SpriteRender\IMPL\Geometry\SpriteGeometry.cpp" />
+    <ClCompile Include="..\..\SpriteRender\IMPL\Geometry\SpriteGeometryAllocManager.cpp" />
+    <ClCompile Include="..\..\SpriteRender\IMPL\Geometry\SpriteGeometryBuffer.cpp" />
+    <ClCompile Include="..\..\SpriteRender\IMPL\Geometry\SpriteGeometryVertex.cpp" />
+    <ClCompile Include="..\..\SpriteRender\IMPL\Geometry\SpriteGeometryVertex_InputLayout.cpp" />
+    <ClCompile Include="..\..\SpriteRender\IMPL\Glue\Glue_InterfaceToImpl.cpp" />
+    <ClCompile Include="..\..\SpriteRender\IMPL\Render\SpriteRender.cpp" />
+    <ClCompile Include="..\..\SpriteRender\IMPL\Render\SpriteUpdater.cpp" />
+    <ClCompile Include="..\..\SpriteRender\IMPL\RenUtils\RenBufferUtils.cpp" />
+    <ClCompile Include="..\..\SpriteRender\IMPL\RenUtils\RenCommandListUtils.cpp" />
+    <ClCompile Include="..\..\SpriteRender\IMPL\RenUtils\RenDeviceContextUtils.cpp" />
+    <ClCompile Include="..\..\SpriteRender\IMPL\RenUtils\RenDrawCallUtils.cpp" />
+    <ClCompile Include="..\..\SpriteRender\IMPL\RenUtils\RenHRUtils.cpp" />
+    <ClCompile Include="..\..\SpriteRender\IMPL\RenUtils\RenResources.cpp" />
+    <ClCompile Include="..\..\SpriteRender\IMPL\RenUtils\Shader.cpp" />
+    <ClCompile Include="..\..\SpriteRender\IMPL\RenUtils\ShaderCompileUtils.cpp" />
+    <ClCompile Include="..\..\SpriteRender\IMPL\SpriteSetRender\SpriteSetRender.cpp" />
+    <ClCompile Include="..\..\SpriteRender\IMPL\SpriteSetRender\SpriteSetRenderUtils.cpp" />
+    <ClCompile Include="..\..\SpriteRender\IMPL\Sprite\Sprite.cpp" />
+    <ClCompile Include="..\..\SpriteRender\IMPL\Sprite\SpriteContainer.cpp" />
+    <ClCompile Include="..\..\SpriteRender\IMPL\Sprite\SpriteManager.cpp" />
+    <ClCompile Include="..\..\SpriteRender\IMPL\Subsystem\SpriteRenderSubsystem.cpp" />
+    <ClCompile Include="..\..\SpriteRender\IMPL\Subsystem\SpriteRenderSubsystemEnvironment.cpp" />
+    <ClCompile Include="..\..\SpriteRender\IMPL\Utils\String\Text.cpp" />
+    <ClCompile Include="..\..\SpriteRender\INTERFACE\CONFIG\SpriteRenderConfig.cpp" />
+    <ClCompile Include="..\..\SpriteRender\INTERFACE\Material\MaterialInstanceFactory.cpp" />
+    <ClCompile Include="..\..\SpriteRender\INTERFACE\SpriteRenderSubsystemCreate.cpp" />
+    <ClCompile Include="..\..\SpriteRender\Material\DefaultMaterialInstanceRS.cpp" />
+    <ClCompile Include="..\..\SpriteRender\Material\DefaultSpriteMaterial.cpp" />
+    <ClCompile Include="..\..\SpriteRender\Material\DefaultSpriteMaterialShader.cpp" />
+    <ClCompile Include="..\..\SpriteRender\Material\MaterialInstanceRenderState.cpp" />
+    <ClCompile Include="..\..\SpriteRender\Material\MaterialManager.cpp" />
+    <ClCompile Include="..\..\Test\SpriteRender\CONFIG\IMPL\DefaultGlobalConfig.cpp" />
+    <ClCompile Include="..\..\Test\SpriteRender\IMPL\CustomEnvironment.cpp" />
+    <ClCompile Include="..\..\Test\SpriteRender\IMPL\GlobFixture.cpp" />
+    <ClCompile Include="..\..\Test\SpriteRender\IMPL\SprGlobFixtureBase.cpp" />
+    <ClCompile Include="..\..\Test\SpriteRender\IMPL\SpriteRenderManager.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\SpriteRender\IMPL\Canvas\Canvas.h" />
+    <ClInclude Include="..\..\SpriteRender\IMPL\Canvas\CanvasCommands.h" />
+    <ClInclude Include="..\..\SpriteRender\IMPL\Environment\AmbientContext.h" />
+    <ClInclude Include="..\..\SpriteRender\IMPL\Geometry\ISpriteGeometry.h" />
+    <ClInclude Include="..\..\SpriteRender\IMPL\Geometry\ISpriteGeometryBufferUpdateInterface.h" />
+    <ClInclude Include="..\..\SpriteRender\IMPL\Geometry\SpriteGeometry.h" />
+    <ClInclude Include="..\..\SpriteRender\IMPL\Geometry\SpriteGeometryAllocManager.h" />
+    <ClInclude Include="..\..\SpriteRender\IMPL\Geometry\SpriteGeometryAllocManagerList.h" />
+    <ClInclude Include="..\..\SpriteRender\IMPL\Geometry\SpriteGeometryBuffer.h" />
+    <ClInclude Include="..\..\SpriteRender\IMPL\Geometry\SpriteGeometryData.h" />
+    <ClInclude Include="..\..\SpriteRender\IMPL\Geometry\SpriteGeometryTypedefs.h" />
+    <ClInclude Include="..\..\SpriteRender\IMPL\Geometry\SpriteGeometryVertex.h" />
+    <ClInclude Include="..\..\SpriteRender\IMPL\Geometry\SpriteGeometryVertex_InputLayout.h" />
+    <ClInclude Include="..\..\SpriteRender\IMPL\Glue\Glue_InterfaceToImpl.h" />
+    <ClInclude Include="..\..\SpriteRender\IMPL\Render\SpriteRender.h" />
+    <ClInclude Include="..\..\SpriteRender\IMPL\Render\SpriteUpdater.h" />
+    <ClInclude Include="..\..\SpriteRender\IMPL\RenUtils\RenBufferTypes.h" />
+    <ClInclude Include="..\..\SpriteRender\IMPL\RenUtils\RenBufferUtils.h" />
+    <ClInclude Include="..\..\SpriteRender\IMPL\RenUtils\RenCommandListTypes.h" />
+    <ClInclude Include="..\..\SpriteRender\IMPL\RenUtils\RenCommandListUtils.h" />
+    <ClInclude Include="..\..\SpriteRender\IMPL\RenUtils\RenDeviceContextTypes.h" />
+    <ClInclude Include="..\..\SpriteRender\IMPL\RenUtils\RenDeviceContextUtils.h" />
+    <ClInclude Include="..\..\SpriteRender\IMPL\RenUtils\RenDrawCall.h" />
+    <ClInclude Include="..\..\SpriteRender\IMPL\RenUtils\RenDrawCallUtils.h" />
+    <ClInclude Include="..\..\SpriteRender\IMPL\RenUtils\RenHRUtils.h" />
+    <ClInclude Include="..\..\SpriteRender\IMPL\RenUtils\RenInputLayoutTypes.h" />
+    <ClInclude Include="..\..\SpriteRender\IMPL\RenUtils\RenResources.h" />
+    <ClInclude Include="..\..\SpriteRender\IMPL\RenUtils\RenUtilsSystem.h" />
+    <ClInclude Include="..\..\SpriteRender\IMPL\RenUtils\Shader.h" />
+    <ClInclude Include="..\..\SpriteRender\IMPL\RenUtils\ShaderCompileUtils.h" />
+    <ClInclude Include="..\..\SpriteRender\IMPL\RenUtils\ShaderProg.h" />
+    <ClInclude Include="..\..\SpriteRender\IMPL\SpriteSetRender\SpriteSetRender.h" />
+    <ClInclude Include="..\..\SpriteRender\IMPL\SpriteSetRender\SpriteSetRenderResult.h" />
+    <ClInclude Include="..\..\SpriteRender\IMPL\SpriteSetRender\SpriteSetRenderUtils.h" />
+    <ClInclude Include="..\..\SpriteRender\IMPL\Sprite\Sprite.h" />
+    <ClInclude Include="..\..\SpriteRender\IMPL\Sprite\SpriteCommands.h" />
+    <ClInclude Include="..\..\SpriteRender\IMPL\Sprite\SpriteContainer.h" />
+    <ClInclude Include="..\..\SpriteRender\IMPL\Sprite\SpriteData.h" />
+    <ClInclude Include="..\..\SpriteRender\IMPL\Sprite\SpriteManager.h" />
+    <ClInclude Include="..\..\SpriteRender\IMPL\Subsystem\SpriteRenderSubsystem.h" />
+    <ClInclude Include="..\..\SpriteRender\IMPL\Subsystem\SpriteRenderSubsystemEnvironment.h" />
+    <ClInclude Include="..\..\SpriteRender\IMPL\Utils\String\Text.h" />
+    <ClInclude Include="..\..\SpriteRender\INTERFACE\CONFIG\LoggingConfig.h" />
+    <ClInclude Include="..\..\SpriteRender\INTERFACE\CONFIG\RenderCachingConfig.h" />
+    <ClInclude Include="..\..\SpriteRender\INTERFACE\CONFIG\RenderDeviceConfig.h" />
+    <ClInclude Include="..\..\SpriteRender\INTERFACE\CONFIG\RenTargetConfig.h" />
+    <ClInclude Include="..\..\SpriteRender\INTERFACE\CONFIG\SpriteRenderConfig.h" />
+    <ClInclude Include="..\..\SpriteRender\INTERFACE\CONFIG\SpriteRenderShadersConfig.h" />
+    <ClInclude Include="..\..\SpriteRender\INTERFACE\ISpriteRenderSubsystem.h" />
+    <ClInclude Include="..\..\SpriteRender\INTERFACE\Material\ISpriteMaterialManager.h" />
+    <ClInclude Include="..\..\SpriteRender\INTERFACE\Material\MaterialInstanceFactory.h" />
+    <ClInclude Include="..\..\SpriteRender\INTERFACE\SpriteRenderSubsystemCreate.h" />
+    <ClInclude Include="..\..\SpriteRender\INTERFACE\SpriteRenderSubsystemHandle.h" />
+    <ClInclude Include="..\..\SpriteRender\INTERFACE\SpriteRenderSubsystemInitializer.h" />
+    <ClInclude Include="..\..\SpriteRender\Material\DefaultMaterialInstanceRS.h" />
+    <ClInclude Include="..\..\SpriteRender\Material\DefaultSpriteMaterial.h" />
+    <ClInclude Include="..\..\SpriteRender\Material\DefaultSpriteMaterialShader.h" />
+    <ClInclude Include="..\..\SpriteRender\Material\DefaultSpriteMaterialTypedefs.h" />
+    <ClInclude Include="..\..\SpriteRender\Material\MaterialInstanceRenderState.h" />
+    <ClInclude Include="..\..\SpriteRender\Material\MaterialManager.h" />
+    <ClInclude Include="..\..\SpriteRender\Material\SpriteMaterial.h" />
+    <ClInclude Include="..\..\Test\SpriteRender\CONFIG\DefaultGlobalConfig.h" />
+    <ClInclude Include="..\..\Test\SpriteRender\CONFIG\SpriteRenderCustomSetuper.h" />
+    <ClInclude Include="..\..\Test\SpriteRender\CustomEnvironment.h" />
+    <ClInclude Include="..\..\Test\SpriteRender\GlobFixture.h" />
+    <ClInclude Include="..\..\Test\SpriteRender\SprGlobFixtureBase.h" />
+    <ClInclude Include="..\..\Test\SpriteRender\SpriteRenderManager.h" />
+    <ClInclude Include="..\..\Test\SpriteRender\SpriteRenderTest.h" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>15.0</VCProjectVersion>
+    <ProjectGuid>{F38833E0-034F-43FE-85C1-C717304621F3}</ProjectGuid>
+    <RootNamespace>SpriteRender</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <TargetExt>.lib</TargetExt>
+    <OutDir>C:\SpriteRender\Out\Lib\</OutDir>
+    <IntDir>C:\SpriteRender\Out\Intermediate\SpriteRender\</IntDir>
+    <TargetName>SpriteRender_debug</TargetName>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);C:\SpriteRender\Source\;C:\SpriteRender\Source\Test\;C:\SpriteRender\Source\ThirdParty\boost_1_67_0\</IncludePath>
+    <LibraryPath>$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(NETFXKitsDir)Lib\um\x86;C:\SpriteRender\Out\Lib\</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <TargetExt>.lib</TargetExt>
+    <OutDir>C:\SpriteRender\Out\Lib\</OutDir>
+    <IntDir>C:\SpriteRender\Out\Intermediate\ISprite\</IntDir>
+    <TargetName>SpriteRender</TargetName>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);C:\SpriteRender\Source\;C:\SpriteRender\Source\Test\;C:\SpriteRender\Source\ThirdParty\boost_1_67_0\</IncludePath>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
+      <AdditionalOptions>/wd5040 %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalOptions>/wd5040 %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <Link>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

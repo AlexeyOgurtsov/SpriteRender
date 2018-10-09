@@ -1,0 +1,121 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="IMPL">
+      <UniqueIdentifier>{c5011104-4670-4cf7-b28f-135b5e2d764a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="IMPL\Utils">
+      <UniqueIdentifier>{453e8371-730a-4df5-a820-1c2823b05717}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="IMPL\D3DDevice">
+      <UniqueIdentifier>{e06ed0b9-c2c7-4cef-b708-3e80b0703e46}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fixture">
+      <UniqueIdentifier>{d5b97b08-ec2e-4132-b76a-949a24e7d552}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Config">
+      <UniqueIdentifier>{7095288d-a111-44ce-a14b-dc88b024f5af}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fixture\IMPL">
+      <UniqueIdentifier>{bb626b5e-2589-469f-b14c-ededd14cf483}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Config\IMPL">
+      <UniqueIdentifier>{27911d2a-5a00-44c7-9944-00411869bc69}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utils">
+      <UniqueIdentifier>{98b36edb-62e4-4be8-a876-3c30334383ff}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\Test\ISpriteRenderTestUtils\IMPL\MASTER.cpp">
+      <Filter>IMPL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Test\ISpriteRenderTestUtils\IMPL\Environment.cpp">
+      <Filter>IMPL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Test\ISpriteRenderTestUtils\IMPL\Utils\Com.cpp">
+      <Filter>IMPL\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Test\ISpriteRenderTestUtils\IMPL\Utils\Exception.cpp">
+      <Filter>IMPL\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Test\ISpriteRenderTestUtils\IMPL\Utils\RenHRUtils.cpp">
+      <Filter>IMPL\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Test\ISpriteRenderTestUtils\IMPL\D3DDevice\D3DDevice.cpp">
+      <Filter>IMPL\D3DDevice</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Test\ISpriteRenderTestUtils\IMPL\Utils\WINDOW.cpp">
+      <Filter>IMPL\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Test\ISpriteRenderTestUtils\Fixture\IMPL\FixtureBase.cpp">
+      <Filter>Fixture\IMPL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Test\ISpriteRenderTestUtils\Fixture\IMPL\GlobFixtureBase.cpp">
+      <Filter>Fixture\IMPL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Test\ISpriteRenderTestUtils\CONFIG\IMPL\TesterConfig_Logging.cpp">
+      <Filter>Config\IMPL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Test\ISpriteRenderTestUtils\IMPL\Utils\DepthStencil.cpp">
+      <Filter>IMPL\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Test\ISpriteRenderTestUtils\CONFIG\IMPL\TestConfig_Tester.cpp">
+      <Filter>Config\IMPL</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\Test\ISpriteRenderTestUtils\MASTER.h" />
+    <ClInclude Include="..\..\Test\ISpriteRenderTestUtils\IMPL\Environment.h">
+      <Filter>IMPL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Test\ISpriteRenderTestUtils\IMPL\Utils\Com.h">
+      <Filter>IMPL\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Test\ISpriteRenderTestUtils\IMPL\Utils\Exception.h">
+      <Filter>IMPL\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Test\ISpriteRenderTestUtils\IMPL\Utils\RenHRUtils.h">
+      <Filter>IMPL\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Test\ISpriteRenderTestUtils\IMPL\D3DDevice\D3DDeviceException.h">
+      <Filter>IMPL\D3DDevice</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Test\ISpriteRenderTestUtils\IMPL\D3DDevice\D3DDevice.h">
+      <Filter>IMPL\D3DDevice</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Test\ISpriteRenderTestUtils\IMPL\D3DDevice\D3DDevice_CONFIG_CONST.h">
+      <Filter>IMPL\D3DDevice</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Test\ISpriteRenderTestUtils\IMPL\Utils\Window.h">
+      <Filter>IMPL\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Test\ISpriteRenderTestUtils\TesterConfig.h" />
+    <ClInclude Include="..\..\Test\ISpriteRenderTestUtils\Fixture\FixtureBase.h">
+      <Filter>Fixture</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Test\ISpriteRenderTestUtils\Fixture\GlobFixtureBase.h">
+      <Filter>Fixture</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Test\ISpriteRenderTestUtils\CONFIG\TesterConfig_Logging.h">
+      <Filter>Config</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Test\ISpriteRenderTestUtils\CONFIG\TesterConfig_Viewport.h">
+      <Filter>Config</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Test\ISpriteRenderTestUtils\ISpriteRenderFwd.h" />
+    <ClInclude Include="..\..\Test\ISpriteRenderTestUtils\ISpriteRenderSubsystemManager.h" />
+    <ClInclude Include="..\..\Test\ISpriteRenderTestUtils\Utils\TestUtils.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Test\ISpriteRenderTestUtils\CONFIG\D3DDeviceConfig.h">
+      <Filter>Config</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Test\ISpriteRenderTestUtils\IMPL\Utils\DepthStencil.h">
+      <Filter>IMPL\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Test\ISpriteRenderTestUtils\CONFIG\TesterConfig_Tester.h">
+      <Filter>Config</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

@@ -8,3 +8,6 @@ TOMORROW:
 
 
 LATER:
+1) Move all test-related .cpp implementation of the SpriteRender 
+to the SpriteRenderTester implementation.
+

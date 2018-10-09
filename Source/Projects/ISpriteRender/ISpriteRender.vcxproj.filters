@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClInclude Include="..\..\ISpriteRender\ISpriteRender.h" />
+    <ClInclude Include="..\..\ISpriteRender\ISpriteUpdater.h" />
+    <ClInclude Include="..\..\ISpriteRender\SpriteCanvasCommandInitializers.h" />
+    <ClInclude Include="..\..\ISpriteRender\SpriteCommandInitializers.h" />
+    <ClInclude Include="..\..\ISpriteRender\SpriteMaterialInstanceRenderState.h" />
+    <ClInclude Include="..\..\Test\ISpriteRender\ISprGlobalFixtureBase.h">
+      <Filter>TEST</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="IMPL">
+      <UniqueIdentifier>{fd504766-fb77-47a7-877e-6b4dbba0303f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="TEST">
+      <UniqueIdentifier>{a9cb71a2-7c47-40a2-897f-4689878a99eb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="TEST\IMPL">
+      <UniqueIdentifier>{9c05fee5-2779-44dd-b02f-2094da2d194d}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\ISpriteRender\IMPL\ISpriteRender.cpp">
+      <Filter>IMPL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Test\ISpriteRender\IMPL\ISprGlobalFixtureBase.cpp">
+      <Filter>TEST\IMPL</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

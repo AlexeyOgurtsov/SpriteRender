@@ -1,0 +1,390 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="IMPL">
+      <UniqueIdentifier>{a5ef13db-fc06-4a68-b943-49a7cfcc30a5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Material">
+      <UniqueIdentifier>{a9ca98f5-9a54-4b3f-a896-e41d2b0e461a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="IMPL\Utils">
+      <UniqueIdentifier>{db8bcf33-c657-4344-8586-c42808d43ce5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="IMPL\Utils\String">
+      <UniqueIdentifier>{1090cf07-58eb-43d3-96aa-7bfb46c8980b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="IMPL\RenUtils">
+      <UniqueIdentifier>{afb09ae9-1f7b-484c-b3e4-4b9749288ee0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="IMPL\Sprite">
+      <UniqueIdentifier>{103d3563-7b64-4656-937d-b122d0df351b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="IMPL\Geometry">
+      <UniqueIdentifier>{cf8a3aab-451f-47a2-ae45-d3b219be5a27}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="IMPL\SpriteSetRender">
+      <UniqueIdentifier>{3c940164-bbf7-420c-832b-5a37c6cdc05e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="IMPL\Canvas">
+      <UniqueIdentifier>{cfe64c03-c0a5-4033-9886-2179a59fabda}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="IMPL\Render">
+      <UniqueIdentifier>{3847358d-f221-490b-818c-d1410f912999}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="IMPL\Glue">
+      <UniqueIdentifier>{dfa565fd-d889-44c5-953f-c78772dc9ddc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="IMPL\Environment">
+      <UniqueIdentifier>{8407e87f-b28f-4682-883b-6b8b9f51f34f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="IMPL\Subsystem">
+      <UniqueIdentifier>{8cf4ffda-de69-42a5-95e6-ae56bd70e14d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="INTERFACE">
+      <UniqueIdentifier>{b125b337-9c1e-413c-8c91-2aa9c8903967}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="INTERFACE\CONFIG">
+      <UniqueIdentifier>{95996e6a-f89a-4ab8-bf6e-74b2fed74c94}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="INTERFACE\Material">
+      <UniqueIdentifier>{55618ebe-144a-4b66-923d-7c258a316c01}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="TEST">
+      <UniqueIdentifier>{473958a6-794f-448e-abcc-fa48747786b8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="TEST\IMPL">
+      <UniqueIdentifier>{05ba79f0-2ee5-42b6-8604-714135b8da79}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="TEST\CONFIG">
+      <UniqueIdentifier>{ca916730-2164-4711-a8a8-be6087fae279}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="TEST\CONFIG\IMPL">
+      <UniqueIdentifier>{d223eb7f-3260-460c-84b1-5608277c5580}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\SpriteRender\IMPL\Utils\String\Text.cpp">
+      <Filter>IMPL\Utils\String</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\SpriteRender\IMPL\RenUtils\RenBufferUtils.cpp">
+      <Filter>IMPL\RenUtils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\SpriteRender\IMPL\RenUtils\RenCommandListUtils.cpp">
+      <Filter>IMPL\RenUtils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\SpriteRender\IMPL\RenUtils\RenDeviceContextUtils.cpp">
+      <Filter>IMPL\RenUtils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\SpriteRender\IMPL\RenUtils\RenDrawCallUtils.cpp">
+      <Filter>IMPL\RenUtils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\SpriteRender\IMPL\RenUtils\RenHRUtils.cpp">
+      <Filter>IMPL\RenUtils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\SpriteRender\IMPL\RenUtils\RenResources.cpp">
+      <Filter>IMPL\RenUtils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\SpriteRender\IMPL\RenUtils\Shader.cpp">
+      <Filter>IMPL\RenUtils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\SpriteRender\IMPL\RenUtils\ShaderCompileUtils.cpp">
+      <Filter>IMPL\RenUtils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\SpriteRender\Material\DefaultMaterialInstanceRS.cpp">
+      <Filter>Material</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\SpriteRender\Material\DefaultSpriteMaterial.cpp">
+      <Filter>Material</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\SpriteRender\Material\DefaultSpriteMaterialShader.cpp">
+      <Filter>Material</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\SpriteRender\Material\MaterialInstanceRenderState.cpp">
+      <Filter>Material</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\SpriteRender\Material\MaterialManager.cpp">
+      <Filter>Material</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\SpriteRender\IMPL\Sprite\Sprite.cpp">
+      <Filter>IMPL\Sprite</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\SpriteRender\IMPL\Sprite\SpriteContainer.cpp">
+      <Filter>IMPL\Sprite</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\SpriteRender\IMPL\Sprite\SpriteManager.cpp">
+      <Filter>IMPL\Sprite</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\SpriteRender\IMPL\Geometry\SpriteGeometry.cpp">
+      <Filter>IMPL\Geometry</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\SpriteRender\IMPL\Geometry\SpriteGeometryAllocManager.cpp">
+      <Filter>IMPL\Geometry</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\SpriteRender\IMPL\Geometry\SpriteGeometryBuffer.cpp">
+      <Filter>IMPL\Geometry</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\SpriteRender\IMPL\Geometry\SpriteGeometryVertex.cpp">
+      <Filter>IMPL\Geometry</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\SpriteRender\IMPL\Geometry\SpriteGeometryVertex_InputLayout.cpp">
+      <Filter>IMPL\Geometry</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\SpriteRender\IMPL\SpriteSetRender\SpriteSetRender.cpp">
+      <Filter>IMPL\SpriteSetRender</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\SpriteRender\IMPL\SpriteSetRender\SpriteSetRenderUtils.cpp">
+      <Filter>IMPL\SpriteSetRender</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\SpriteRender\IMPL\Canvas\Canvas.cpp">
+      <Filter>IMPL\Canvas</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\SpriteRender\IMPL\Render\SpriteRender.cpp">
+      <Filter>IMPL\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\SpriteRender\IMPL\Render\SpriteUpdater.cpp">
+      <Filter>IMPL\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\SpriteRender\IMPL\Glue\Glue_InterfaceToImpl.cpp">
+      <Filter>IMPL\Glue</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\SpriteRender\IMPL\Environment\AmbientContext.cpp">
+      <Filter>IMPL\Environment</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\SpriteRender\IMPL\Subsystem\SpriteRenderSubsystem.cpp">
+      <Filter>IMPL\Subsystem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\SpriteRender\IMPL\Subsystem\SpriteRenderSubsystemEnvironment.cpp">
+      <Filter>IMPL\Subsystem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\SpriteRender\INTERFACE\CONFIG\SpriteRenderConfig.cpp">
+      <Filter>INTERFACE\CONFIG</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\SpriteRender\INTERFACE\Material\MaterialInstanceFactory.cpp">
+      <Filter>INTERFACE\Material</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\SpriteRender\INTERFACE\SpriteRenderSubsystemCreate.cpp">
+      <Filter>INTERFACE</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Test\SpriteRender\IMPL\GlobFixture.cpp">
+      <Filter>TEST\IMPL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Test\SpriteRender\CONFIG\IMPL\DefaultGlobalConfig.cpp">
+      <Filter>TEST\CONFIG\IMPL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Test\SpriteRender\IMPL\SpriteRenderManager.cpp">
+      <Filter>TEST\IMPL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Test\SpriteRender\IMPL\SprGlobFixtureBase.cpp">
+      <Filter>TEST\IMPL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Test\SpriteRender\IMPL\CustomEnvironment.cpp">
+      <Filter>TEST\IMPL</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\SpriteRender\IMPL\Utils\String\Text.h">
+      <Filter>IMPL\Utils\String</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\SpriteRender\IMPL\RenUtils\RenBufferTypes.h">
+      <Filter>IMPL\RenUtils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\SpriteRender\IMPL\RenUtils\RenBufferUtils.h">
+      <Filter>IMPL\RenUtils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\SpriteRender\IMPL\RenUtils\RenCommandListTypes.h">
+      <Filter>IMPL\RenUtils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\SpriteRender\IMPL\RenUtils\RenCommandListUtils.h">
+      <Filter>IMPL\RenUtils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\SpriteRender\IMPL\RenUtils\RenDeviceContextTypes.h">
+      <Filter>IMPL\RenUtils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\SpriteRender\IMPL\RenUtils\RenDeviceContextUtils.h">
+      <Filter>IMPL\RenUtils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\SpriteRender\IMPL\RenUtils\RenDrawCall.h">
+      <Filter>IMPL\RenUtils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\SpriteRender\IMPL\RenUtils\RenDrawCallUtils.h">
+      <Filter>IMPL\RenUtils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\SpriteRender\IMPL\RenUtils\RenHRUtils.h">
+      <Filter>IMPL\RenUtils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\SpriteRender\IMPL\RenUtils\RenInputLayoutTypes.h">
+      <Filter>IMPL\RenUtils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\SpriteRender\IMPL\RenUtils\RenResources.h">
+      <Filter>IMPL\RenUtils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\SpriteRender\IMPL\RenUtils\RenUtilsSystem.h">
+      <Filter>IMPL\RenUtils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\SpriteRender\IMPL\RenUtils\Shader.h">
+      <Filter>IMPL\RenUtils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\SpriteRender\IMPL\RenUtils\ShaderCompileUtils.h">
+      <Filter>IMPL\RenUtils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\SpriteRender\IMPL\RenUtils\ShaderProg.h">
+      <Filter>IMPL\RenUtils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\SpriteRender\Material\DefaultMaterialInstanceRS.h">
+      <Filter>Material</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\SpriteRender\Material\DefaultSpriteMaterial.h">
+      <Filter>Material</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\SpriteRender\Material\DefaultSpriteMaterialShader.h">
+      <Filter>Material</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\SpriteRender\Material\DefaultSpriteMaterialTypedefs.h">
+      <Filter>Material</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\SpriteRender\Material\MaterialInstanceRenderState.h">
+      <Filter>Material</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\SpriteRender\Material\MaterialManager.h">
+      <Filter>Material</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\SpriteRender\Material\SpriteMaterial.h">
+      <Filter>Material</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\SpriteRender\IMPL\Sprite\Sprite.h">
+      <Filter>IMPL\Sprite</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\SpriteRender\IMPL\Sprite\SpriteCommands.h">
+      <Filter>IMPL\Sprite</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\SpriteRender\IMPL\Sprite\SpriteContainer.h">
+      <Filter>IMPL\Sprite</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\SpriteRender\IMPL\Sprite\SpriteData.h">
+      <Filter>IMPL\Sprite</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\SpriteRender\IMPL\Sprite\SpriteManager.h">
+      <Filter>IMPL\Sprite</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\SpriteRender\IMPL\Geometry\ISpriteGeometry.h">
+      <Filter>IMPL\Geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\SpriteRender\IMPL\Geometry\ISpriteGeometryBufferUpdateInterface.h">
+      <Filter>IMPL\Geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\SpriteRender\IMPL\Geometry\SpriteGeometry.h">
+      <Filter>IMPL\Geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\SpriteRender\IMPL\Geometry\SpriteGeometryAllocManager.h">
+      <Filter>IMPL\Geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\SpriteRender\IMPL\Geometry\SpriteGeometryAllocManagerList.h">
+      <Filter>IMPL\Geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\SpriteRender\IMPL\Geometry\SpriteGeometryBuffer.h">
+      <Filter>IMPL\Geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\SpriteRender\IMPL\Geometry\SpriteGeometryData.h">
+      <Filter>IMPL\Geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\SpriteRender\IMPL\Geometry\SpriteGeometryTypedefs.h">
+      <Filter>IMPL\Geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\SpriteRender\IMPL\Geometry\SpriteGeometryVertex.h">
+      <Filter>IMPL\Geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\SpriteRender\IMPL\Geometry\SpriteGeometryVertex_InputLayout.h">
+      <Filter>IMPL\Geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\SpriteRender\IMPL\SpriteSetRender\SpriteSetRender.h">
+      <Filter>IMPL\SpriteSetRender</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\SpriteRender\IMPL\SpriteSetRender\SpriteSetRenderResult.h">
+      <Filter>IMPL\SpriteSetRender</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\SpriteRender\IMPL\SpriteSetRender\SpriteSetRenderUtils.h">
+      <Filter>IMPL\SpriteSetRender</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\SpriteRender\IMPL\Canvas\Canvas.h">
+      <Filter>IMPL\Canvas</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\SpriteRender\IMPL\Canvas\CanvasCommands.h">
+      <Filter>IMPL\Canvas</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\SpriteRender\IMPL\Render\SpriteRender.h">
+      <Filter>IMPL\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\SpriteRender\IMPL\Render\SpriteUpdater.h">
+      <Filter>IMPL\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\SpriteRender\IMPL\Glue\Glue_InterfaceToImpl.h">
+      <Filter>IMPL\Glue</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\SpriteRender\IMPL\Environment\AmbientContext.h">
+      <Filter>IMPL\Environment</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\SpriteRender\IMPL\Subsystem\SpriteRenderSubsystem.h">
+      <Filter>IMPL\Subsystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\SpriteRender\IMPL\Subsystem\SpriteRenderSubsystemEnvironment.h">
+      <Filter>IMPL\Subsystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\SpriteRender\INTERFACE\CONFIG\LoggingConfig.h">
+      <Filter>INTERFACE\CONFIG</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\SpriteRender\INTERFACE\CONFIG\RenderCachingConfig.h">
+      <Filter>INTERFACE\CONFIG</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\SpriteRender\INTERFACE\CONFIG\RenderDeviceConfig.h">
+      <Filter>INTERFACE\CONFIG</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\SpriteRender\INTERFACE\CONFIG\RenTargetConfig.h">
+      <Filter>INTERFACE\CONFIG</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\SpriteRender\INTERFACE\CONFIG\SpriteRenderConfig.h">
+      <Filter>INTERFACE\CONFIG</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\SpriteRender\INTERFACE\CONFIG\SpriteRenderShadersConfig.h">
+      <Filter>INTERFACE\CONFIG</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\SpriteRender\INTERFACE\Material\ISpriteMaterialManager.h">
+      <Filter>INTERFACE\Material</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\SpriteRender\INTERFACE\Material\MaterialInstanceFactory.h">
+      <Filter>INTERFACE\Material</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\SpriteRender\INTERFACE\ISpriteRenderSubsystem.h">
+      <Filter>INTERFACE</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\SpriteRender\INTERFACE\SpriteRenderSubsystemCreate.h">
+      <Filter>INTERFACE</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\SpriteRender\INTERFACE\SpriteRenderSubsystemHandle.h">
+      <Filter>INTERFACE</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\SpriteRender\INTERFACE\SpriteRenderSubsystemInitializer.h">
+      <Filter>INTERFACE</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Test\SpriteRender\GlobFixture.h">
+      <Filter>TEST</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Test\SpriteRender\SpriteRenderTest.h">
+      <Filter>TEST</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Test\SpriteRender\CONFIG\DefaultGlobalConfig.h">
+      <Filter>TEST\CONFIG</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Test\SpriteRender\SpriteRenderManager.h">
+      <Filter>TEST</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Test\SpriteRender\SprGlobFixtureBase.h">
+      <Filter>TEST</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Test\SpriteRender\CONFIG\SpriteRenderCustomSetuper.h">
+      <Filter>TEST\CONFIG</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Test\SpriteRender\CustomEnvironment.h">
+      <Filter>TEST</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
