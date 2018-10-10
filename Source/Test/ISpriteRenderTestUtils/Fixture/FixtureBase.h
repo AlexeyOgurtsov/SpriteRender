@@ -14,6 +14,9 @@ namespace Test
 		FixtureBase();
 		~FixtureBase();
 
+		UINT GetRTWidth() const;
+		UINT GetRTHeight() const;
+
 	protected:
 		std::ofstream& GetLog() const;
 

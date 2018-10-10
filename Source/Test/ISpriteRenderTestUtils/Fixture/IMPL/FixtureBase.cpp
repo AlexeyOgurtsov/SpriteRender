@@ -22,6 +22,16 @@ namespace Test
 		IMPL::Environment* GetEnv() { return IMPL::Environment::Get(); }
 	}
 
+	UINT FixtureBase::GetRTWidth() const
+	{
+		return GetEnv()->GetD3DDevice()->GetRTWidth();
+	}
+
+	UINT FixtureBase::GetRTHeight() const
+	{
+		return GetEnv()->GetD3DDevice()->GetRTHeight();
+	}
+
 	bool FixtureBase::IsGloballyReadyForTesting() const
 	{
 		return GetEnv()->IsReadyForTesting();

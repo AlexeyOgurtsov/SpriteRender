@@ -26,6 +26,11 @@ struct SSpriteGeometryProps
 	* Vertex data.
 	*/
 	SSpriteVertices Vertices;
+
+	SSpriteGeometryProps() = default;
+	SSpriteGeometryProps(const Math::SSpriteTransform& InTransform, const Math::SSize& InSize) :
+		Transform { InTransform }
+	,	Size { InSize } {}
 };
 
 /**
@@ -43,6 +48,11 @@ struct SSpriteProps
 	* All rendering settings.
 	*/
 	SSpriteRenderMode RenderMode;
+
+	SSpriteProps() = default;
+	SSpriteProps(const SSpriteGeometryProps& InGeometry, const SSpriteRenderMode& InRenderMode) :
+		Geometry { InGeometry }
+	,	RenderMode { InRenderMode } {}
 };
 
 } // Dv::Spr

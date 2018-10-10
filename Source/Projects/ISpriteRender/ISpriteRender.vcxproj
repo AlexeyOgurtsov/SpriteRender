@@ -142,9 +142,11 @@
     <ClInclude Include="..\..\Test\ISpriteRender\ISprPerTestFixtureBase.h" />
     <ClInclude Include="..\..\Test\ISpriteRender\ISprPerTestFixture_Custom.h" />
     <ClInclude Include="..\..\Test\ISpriteRender\MinimalSmokeTests.h" />
+    <ClInclude Include="..\..\Test\ISpriteRender\TestHelpers.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\ISpriteRender\IMPL\ISpriteRender.cpp" />
+    <ClCompile Include="..\..\ISpriteRender\IMPL\ISpriteUpdater.cpp" />
     <ClCompile Include="..\..\Test\ISpriteRender\IMPL\ISprGlobalFixtureBase.cpp" />
     <ClCompile Include="..\..\Test\ISpriteRender\IMPL\ISprPerTestFixtureBase.cpp" />
     <ClCompile Include="..\..\Test\ISpriteRender\IMPL\ISprPerTestFixture_Custom.cpp" />

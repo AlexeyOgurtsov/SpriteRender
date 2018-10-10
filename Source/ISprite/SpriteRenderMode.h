@@ -21,7 +21,7 @@ struct SSpriteRenderMode
 
 	SSpriteRenderMode() :
 		SSpriteRenderMode(ESpriteTransparency::Opaque) {}
-	SSpriteRenderMode(ESpriteTransparency InTransparency) :
+	explicit SSpriteRenderMode(ESpriteTransparency InTransparency) :
 		Transparency(InTransparency) {}
 	
 };

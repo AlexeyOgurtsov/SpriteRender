@@ -26,7 +26,7 @@ struct SSpriteCommandInitializerBase
 
 	SSpriteCommandInitializerBase() :
 		TargetSpriteId(NULL_SPRITE_ID) {}
-	SSpriteCommandInitializerBase(SpriteId InTargetSpriteId) :
+	explicit SSpriteCommandInitializerBase(SpriteId InTargetSpriteId) :
 		TargetSpriteId(InTargetSpriteId) {}
 };
 
@@ -69,21 +69,21 @@ struct SSpriteCreateCommandInitializer : public SSpriteCommandInitializerBase
 struct SSpriteDeleteCommandInitializer : public SSpriteCommandInitializerBase 
 {
 	SSpriteDeleteCommandInitializer() = default;
-	SSpriteDeleteCommandInitializer(SpriteId InTargetSpriteId) :
+	explicit SSpriteDeleteCommandInitializer(SpriteId InTargetSpriteId) :
 		SSpriteCommandInitializerBase(InTargetSpriteId) {}
 };
 
 struct SSpriteShowCommandInitializer : public SSpriteCommandInitializerBase 
 {
 	SSpriteShowCommandInitializer() = default;
-	SSpriteShowCommandInitializer(SpriteId InTargetSpriteId) :
+	explicit SSpriteShowCommandInitializer(SpriteId InTargetSpriteId) :
 		SSpriteCommandInitializerBase(InTargetSpriteId) {}
 };
 
 struct SSpriteHideCommandInitializer : public SSpriteCommandInitializerBase 
 {
 	SSpriteHideCommandInitializer() = default;
-	SSpriteHideCommandInitializer(SpriteId InTargetSpriteId) :
+	explicit SSpriteHideCommandInitializer(SpriteId InTargetSpriteId) :
 		SSpriteCommandInitializerBase(InTargetSpriteId) {}
 };
 

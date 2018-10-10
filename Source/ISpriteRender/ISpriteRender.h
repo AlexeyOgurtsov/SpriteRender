@@ -16,6 +16,28 @@ class ISpriteRender
 public:
 	virtual ~ISpriteRender() = default;
 
+	// ~ Helper interface Begin
+	/**
+	* Registers a canvas (helper).
+	* Calling during rendering exhibits an undefined behaviour.
+	*/
+	void CreateCanvas(SpriteCanvasId InCanvasId, const SSpriteCanvasProps& InCanvasProps);
+
+	/**
+	* Registers a canvas (helper).
+	* Calling during rendering exhibits an undefined behaviour.
+	*/
+	void CreateCanvas(SpriteCanvasId InCanvasId, const SCanvasRect& InRect);
+
+	/**
+	* Registers a canvas (helper).
+	* Calling during rendering exhibits an undefined behaviour.
+	*/
+	void CreateCanvas(SpriteCanvasId InCanvasId, int InWidth, int InHeight, int InLeft = 0, int InTop = 0);
+	// ~ Helper interface End
+	
+
+	// ~ Virtual interface Begin
 	/**
 	* To be called before any calls to rendering operations,
 	* but after the update operations.
@@ -98,6 +120,7 @@ public:
 	* (if null, the canvas is to be moved on top of the ZOrder).
 	*/
 	virtual void MoveCanvasZOrderAfter(SpriteCanvasId InCanvasId, SpriteCanvasId InZBeforeCanvasId) = 0;
+	// ~ Virtual interface End
 };
 
 } // Dv::Spr::Ren

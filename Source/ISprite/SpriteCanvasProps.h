@@ -69,7 +69,7 @@ struct SSpriteCanvasProps
 	SCanvasRect RTRect;
 
 	SSpriteCanvasProps() = default;
-	SSpriteCanvasProps(const SCanvasRect& InRTRect) :
+	explicit SSpriteCanvasProps(const SCanvasRect& InRTRect) :
 		RTRect(InRTRect) {}
 };
 

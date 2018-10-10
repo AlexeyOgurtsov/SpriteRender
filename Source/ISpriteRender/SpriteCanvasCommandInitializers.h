@@ -22,7 +22,7 @@ struct SSpriteCanvasCommandInitializerBase
 
 	SSpriteCanvasCommandInitializerBase() :
 		TargetSpriteCanvasId(NULL_SPRITE_CANVAS_ID) {}
-	SSpriteCanvasCommandInitializerBase(SpriteCanvasId InTargetSpriteCanvasId) :
+	explicit SSpriteCanvasCommandInitializerBase(SpriteCanvasId InTargetSpriteCanvasId) :
 		TargetSpriteCanvasId(InTargetSpriteCanvasId) {}
 };
 

@@ -14,6 +14,31 @@ class ISpriteUpdater
 public:
 	virtual ~ISpriteUpdater() = default;
 
+	// ~Helper interface Begin
+	void CreateSprite(SpriteId InSpriteId, const SSpriteProps& InProps, MaterialInstanceRenderStateInitializerPtr InRenderState);
+	void CreateSprite(SpriteId InSpriteId, const SSpriteGeometryProps& InGeometry, MaterialInstanceRenderStateInitializerPtr InRenderState, ESpriteTransparency InTransparency = ESpriteTransparency::Opaque);
+
+	/**
+	* Creates sprite with the given transform and size and default texture coordinates.
+	*/
+	void CreateSprite(SpriteId InSpriteId, const Math::SSpriteTransform& InTransform, const Math::SSize& InSize, MaterialInstanceRenderStateInitializerPtr InRenderState, ESpriteTransparency InTransparency = ESpriteTransparency::Opaque);
+	
+	/**
+	* Creates sprite with the given position and size.
+	* The preferred method to create sprites quickly.
+	*/
+	void CreateSprite(SpriteId InSpriteId, const Math::SVec2& InPosition, float InWidth, float InHeight, MaterialInstanceRenderStateInitializerPtr InRenderState, ESpriteTransparency InTransparency = ESpriteTransparency::Opaque);
+	void DeleteSprite(SpriteId InSpriteId);
+	void HideSprite(SpriteId InSpriteId);
+	void ShowSprite(SpriteId InSpriteId);
+	void SetSpriteTransparency(SpriteId InSpriteId, ESpriteTransparency InTransparency);
+	void SetSpriteGeometry(SpriteId InSpriteId, const SSpriteGeometryProps& InGeometry);
+	void SetSpriteMaterial(SpriteId InSpriteId, MaterialInstanceRenderStateInitializerPtr pInRenderState);
+	void SetSpriteZOrder(SpriteId InSpriteId, SpriteId ZBeforeSpriteId);
+	void MoveSpriteOnTop(SpriteId InSpriteId);
+	// ~Helper interface End
+
+	// ~Virtual interface Begin
 	/**
 	* Commit the create command for the sprite.
 	*/
@@ -53,6 +78,7 @@ public:
 	* Changes Z order of the sprite.
 	*/
 	virtual void SetSpriteZOrder(const SSpriteSetZOrderCommandInitializer& InCommand) = 0;
+	// ~Virtual interface End
 };
 
 } // Dv::Spr::Ren

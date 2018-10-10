@@ -14,7 +14,7 @@ struct SSpriteTransform
 	SVec2 Position;
 
 	SSpriteTransform() : Position(0.0F, 0.0F) {}
-	SSpriteTransform(const SVec2& InPosition) :
+	explicit SSpriteTransform(const SVec2& InPosition) :
 		Position(InPosition) {} 
 };
 bool operator==(const SSpriteTransform& InLeft, const SSpriteTransform& InRight);
