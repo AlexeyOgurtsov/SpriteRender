@@ -14,11 +14,13 @@ namespace Test
 		bSetUp{false}
 	,	TestName{"<UNSET>"}
 	{
-		BOOST_ASSERT_MSG(GetEnv()->GetSpriteRenderManager(), "PerTextFixtureBase: WARNING! SpriteRenderManager must be set!");
+		BOOST_ASSERT_MSG(IsGloballyReadyForTesting(), "PerTestFixtureBase: Must be globally ready for testing (maybe global fixture is not set)!");
 	}
 
 	PerTestFixtureBase::~PerTestFixtureBase()
 	{
+		T_LOG("Destructing PerTestFixtureBase for '" << TestName << "'");
+
 		BOOST_ASSERT_MSG(bSetUp, "PerTextFixtureBase::~DTOR: the test was NOT set up");
 
 		T_LOG("END OF TEST '" << TestName <<  "' (From PerTestFixtureBase)");
@@ -27,10 +29,12 @@ namespace Test
 	
 	void PerTestFixtureBase::SetupTestBase(const char* InTestName, unsigned int InResetFlags)
 	{
+		T_LOG("TEST '" << InTestName << "' (From PerTestFixtureBase)");
+
+		BOOST_ASSERT_MSG(false == bSetUp, "PerTestFixtureBase::SetupTestBase: cannot call SetupTestBase twice!");
 		BOOST_ASSERT(InTestName);
 		TestName = std::string(InTestName);
-
-		T_LOG("TEST '" << InTestName << "' (From PerTestFixtureBase)");
+		ShowTestInfo_IfEnabled();
 
 		ResetEnv(InResetFlags);
 	}
@@ -38,9 +42,40 @@ namespace Test
 	void PerTestFixtureBase::ResetEnv(unsigned int InResetFlags)
 	{
 		T_LOG("TEST '" << TestName << "': RESETTING ENVIRONMENT..");
-		// @TODO: Log flags
-		BOOST_ASSERT_MSG(false, "@TODO: PerTestFixtureBase::ResetEnv: Not yet impl");
+		IMPL::ResetEnvironment(InResetFlags);
 		T_LOG("TEST '" << TestName << "': ENV RESET DONE");
+	}
+
+	void PerTestFixtureBase::ShowTestInfo_IfEnabled()
+	{
+		if (GetDefaultConfig().Tester.bShowMessageBeforeTest)
+		{
+			std::string MsgText = std::string("Test: ") + TestName;
+			std::string MsgCaption = std::string("Starting test");
+			MessageBox(NULL, MsgText.c_str(), MsgCaption.c_str(), MB_OK);
+		}
+	}
+
+	void PerTestFixtureBase::Pause_IfEnabled()
+	{
+		const TesterConfig_Tester& Cfg = GetDefaultConfig().Tester;
+
+		switch (Cfg.Presentation)
+		{
+		case ETestPresenation::Delay:
+			T_LOG("PerTestFixtureBase::Pause_IfEnabled: Delay presentation mode");
+			T_LOG("Pausing for " << Cfg.DelaySeconds << " seconds...");
+			Sleep(Cfg.DelaySeconds * 100);
+			T_LOG("Pausing DONE");
+			break;
+
+		case ETestPresenation::NonStop:
+			// At this case no pausing is performed at all
+			return;
+
+		default:
+			BOOST_ASSERT_MSG(false, "PerTestFixtureBase::Pause_IfEnabled: Unknown test presentation enum value!");
+		}
 	}
 	
 	ISpriteRender* PerTestFixtureBase::GetSprRen() const

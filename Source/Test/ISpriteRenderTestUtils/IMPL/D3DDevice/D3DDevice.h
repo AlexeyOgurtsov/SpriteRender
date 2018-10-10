@@ -20,6 +20,8 @@ namespace Test::IMPL
 		virtual ~D3DDevice() = default;
 		D3DDevice(UINT InRTWidth, UINT InRTHeight, std::ofstream* pInLog, HWND hInWnd, const TesterConfig_D3DDevice& InConfig);
 
+		const TesterConfig_D3DDevice& GetConfig() const { return _config; }
+
 		void                                  Tick(float InDeltaSecs);
 
 		HRESULT                               GetHRCreate() const { return _HRCreate; }
@@ -64,4 +66,15 @@ namespace Test::IMPL
 
 		TesterConfig_D3DDevice                                       _config;
 	};
+
+	/**
+	* Clears depth-stencils, render-targets etc (@see Clear).
+	* Plus purges and modifiable resources (textures), if any exists.
+	*/
+	void ClearAndPurgeDynamic(std::ofstream& InLog, D3DDevice* pD3D);
+
+	/**
+	* Clears depth-stencils, render-targets etc.
+	*/
+	void Clear(std::ofstream& InLog, D3DDevice* pD3D);
 } // Test::IMPL

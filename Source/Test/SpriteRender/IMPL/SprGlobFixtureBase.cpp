@@ -19,6 +19,7 @@ namespace Test::ISpr::Spr
 
 		// WARNING! SetSpriteRenderManager must be called AFTER InitGlobalISpr
 		SetSpriteRenderManager(new SpriteRenderSubsystemManager());
+		Set_GloballyReadyForTesting("SprGlobFixtureBase");
 		
 		T_LOG("SprGlobalFixtureBase: Construction DONE");
 	}

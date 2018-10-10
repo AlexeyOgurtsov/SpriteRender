@@ -30,10 +30,35 @@ namespace Test::IMPL
 		Environment() = default;
 		~Environment();
 
+		/**
+		* Returns true if application environment is ready to run BOOST unit tests.
+		*/
+		bool IsReadyForTesting() const { return bReadyForTesting; }
+		
+		/**
+		* Marks that tests can be executed.
+		* (Typically to be called from global fixture).
+		*/
+		void BeginTesting(const char* pInReason);
+
+		/**
+		* Marks that tests cannot be executed.
+		* (Typically to be called from global fixture).
+		*/
+		void EndTesting(const char* pInReason);
+
 		void SetSpriteRenderManager(ISpriteRenderSubsystemManager* InManager);
 
 		ISpriteRenderSubsystemManager* GetSpriteRenderManager() const { return pSpriteRenderManager.get(); }
 		void ReInit_SpriteRender();
+		/**
+		* Shutdowns sprite render. 
+		* If no sprite render instance now exists, then just does nothing.
+		*
+		* After the shutdown the sprite render subsystem is no longer 
+		* dependent on any of the environment resources.
+		*/
+		void Shutdown_SpriteRender_IfInitialized();
 		void NotifySpriteRenderManager_D3DDeviceUpdated(const char* pInReason);
 
 		void ReInit_D3DDevice(UINT InRTWidth, UINT InRTHeight, const TesterConfig_D3DDevice& InConfig);
@@ -58,5 +83,10 @@ namespace Test::IMPL
 		static LRESULT CALLBACK StaticWndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 		HWND hWndViewport = nullptr;
 		mutable std::ofstream MainLog;
+		bool bReadyForTesting = false;
 	};
+	/**
+	* Resets entire environment or some of its components, dependent on the flags.
+	*/
+	void ResetEnvironment(UINT InResetFlags);
 } // Test::IMPL

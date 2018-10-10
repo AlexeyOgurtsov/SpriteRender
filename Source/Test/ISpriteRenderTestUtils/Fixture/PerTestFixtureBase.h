@@ -37,8 +37,14 @@ namespace Test
 		*/
 		void SetupTestBase(const char* InTestName, unsigned int InResetFlags = 0);
 
+		/**
+		* Pauses the testing according to setting.
+		*/
+		void Pause_IfEnabled();
+
 	private:
 		void ResetEnv(unsigned int InResetFlags);
+		void ShowTestInfo_IfEnabled();
 
 		bool bSetUp; // set from the ctor
 		std::string TestName;

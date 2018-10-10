@@ -22,6 +22,11 @@ namespace Test
 		IMPL::Environment* GetEnv() { return IMPL::Environment::Get(); }
 	}
 
+	bool FixtureBase::IsGloballyReadyForTesting() const
+	{
+		return GetEnv()->IsReadyForTesting();
+	}
+
 	std::ofstream& FixtureBase::GetLog() const
 	{
 		return GetEnv()->GetMainLog();

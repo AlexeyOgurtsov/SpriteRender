@@ -32,6 +32,37 @@ void LogSwapChain(std::ofstream& InLog, const DXGI_SWAP_CHAIN_DESC& InDesc)
 	T_LOG_TO(InLog, std::left << std::setw(32) << "Flags: " << InDesc.Flags);
 }
 
+void ClearAndPurgeDynamic(std::ofstream& InLog, D3DDevice* pD3D)
+{
+	T_LOG_TO(InLog, "D3DDevice: Clearing and purging...");
+	BOOST_ASSERT(pD3D);
+	Clear(InLog, pD3D);
+	// @TODO: Should we purge anything here?
+	T_LOG_TO(InLog, "D3DDevice: Clearing and purging DONE");
+}
+
+void Clear(std::ofstream& InLog, D3DDevice* pD3D)
+{
+	T_LOG_TO(InLog, "D3DDevice: Clearing...");
+
+	const TesterConfig_D3DDevice& Cfg = pD3D->GetConfig();
+
+	BOOST_ASSERT(pD3D);
+	if (ID3D11RenderTargetView* pView = pD3D->GetSwapChainBufferRTView())
+	{
+		T_LOG_TO(InLog, "D3DDevice: Render target will be cleared");
+		pD3D->GetDevCon()->ClearRenderTargetView(pView, Cfg.RenderTarget.ClearColor);
+	}
+
+	if (ID3D11DepthStencilView* pView = pD3D->GetDepthStencilView())
+	{
+		T_LOG_TO(InLog, "D3DDevice: DepthStencil is to be cleared");
+		pD3D->GetDevCon()->ClearDepthStencilView(pView, Cfg.DepthStencil.GetClearFlags(), Cfg.DepthStencil.ClearZ, Cfg.DepthStencil.ClearStencil);
+	}	
+
+	T_LOG_TO(InLog, "D3DDevice: Clearing DONE");
+}
+
 D3DDevice::D3DDevice(UINT InRTWidth, UINT InRTHeight, std::ofstream* pInLog, HWND hInWnd, const TesterConfig_D3DDevice& InConfig) :
 	_pLog(pInLog)
 ,	_config(InConfig)
@@ -45,7 +76,7 @@ D3DDevice::D3DDevice(UINT InRTWidth, UINT InRTHeight, std::ofstream* pInLog, HWN
 	_swapChainDesc.BufferDesc.Height = InRTHeight;
 	_swapChainDesc.BufferDesc.RefreshRate.Numerator = DEFAULT_REFRESH_RATE;
 	_swapChainDesc.BufferDesc.RefreshRate.Denominator = 1;
-	_swapChainDesc.BufferDesc.Format = DEFAULT_RENDER_TARGET_FORMAT;
+	_swapChainDesc.BufferDesc.Format = GetConfig().RenderTarget.Format;
 	_swapChainDesc.BufferDesc.ScanlineOrdering = DEFAULT_SCANLINE_ORDER;
 	_swapChainDesc.BufferDesc.Scaling = DXGI_MODE_SCALING_STRETCHED;
 	_swapChainDesc.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
@@ -130,8 +161,8 @@ void D3DDevice::_UpdateDS()
 {
 	T_LOG("D3DDevice::_UpdateDS...");
 	T_LOG("NewWidth = " << GetRTWidth() << "; NewHeight=" << GetRTHeight());
-	T_LOG("Format: " << GetFormatString(_config.DepthStencilFormat));
-	_DS.Reset(GetDev(), GetRTWidth(), GetRTHeight(), _config.DepthStencilFormat, D3D11_USAGE_DEFAULT, /*CpuAccessFlags*/0);
+	T_LOG("Format: " << GetFormatString(_config.DepthStencil.Format));
+	_DS.Reset(GetDev(), GetRTWidth(), GetRTHeight(), _config.DepthStencil.Format, D3D11_USAGE_DEFAULT, /*CpuAccessFlags*/0);
 	T_LOG("D3DDevice::_UpdateDS DONE");
 }
 

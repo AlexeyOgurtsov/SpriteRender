@@ -18,6 +18,11 @@ namespace Test
 		std::ofstream& GetLog() const;
 
 		/**
+		* Is environment globally ready for testing (still may be that individual test is NOT set up)
+		*/
+		bool IsGloballyReadyForTesting() const;
+
+		/**
 		* Returns configuration to be used by default (some tests may override).
 		*/
 		const TesterConfig& GetDefaultConfig() const;

@@ -13,7 +13,6 @@ constexpr unsigned int                     DEFAULT_DEVICE_FLAGS                 
 /****************************************************************************
 * Device mode
 ****************************************************************************/
-constexpr DXGI_FORMAT                      DEFAULT_RENDER_TARGET_FORMAT                = DXGI_FORMAT_R8G8B8A8_UNORM;
 constexpr unsigned int                     DEFAULT_REFRESH_RATE                        = 60;
 constexpr unsigned int                     DEFAULT_SWAP_CHAIN_WIDTH                    = 1024;
 constexpr unsigned int                     DEFAULT_SWAP_CHAIN_HEIGHT                   = 768;

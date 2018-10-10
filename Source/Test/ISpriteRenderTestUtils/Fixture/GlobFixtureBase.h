@@ -17,6 +17,9 @@ namespace Test
 		* Sets the default config and initializes core subsystems and d3d11.
 		*/
 		void InitGlobal(const TesterConfig& InDefaultConfig);
+
+		void Set_GloballyReadyForTesting(const char* pInReason);
+		void Unset_GloballyReadyForTesting(const char* pInReason);
 	
 		/**
 		* Sets the sprite render manager (must be created in dynamic memory with new).

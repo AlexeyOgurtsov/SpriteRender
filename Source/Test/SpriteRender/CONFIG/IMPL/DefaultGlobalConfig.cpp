@@ -77,6 +77,18 @@ namespace Test::ISpr::Spr
 
 	void InitDefaultGlobalConfig_D3D(TesterConfig_D3DDevice& OutDefaultConfig)
 	{
-		OutDefaultConfig.DepthStencilFormat = DXGI_FORMAT_D24_UNORM_S8_UINT;
+		OutDefaultConfig.RenderTarget.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
+
+		/**
+		* Black with Alpha = 1.0F
+		*/
+		OutDefaultConfig.RenderTarget.ClearColor[0] = 0.0F;
+		OutDefaultConfig.RenderTarget.ClearColor[1] = 0.0F;
+		OutDefaultConfig.RenderTarget.ClearColor[2] = 0.0F;
+		OutDefaultConfig.RenderTarget.ClearColor[3] = 1.0F;
+
+		OutDefaultConfig.DepthStencil.Format = DXGI_FORMAT_D24_UNORM_S8_UINT;
+		OutDefaultConfig.DepthStencil.ClearZ = 1.0F;
+		OutDefaultConfig.DepthStencil.ClearStencil = 0.0F;
 	}
 } // Test::ISpr::Spr

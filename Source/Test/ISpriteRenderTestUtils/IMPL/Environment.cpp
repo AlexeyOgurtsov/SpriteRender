@@ -38,21 +38,26 @@ namespace Test::IMPL
 
 		BOOST_ASSERT_MSG(pSpriteRenderManager.get(), "Environment::ReInit_SpriteRender: Sprite render must be set");
 
-		if (pSpriteRenderManager->GetSpriteRender())
-		{
-			T_LOG_TO(MainLog, "SpriteRender instance exists, AreSettingsUpdated=" << pSpriteRenderManager->AreSettingsUpdated());
-
-			T_LOG_TO(MainLog, "Shutting down old sprite render instance...");				
-			pSpriteRenderManager->Shutdown();			
-			T_LOG_TO(MainLog, "Shutting down old sprite render instance DONE");
-		}
-		BOOST_ASSERT_MSG(nullptr == pSpriteRenderManager->GetSpriteRender(), "Environment::ReInit_SpriteRender: sprite render must be nullptr at this point (tried to shutdown it already)");
+		Shutdown_SpriteRender_IfInitialized();
 
 		T_LOG_TO(MainLog, "Initializing sprite render instance...");
 		pSpriteRenderManager->Initialize();
 		T_LOG_TO(MainLog, "Initializing sprite render instance DONE");
 		
 		T_LOG_TO(MainLog, "Environment::ReInit_SpriteRender DONE");
+	}
+
+	void Environment::Shutdown_SpriteRender_IfInitialized()
+	{
+		if (pSpriteRenderManager->GetSpriteRender())
+		{
+			T_LOG_TO(MainLog, "SpriteRender instance exists, AreSettingsUpdated=" << pSpriteRenderManager->AreSettingsUpdated());
+
+			T_LOG_TO(MainLog, "Shutting down old sprite render instance...");
+			pSpriteRenderManager->Shutdown();
+			T_LOG_TO(MainLog, "Shutting down old sprite render instance DONE");
+		}
+		BOOST_ASSERT_MSG(nullptr == pSpriteRenderManager->GetSpriteRender(), "Environment::ReInit_SpriteRender: sprite render must be nullptr at this point (tried to shutdown it already)");
 	}
 
 	void Environment::ReInit_D3DDevice(UINT InRTWidth, UINT InRTHeight, const TesterConfig_D3DDevice& InConfig)
@@ -125,5 +130,36 @@ namespace Test::IMPL
 		return DefWindowProc(hWnd, uMsg, wParam, lParam);
 	}
 
+	void Environment::BeginTesting(const char* pInReason)
+	{
+		BOOST_ASSERT(pInReason);
+		T_LOG_TO(MainLog, "Environment::BeginTesting: Reason=" << pInReason);
+		bReadyForTesting = true;
+	}
+
+	void Environment::EndTesting(const char* pInReason)
+	{
+		BOOST_ASSERT(pInReason);
+		T_LOG_TO(MainLog, "Environment::EndTesting: Reason=" << pInReason);
+		bReadyForTesting = false;
+	}
+
 	Environment::~Environment() = default;	
+
+	void ResetEnvironment(UINT InResetFlags)
+	{
+		// @TODO: Log reset flags
+		if (InResetFlags != 0)
+		{
+			T_LOG_TO(Environment::Get()->GetMainLog(), "ResetEnvironment: WARNING!!! Any reset flags are IGNORED (NOT YET IMPL)!");
+		}
+		// @TODO }
+
+		// WARNING!!! We must shutdown the sprite render BEFORE destroying resources,
+		// to eliminate all dependencies of the SpriteRender subsystem on this resources.
+		Environment::Get()->Shutdown_SpriteRender_IfInitialized();
+		// @TODO: Should we clear the resources (textures etc.)
+		ClearAndPurgeDynamic(Environment::Get()->GetMainLog(), Environment::Get()->GetD3DDevice());
+		Environment::Get()->ReInit_SpriteRender();
+	}
 } // Test::IMPL

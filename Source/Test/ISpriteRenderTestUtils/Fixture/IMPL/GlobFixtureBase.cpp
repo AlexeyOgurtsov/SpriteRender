@@ -29,6 +29,16 @@ namespace Test
 		ReInitD3DDevice();
 	}
 
+	void GlobFixtureBase::Set_GloballyReadyForTesting(const char* pInReason)
+	{
+		GetEnv()->BeginTesting(pInReason);
+	}
+
+	void GlobFixtureBase::Unset_GloballyReadyForTesting(const char* pInReason)
+	{
+		GetEnv()->EndTesting(pInReason);
+	}
+
 	void GlobFixtureBase::SetSpriteRenderManager(ISpriteRenderSubsystemManager* pInManager)
 	{
 		T_LOG("GlobFixtureBase::SetSpriteRenderManager...");
