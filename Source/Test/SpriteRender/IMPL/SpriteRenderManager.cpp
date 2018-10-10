@@ -86,6 +86,12 @@ namespace Test::ISpr::Spr
 		T_LOG("SpriteRenderSubsystemManager::Shutdown DONE");
 	}
 
+	void SpriteRenderSubsystemManager::Tick(float InDeltaSeconds)
+	{
+		// Nothing is to do here yet
+		// (if no tick function is the current sprite render manager subsystem)
+	}
+
 	void SpriteRenderSubsystemManager::OnDefaultTesterConfigUpdated(const TesterConfig& InDefaultConfig)
 	{
 		BOOST_ASSERT(pLog);

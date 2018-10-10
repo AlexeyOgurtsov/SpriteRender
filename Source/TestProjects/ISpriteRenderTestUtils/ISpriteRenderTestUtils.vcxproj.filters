@@ -63,6 +63,9 @@
     <ClCompile Include="..\..\Test\ISpriteRenderTestUtils\CONFIG\IMPL\TestConfig_Tester.cpp">
       <Filter>Config\IMPL</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Test\ISpriteRenderTestUtils\Fixture\IMPL\PerTestFixtureBase.cpp">
+      <Filter>Fixture\IMPL</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Test\ISpriteRenderTestUtils\MASTER.h" />
@@ -116,6 +119,9 @@
     </ClInclude>
     <ClInclude Include="..\..\Test\ISpriteRenderTestUtils\CONFIG\TesterConfig_Tester.h">
       <Filter>Config</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Test\ISpriteRenderTestUtils\Fixture\PerTestFixtureBase.h">
+      <Filter>Fixture</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

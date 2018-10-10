@@ -44,6 +44,11 @@ namespace Test
 		virtual void Shutdown() = 0;
 
 		/**
+		* Tick function (To be called each frame).
+		*/
+		virtual void Tick(float InDeltaSeconds) = 0;
+
+		/**
 		* Returns true if any settings of the sprite render are updated,
 		* but the current sprite render instance does NOT account the new settings
 		* (does NOT make sense if there's no existing sprite render instance at the moment).
