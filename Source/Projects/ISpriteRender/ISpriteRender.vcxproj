@@ -137,11 +137,17 @@
     <ClInclude Include="..\..\ISpriteRender\SpriteCanvasCommandInitializers.h" />
     <ClInclude Include="..\..\ISpriteRender\SpriteCommandInitializers.h" />
     <ClInclude Include="..\..\ISpriteRender\SpriteMaterialInstanceRenderState.h" />
+    <ClInclude Include="..\..\Test\ISpriteRender\AllTests.h" />
     <ClInclude Include="..\..\Test\ISpriteRender\ISprGlobalFixtureBase.h" />
+    <ClInclude Include="..\..\Test\ISpriteRender\ISprPerTestFixtureBase.h" />
+    <ClInclude Include="..\..\Test\ISpriteRender\ISprPerTestFixture_Custom.h" />
+    <ClInclude Include="..\..\Test\ISpriteRender\MinimalSmokeTests.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\ISpriteRender\IMPL\ISpriteRender.cpp" />
     <ClCompile Include="..\..\Test\ISpriteRender\IMPL\ISprGlobalFixtureBase.cpp" />
+    <ClCompile Include="..\..\Test\ISpriteRender\IMPL\ISprPerTestFixtureBase.cpp" />
+    <ClCompile Include="..\..\Test\ISpriteRender\IMPL\ISprPerTestFixture_Custom.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

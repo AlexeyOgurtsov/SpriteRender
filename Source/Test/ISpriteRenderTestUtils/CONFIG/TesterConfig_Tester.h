@@ -25,7 +25,7 @@ namespace Test
 		/**
 		* Time to stop for each test (@see ETestPresenation)
 		*/
-		float DelaySeconds = 5.0F;
+		unsigned int DelaySeconds = 5;
 
 		/**
 		* Should we show message before presenting each test?

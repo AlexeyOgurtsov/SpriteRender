@@ -22,14 +22,17 @@ namespace Test
 		T_LOG("Destructing PerTestFixtureBase for '" << TestName << "'");
 
 		BOOST_ASSERT_MSG(bSetUp, "PerTextFixtureBase::~DTOR: the test was NOT set up");
+		Pause_IfEnabled();
 
-		T_LOG("END OF TEST '" << TestName <<  "' (From PerTestFixtureBase)");
+		T_LOG("--------} END OF TEST '" << TestName <<  "' (From PerTestFixtureBase)");
 	}
 
 	
 	void PerTestFixtureBase::SetupTestBase(const char* InTestName, unsigned int InResetFlags)
 	{
-		T_LOG("TEST '" << InTestName << "' (From PerTestFixtureBase)");
+		// We log empty lines before a new test
+		for (int i = 0; i < 6; i++) { T_LOG(""); }		 		
+		T_LOG("--------{ TEST '" << InTestName << "' (From PerTestFixtureBase)");
 
 		BOOST_ASSERT_MSG(false == bSetUp, "PerTestFixtureBase::SetupTestBase: cannot call SetupTestBase twice!");
 		BOOST_ASSERT(InTestName);
@@ -37,6 +40,7 @@ namespace Test
 		ShowTestInfo_IfEnabled();
 
 		ResetEnv(InResetFlags);
+		bSetUp = true;
 	}
 
 	void PerTestFixtureBase::ResetEnv(unsigned int InResetFlags)
@@ -65,7 +69,7 @@ namespace Test
 		case ETestPresenation::Delay:
 			T_LOG("PerTestFixtureBase::Pause_IfEnabled: Delay presentation mode");
 			T_LOG("Pausing for " << Cfg.DelaySeconds << " seconds...");
-			Sleep(Cfg.DelaySeconds * 100);
+			Sleep(static_cast<DWORD>(Cfg.DelaySeconds * 100));
 			T_LOG("Pausing DONE");
 			break;
 

@@ -58,7 +58,7 @@ namespace Test::ISpr::Spr
 	void InitDefaultGlobalConfig_Tester(TesterConfig_Tester& OutDefaultConfig)
 	{
 		OutDefaultConfig.bShowMessageBeforeTest = true;
-		OutDefaultConfig.DelaySeconds = 5.0F;
+		OutDefaultConfig.DelaySeconds = 15;
 		OutDefaultConfig.Presentation = ETestPresenation::Delay;
 	}
 
@@ -89,6 +89,6 @@ namespace Test::ISpr::Spr
 
 		OutDefaultConfig.DepthStencil.Format = DXGI_FORMAT_D24_UNORM_S8_UINT;
 		OutDefaultConfig.DepthStencil.ClearZ = 1.0F;
-		OutDefaultConfig.DepthStencil.ClearStencil = 0.0F;
+		OutDefaultConfig.DepthStencil.ClearStencil = 0;
 	}
 } // Test::ISpr::Spr

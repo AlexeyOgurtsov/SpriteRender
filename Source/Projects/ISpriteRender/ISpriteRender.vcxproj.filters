@@ -9,6 +9,18 @@
     <ClInclude Include="..\..\Test\ISpriteRender\ISprGlobalFixtureBase.h">
       <Filter>TEST</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Test\ISpriteRender\ISprPerTestFixtureBase.h">
+      <Filter>TEST</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Test\ISpriteRender\ISprPerTestFixture_Custom.h">
+      <Filter>TEST</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Test\ISpriteRender\AllTests.h">
+      <Filter>TEST</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Test\ISpriteRender\MinimalSmokeTests.h">
+      <Filter>TEST</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="IMPL">
@@ -26,6 +38,12 @@
       <Filter>IMPL</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Test\ISpriteRender\IMPL\ISprGlobalFixtureBase.cpp">
+      <Filter>TEST\IMPL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Test\ISpriteRender\IMPL\ISprPerTestFixtureBase.cpp">
+      <Filter>TEST\IMPL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Test\ISpriteRender\IMPL\ISprPerTestFixture_Custom.cpp">
       <Filter>TEST\IMPL</Filter>
     </ClCompile>
   </ItemGroup>
