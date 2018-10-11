@@ -6,6 +6,11 @@
 
 namespace Test::IMPL
 { 
+	namespace
+	{
+		Environment* GetEnv() { return Environment::Get(); }
+	} // anonymous
+
 	std::ofstream OpenLog(const char* pInLog)
 	{
 		std::ofstream log{ pInLog, std::ios::out };
@@ -14,6 +19,32 @@ namespace Test::IMPL
 			throw Exception("OpenLog failed");
 		}
 		return log;
+	}
+
+	void Environment::BeginFrame_FixDeltaSeconds(std::ofstream& InLog)
+	{
+		BeginFrameQPC.Fix(InLog);
+	}
+
+	void Environment::BeginFrame_PauseDeltaCounter(std::ofstream& InLog)
+	{
+		if ( ! BeginFrameQPC.IsPaused() )
+		{
+			BeginFrameQPC.Pause(InLog);
+		}
+	}
+
+	void Environment::BeginFrame_ResumeDeltaCounter(std::ofstream& InLog)	
+	{
+		if (BeginFrameQPC.IsPaused())
+		{
+			BeginFrameQPC.Resume(InLog);
+		}
+	}
+
+	void Environment::BeginFrame_ResetDeltaCounter(std::ofstream& InLog)
+	{
+		BeginFrameQPC.Reset(InLog);
 	}
 
 	void Environment::SetSpriteRenderManager(ISpriteRenderSubsystemManager* InManager)
@@ -135,6 +166,14 @@ namespace Test::IMPL
 		BOOST_ASSERT(pInReason);
 		T_LOG_TO(MainLog, "Environment::BeginTesting: Reason=" << pInReason);
 		bReadyForTesting = true;
+		ResetAllCounters();
+	}
+
+	void Environment::ResetAllCounters()
+	{
+		T_LOG_TO(MainLog, "Environment::ResetAllCounters...");
+		BeginFrame_ResetDeltaCounter(MainLog);
+		T_LOG_TO(MainLog, "Environment::ResetAllCounters DONE");
 	}
 
 	void Environment::EndTesting(const char* pInReason)
@@ -144,22 +183,106 @@ namespace Test::IMPL
 		bReadyForTesting = false;
 	}
 
+	void Environment::ProcessWindowsMessages_AndSetupQuitFlag(std::ofstream& InLog)
+	{
+		T_LOG_TO(InLog, "Environment::ProcessWindowsMessages_AndSetupQuitFlag...");
+		bMessagePoke = false;
+		if (hWndViewport)
+		{
+			bMessagePoke = PeekMessage(&Msg, hWndViewport, 0, 0, PM_REMOVE);
+			if (bMessagePoke)
+			{
+				T_LOG_TO(InLog, "bMessagePoke = TRUE");
+				if (Msg.message == WM_QUIT)
+				{
+					T_LOG_TO(InLog, "WM_QUIT Message, setting up bIsQuitRequested flag");
+					bIsQuitRequested = true;
+				}
+			}
+		}
+		T_LOG_TO(InLog, "Environment::ProcessWindowsMessages_AndSetupQuitFlag DONE");
+	}
+
 	Environment::~Environment() = default;	
 
 	void ResetEnvironment(UINT InResetFlags)
-	{
+	{		
 		// @TODO: Log reset flags
 		if (InResetFlags != 0)
 		{
-			T_LOG_TO(Environment::Get()->GetMainLog(), "ResetEnvironment: WARNING!!! Any reset flags are IGNORED (NOT YET IMPL)!");
+			T_LOG_TO(GetEnv()->GetMainLog(), "ResetEnvironment: WARNING!!! Any reset flags are IGNORED (NOT YET IMPL)!");
 		}
 		// @TODO }
 
 		// WARNING!!! We must shutdown the sprite render BEFORE destroying resources,
 		// to eliminate all dependencies of the SpriteRender subsystem on this resources.
-		Environment::Get()->Shutdown_SpriteRender_IfInitialized();
+		GetEnv()->Shutdown_SpriteRender_IfInitialized();
 		// @TODO: Should we clear the resources (textures etc.)
-		ClearAndPurgeDynamic(Environment::Get()->GetMainLog(), Environment::Get()->GetD3DDevice());
-		Environment::Get()->ReInit_SpriteRender();
+		ClearAndPurgeDynamic(GetEnv()->GetMainLog(), GetEnv()->GetD3DDevice());
+		GetEnv()->ReInit_SpriteRender();
+
+		// We reset all counters as the last line
+		GetEnv()->ResetAllCounters();
+	}
+
+	void TickEnvironment(std::ofstream& InLog, float InDeltaSeconds)
+	{
+		T_LOG_TO(InLog, "TickEnvironment, InDeltaSeconds=" << InDeltaSeconds << "...");
+
+		GetEnv()->ProcessWindowsMessages_AndSetupQuitFlag(InLog);		
+
+		if(D3DDevice* pD3D = GetEnv()->GetD3DDevice())
+		{
+			pD3D->Tick(InDeltaSeconds);
+		}
+
+		// @TODO: Tick resources?
+
+		// Tick sprite render
+		if(ISpriteRenderSubsystemManager* pSprManager = GetEnv()->GetSpriteRenderManager())
+		{
+			T_LOG_TO(InLog, "Ticking SpriteRenderManagerSubsystem...");
+			pSprManager->Tick(InDeltaSeconds);	
+			T_LOG_TO(InLog, "Ticking SpriteRenderManagerSubsystem DONE");
+		}
+
+		T_LOG_TO(InLog, "TickEnvironment DONE");
+	}
+
+	void Environment_BeginFrame(int InLocalFrameIndex, std::ofstream& InLog)
+	{
+		T_LOG_TO(InLog, "Environment_BeginFrame...");
+
+		const float DeltaSeconds = GetEnv()->GetDeltaSeconds_SinceLastBeginFrame();
+
+		GetEnv()->GetD3DDevice()->BeginFrame(InLocalFrameIndex, InLog);
+		if(ISpriteRenderSubsystemManager* pSprManager = GetEnv()->GetSpriteRenderManager())
+		{
+			T_LOG_TO(InLog, "Calling BeginFrame on SpriteRenderManagerSubsystem...");
+			pSprManager->BeginFrame(DeltaSeconds);
+		}
+
+		// @TODO: Call BeginFrame for resources?
+
+		T_LOG_TO(InLog, "Environment_BeginFrame DONE");
+	}
+
+	void Environment_EndFrame(int InLocalFrameIndex, std::ofstream& InLog)
+	{
+		T_LOG_TO(InLog, "Environment_EndFrame...");
+
+		const float DeltaSeconds = GetEnv()->GetDeltaSeconds_SinceLastBeginFrame();
+
+		if (ISpriteRenderSubsystemManager* pSprManager = GetEnv()->GetSpriteRenderManager())
+		{
+			T_LOG_TO(InLog, "Calling EndFrame on SpriteRenderManagerSubsystem...");
+			pSprManager->EndFrame(DeltaSeconds);
+		}
+
+		GetEnv()->GetD3DDevice()->EndFrame(InLocalFrameIndex, InLog);
+
+		// @TODO: Call EndFrame for resources?
+
+		T_LOG_TO(InLog, "Environment_EndFrame DONE");
 	}
 } // Test::IMPL

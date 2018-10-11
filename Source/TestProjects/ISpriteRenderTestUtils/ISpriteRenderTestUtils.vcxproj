@@ -145,6 +145,7 @@
     <ClCompile Include="..\..\Test\ISpriteRenderTestUtils\IMPL\Utils\Com.cpp" />
     <ClCompile Include="..\..\Test\ISpriteRenderTestUtils\IMPL\Utils\DepthStencil.cpp" />
     <ClCompile Include="..\..\Test\ISpriteRenderTestUtils\IMPL\Utils\Exception.cpp" />
+    <ClCompile Include="..\..\Test\ISpriteRenderTestUtils\IMPL\Utils\QPC.cpp" />
     <ClCompile Include="..\..\Test\ISpriteRenderTestUtils\IMPL\Utils\RenHRUtils.cpp" />
     <ClCompile Include="..\..\Test\ISpriteRenderTestUtils\IMPL\Utils\WINDOW.cpp" />
   </ItemGroup>
@@ -163,6 +164,7 @@
     <ClInclude Include="..\..\Test\ISpriteRenderTestUtils\IMPL\Utils\Com.h" />
     <ClInclude Include="..\..\Test\ISpriteRenderTestUtils\IMPL\Utils\DepthStencil.h" />
     <ClInclude Include="..\..\Test\ISpriteRenderTestUtils\IMPL\Utils\Exception.h" />
+    <ClInclude Include="..\..\Test\ISpriteRenderTestUtils\IMPL\Utils\QPC.h" />
     <ClInclude Include="..\..\Test\ISpriteRenderTestUtils\IMPL\Utils\RenHRUtils.h" />
     <ClInclude Include="..\..\Test\ISpriteRenderTestUtils\IMPL\Utils\Window.h" />
     <ClInclude Include="..\..\Test\ISpriteRenderTestUtils\ISpriteRenderFwd.h" />

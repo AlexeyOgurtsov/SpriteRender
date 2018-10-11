@@ -205,6 +205,42 @@ void D3DDevice::Tick(float InDeltaSecs)
 	// Empty now
 }
 
+
+void D3DDevice::BeginFrame(int InLocalFrameIndex, std::ofstream& InLog)
+{
+	T_LOG_TO(InLog, "-- D3DDevice: FRAME " << InLocalFrameIndex << " (global index: " << FrameRender.GlobalFrameIndex << ")");
+	FrameRender.BeginFrame(InLocalFrameIndex);
+	Clear(InLog, this);	
+}
+
+void D3DDevice::EndFrame(int InLocalFrameIndex, std::ofstream& InLog)
+{
+	T_LOG_TO(InLog, "D3DDevice: EndFrame " <<  InLocalFrameIndex);
+
+	T_LOG_TO(InLog, "D3DDevice: Presenting frame (IDXGISwapChain::Present)");
+	GetSwapChain()->Present(0, 0);
+
+	FrameRender.EndFrame(InLocalFrameIndex);
+
+	T_LOG_TO(InLog, "-- D3DDevice: END OF FRAME DONE" << InLocalFrameIndex);
+}
+
+void D3DDevice::SFrameRenderState::BeginFrame(int InLocalFrameIndex)
+{
+	BOOST_ASSERT_MSG( ! bFrameStarted, "D3DDevice::SFrameRenderState::BeginFrame: frame is already started" );
+	bFrameStarted = true;
+	LocalFrameIndex = InLocalFrameIndex;
+}
+
+void D3DDevice::SFrameRenderState::EndFrame(int InLocalFrameIndex)
+{
+	BOOST_ASSERT_MSG(bFrameStarted, "D3DDevice::SFrameRenderState::EndFrame: frame is NOT started");
+	BOOST_ASSERT_MSG(LocalFrameIndex == InLocalFrameIndex, "D3DDevice::SFrameRenderState::EndFrame: inconsistent local frame index");
+	GlobalFrameIndex++;
+	LocalFrameIndex = -1;
+}
+
+
 template<class ExType>
 void D3DDevice_HandleHR(D3DDevice* pDevice, HRESULT InHr, const std::string& InMessage)
 {

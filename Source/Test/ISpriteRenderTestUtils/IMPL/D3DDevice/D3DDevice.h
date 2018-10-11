@@ -22,6 +22,16 @@ namespace Test::IMPL
 
 		const TesterConfig_D3DDevice& GetConfig() const { return _config; }
 
+		/**
+		* Starts a new frame (clears old buffers contents).
+		*/
+		void BeginFrame(int InLocalFrameIndex, std::ofstream& InLog);
+
+		/**
+		* Ends a frame (Presents contents of the buffer)
+		*/
+		void EndFrame(int InLocalFrameIndex, std::ofstream& InLog);
+
 		void                                  Tick(float InDeltaSecs);
 
 		HRESULT                               GetHRCreate() const { return _HRCreate; }
@@ -65,6 +75,27 @@ namespace Test::IMPL
 		DepthStencil                                                 _DS;
 
 		TesterConfig_D3DDevice                                       _config;
+
+		struct SFrameRenderState 
+		{
+			/**
+			* Was BeginFrame called?
+			*/
+			bool bFrameStarted                                   = false;
+
+			/**
+			* Local index of the frame
+			*/
+			int LocalFrameIndex                                  = -1;
+
+			/**
+			* Global frame index (since time the device is running)	
+			*/
+			int GlobalFrameIndex                                 = 0;
+
+			void BeginFrame(int InLocalFrameIndex);
+			void EndFrame(int InLocalFrameIndex);
+		} FrameRender;
 	};
 
 	/**

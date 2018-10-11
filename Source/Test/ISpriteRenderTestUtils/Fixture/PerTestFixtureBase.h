@@ -42,11 +42,42 @@ namespace Test
 		*/
 		void Pause_IfEnabled();
 
+		/**
+		* Ticks the environment.
+		*
+		* May close the application.
+		*/
+		void TickEnv(float InDeltaSeconds);
+		void BeginFrame();
+		void EndFrame();
+
+		/**
+		* Index of the frame relative to the current test time.
+		*/
+		int GetLocalFrameIndex() const { return LocalFrameIndex; }
+
+		/**
+		* Returns delta seconds since the last frame.
+		*/
+		float GetDeltaSeconds_SinceLastBeginFrame() const;
+
 	private:
+		/**
+		* Terminate the application.
+		*
+		* Normally terminates with error state corresponding the test.
+		*/
+		void Quit();
 		void ResetEnv(unsigned int InResetFlags);
 		void ShowTestInfo_IfEnabled();
 
+		void BeginInteractive(bool bPauseTimers = true);
+		void EndInteractive();
+		bool bInteractive = false;
+
+		int LocalFrameIndex; // set from the ctor
+
 		bool bSetUp; // set from the ctor
-		std::string TestName;
+		std::string TestName; // set from the ctor
 	};
 } // Test

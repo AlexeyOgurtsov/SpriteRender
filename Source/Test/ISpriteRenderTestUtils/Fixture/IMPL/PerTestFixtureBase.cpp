@@ -13,6 +13,7 @@ namespace Test
 	PerTestFixtureBase::PerTestFixtureBase() :
 		bSetUp{false}
 	,	TestName{"<UNSET>"}
+	,	LocalFrameIndex{0}
 	{
 		BOOST_ASSERT_MSG(IsGloballyReadyForTesting(), "PerTestFixtureBase: Must be globally ready for testing (maybe global fixture is not set)!");
 	}
@@ -50,14 +51,78 @@ namespace Test
 		T_LOG("TEST '" << TestName << "': ENV RESET DONE");
 	}
 
+	void PerTestFixtureBase::Quit()
+	{
+		T_LOG("TEST '" << TestName << "': QUITTING APPLICATION....");
+		exit(2);
+	}
+
+	void PerTestFixtureBase::TickEnv(float InDeltaSeconds)
+	{
+		T_LOG("TEST '" << TestName << "': TICK ENV...");
+		IMPL::TickEnvironment(GetLog(), InDeltaSeconds);
+		if (GetEnv()->IsQuitRequested())
+		{
+			T_LOG("QUITTING... (Reason: requested from the application)");
+			Quit();
+		}
+		Sleep(1);
+		T_LOG("TEST '" << TestName << "': TICK ENV DONE");
+	}
+
+	void PerTestFixtureBase::BeginFrame()
+	{
+		GetEnv()->BeginFrame_FixDeltaSeconds(GetLog());
+
+		T_LOG("TEST '" << TestName << "': Begin Frame " << GetLocalFrameIndex() << "...");
+		IMPL::Environment_BeginFrame(GetLocalFrameIndex(), GetLog());
+		T_LOG("TEST '" << TestName << "': Begin Frame DONE");
+	}
+
+	void PerTestFixtureBase::EndFrame()
+	{
+		T_LOG("TEST '" << TestName << "': End Frame " << GetLocalFrameIndex() << "...");
+		IMPL::Environment_EndFrame(GetLocalFrameIndex(), GetLog());
+		T_LOG("TEST '" << TestName << "': End Frame DONE");
+	}
+
+	float PerTestFixtureBase::GetDeltaSeconds_SinceLastBeginFrame() const
+	{
+		return GetEnv()->GetDeltaSeconds_SinceLastBeginFrame();
+	}
+
 	void PerTestFixtureBase::ShowTestInfo_IfEnabled()
 	{
 		if (GetDefaultConfig().Tester.bShowMessageBeforeTest)
 		{
+			BeginInteractive();
 			std::string MsgText = std::string("Test: ") + TestName;
 			std::string MsgCaption = std::string("Starting test");
 			MessageBox(NULL, MsgText.c_str(), MsgCaption.c_str(), MB_OK);
+			EndInteractive();			
 		}
+	}
+
+	void PerTestFixtureBase::BeginInteractive(bool bPauseTimers)
+	{
+		BOOST_ASSERT_MSG( ! bInteractive, "PerTestFixtureBase::BeginInteractive: already in interactive mode" );
+
+		T_LOG("PerTestFixtureBase::BeginInteractive...");
+		if (bPauseTimers)
+		{
+			GetEnv()->BeginFrame_PauseDeltaCounter(GetLog());
+		}
+		bInteractive = true;
+		T_LOG("PerTestFixtureBase::BeginInteractive DONE");
+	}
+	
+	void PerTestFixtureBase::EndInteractive()
+	{
+		T_LOG("PerTestFixtureBase::EndInteractive...");		
+		BOOST_ASSERT_MSG(bInteractive, "PerTestFixtureBase::BeginInteractive: not in interactive mode");
+		GetEnv()->BeginFrame_ResumeDeltaCounter(GetLog());
+		bInteractive = false;
+		T_LOG("PerTestFixtureBase::EndInteractive DONE");
 	}
 
 	void PerTestFixtureBase::Pause_IfEnabled()
@@ -69,7 +134,9 @@ namespace Test
 		case ETestPresenation::Delay:
 			T_LOG("PerTestFixtureBase::Pause_IfEnabled: Delay presentation mode");
 			T_LOG("Pausing for " << Cfg.DelaySeconds << " seconds...");
+			BeginInteractive();
 			Sleep(static_cast<DWORD>(Cfg.DelaySeconds * 100));
+			EndInteractive();
 			T_LOG("Pausing DONE");
 			break;
 

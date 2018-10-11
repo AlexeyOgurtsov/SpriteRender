@@ -18,6 +18,8 @@ namespace Test::ISpr::Spr
 		virtual void Initialize() override;
 		virtual void Shutdown() override;
 		virtual void Tick(float InDeltaSeconds) override;
+		virtual void BeginFrame(float InDeltaSeconds) override;
+		virtual void EndFrame(float InDeltaSeconds) override;
 		virtual bool AreSettingsUpdated() const override { return bSettingsUpdated; }
 		virtual void OnDefaultTesterConfigUpdated(const TesterConfig& InDefautConfig) override;
 		virtual void OnD3DUpdated(const D3DDevice* pInDev) override;

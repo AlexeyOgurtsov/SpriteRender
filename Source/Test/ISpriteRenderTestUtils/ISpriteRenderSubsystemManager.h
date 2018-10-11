@@ -49,6 +49,16 @@ namespace Test
 		virtual void Tick(float InDeltaSeconds) = 0;
 
 		/**
+		* BeginFrame function (To be called before starting any frame).
+		*/
+		virtual void BeginFrame(float InDeltaSeconds) = 0;
+
+		/**
+		* EndFrame function (To be called after starting any frame).
+		*/
+		virtual void EndFrame(float InDeltaSeconds) = 0;
+
+		/**
 		* Returns true if any settings of the sprite render are updated,
 		* but the current sprite render instance does NOT account the new settings
 		* (does NOT make sense if there's no existing sprite render instance at the moment).

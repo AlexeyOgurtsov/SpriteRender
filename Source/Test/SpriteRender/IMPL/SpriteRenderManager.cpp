@@ -92,6 +92,18 @@ namespace Test::ISpr::Spr
 		// (if no tick function is the current sprite render manager subsystem)
 	}
 
+	void SpriteRenderSubsystemManager::BeginFrame(float InDeltaSeconds)
+	{
+		// Nothing is to do here yet
+		// (if no tick function is the current sprite render manager subsystem)
+	}
+
+	void SpriteRenderSubsystemManager::EndFrame(float InDeltaSeconds)
+	{
+		// Nothing is to do here yet
+		// (if no tick function is the current sprite render manager subsystem)
+	}
+
 	void SpriteRenderSubsystemManager::OnDefaultTesterConfigUpdated(const TesterConfig& InDefaultConfig)
 	{
 		BOOST_ASSERT(pLog);

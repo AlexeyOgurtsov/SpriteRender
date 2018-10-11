@@ -21,8 +21,8 @@ namespace Test::ISpr
 	{
 		SetupTest("TestUpdateBrackets");
 
-		BOOST_CHECK_NO_THROW(GetSprRen()->BeginUpdates());
-		BOOST_CHECK_NO_THROW(GetSprRen()->EndUpdates());
+		BOOST_REQUIRE_NO_THROW(GetSprRen()->BeginUpdates());
+		BOOST_REQUIRE_NO_THROW(GetSprRen()->EndUpdates());
 	}
 
 	BOOST_FIXTURE_TEST_CASE
@@ -39,25 +39,25 @@ namespace Test::ISpr
 		// because not necessarily that concrete SpriteRender implementation 
 		// supports more than once canvas!
 		BOOST_TEST_CHECKPOINT("Create");
-		BOOST_CHECK_NO_THROW(GetSprRen()->CreateCanvas(CanvId, GetRTWidth(), GetRTHeight()));
+		BOOST_REQUIRE_NO_THROW(GetSprRen()->CreateCanvas(CanvId, GetRTWidth(), GetRTHeight()));
 		
 		BOOST_TEST_CHECKPOINT("Show/Hide");
 		{
-			BOOST_CHECK_NO_THROW(GetSprRen()->ShowCanvas(CanvId));
-			BOOST_CHECK_NO_THROW(GetSprRen()->HideCanvas(CanvId));
+			BOOST_REQUIRE_NO_THROW(GetSprRen()->ShowCanvas(CanvId));
+			BOOST_REQUIRE_NO_THROW(GetSprRen()->HideCanvas(CanvId));
 		}
 
 		BOOST_TEST_CHECKPOINT("Update");
 		{
-			BOOST_CHECK_NO_THROW(GetSprRen()->BeginUpdates());
+			BOOST_REQUIRE_NO_THROW(GetSprRen()->BeginUpdates());
 			MySprRen::ISpriteUpdater* pUpdater = GetSprRen()->BeginCanvasUpdate(CanvId);
 			BOOST_REQUIRE(pUpdater);
-			BOOST_CHECK_NO_THROW(GetSprRen()->EndCanvasUpdate(pUpdater));
-			BOOST_CHECK_NO_THROW(GetSprRen()->EndUpdates());
+			BOOST_REQUIRE_NO_THROW(GetSprRen()->EndCanvasUpdate(pUpdater));
+			BOOST_REQUIRE_NO_THROW(GetSprRen()->EndUpdates());
 		}
 
 		BOOST_TEST_CHECKPOINT("Delete");
-		BOOST_CHECK_NO_THROW(GetSprRen()->DeleteCanvas(CanvId));
+		BOOST_REQUIRE_NO_THROW(GetSprRen()->DeleteCanvas(CanvId));
 	}
 
 	BOOST_AUTO_TEST_SUITE_END() // SuiteMinimalSmoke

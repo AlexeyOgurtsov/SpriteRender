@@ -5,8 +5,10 @@
 #include <windows.h>
 #include <fstream>
 #include <memory>
+#include <chrono>
 #include "D3DDevice/D3DDevice.h"
 #include "../ISpriteRenderSubsystemManager.h"
+#include "Utils/QPC.h"
 
 namespace Test
 {
@@ -29,6 +31,21 @@ namespace Test::IMPL
 		*/
 		Environment() = default;
 		~Environment();
+
+		/**
+		* Get delta seconds since the last frame
+		*/
+		float GetDeltaSeconds_SinceLastBeginFrame() const { return BeginFrameQPC.GetDeltaSeconds(); }
+		const MSG& GetMsg() const { return Msg; }
+		bool IsMessagePoke() const { return bMessagePoke; }
+		void ProcessWindowsMessages_AndSetupQuitFlag(std::ofstream& InLog);
+
+		void ResetAllCounters();
+
+		void BeginFrame_FixDeltaSeconds(std::ofstream& InLog);
+		void BeginFrame_PauseDeltaCounter(std::ofstream& InLog);
+		void BeginFrame_ResumeDeltaCounter(std::ofstream& InLog);
+		void BeginFrame_ResetDeltaCounter(std::ofstream& InLog);		
 
 		/**
 		* Returns true if application environment is ready to run BOOST unit tests.
@@ -70,6 +87,8 @@ namespace Test::IMPL
 		HWND GetWnd() const { return hWndViewport; }
 		std::ofstream& GetMainLog() const { return MainLog; }
 
+		bool IsQuitRequested() const { return bIsQuitRequested; }
+
 		static Environment* Get() 
 		{
 			static Environment Obj;
@@ -84,9 +103,33 @@ namespace Test::IMPL
 		HWND hWndViewport = nullptr;
 		mutable std::ofstream MainLog;
 		bool bReadyForTesting = false;
+		bool bIsQuitRequested = false;
+		MSG Msg;
+		BOOL bMessagePoke = FALSE;
+		/**
+		* Query performance counter that counts time since BeginFrame.
+		*/
+		QPC BeginFrameQPC;
 	};
 	/**
 	* Resets entire environment or some of its components, dependent on the flags.
 	*/
 	void ResetEnvironment(UINT InResetFlags);
+
+	/**
+	* Calls all Tick functions of the environment.
+	*
+	* WARNING!!! After this call the IsQuitRequested() state may change.
+	*/
+	void TickEnvironment(std::ofstream& InLog, float InDeltaSeconds);
+
+	/**
+	* Starts frame in all subsystems.
+	*/
+	void Environment_BeginFrame(int InLocalFrameIndex, std::ofstream& InLog);
+
+	/**
+	* Ends frame in all subsystems.
+	*/
+	void Environment_EndFrame(int InLocalFrameIndex, std::ofstream& InLog);
 } // Test::IMPL
