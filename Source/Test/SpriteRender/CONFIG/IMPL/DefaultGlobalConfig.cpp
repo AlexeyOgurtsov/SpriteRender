@@ -90,5 +90,11 @@ namespace Test::ISpr::Spr
 		OutDefaultConfig.DepthStencil.Format = DXGI_FORMAT_D24_UNORM_S8_UINT;
 		OutDefaultConfig.DepthStencil.ClearZ = 1.0F;
 		OutDefaultConfig.DepthStencil.ClearStencil = 0;
+
+		/**
+		* Copy buffers:
+		*/
+		OutDefaultConfig.CopyBuffers.bEnableRT = true;
+		OutDefaultConfig.CopyBuffers.bEnableDepthStencil = true;
 	}
 } // Test::ISpr::Spr

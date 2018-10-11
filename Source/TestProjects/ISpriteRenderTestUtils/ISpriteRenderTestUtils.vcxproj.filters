@@ -69,6 +69,12 @@
     <ClCompile Include="..\..\Test\ISpriteRenderTestUtils\IMPL\Utils\QPC.cpp">
       <Filter>IMPL\Utils</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Test\ISpriteRenderTestUtils\IMPL\Utils\RenTextureUtils.cpp">
+      <Filter>IMPL\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Test\ISpriteRenderTestUtils\IMPL\Utils\Textures.cpp">
+      <Filter>IMPL\Utils</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Test\ISpriteRenderTestUtils\MASTER.h" />
@@ -127,6 +133,12 @@
       <Filter>Fixture</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Test\ISpriteRenderTestUtils\IMPL\Utils\QPC.h">
+      <Filter>IMPL\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Test\ISpriteRenderTestUtils\IMPL\Utils\RenTextureUtils.h">
+      <Filter>IMPL\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Test\ISpriteRenderTestUtils\IMPL\Utils\Textures.h">
       <Filter>IMPL\Utils</Filter>
     </ClInclude>
   </ItemGroup>

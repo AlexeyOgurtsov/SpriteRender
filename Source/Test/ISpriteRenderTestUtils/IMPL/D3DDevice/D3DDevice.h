@@ -45,9 +45,13 @@ namespace Test::IMPL
 		ID3D11RenderTargetView*               GetSwapChainBufferRTView() const { return _pSwapChainBufferRTView.get(); }
 		
 		ID3D11DepthStencilView*               GetDepthStencilView () const { return _DS.GetView(); }
+		ID3D11Texture2D*                      GetDepthStencil() const { return _DS.GetTex(); }
 
 		const D3D11_VIEWPORT&                 GetViewport() const { return _viewport; }
 		void                                  ResizeViewport(unsigned int InWidth, unsigned int InHeight);
+
+		ID3D11Texture2D*                      GetCopyBuffer_RT() const { return _pCopyBuffer_RT.get(); }
+		ID3D11Texture2D*                      GetCopyBuffer_DepthStencil() const { return _pCopyBuffer_DepthStencil.get(); }
 
 		unsigned int                          GetRTWidth() const;
 		unsigned int                          GetRTHeight() const;
@@ -73,6 +77,10 @@ namespace Test::IMPL
 
 		void                                                         _UpdateDS();
 		DepthStencil                                                 _DS;
+		
+		void InitializeCopyBuffers();
+		std::unique_ptr<ID3D11Texture2D, ComReleaser>                _pCopyBuffer_RT;
+		std::unique_ptr<ID3D11Texture2D, ComReleaser>                _pCopyBuffer_DepthStencil;
 
 		TesterConfig_D3DDevice                                       _config;
 
@@ -97,6 +105,11 @@ namespace Test::IMPL
 			void EndFrame(int InLocalFrameIndex);
 		} FrameRender;
 	};
+
+	/**
+	* Updates the state of copy buffers based on the current state of real buffers.
+	*/
+	void UpdateCopyBuffers(std::ofstream& InLog, D3DDevice* pD3D);
 
 	/**
 	* Clears depth-stencils, render-targets etc (@see Clear).

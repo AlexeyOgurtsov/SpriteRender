@@ -25,9 +25,16 @@ namespace Test
 		}
 	};
 
+	struct TesterConfig_D3DDevice_CopyBuffers
+	{
+		bool bEnableRT = true;
+		bool bEnableDepthStencil = true;
+	};
+
 	struct TesterConfig_D3DDevice
 	{
 		TesterConfig_D3DDevice_RenderTarget RenderTarget;
 		TesterConfig_D3DDevice_DepthStencil DepthStencil;
+		TesterConfig_D3DDevice_CopyBuffers CopyBuffers;
 	};
 } // Test

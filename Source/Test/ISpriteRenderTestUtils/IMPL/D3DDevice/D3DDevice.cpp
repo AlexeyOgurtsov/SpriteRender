@@ -3,6 +3,8 @@
 #include "D3DDeviceException.h"
 #include "ISpriteRenderTestUtils/IMPL/Utils/RenHRUtils.h"
 #include "ISpriteRenderTestUtils/Utils/TestUtils.h"
+#include "../Utils/RenTextureUtils.h"
+#include "../Utils/Textures.h"
 #include <fstream>
 #include <iomanip>
 #include <string_view>
@@ -18,18 +20,99 @@ std::string GetDeviceFlagsString(UINT InDeviceFlags);
 std::string GetSingleDeviceFlagString(UINT InDeviceFlag);
 std::string GetSwapEffectString(DXGI_SWAP_EFFECT InSwapEffect);
 
-void LogSwapChain(std::ofstream& InLog, const DXGI_SWAP_CHAIN_DESC& InDesc)
+namespace
 {
-	T_LOG_TO(InLog, std::left << std::setw(32) << "bWindowed: " << (InDesc.Windowed ? "TRUE" : "FALSE"));
-	T_LOG_TO(InLog, std::left << std::setw(32) << "OutputWindow: " << InDesc.OutputWindow);
-	T_LOG_TO(InLog, std::left << std::setw(32) << "Width:" << InDesc.BufferDesc.Width);
-	T_LOG_TO(InLog, std::left << std::setw(32) << "Height:" << InDesc.BufferDesc.Height);
-	T_LOG_TO(InLog, std::left << std::setw(32) << "RefreshRate:" << InDesc.BufferDesc.RefreshRate.Numerator << "/" << InDesc.BufferDesc.RefreshRate.Denominator);
-	T_LOG_TO(InLog, std::left << std::setw(32) << "Format: " << GetFormatString(InDesc.BufferDesc.Format));
-	T_LOG_TO(InLog, std::left << std::setw(32) << "SwapEffect: " << GetSwapEffectString(InDesc.SwapEffect));
-	T_LOG_TO(InLog, std::left << std::setw(32) << "SampleDesc.Count: " << InDesc.SampleDesc.Count);
-	T_LOG_TO(InLog, std::left << std::setw(32) << "SampleDesc.Quality: " << InDesc.SampleDesc.Quality);
-	T_LOG_TO(InLog, std::left << std::setw(32) << "Flags: " << InDesc.Flags);
+	void LogSwapChain(std::ofstream& InLog, const DXGI_SWAP_CHAIN_DESC& InDesc)
+	{
+		T_LOG_TO(InLog, std::left << std::setw(32) << "bWindowed: " << (InDesc.Windowed ? "TRUE" : "FALSE"));
+		T_LOG_TO(InLog, std::left << std::setw(32) << "OutputWindow: " << InDesc.OutputWindow);
+		T_LOG_TO(InLog, std::left << std::setw(32) << "Width:" << InDesc.BufferDesc.Width);
+		T_LOG_TO(InLog, std::left << std::setw(32) << "Height:" << InDesc.BufferDesc.Height);
+		T_LOG_TO(InLog, std::left << std::setw(32) << "RefreshRate:" << InDesc.BufferDesc.RefreshRate.Numerator << "/" << InDesc.BufferDesc.RefreshRate.Denominator);
+		T_LOG_TO(InLog, std::left << std::setw(32) << "Format: " << GetFormatString(InDesc.BufferDesc.Format));
+		T_LOG_TO(InLog, std::left << std::setw(32) << "SwapEffect: " << GetSwapEffectString(InDesc.SwapEffect));
+		T_LOG_TO(InLog, std::left << std::setw(32) << "SampleDesc.Count: " << InDesc.SampleDesc.Count);
+		T_LOG_TO(InLog, std::left << std::setw(32) << "SampleDesc.Quality: " << InDesc.SampleDesc.Quality);
+		T_LOG_TO(InLog, std::left << std::setw(32) << "Flags: " << InDesc.Flags);
+	}
+
+	void LogConfig_CopyBuffers(std::ofstream& InLog, const TesterConfig_D3DDevice_CopyBuffers& InDesc)
+	{
+		T_LOG_TO(InLog, "D3DDevice: Logging CopyBuffers config...");
+		T_LOG_TO(InLog, "bEnableRT: " << (InDesc.bEnableRT ? "TRUE" : "false"));
+		T_LOG_TO(InLog, "bEnableDepthStencil: " << (InDesc.bEnableDepthStencil ? "TRUE" : "false"));
+		T_LOG_TO(InLog, "D3DDevice: Logging CopyBuffers config DONE");
+	}
+
+	void LogConfig(std::ofstream& InLog, const TesterConfig_D3DDevice& InDesc)
+	{
+		T_LOG_TO(InLog, "D3DDevice: Logging config...");
+		// @TODO:
+		LogConfig_CopyBuffers(InLog, InDesc.CopyBuffers);
+		T_LOG_TO(InLog, "D3DDevice: Logging config DONE");
+	}
+
+	void ClearCopyBuffers(std::ofstream& InLog, D3DDevice* pD3D)
+	{
+		T_LOG_TO(InLog, "D3DDevice: Clearing COPY buffers...");
+		const TesterConfig_D3DDevice_CopyBuffers& Cfg = pD3D->GetConfig().CopyBuffers;
+
+		if(Cfg.bEnableRT)
+		{
+			if(ID3D11Texture2D* pCopyTex = pD3D->GetCopyBuffer_RT())
+			{
+				T_LOG_TO(InLog, "Clearing RT Copy...");
+				// WARNING!!! Because it's STAGING resource, we cannot use D3D11_MAP_WRITE_DISCARD!!!
+				ZeroMainMip_ByMap(pD3D->GetDevCon(), pCopyTex, D3D11_MAP_WRITE);
+				T_LOG_TO(InLog, "Clearing RT Copy DONE");
+			}
+			else
+			{
+				T_LOG_TO(InLog, "RT Copy buffer is nullptr");
+			}
+		}
+
+		if(Cfg.bEnableDepthStencil)
+		{
+			if(ID3D11Texture2D* pCopyTex = pD3D->GetCopyBuffer_DepthStencil())
+			{
+				T_LOG_TO(InLog, "Clearing Depth-Stencil copy...");
+				// WARNING!!! Because it's STAGING resource, we cannot use D3D11_MAP_WRITE_DISCARD!!!
+				ZeroMainMip_ByMap(pD3D->GetDevCon(), pCopyTex, D3D11_MAP_WRITE);
+				T_LOG_TO(InLog, "Clearing Depth-Stencil Copy DONE");
+			}
+			else
+			{
+				T_LOG_TO(InLog, "Depth-Stencil Copy buffer is nullptr");
+			}
+		}
+
+		T_LOG_TO(InLog, "D3DDevice: Clearing COPY buffers DONE");
+	}
+} // anonymous
+
+
+void UpdateCopyBuffers(std::ofstream& InLog, D3DDevice* pD3D)
+{
+	T_LOG_TO(InLog, "D3DDevice: Updating copy buffers...");
+
+	if(ID3D11Texture2D* pCopyTex = pD3D->GetCopyBuffer_RT())
+	{
+		T_LOG_TO(InLog, "Updating RT copy...");
+		BOOST_ASSERT_MSG(pD3D->GetSwapChainBuffer(), "UpdateCopyBuffers: RT must already exist");
+		pD3D->GetDevCon()->CopyResource(pCopyTex, pD3D->GetSwapChainBuffer());
+		T_LOG_TO(InLog, "Updating RT copy DONE");
+	}
+
+	if(ID3D11Texture2D* pCopyTex = pD3D->GetCopyBuffer_DepthStencil())
+	{
+		T_LOG_TO(InLog, "Updating Depth-Stencil copy...");
+		BOOST_ASSERT_MSG(pD3D->GetDepthStencilView(), "UpdateCopyBuffers: Depth stencil view must already exist");
+		pD3D->GetDevCon()->CopyResource(pCopyTex, pD3D->GetDepthStencil());
+		T_LOG_TO(InLog, "Updating Depth-Stencil copy DONE");
+	}
+
+	T_LOG_TO(InLog, "D3DDevice: Updating copy buffers DONE");
 }
 
 void ClearAndPurgeDynamic(std::ofstream& InLog, D3DDevice* pD3D)
@@ -60,6 +143,8 @@ void Clear(std::ofstream& InLog, D3DDevice* pD3D)
 		pD3D->GetDevCon()->ClearDepthStencilView(pView, Cfg.DepthStencil.GetClearFlags(), Cfg.DepthStencil.ClearZ, Cfg.DepthStencil.ClearStencil);
 	}	
 
+	ClearCopyBuffers(InLog, pD3D);
+
 	T_LOG_TO(InLog, "D3DDevice: Clearing DONE");
 }
 
@@ -68,6 +153,10 @@ D3DDevice::D3DDevice(UINT InRTWidth, UINT InRTHeight, std::ofstream* pInLog, HWN
 ,	_config(InConfig)
 {
 	assert(_pLog);
+
+	T_LOG_TO(*pInLog, "D3DDevice: ctor...");
+	LogConfig(*pInLog, InConfig);
+
 	// SwapChainDesc
 	ZeroMemory(&_swapChainDesc, sizeof(_swapChainDesc));
 	_swapChainDesc.SampleDesc.Count = SAMPLE_COUNT;
@@ -155,6 +244,46 @@ D3DDevice::D3DDevice(UINT InRTWidth, UINT InRTHeight, std::ofstream* pInLog, HWN
 
 	// Create Depth-stencil
 	_UpdateDS();
+
+	InitializeCopyBuffers();
+
+	T_LOG_TO(*pInLog, "D3DDevice: ctor DONE");
+}
+
+void D3DDevice::InitializeCopyBuffers()
+{
+	T_LOG("D3DDevice::InitializeCopyBuffers...");
+	const TesterConfig_D3DDevice_CopyBuffers& Cfg = GetConfig().CopyBuffers;
+
+	if (Cfg.bEnableRT)
+	{
+		T_LOG("Creating RT Copy buffer...");
+		_pCopyBuffer_RT = CreateStagingTexture2D_Uninitialized
+		(
+			GetDev(),
+			GetRTWidth(), GetRTHeight(),
+			GetConfig().RenderTarget.Format,
+			0, // BindFlags
+			D3D11_CPU_ACCESS_READ | D3D11_CPU_ACCESS_WRITE
+		);
+		T_LOG("Creating RT Copy buffer DONE");
+	}
+
+	if (Cfg.bEnableDepthStencil)
+	{
+		T_LOG("Creating Depth-Stencil Copy buffer...");
+		_pCopyBuffer_DepthStencil = CreateStagingTexture2D_Uninitialized
+		(
+			GetDev(),
+			GetRTWidth(), GetRTHeight(),
+			GetConfig().DepthStencil.Format,
+			0, // BindFlags
+			D3D11_CPU_ACCESS_READ | D3D11_CPU_ACCESS_WRITE
+		);
+		T_LOG("Creating Depth-Stencil Copy buffer DONE");
+	}
+
+	T_LOG("D3DDevice::InitializeCopyBuffers DONE");
 }
 
 void D3DDevice::_UpdateDS()
