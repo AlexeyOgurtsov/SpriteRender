@@ -25,6 +25,9 @@
     <Filter Include="Utils">
       <UniqueIdentifier>{98b36edb-62e4-4be8-a876-3c30334383ff}</UniqueIdentifier>
     </Filter>
+    <Filter Include="FrameCheckContext">
+      <UniqueIdentifier>{c8800a27-c7fb-4474-a8c6-e42798c000b7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Test\ISpriteRenderTestUtils\IMPL\MASTER.cpp">
@@ -74,6 +77,9 @@
     </ClCompile>
     <ClCompile Include="..\..\Test\ISpriteRenderTestUtils\IMPL\Utils\Textures.cpp">
       <Filter>IMPL\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Test\ISpriteRenderTestUtils\FrameCheckContext\FrameCheckContext.cpp">
+      <Filter>FrameCheckContext</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -140,6 +146,10 @@
     </ClInclude>
     <ClInclude Include="..\..\Test\ISpriteRenderTestUtils\IMPL\Utils\Textures.h">
       <Filter>IMPL\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Test\ISpriteRenderTestUtils\IFrameCheckContext.h" />
+    <ClInclude Include="..\..\Test\ISpriteRenderTestUtils\FrameCheckContext\FrameCheckContext.h">
+      <Filter>FrameCheckContext</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

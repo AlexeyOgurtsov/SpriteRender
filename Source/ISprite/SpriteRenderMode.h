@@ -15,6 +15,23 @@ inline bool IsTransparent(ESpriteTransparency InTransparency)
 	return ESpriteTransparency::Opaque != InTransparency;
 }
 
+inline const char* ToString(ESpriteTransparency InTransparency)
+{
+	switch(InTransparency)
+	{
+	case ESpriteTransparency::Opaque:
+		return "Opaque";
+
+	case ESpriteTransparency::Transparent:
+		return "Transparent";
+
+	default:
+		break;
+	}
+	return "UnknownLiteral";
+}
+
+
 struct SSpriteRenderMode
 {
 	ESpriteTransparency Transparency;

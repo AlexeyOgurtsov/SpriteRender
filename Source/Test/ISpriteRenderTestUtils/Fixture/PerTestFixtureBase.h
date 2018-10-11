@@ -6,6 +6,8 @@
 
 namespace Test
 {
+	class IFrameCheckContext;
+
 	class PerTestFixtureBase : public FixtureBase
 	{
 	public:
@@ -31,11 +33,16 @@ namespace Test
 		*/
 		ISpriteRender* GetSprRen() const;
 
+		/**
+		* WARNING!!! To be called from the IFrameCheckContext objects only!
+		*/
+		void OnFrameCheckContextReleased(IFrameCheckContext* pInSender);
+
 	protected:
 		/**
 		* Typically to be called from the SetupTest function of the concrete descendant fixture.
 		*/
-		void SetupTestBase(const char* InTestName, unsigned int InResetFlags = 0);
+		void SetupTestBase(const char* InTestName, unsigned int InResetFlags = 0);	
 
 		/**
 		* Pauses the testing according to setting.
@@ -50,6 +57,8 @@ namespace Test
 		void TickEnv(float InDeltaSeconds);
 		void BeginFrame();
 		void EndFrame();
+
+		virtual void OnFrameCheckContextReleasedUser(IFrameCheckContext* pInSender) {}
 
 		/**
 		* Index of the frame relative to the current test time.

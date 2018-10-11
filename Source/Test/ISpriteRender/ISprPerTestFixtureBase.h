@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Test/ISpriteRenderTestUtils/Fixture/PerTestFixtureBase.h"
+#include "ISpriteRenderTestUtils/IFrameCheckContext.h"
 
 namespace Test::ISpr
 {
@@ -21,11 +22,22 @@ namespace Test::ISpr
 		*
 		* @argument InMainLoopIterCount: Call main loop interations exactly specified number of times.
 		*/
-		// @TODO: Return check as result
-		void CommitFrame(int InMainLoopIterCount = 1, int InTickCount = 0, bool bCallRender = true);
+		IFrameCheckContextHandle CommitFrame(int InMainLoopIterCount = 1, int InTickCount = 0, bool bCallRender = true);
 		constexpr static int DISABLE_TICK = -1; // Pass as TickCount to disable ticking (@see CommitFrame)
 
 	protected:
+		virtual IFrameCheckContextHandle CreateFrameCheckContext();
+
+		/**
+		* Called after SetupTest
+		*/
+		virtual void OnPostSetupTestUser() {}
+
+		/**
+		* This function is called each time before CommitFrame is called.
+		*/		
+		virtual void OnPreCommitFrameUser() {}
+
 		/**
 		* Render all canvasses of the sprite render.
 		*/
@@ -33,5 +45,7 @@ namespace Test::ISpr
 		void TickN(int InTickCount);
 
 	private:		
+		void OnPreCommitFrame();
+		void OnPostSetupTest();
 	};
 } // Test::ISpr

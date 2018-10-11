@@ -51,6 +51,13 @@ namespace Test
 		T_LOG("TEST '" << TestName << "': ENV RESET DONE");
 	}
 
+	void PerTestFixtureBase::OnFrameCheckContextReleased(IFrameCheckContext* pInSender)
+	{
+		T_LOG("TEST '" << TestName << "': FRAME CHECK CONTEXT RELEASED..");
+		OnFrameCheckContextReleasedUser(pInSender);
+		T_LOG("TEST '" << TestName << "': FRAME CHECK CONTEXT RELEASED DONE");
+	}
+
 	void PerTestFixtureBase::Quit()
 	{
 		T_LOG("TEST '" << TestName << "': QUITTING APPLICATION....");

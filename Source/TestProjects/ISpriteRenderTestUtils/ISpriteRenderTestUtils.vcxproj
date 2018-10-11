@@ -139,6 +139,7 @@
     <ClCompile Include="..\..\Test\ISpriteRenderTestUtils\Fixture\IMPL\FixtureBase.cpp" />
     <ClCompile Include="..\..\Test\ISpriteRenderTestUtils\Fixture\IMPL\GlobFixtureBase.cpp" />
     <ClCompile Include="..\..\Test\ISpriteRenderTestUtils\Fixture\IMPL\PerTestFixtureBase.cpp" />
+    <ClCompile Include="..\..\Test\ISpriteRenderTestUtils\FrameCheckContext\FrameCheckContext.cpp" />
     <ClCompile Include="..\..\Test\ISpriteRenderTestUtils\IMPL\D3DDevice\D3DDevice.cpp" />
     <ClCompile Include="..\..\Test\ISpriteRenderTestUtils\IMPL\Environment.cpp" />
     <ClCompile Include="..\..\Test\ISpriteRenderTestUtils\IMPL\MASTER.cpp" />
@@ -159,6 +160,8 @@
     <ClInclude Include="..\..\Test\ISpriteRenderTestUtils\Fixture\FixtureBase.h" />
     <ClInclude Include="..\..\Test\ISpriteRenderTestUtils\Fixture\GlobFixtureBase.h" />
     <ClInclude Include="..\..\Test\ISpriteRenderTestUtils\Fixture\PerTestFixtureBase.h" />
+    <ClInclude Include="..\..\Test\ISpriteRenderTestUtils\FrameCheckContext\FrameCheckContext.h" />
+    <ClInclude Include="..\..\Test\ISpriteRenderTestUtils\IFrameCheckContext.h" />
     <ClInclude Include="..\..\Test\ISpriteRenderTestUtils\IMPL\D3DDevice\D3DDevice.h" />
     <ClInclude Include="..\..\Test\ISpriteRenderTestUtils\IMPL\D3DDevice\D3DDeviceException.h" />
     <ClInclude Include="..\..\Test\ISpriteRenderTestUtils\IMPL\D3DDevice\D3DDevice_CONFIG_CONST.h" />

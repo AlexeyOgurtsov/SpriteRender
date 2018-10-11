@@ -2,6 +2,7 @@
 
 #include "../ISprPerTestFixtureBase.h"
 #include "ISpriteRender/ISpriteRender.h"
+#include "ISpriteRenderTestUtils/FrameCheckContext/FrameCheckContext.h"
 
 namespace Test::ISpr
 {
@@ -22,11 +23,30 @@ namespace Test::ISpr
 		T_LOG("ISprPerTestFixtureBase::SetupTest...");
 		SetupTestBase(InTestName, InResetFlags);
 		T_LOG("ISprPerTestFixtureBase::SetupTest DONE");
+
+		OnPostSetupTest();
 	}
 
-	void ISprPerTestFixtureBase::CommitFrame(int InMainLoopIterCount, int InTickCount, bool bCallRender)
+	void ISprPerTestFixtureBase::OnPreCommitFrame()
+	{
+		T_LOG("OnPreCommitFrame...");
+		OnPreCommitFrameUser();
+		T_LOG("OnPreCommitFrame DONE");
+	}
+
+	void ISprPerTestFixtureBase::OnPostSetupTest()
+	{
+		T_LOG("OnPostSetupTest...");
+		OnPostSetupTestUser();
+		T_LOG("OnPostSetupTest DONE");
+	}
+
+	IFrameCheckContextHandle ISprPerTestFixtureBase::CommitFrame(int InMainLoopIterCount, int InTickCount, bool bCallRender)
 	{
 		T_LOG("CommitFrame...");
+
+		OnPreCommitFrame();
+
 		BOOST_ASSERT(InMainLoopIterCount >= 0);
 		T_LOG("LoopIterCount=" << InMainLoopIterCount);
 		for(int i = 0; i < InMainLoopIterCount; i++)
@@ -38,7 +58,14 @@ namespace Test::ISpr
 			TickN(InTickCount);
 		}
 		// @TODO: Return result
-		T_LOG("CommitFrame DONE");
+		T_LOG("CommitFrame RETURNING");
+
+		return CreateFrameCheckContext();
+	}
+
+	IFrameCheckContextHandle ISprPerTestFixtureBase::CreateFrameCheckContext()
+	{
+		return std::make_unique<Test::IMPL::FrameCheckContext>(this);
 	}
 
 	void ISprPerTestFixtureBase::RenderFrame()

@@ -24,6 +24,9 @@
     <ClInclude Include="..\..\Test\ISpriteRender\TestHelpers.h">
       <Filter>TEST</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Test\ISpriteRender\ISprPerTestFixture_SingleCanvas.h">
+      <Filter>TEST</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="IMPL">
@@ -51,6 +54,9 @@
     </ClCompile>
     <ClCompile Include="..\..\ISpriteRender\IMPL\ISpriteUpdater.cpp">
       <Filter>IMPL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Test\ISpriteRender\IMPL\ISprPerTestFixture_SingleCanvas.cpp">
+      <Filter>TEST\IMPL</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

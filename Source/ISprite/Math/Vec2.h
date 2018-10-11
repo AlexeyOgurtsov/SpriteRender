@@ -1,5 +1,7 @@
 #pragma once
 
+#include <string>
+
 namespace Dv
 {
 namespace Spr
@@ -77,6 +79,17 @@ inline bool operator==(const SVec2& InLeft, const SVec2& InRight)
 inline bool operator!=(const SVec2& InLeft, const SVec2& InRight)
 {
 	return !operator==(InLeft, InRight);
+}
+
+inline std::string ToString(const SVec2& InValue)
+{
+	std::string s;
+	s.append("{");
+	s.append(std::to_string(InValue.X));
+	s.append(";");
+	s.append(std::to_string(InValue.Y));
+	s.append("}");
+	return s;
 }
 
 } // Dv::Spr::Math
