@@ -97,6 +97,7 @@ namespace Test::IMPL
 
 		float RealTimeDeltaSeconds = ComputeQPCDeltaSeconds(InLog, "RealTimeDeltaSeconds", &PauseTime, Frequency);
 		float SimDeltaSeconds = RealTimeDeltaSeconds - TotalPausedDeltaSeconds;
+		DeltaSeconds = SimDeltaSeconds;
 		T_LOG_TO(InLog, "TotalPausedDeltaSeconds: " << TotalPausedDeltaSeconds);
 		T_LOG_TO(InLog, "SimDeltaSeconds: " << SimDeltaSeconds);
 
