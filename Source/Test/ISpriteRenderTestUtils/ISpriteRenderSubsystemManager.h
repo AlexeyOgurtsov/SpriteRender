@@ -1,6 +1,7 @@
 #pragma once
 
 #include "ISpriteRenderFwd.h"
+#include "SpriteRenderMaterialTypes.h"
 #include <fstream>
 #include <windows.h> // HWND
 
@@ -87,5 +88,9 @@ namespace Test
 		* To be called each time the new log is to be used.
 		*/
 		virtual void SetLog(std::ofstream* pInLog) = 0;
+
+		// ~ ISpriteRenderSubsystemManager Materials Begin
+		virtual Handle_SprMaterialInstance CreateMatInst_Default(const char* pInName, ID3D11ShaderResourceView* pInTexture2D) const = 0;
+		// ~ ISpriteRenderSubsystemManager Materials End
 	};
 } // Test

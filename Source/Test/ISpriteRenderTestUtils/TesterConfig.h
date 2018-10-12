@@ -3,6 +3,7 @@
 #include "Config/TesterConfig_Tester.h"
 #include "Config/TesterConfig_Logging.h"
 #include "Config/TesterConfig_Viewport.h"
+#include "Config/TesterConfig_Resources.h"
 #include "Config/D3DDeviceConfig.h"
 
 namespace Test
@@ -16,5 +17,6 @@ namespace Test
 		TesterConfig_Logging Log;
 		TesterConfig_Viewport Viewport;
 		TesterConfig_D3DDevice D3D;
+		TesterConfig_Resources Resources;
 	};
 } // Test

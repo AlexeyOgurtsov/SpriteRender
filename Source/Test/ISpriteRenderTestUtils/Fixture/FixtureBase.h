@@ -57,6 +57,11 @@ namespace Test
 		void ReInitD3DDevice();
 
 		/**
+		* ReInitializes the Resources.
+		*/
+		void ReInitResources();
+
+		/**
 		* ReInit SpriteRender
 		*/
 		void ReInit_SpriteRender();

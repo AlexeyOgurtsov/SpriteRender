@@ -1,6 +1,5 @@
 #include "Environment.h"
 #include "ISpriteRenderTestUtils/IMPL/Utils/Window.h"
-#include "ISpriteRenderTestUtils/IMPL/D3DDevice/D3DDevice.h"
 #include "Utils/Exception.h"
 #include "../Utils/TestUtils.h"
 
@@ -91,6 +90,30 @@ namespace Test::IMPL
 		BOOST_ASSERT_MSG(nullptr == pSpriteRenderManager->GetSpriteRender(), "Environment::ReInit_SpriteRender: sprite render must be nullptr at this point (tried to shutdown it already)");
 	}
 
+	void Environment::ReInit_D3DResources(const TesterConfig_Resources& InResources)
+	{
+		T_LOG_TO(MainLog, "Environment::ReInit_D3DResources...");
+
+		BOOST_ASSERT_MSG(pD3DDevice.get(), "Environment::ReInit_D3DResources: the d3d device must be initialized!");
+		Shutdown_D3DResources_IfInitialized();
+
+		T_LOG_TO(MainLog, "ReInit_D3DResources...");
+		pResources.reset(new Resources(&MainLog, pD3DDevice.get(), InResources));
+		T_LOG_TO(MainLog, "ReInit_D3DResources DONE");
+
+		T_LOG_TO(MainLog, "Environment::ReInit_D3DResources DONE");
+	}
+
+	void Environment::Shutdown_D3DResources_IfInitialized()
+	{
+		if(pResources)
+		{
+			T_LOG_TO(MainLog, "Environment: Shutting down resources...");
+			pResources.reset();
+			T_LOG_TO(MainLog, "Environment: Shutting down resources DONE");
+		}
+	}
+
 	void Environment::ReInit_D3DDevice(UINT InRTWidth, UINT InRTHeight, const TesterConfig_D3DDevice& InConfig)
 	{
 		T_LOG_TO(MainLog, "Environment::ReInit_D3DDevice...");
@@ -103,8 +126,13 @@ namespace Test::IMPL
 			T_LOG_TO(MainLog, "Environment::ReInit_D3DDevice: device instance already exists, will be shutted down");
 			if (pSpriteRenderManager->GetSpriteRender())
 			{
-				T_LOG_TO(MainLog, "Environment::ReInit_D3DDevice: shutting existing SpriteRender instance");
+				T_LOG_TO(MainLog, "Environment::ReInit_D3DDevice: shutting existing SpriteRender instance  (dependent service)");
 				pSpriteRenderManager->Shutdown();
+			}
+			if (pResources.get())
+			{
+				T_LOG_TO(MainLog, "Environment::ReInit_D3DDevice: shutting down resources (dependent service)");
+				Shutdown_D3DResources_IfInitialized();
 			}
 		}
 
@@ -112,6 +140,7 @@ namespace Test::IMPL
 		(
 			new D3DDevice(InRTWidth, InRTHeight, &GetMainLog(), hWndViewport, InConfig)
 		);
+
 		NotifySpriteRenderManager_D3DDeviceUpdated("Environment::ReInit_D3DDevice");
 
 		T_LOG_TO(MainLog, "Environment::ReInit_D3DDevice DONE");
@@ -205,6 +234,24 @@ namespace Test::IMPL
 
 	Environment::~Environment() = default;	
 
+	namespace {
+		void TickEnvironmentTestResources(std::ofstream& InLog, float InDeltaSeconds)
+		{
+			if(Resources* pResources = GetEnv()->GetResources())
+			{
+				pResources->Tick(InLog, InDeltaSeconds);
+			}
+		}
+
+		/**
+		* Here we tick test resources only (but NOT primary resources like copy buffers).
+		*/
+		void ClearDynamicTestResources(std::ofstream& InLog)
+		{
+			// Nothing is to be done here
+		}
+	} // anonymous
+
 	void ResetEnvironment(UINT InResetFlags)
 	{		
 		// @TODO: Log reset flags
@@ -217,13 +264,17 @@ namespace Test::IMPL
 		// WARNING!!! We must shutdown the sprite render BEFORE destroying resources,
 		// to eliminate all dependencies of the SpriteRender subsystem on this resources.
 		GetEnv()->Shutdown_SpriteRender_IfInitialized();
-		// @TODO: Should we clear the resources (textures etc.)
+
 		ClearAndPurgeDynamic(GetEnv()->GetMainLog(), GetEnv()->GetD3DDevice());
+		// Normally we do NOT destroy test resources, only clear them.
+		ClearDynamicTestResources(GetEnv()->GetMainLog());
+
 		GetEnv()->ReInit_SpriteRender();
 
 		// We reset all counters as the last line
 		GetEnv()->ResetAllCounters();
 	}
+
 
 	void TickEnvironment(std::ofstream& InLog, float InDeltaSeconds)
 	{
@@ -236,7 +287,7 @@ namespace Test::IMPL
 			pD3D->Tick(InDeltaSeconds);
 		}
 
-		// @TODO: Tick resources?
+		TickEnvironmentTestResources(InLog, InDeltaSeconds);
 
 		// Tick sprite render
 		if(ISpriteRenderSubsystemManager* pSprManager = GetEnv()->GetSpriteRenderManager())
@@ -262,7 +313,10 @@ namespace Test::IMPL
 			pSprManager->BeginFrame(DeltaSeconds);
 		}
 
-		// @TODO: Call BeginFrame for resources?
+		if(Resources* pResources = GetEnv()->GetResources())
+		{
+			pResources->BeginFrame(InLog, DeltaSeconds);
+		}
 
 		T_LOG_TO(InLog, "Environment_BeginFrame DONE");
 	}
@@ -281,7 +335,10 @@ namespace Test::IMPL
 
 		GetEnv()->GetD3DDevice()->EndFrame(InLocalFrameIndex, InLog);
 
-		// @TODO: Call EndFrame for resources?
+		if(Resources* pResources = GetEnv()->GetResources())
+		{
+			pResources->EndFrame(InLog);
+		}
 
 		T_LOG_TO(InLog, "Environment_EndFrame DONE");
 	}

@@ -101,6 +101,13 @@ namespace Test
 		T_LOG("ISpriteRenderTestUtils: FixtureBase::ReInitD3DDevice DONE");
 	}
 
+	void FixtureBase::ReInitResources()
+	{
+		T_LOG("ISpriteRenderTestUtils: FixtureBase::ReInitResources...");
+		GetEnv()->ReInit_D3DResources(GetDefaultConfig().Resources);
+		T_LOG("ISpriteRenderTestUtils: FixtureBase::ReInitResources DONE");
+	}
+
 	void FixtureBase::ReInit_SpriteRender()
 	{
 		T_LOG("ISpriteRenderTestUtils: FixtureBase::ReInit_SpriteRender...");

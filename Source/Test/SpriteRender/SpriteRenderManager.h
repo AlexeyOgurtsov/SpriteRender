@@ -30,7 +30,9 @@ namespace Test::ISpr::Spr
 		// ~ SpriteRenderSubsystem implementation-specific Begin
 		void OnCustomSetup(const class SpriteRenderCustomSetuper& InSetuper);
 
-		// @TODO: Access materials
+		// ~ ISpriteRenderSubsystemManager Materials Begin
+		virtual Handle_SprMaterialInstance CreateMatInst_Default(const char* pInName, ID3D11ShaderResourceView* pInTexture2D) const override;
+		// ~ ISpriteRenderSubsystemManager Materials End
 	
 		// ~ SpriteRenderSubsystem implementation-specific End
 

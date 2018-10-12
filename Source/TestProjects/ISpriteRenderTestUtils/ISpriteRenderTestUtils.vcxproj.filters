@@ -28,6 +28,9 @@
     <Filter Include="FrameCheckContext">
       <UniqueIdentifier>{c8800a27-c7fb-4474-a8c6-e42798c000b7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="IMPL\Resources">
+      <UniqueIdentifier>{1460cfc3-1953-4046-a557-39d3b2999109}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Test\ISpriteRenderTestUtils\IMPL\MASTER.cpp">
@@ -80,6 +83,18 @@
     </ClCompile>
     <ClCompile Include="..\..\Test\ISpriteRenderTestUtils\FrameCheckContext\FrameCheckContext.cpp">
       <Filter>FrameCheckContext</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Test\ISpriteRenderTestUtils\IMPL\Resources\Resources.cpp">
+      <Filter>IMPL\Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Test\ISpriteRenderTestUtils\Fixture\IMPL\ResourceFixture.cpp">
+      <Filter>Fixture\IMPL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Test\ISpriteRenderTestUtils\IMPL\Utils\TextureElement.cpp">
+      <Filter>IMPL\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Test\ISpriteRenderTestUtils\IMPL\Resources\TextureLib.cpp">
+      <Filter>IMPL\Resources</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -150,6 +165,22 @@
     <ClInclude Include="..\..\Test\ISpriteRenderTestUtils\IFrameCheckContext.h" />
     <ClInclude Include="..\..\Test\ISpriteRenderTestUtils\FrameCheckContext\FrameCheckContext.h">
       <Filter>FrameCheckContext</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Test\ISpriteRenderTestUtils\CONFIG\TesterConfig_Resources.h">
+      <Filter>Config</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Test\ISpriteRenderTestUtils\IMPL\Resources\resources.h">
+      <Filter>IMPL\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Test\ISpriteRenderTestUtils\SpriteRenderMaterialTypes.h" />
+    <ClInclude Include="..\..\Test\ISpriteRenderTestUtils\Fixture\ResourceFixture.h">
+      <Filter>Fixture</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Test\ISpriteRenderTestUtils\IMPL\Utils\TextureElement.h">
+      <Filter>IMPL\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Test\ISpriteRenderTestUtils\IMPL\Resources\TextureLib.h">
+      <Filter>IMPL\Resources</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

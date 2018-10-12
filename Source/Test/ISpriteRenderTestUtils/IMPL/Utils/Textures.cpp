@@ -107,9 +107,12 @@ TextureElement CreateTextureElement(ID3D11Device* pInDev, const STexInitializer&
 Textures::Textures(const STexturesInitializer& InInitializer) :
 	_pDev(InInitializer.pDev)
 ,	_pDevCon(InInitializer.pDevCon)
+,	_config(InInitializer.Config)
+,	_pLog(InInitializer.pLog)
 {
 	BOOST_ASSERT(_pDev);
 	BOOST_ASSERT(_pDevCon);
+	BOOST_ASSERT(_pLog);
 }
 
 TextureElement* Textures::AddTexture(const STexInitializer& InInitializer, const TextureData& InTextureData)

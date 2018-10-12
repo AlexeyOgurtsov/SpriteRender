@@ -3,6 +3,7 @@
 #include "ISpriteRenderTestUtils/TesterConfig.h"
 #include "ISpriteRenderTestUtils/IMPL/D3DDevice/D3DDevice.h"
 #include "ISpriteRenderTestUtils/Utils/TestUtils.h"
+#include "SpriteRender/INTERFACE/Material/MaterialInstanceFactory.h"
 #include "../CONFIG/SpriteRenderCustomSetuper.h"
 
 namespace Test::ISpr::Spr
@@ -172,5 +173,19 @@ namespace Test::ISpr::Spr
 		OutInitializer.Render.RenderTarget.ZFar = RenderTarget_ZFar;
 		OutInitializer.Render.Shaders = ShadersConfig;
 		OutInitializer.Render.RenderCaching = RenderCachingConfig;
+	}
+
+	Handle_SprMaterialInstance SpriteRenderSubsystemManager::CreateMatInst_Default(const char* pInName, ID3D11ShaderResourceView* pInTexture2D) const
+	{
+		BOOST_ASSERT(pInName);
+		T_LOG("SpriteRenderSubsystemManager::CreateMatInst_Default, Name=" << pInName << "...");
+		BOOST_ASSERT(pInTexture2D);
+		BOOST_ASSERT_MSG(pSubsys.get(), "SpriteRenderSubsystemManager::CreateMatInst_Default: sprite render subsystem must be created");
+
+		Handle_SprMaterialInstance MatInstHandle = Dv::Spr::Ren::CreateMatInst_Default(pSubsys.get(), pInTexture2D);
+		BOOST_ASSERT_MSG(MatInstHandle.get(), "SpriteRenderSubsystemManager::CreateMatInst_Default: returned material instance handle must be valid");
+
+		T_LOG("SpriteRenderSubsystemManager::CreateMatInst_Default Returning");
+		return MatInstHandle;
 	}
 } // Test::ISpr::Spr

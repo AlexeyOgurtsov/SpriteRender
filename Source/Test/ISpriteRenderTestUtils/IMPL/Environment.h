@@ -1,12 +1,11 @@
 #pragma once
 
-#pragma once
-
 #include <windows.h>
 #include <fstream>
 #include <memory>
 #include <chrono>
 #include "D3DDevice/D3DDevice.h"
+#include "Resources/Resources.h"
 #include "../ISpriteRenderSubsystemManager.h"
 #include "Utils/QPC.h"
 
@@ -14,12 +13,11 @@ namespace Test
 {
 	class ISpriteRenderSubsystemManager;
 	struct TesterConfig_D3DDevice;
+	struct TesterConfig_Resources;
 } // Test
 
 namespace Test::IMPL
 {
-	class D3DDevice;
-
 	/**
 	* Environment.
 	*/
@@ -78,6 +76,11 @@ namespace Test::IMPL
 		void Shutdown_SpriteRender_IfInitialized();
 		void NotifySpriteRenderManager_D3DDeviceUpdated(const char* pInReason);
 
+		void ReInit_D3DResources(const TesterConfig_Resources& InResources);	
+		void Shutdown_D3DResources_IfInitialized();	
+		Textures* GetTextures() const;
+		Resources* GetResources() const { return pResources.get(); }
+
 		void ReInit_D3DDevice(UINT InRTWidth, UINT InRTHeight, const TesterConfig_D3DDevice& InConfig);
 		D3DDevice* GetD3DDevice() const { return pD3DDevice.get(); }
 
@@ -96,8 +99,9 @@ namespace Test::IMPL
 		}
 
 	private:
-		std::unique_ptr<ISpriteRenderSubsystemManager> pSpriteRenderManager;
+		std::unique_ptr<Resources> pResources;
 		std::unique_ptr<D3DDevice> pD3DDevice;
+		std::unique_ptr<ISpriteRenderSubsystemManager> pSpriteRenderManager;
 
 		static LRESULT CALLBACK StaticWndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 		HWND hWndViewport = nullptr;

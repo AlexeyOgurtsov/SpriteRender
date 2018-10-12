@@ -1,18 +1,11 @@
 #pragma once
 
-#include "Exception.h"
-#include "Com.h"
-#include <d3d11.h>
-#include <memory>
+#include "TextureElement.h"
 #include <list>
-#include <boost/assert.hpp>
+#include "../../CONFIG/TesterConfig_Resources.h"
 
 namespace Test::IMPL
 {
-	using TextureHandle = std::unique_ptr<ID3D11Texture2D, ComReleaser>;
-	using ShaderResourceViewHandle = std::unique_ptr<ID3D11ShaderResourceView, ComReleaser>;
-	using RenderTargetViewHandle = std::unique_ptr<ID3D11RenderTargetView, ComReleaser>;
-
 	using TextureData = D3D11_SUBRESOURCE_DATA;
 	using RealTextureData = std::unique_ptr<uint8_t[]>;
 
@@ -82,81 +75,21 @@ namespace Test::IMPL
 		D3D11_SUBRESOURCE_DATA _subresourceData;
 	};
 
-	struct TextureElement;
 	using TextureList = std::list<TextureElement>;
-
-	/**
-	* Properties of a 2D texture.
-	*/
-	struct STextureProps
-	{
-		uint32_t Width = 0, Height = 0;
-		DXGI_FORMAT Format = DXGI_FORMAT_R8G8B8A8_UNORM;
-
-		STextureProps() :
-			Width(0)
-			, Height(0)
-			, Format(DXGI_FORMAT_R8G8B8A8_UNORM) {}
-		STextureProps(uint32_t InWidth, uint32_t InHeight, DXGI_FORMAT InFormat = DXGI_FORMAT_R8G8B8A8_UNORM) :
-			Width(InWidth)
-			, Height(InHeight)
-			, Format(InFormat) {}
-	};
-
-	/**
-	* Class of the D3D11 memory
-	*/
-	struct SD3D11MemoryClass
-	{
-	public:
-		SD3D11MemoryClass() :
-			_usage(D3D11_USAGE_DEFAULT)
-			, _CPUAccessFlags(0) {}
-		explicit SD3D11MemoryClass(D3D11_USAGE InUsage) :
-			_usage(InUsage)
-			, _CPUAccessFlags(0) {}
-
-		D3D11_USAGE GetUsage() const { return _usage; }
-		UINT GetCPUAccessFlags() const { return _CPUAccessFlags; }
-
-	private:
-		D3D11_USAGE _usage;
-		UINT _CPUAccessFlags;
-	};
-
-	/**
-	* Element of 2D texture, managed by the textures subsystem.
-	*/
-	struct TextureElement
-	{
-		TextureElement() = default;
-		TextureElement(TextureHandle&& pInTexture, ShaderResourceViewHandle&& pInSRV, const STextureProps& InProps, const SD3D11MemoryClass& InMemoryClass) :
-			_pTexture(std::move(pInTexture))
-			, _pSRV(std::move(pInSRV))
-			, _props(InProps)
-			, _memoryClass(InMemoryClass) {}
-
-		ID3D11Texture2D* GetTexture() const { return _pTexture.get(); }
-		ID3D11ShaderResourceView* GetShaderResourceView() const { return _pSRV.get(); }
-		const STextureProps& GetProps() const { return _props; }
-		const SD3D11MemoryClass& GetMemoryClass() const { return _memoryClass; }
-
-	private:
-		TextureHandle _pTexture;
-		ShaderResourceViewHandle _pSRV;
-		STextureProps _props;
-		SD3D11MemoryClass _memoryClass;
-	};
-
 
 	struct STexturesInitializer
 	{
 		ID3D11Device* pDev = nullptr;
 		ID3D11DeviceContext* pDevCon = nullptr;
+		std::ofstream* pLog = nullptr;
+		TesterConfig_Resources_Textures Config;
+		
 
-		STexturesInitializer(ID3D11Device* pInDev, ID3D11DeviceContext* pInDevCon) :
-			pDev(pInDev)
-			, pDevCon(pInDevCon) {}
+		STexturesInitializer(const TesterConfig_Resources_Textures& InConfig, std::ofstream* pInLog, ID3D11Device* pInDev, ID3D11DeviceContext* pInDevCon) :
+			Config{InConfig}
+		,	pLog{pInLog}
+		,	pDev{pInDev}
+		,	pDevCon{pInDevCon} {}
 	};
 
 	/**
@@ -204,9 +137,14 @@ namespace Test::IMPL
 		*/
 		TextureElement* AddTexture(const STexInitializer& InInitializer, const TextureData& InTextureData);
 
+		const TesterConfig_Resources_Textures& GetConfig() const { return _config; }
+		std::ofstream& GetLog() const { return *_pLog; }
+
 	private:
 		ID3D11Device * _pDev = nullptr;
 		ID3D11DeviceContext* _pDevCon = nullptr;
+		TesterConfig_Resources_Textures _config; 
+		std::ofstream* _pLog = nullptr;
 		TextureList _textures;
 	};
 

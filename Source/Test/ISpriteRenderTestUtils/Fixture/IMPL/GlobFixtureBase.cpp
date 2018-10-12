@@ -27,6 +27,7 @@ namespace Test
 		InitMinimalCore();
 		ReInitViewport();
 		ReInitD3DDevice();
+		ReInitResources();
 	}
 
 	void GlobFixtureBase::Set_GloballyReadyForTesting(const char* pInReason)
