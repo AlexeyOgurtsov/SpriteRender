@@ -11,8 +11,10 @@ namespace Test
 	/**
 	* The fixture provides simple access to the default resource library of the tester
 	* and to the common resource subsystems of the sprite render.
+	*	
+	* WARNING 1: It does NOT initialize or shutdown resources!
+	* WARNING 2: Typically used as additional base class.
 	*
-	* WARNING!!! However it does NOT initialize or shutdown resources!
 	*/
 	class ResourceFixture
 	{
@@ -61,7 +63,12 @@ namespace Test
 
 	private:
 		DXGI_FORMAT TextureFormat = DXGI_FORMAT_UNKNOWN;
-		std::ofstream& GetLog() const;
+
+		/**
+		* WARNING! We may NOT use GetLog() name here, because we may have "ambigious access"
+		* (@see class details)
+		*/
+		std::ofstream& GetMyLog() const;
 
 		Handle_SprMaterialInstance pMatInst_Red_10_10;
 		Handle_SprMaterialInstance pMatInst_Green_10_10;

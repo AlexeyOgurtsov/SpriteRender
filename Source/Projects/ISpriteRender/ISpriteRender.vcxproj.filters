@@ -27,6 +27,9 @@
     <ClInclude Include="..\..\Test\ISpriteRender\ISprPerTestFixture_SingleCanvas.h">
       <Filter>TEST</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Test\ISpriteRender\ISprPerTestFixture_SingleCanvas_Smoke.h">
+      <Filter>TEST</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="IMPL">
@@ -56,6 +59,9 @@
       <Filter>IMPL</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Test\ISpriteRender\IMPL\ISprPerTestFixture_SingleCanvas.cpp">
+      <Filter>TEST\IMPL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Test\ISpriteRender\IMPL\ISprPerTestFixture_SingleCanvas_Smoke.cpp">
       <Filter>TEST\IMPL</Filter>
     </ClCompile>
   </ItemGroup>

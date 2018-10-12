@@ -17,14 +17,14 @@ namespace Test
 
 	ResourceFixture::ResourceFixture()
 	{
-		T_LOG("ResourceFixture CTOR...");
-		T_LOG("ResourceFixture CTOR DONE");
+		T_LOG_TO(GetMyLog(), "ResourceFixture CTOR...");
+		T_LOG_TO(GetMyLog(), "ResourceFixture CTOR DONE");
 	}
 
 	ResourceFixture::~ResourceFixture()
 	{
-		T_LOG("ResourceFixture ~DTOR...");
-		T_LOG("ResourceFixture ~DTOR DONE");
+		T_LOG_TO(GetMyLog(), "ResourceFixture ~DTOR...");
+		T_LOG_TO(GetMyLog(), "ResourceFixture ~DTOR DONE");
 	}
 
 	DXGI_FORMAT ResourceFixture::GetTextureFormat() const
@@ -35,15 +35,15 @@ namespace Test
 
 	void ResourceFixture::SetTextureFormat(DXGI_FORMAT InFormat, bool bInForceOverwrite)
 	{
-		T_LOG("ResourceFixture: Setting texture format...");
+		T_LOG_TO(GetMyLog(), "ResourceFixture: Setting texture format...");
 		if (InFormat != DXGI_FORMAT_UNKNOWN)
 		{
-			T_LOG("ResourceFixture: Format already set!");
+			T_LOG_TO(GetMyLog(), "ResourceFixture: Format already set!");
 			BOOST_ASSERT_MSG(bInForceOverwrite, "ResourceFixture::SetTextureFormat: WARNING!!! bInForceOverwrite to be passed to overwrite the already set texture format!");
 		}
-		T_LOG("New format: " << IMPL::GetFormatString(InFormat));
+		T_LOG_TO(GetMyLog(), "New format: " << IMPL::GetFormatString(InFormat));
 		TextureFormat = InFormat;
-		T_LOG("ResourceFixture: Setting texture format DONE");
+		T_LOG_TO(GetMyLog(), "ResourceFixture: Setting texture format DONE");
 	}
 
 	TextureElement& ResourceFixture::GetRedTexture_10_10()
@@ -91,7 +91,7 @@ namespace Test
 		return GetSprRenManager()->CreateMatInst_Default(pInName, InElem.GetShaderResourceView());
 	}
 
-	std::ofstream& ResourceFixture::GetLog() const
+	std::ofstream& ResourceFixture::GetMyLog() const
 	{
 		return GetEnv()->GetMainLog();
 	}

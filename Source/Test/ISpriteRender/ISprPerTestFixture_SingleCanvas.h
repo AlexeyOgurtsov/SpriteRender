@@ -25,7 +25,7 @@ namespace Test::ISpr
 		*/
 		SprId CreateSprite
 		(
-			MySprMath::SVec2& InPosition, 
+			const MySprMath::SVec2& InPosition, 
 			float InWidth, float InHeight, 
 			MySprRen::MaterialInstanceRenderStateInitializerPtr InRenderState, 
 			MySpr::ESpriteTransparency InTransparency = MySpr::ESpriteTransparency::Opaque

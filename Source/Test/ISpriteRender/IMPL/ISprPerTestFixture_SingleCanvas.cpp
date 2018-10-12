@@ -91,7 +91,7 @@ namespace Test::ISpr
 
 	SprId ISprPerTestFixture_SingleCanvas::CreateSprite
 	(
-		MySprMath::SVec2& InPosition, 
+		const MySprMath::SVec2& InPosition, 
 		float InWidth, float InHeight, 
 		MySprRen::MaterialInstanceRenderStateInitializerPtr InRenderState, 
 		MySpr::ESpriteTransparency InTransparency
