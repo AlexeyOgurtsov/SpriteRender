@@ -114,4 +114,16 @@ namespace Test
 		GetEnv()->ReInit_SpriteRender();
 		T_LOG("ISpriteRenderTestUtils: FixtureBase::ReInit_SpriteRender DONE");
 	}
+
+	ISpriteRenderSubsystemManager* FixtureBase::GetSpriteRenderSubsystemManager() const
+	{
+		ISpriteRenderSubsystemManager* pManager = GetEnv()->GetSpriteRenderManager();
+		BOOST_ASSERT_MSG(pManager, "FixtureBase::GetSpriteRenderSubsystemManager(): manager MUST be set!");
+		return pManager;
+	}
+
+	DXGI_FORMAT FixtureBase::GetSprRen_DefaultTextureFormat_Diffuse() const
+	{
+		return GetSpriteRenderSubsystemManager()->GetDefaultTextureFormat_Diffuse();
+	}
 } // Test

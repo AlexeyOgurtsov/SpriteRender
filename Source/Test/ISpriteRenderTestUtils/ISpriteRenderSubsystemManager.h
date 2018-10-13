@@ -1,7 +1,8 @@
 #pragma once
 
-#include "ISpriteRenderFwd.h"
-#include "SpriteRenderMaterialTypes.h"
+#include "ISpriteRenderSubsystemManager_PublicTypes.h"
+#include "SprRenHelper/SprRenHelper_ISpriteRenderFwd.h"
+#include "SprRenHelper/SprRenHelper_ISpriteUpdaterFwd.h"
 #include <fstream>
 #include <windows.h> // HWND
 
@@ -88,9 +89,50 @@ namespace Test
 		* To be called each time the new log is to be used.
 		*/
 		virtual void SetLog(std::ofstream* pInLog) = 0;
+		virtual std::ofstream& GetLog() const = 0;
 
-		// ~ ISpriteRenderSubsystemManager Materials Begin
+		// ~Canvas operations Begin
+		CanvasHandle CreateCanvas(CanvasId InId, unsigned int InWidth, unsigned int InHeight);
+		void DeleteCanvas(CanvasHandle InHandle);
+		void ShowCanvas(CanvasHandle InHandle);
+		void HideCanvas(CanvasHandle InHandle);
+		// ~Canvas operations End
+
+		// ~Sprite operations Begin
+		SpriteHandle CreateSprite
+		(
+			SprId InId,
+			MySprRen::ISpriteUpdater* pInUpdater,
+			CanvasHandle pInCanvas,
+			const MySprMath::SVec2& InPosition,
+			float InWidth, float InHeight,
+			MySprRen::MaterialInstanceRenderStateInitializerPtr InRenderState,
+			MySpr::ESpriteTransparency InTransparency = MySpr::ESpriteTransparency::Opaque
+		);
+		void DeleteSprite(MySprRen::ISpriteUpdater* pInUpdater, SpriteHandle InHandle);
+		void ShowSprite(MySprRen::ISpriteUpdater* pInUpdater, SprId InId);
+		void HideSprite(MySprRen::ISpriteUpdater* pInUpdater, SprId InId);
+		void SetSpriteTransparency(MySprRen::ISpriteUpdater* pInUpdater, SprId InId, MySpr::ESpriteTransparency InTransparency);
+		void SetSpriteGeometry(MySprRen::ISpriteUpdater* pInUpdater, SprId InId, const MySpr::SSpriteGeometryProps& InGeometry);
+		// ~Sprite operations End
+
+		// ~Info getters Begin
+		/**
+		* Description of coordinate system of the entire screen.
+		*/
+		virtual ScreenCoordSystemDesc GetScreenCoordSystem() const = 0;
+		/**
+		* Description of the coordinate system of the given canvas.
+		*/
+		virtual ScreenCoordSystemDesc GetCanvasCoordSystem(CanvasId InCanvasId) const = 0;
+
+		virtual DXGI_FORMAT GetDefaultTextureFormat_Diffuse() const = 0;
+		// ~Info getters End
+
+		// ~ Materials Begin
 		virtual Handle_SprMaterialInstance CreateMatInst_Default(const char* pInName, ID3D11ShaderResourceView* pInTexture2D) const = 0;
-		// ~ ISpriteRenderSubsystemManager Materials End
+		// ~ Materials End
+
+	private:
 	};
 } // Test

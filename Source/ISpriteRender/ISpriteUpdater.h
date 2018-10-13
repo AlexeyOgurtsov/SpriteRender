@@ -9,6 +9,16 @@ namespace Spr
 namespace Ren
 {
 
+SSpriteCreateCommandInitializer GetSprInit(SpriteId InSpriteId, const SSpriteProps& InProps, MaterialInstanceRenderStateInitializerPtr InRenderState);
+SSpriteCreateCommandInitializer GetSprInit(SpriteId InSpriteId, const SSpriteGeometryProps& InGeometry, MaterialInstanceRenderStateInitializerPtr InRenderState, ESpriteTransparency InTransparency = ESpriteTransparency::Opaque);
+SSpriteCreateCommandInitializer GetSprInit(SpriteId InSpriteId, const Math::SSpriteTransform& InTransform, const Math::SSize& InSize, MaterialInstanceRenderStateInitializerPtr InRenderState, ESpriteTransparency InTransparency = ESpriteTransparency::Opaque);
+SSpriteCreateCommandInitializer GetSprInit(SpriteId InSpriteId, const Math::SVec2& InPosition, float InWidth, float InHeight, MaterialInstanceRenderStateInitializerPtr InRenderState, ESpriteTransparency InTransparency = ESpriteTransparency::Opaque);
+
+SSpriteSetGeometryCommandInitializer GetSprGeometryInit(SpriteId InTargetSpriteId, const SSpriteGeometryProps& InGeometry);
+SSpriteSetGeometryCommandInitializer GetSprGeometryInit(SpriteId InTargetSpriteId, const Math::SSpriteTransform& InTransform, const Math::SSize& InSize);
+SSpriteSetGeometryCommandInitializer GetSprGeometryInit(SpriteId InTargetSpriteId, const Math::SVec2& InPosition, const Math::SSize& InSize);
+SSpriteSetGeometryCommandInitializer GetSprGeometryInit(SpriteId InTargetSpriteId, const Math::SVec2& InPosition, float InWidth, float InHeight);
+
 class ISpriteUpdater
 {
 public:
@@ -36,6 +46,11 @@ public:
 	void SetSpriteMaterial(SpriteId InSpriteId, MaterialInstanceRenderStateInitializerPtr pInRenderState);
 	void SetSpriteZOrder(SpriteId InSpriteId, SpriteId ZBeforeSpriteId);
 	void MoveSpriteOnTop(SpriteId InSpriteId);
+
+	void SetSpriteGeometry(SpriteId InTargetSpriteId, const Math::SSpriteTransform& InTransform, const Math::SSize& InSize);
+	void SetSpriteGeometry(SpriteId InTargetSpriteId, const Math::SVec2& InPosition, const Math::SSize& InSize);
+	void SetSpriteGeometry(SpriteId InTargetSpriteId, const Math::SVec2& InPosition, float InWidth, float InHeight);
+
 	// ~Helper interface End
 
 	// ~Virtual interface Begin

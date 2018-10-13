@@ -1,4 +1,5 @@
 #include "../SpriteRenderManager.h"
+#include "ISpriteRender/ISpriteRender.h"
 #include "SpriteRender/INTERFACE/SpriteRenderSubsystemCreate.h"
 #include "ISpriteRenderTestUtils/TesterConfig.h"
 #include "ISpriteRenderTestUtils/IMPL/D3DDevice/D3DDevice.h"
@@ -72,7 +73,27 @@ namespace Test::ISpr::Spr
 		BOOST_ASSERT_MSG(nullptr == pSubsys.get(), "SpriteRenderSubsystemManager::Initialize: WARNING!!! Subsystem must be shutted down");
 		pSubsys = Dv::Spr::Ren::CreateSpriteRenderSubsystem(SubsysInitializer);
 		bSettingsUpdated = false;
+
+		LogSubsystemState();
+
 		T_LOG("SpriteRenderSubsystemManager::Initialize DONE");
+	}
+
+	void SpriteRenderSubsystemManager::LogSubsystemState()
+	{
+		T_LOG("SpriteRenderSubsystemManager::LogSubsystemState...");
+		if (nullptr == GetSpriteRender())
+		{
+			T_LOG("SpriteRenderSubsystemManager::LogSubsystemState: SpriteRender is nullptr");
+			return;
+		}
+
+		// WARNING!!! We should NOT log most properties of the sprite render here,
+		// because it's already logged by the render itself.
+		T_LOG("ScreenCoordSystem:");
+		T_LOG(GetScreenCoordSystem());
+
+		T_LOG("SpriteRenderSubsystemManager::LogSubsystemState DONE");
 	}
 
 	void SpriteRenderSubsystemManager::Shutdown()
@@ -173,6 +194,31 @@ namespace Test::ISpr::Spr
 		OutInitializer.Render.RenderTarget.ZFar = RenderTarget_ZFar;
 		OutInitializer.Render.Shaders = ShadersConfig;
 		OutInitializer.Render.RenderCaching = RenderCachingConfig;
+	}
+	
+	ScreenCoordSystemDesc SpriteRenderSubsystemManager::GetScreenCoordSystem() const
+	{
+		ScreenCoordSystemDesc Desc
+		{
+			/*Center*/Vec2{0.0F, 0.0F}, 
+			/*HalfWidth*/1.0F, 
+			/*HalfHeight*/1.0F 
+		};
+		return Desc;
+	}
+	
+	ScreenCoordSystemDesc SpriteRenderSubsystemManager::GetCanvasCoordSystem(CanvasId InCanvasId) const
+	{
+		BOOST_ASSERT_MSG(GetSpriteRender(), "SpriteRenderSubsystemManager::GetCanvasCoordSystem: the sprite render must be running");
+		BOOST_ASSERT(MySpr::IsValidCanvasId(InCanvasId));
+		// @TODO: WARNING!!! This implementation only works if the entire screen is used as a canvas.
+		T_LOG("WARNING!!! SpriteRenderSubsystemManager::GetCanvasCoordSystem: this implementation only works if the entire screen is used as a canvas!");
+		return GetScreenCoordSystem();
+	}
+
+	DXGI_FORMAT SpriteRenderSubsystemManager::GetDefaultTextureFormat_Diffuse() const
+	{
+		return DXGI_FORMAT_R8G8B8A8_UNORM;
 	}
 
 	Handle_SprMaterialInstance SpriteRenderSubsystemManager::CreateMatInst_Default(const char* pInName, ID3D11ShaderResourceView* pInTexture2D) const

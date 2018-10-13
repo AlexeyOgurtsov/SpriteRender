@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../ISprPerTestFixture_SingleCanvas.h"
+#include "ISpriteRenderTestUtils/ISpriteRenderSubsystemManager.h"
 #include "../TestHelpers.h"
 
 namespace Test::ISpr
@@ -21,11 +22,11 @@ namespace Test::ISpr
 		T_LOG("Fixture: SingleCanvas: OnPostSetupTestUser...");
 
 		T_LOG("Fixture SingleCanvas: Creating canvas...");
-		GetSprRen()->CreateCanvas(CANV_ID, GetRTWidth(), GetRTHeight());
+		CanvHandle = GetSpriteRenderSubsystemManager()->CreateCanvas(CANV_ID, GetRTWidth(), GetRTHeight());
 		T_LOG("Fixture SingleCanvas: Creating canvas DONE");
 
 		T_LOG("Fixture SingleCanvas: Showing canvas...");
-		GetSprRen()->ShowCanvas(CANV_ID);
+		GetSpriteRenderSubsystemManager()->ShowCanvas(CanvHandle);
 		T_LOG("Fixture SingleCanvas: showing canvas DONE");
 
 		BeginUpdates();
@@ -89,7 +90,7 @@ namespace Test::ISpr
 		return pUpdater;
 	}
 
-	SprId ISprPerTestFixture_SingleCanvas::CreateSprite
+	SpriteHandle ISprPerTestFixture_SingleCanvas::CreateSprite
 	(
 		const MySprMath::SVec2& InPosition, 
 		float InWidth, float InHeight, 
@@ -99,40 +100,36 @@ namespace Test::ISpr
 	{
 		SprId const Id = GetSprId();
 		T_LOG("Fixture: SingleCanvas: CreateSprite, Id=" << Id << "...");
-		T_LOG("Position: " << ToString(InPosition));
-		T_LOG("(Width*Height)=" << InWidth << "*" << InHeight);
-		T_LOG("Transparency=" << ToString(InTransparency));
-		GetUpdater()->CreateSprite(Id, InPosition, InWidth, InHeight, InRenderState, InTransparency);
+		SpriteHandle Handle = GetSpriteRenderSubsystemManager()->CreateSprite(Id, GetUpdater(), CanvHandle, InPosition, InWidth, InHeight, InRenderState, InTransparency);
 		T_LOG("Fixture: SingleCanvas: Sprite " << Id << " Created");
-		return Id;
+		return Handle;
 	}
 
-	void ISprPerTestFixture_SingleCanvas::DeleteSprite(SprId InSpriteId)
+	void ISprPerTestFixture_SingleCanvas::DeleteSprite(SpriteHandle InHandle)
 	{
-		T_LOG("Fixture: SingleCanvas: DeleteSprite, Id=" << InSpriteId << "...");
-		GetUpdater()->DeleteSprite(InSpriteId);
-		T_LOG("Fixture: SingleCanvas: Sprite << " << InSpriteId << " Deleted");
+		T_LOG("Fixture: SingleCanvas: DeleteSprite, Id=" << InHandle->GetId() << "...");
+		GetSpriteRenderSubsystemManager()->DeleteSprite(GetUpdater(), InHandle);
+		T_LOG("Fixture: SingleCanvas: Sprite << " << InHandle->GetId() << " Deleted");
 	}
 
-	void ISprPerTestFixture_SingleCanvas::HideSprite(SprId InSpriteId)
+	void ISprPerTestFixture_SingleCanvas::HideSprite(SpriteHandle InHandle)
 	{
-		T_LOG("Fixture: SingleCanvas: HideSprite, Id=" << InSpriteId << "...");
-		GetUpdater()->HideSprite(InSpriteId);
-		T_LOG("Fixture: SingleCanvas: Sprite << " << InSpriteId << " Hidden");
+		T_LOG("Fixture: SingleCanvas: HideSprite, Id=" << InHandle->GetId() << "...");
+		InHandle->Hide(GetUpdater());
+		T_LOG("Fixture: SingleCanvas: Sprite << " << InHandle->GetId() << " Hidden");
 	}
 
-	void ISprPerTestFixture_SingleCanvas::ShowSprite(SprId InSpriteId)
+	void ISprPerTestFixture_SingleCanvas::ShowSprite(SpriteHandle InHandle)
 	{
-		T_LOG("Fixture: SingleCanvas: ShowSprite, Id=" << InSpriteId << "...");
-		GetUpdater()->ShowSprite(InSpriteId);
-		T_LOG("Fixture: SingleCanvas: Sprite << " << InSpriteId << " Shown");
+		T_LOG("Fixture: SingleCanvas: ShowSprite, Id=" << InHandle->GetId() << "...");
+		InHandle->Show(GetUpdater());
+		T_LOG("Fixture: SingleCanvas: Sprite << " << InHandle->GetId() << " Shown");
 	}
 
-	void ISprPerTestFixture_SingleCanvas::SetSpriteTransparency(SprId InSpriteId, MySpr::ESpriteTransparency InTransparency)
+	void ISprPerTestFixture_SingleCanvas::SetSpriteTransparency(SpriteHandle InHandle, MySpr::ESpriteTransparency InTransparency)
 	{
-		T_LOG("Fixture: SingleCanvas: SetSpriteTransparency, Id=" << InSpriteId << "...");
-		T_LOG("New transparency: " << ToString(InTransparency));
-		GetUpdater()->SetSpriteTransparency(InSpriteId, InTransparency);
-		T_LOG("Fixture: SingleCanvas: Sprite << " << InSpriteId << " Transparency changed");
+		T_LOG("Fixture: SingleCanvas: SetSpriteTransparency, Id=" << InHandle->GetId() << "...");
+		InHandle->SetTransparency(GetUpdater(), InTransparency);
+		T_LOG("Fixture: SingleCanvas: Sprite << " << InHandle->GetId() << " Transparency changed");
 	}
 } // Test::ISpr

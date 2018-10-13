@@ -31,6 +31,9 @@
     <Filter Include="IMPL\Resources">
       <UniqueIdentifier>{1460cfc3-1953-4046-a557-39d3b2999109}</UniqueIdentifier>
     </Filter>
+    <Filter Include="SprRenHelper">
+      <UniqueIdentifier>{7c257ccc-8208-428a-b5c0-23a13a03b89f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Test\ISpriteRenderTestUtils\IMPL\MASTER.cpp">
@@ -96,6 +99,21 @@
     <ClCompile Include="..\..\Test\ISpriteRenderTestUtils\IMPL\Resources\TextureLib.cpp">
       <Filter>IMPL\Resources</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Test\ISpriteRenderTestUtils\Utils\MathUtils.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Test\ISpriteRenderTestUtils\Utils\TestUtils.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Test\ISpriteRenderTestUtils\SprRenHelper\SprRenHelper_Sprite.cpp">
+      <Filter>SprRenHelper</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Test\ISpriteRenderTestUtils\SprRenHelper\SprRenHelper_Canvas.cpp">
+      <Filter>SprRenHelper</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Test\ISpriteRenderTestUtils\IMPL\ISpriteRenderSubsystemManager.cpp">
+      <Filter>IMPL</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Test\ISpriteRenderTestUtils\MASTER.h" />
@@ -136,7 +154,6 @@
     <ClInclude Include="..\..\Test\ISpriteRenderTestUtils\CONFIG\TesterConfig_Viewport.h">
       <Filter>Config</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Test\ISpriteRenderTestUtils\ISpriteRenderFwd.h" />
     <ClInclude Include="..\..\Test\ISpriteRenderTestUtils\ISpriteRenderSubsystemManager.h" />
     <ClInclude Include="..\..\Test\ISpriteRenderTestUtils\Utils\TestUtils.h">
       <Filter>Utils</Filter>
@@ -172,7 +189,6 @@
     <ClInclude Include="..\..\Test\ISpriteRenderTestUtils\IMPL\Resources\resources.h">
       <Filter>IMPL\Resources</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Test\ISpriteRenderTestUtils\SpriteRenderMaterialTypes.h" />
     <ClInclude Include="..\..\Test\ISpriteRenderTestUtils\Fixture\ResourceFixture.h">
       <Filter>Fixture</Filter>
     </ClInclude>
@@ -181,6 +197,34 @@
     </ClInclude>
     <ClInclude Include="..\..\Test\ISpriteRenderTestUtils\IMPL\Resources\TextureLib.h">
       <Filter>IMPL\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Test\ISpriteRenderTestUtils\ISpriteRenderSubsystemManager_PublicTypes.h" />
+    <ClInclude Include="..\..\Test\ISpriteRenderTestUtils\SprRenHelper\SprRenHelper_System.h">
+      <Filter>SprRenHelper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Test\ISpriteRenderTestUtils\SprRenHelper\SprRenHelper_ISpriteRenderFwd.h">
+      <Filter>SprRenHelper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Test\ISpriteRenderTestUtils\SprRenHelper\SprRenHelper_MaterialTypes.h">
+      <Filter>SprRenHelper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Test\ISpriteRenderTestUtils\SprRenHelper\SprRenHelper_MathTypes.h">
+      <Filter>SprRenHelper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Test\ISpriteRenderTestUtils\SprRenHelper\SprRenHelper_Types.h">
+      <Filter>SprRenHelper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Test\ISpriteRenderTestUtils\Utils\MathUtils.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Test\ISpriteRenderTestUtils\SprRenHelper\SprRenHelper_Sprite.h">
+      <Filter>SprRenHelper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Test\ISpriteRenderTestUtils\SprRenHelper\SprRenHelper_Canvas.h">
+      <Filter>SprRenHelper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Test\ISpriteRenderTestUtils\SprRenHelper\SprRenHelper_ISpriteUpdaterFwd.h">
+      <Filter>SprRenHelper</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -23,17 +23,18 @@ namespace Test::ISpr
 		/**
 		* Creates sprite and returns its id.
 		*/
-		SprId CreateSprite
+		SpriteHandle CreateSprite
 		(
 			const MySprMath::SVec2& InPosition, 
 			float InWidth, float InHeight, 
 			MySprRen::MaterialInstanceRenderStateInitializerPtr InRenderState, 
 			MySpr::ESpriteTransparency InTransparency = MySpr::ESpriteTransparency::Opaque
 		);
-		void DeleteSprite(SprId InSpriteId);
-		void HideSprite(SprId InSpriteId);
-		void ShowSprite(SprId InSpriteId);
-		void SetSpriteTransparency(SprId InSpriteId, MySpr::ESpriteTransparency InTransparency);
+		void DeleteSprite(SpriteHandle InHandle);
+		void HideSprite(SpriteHandle InHandle);
+		void ShowSprite(SpriteHandle InHandle);
+		void SetSpriteTransparency(SpriteHandle InHandle, MySpr::ESpriteTransparency InTransparency);
+		// @TODO: Update sprite geometry, Resize, Move
 
 	protected:
 		virtual void OnPostSetupTestUser() override;
@@ -43,6 +44,7 @@ namespace Test::ISpr
 	private:
 		MySprRen::ISpriteUpdater* pUpdater = nullptr;		
 
+		CanvasHandle CanvHandle;
 		constexpr static CanvasId CANV_ID = 0;
 		void BeginUpdates();
 		void EndUpdates();

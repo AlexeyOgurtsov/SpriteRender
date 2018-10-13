@@ -6,27 +6,47 @@ namespace Spr
 {
 namespace Ren
 {
+	SSpriteCreateCommandInitializer GetSprInit(SpriteId InSpriteId, const SSpriteProps& InProps, MaterialInstanceRenderStateInitializerPtr InRenderState)
+	{
+		return SSpriteCreateCommandInitializer { InSpriteId, InProps, InRenderState };		
+	}
+
 	void ISpriteUpdater::CreateSprite(SpriteId InSpriteId, const SSpriteProps& InProps, MaterialInstanceRenderStateInitializerPtr InRenderState)
 	{
-		SSpriteCreateCommandInitializer Initializer { InSpriteId, InProps, InRenderState };
-		return CreateSprite(Initializer);
+		return CreateSprite(GetSprInit(InSpriteId, InProps, InRenderState));
+	}
+
+
+	SSpriteCreateCommandInitializer GetSprInit(SpriteId InSpriteId, const SSpriteGeometryProps& InGeometry, MaterialInstanceRenderStateInitializerPtr InRenderState, ESpriteTransparency InTransparency)
+	{
+		SSpriteProps Props { InGeometry, SSpriteRenderMode { InTransparency } };
+		return GetSprInit(InSpriteId, Props, InRenderState);
 	}
 
 	void ISpriteUpdater::CreateSprite(SpriteId InSpriteId, const SSpriteGeometryProps& InGeometry, MaterialInstanceRenderStateInitializerPtr InRenderState, ESpriteTransparency InTransparency)
+	{		
+		return CreateSprite(GetSprInit(InSpriteId, InGeometry, InRenderState, InTransparency));
+	}
+
+	SSpriteCreateCommandInitializer GetSprInit(SpriteId InSpriteId, const Math::SSpriteTransform& InTransform, const Math::SSize& InSize, MaterialInstanceRenderStateInitializerPtr InRenderState, ESpriteTransparency InTransparency)
 	{
-		SSpriteProps Props { InGeometry, SSpriteRenderMode { InTransparency } };
-		return CreateSprite(InSpriteId, Props, InRenderState);
+		SSpriteGeometryProps Geometry { InTransform, InSize };
+		return GetSprInit(InSpriteId, Geometry, InRenderState, InTransparency);
 	}
 
 	void ISpriteUpdater::CreateSprite(SpriteId InSpriteId, const Math::SSpriteTransform& InTransform, const Math::SSize& InSize, MaterialInstanceRenderStateInitializerPtr InRenderState, ESpriteTransparency InTransparency)
 	{
-		SSpriteGeometryProps Geometry { InTransform, InSize };
-		return CreateSprite(InSpriteId, Geometry, InRenderState, InTransparency);
+		return CreateSprite(GetSprInit(InSpriteId, InTransform, InSize, InRenderState, InTransparency));
+	}
+
+	SSpriteCreateCommandInitializer GetSprInit(SpriteId InSpriteId, const Math::SVec2& InPosition, float InWidth, float InHeight, MaterialInstanceRenderStateInitializerPtr InRenderState, ESpriteTransparency InTransparency)
+	{
+		return GetSprInit(InSpriteId, Math::SSpriteTransform{InPosition}, Math::SSize{InWidth, InHeight}, InRenderState, InTransparency);	
 	}
 
 	void ISpriteUpdater::CreateSprite(SpriteId InSpriteId, const Math::SVec2& InPosition, float InWidth, float InHeight, MaterialInstanceRenderStateInitializerPtr InRenderState, ESpriteTransparency InTransparency)
 	{
-		return CreateSprite(InSpriteId, Math::SSpriteTransform{InPosition}, Math::SSize{InWidth, InHeight}, InRenderState, InTransparency);
+		return CreateSprite(GetSprInit(InSpriteId, InPosition, InWidth, InHeight, InRenderState, InTransparency));
 	}
 
 	void ISpriteUpdater::DeleteSprite(SpriteId InSpriteId)	
@@ -53,10 +73,44 @@ namespace Ren
 		return SetSpriteTransparency(Initializer);
 	}
 
-	void ISpriteUpdater::SetSpriteGeometry(SpriteId InSpriteId, const SSpriteGeometryProps& InGeometry)
+	SSpriteSetGeometryCommandInitializer GetSprGeometryInit(SpriteId InTargetSpriteId, const SSpriteGeometryProps& InGeometry)
 	{
-		SSpriteSetGeometryCommandInitializer Initializer { InSpriteId, InGeometry };
-		return SetSpriteGeometry(Initializer);
+		return SSpriteSetGeometryCommandInitializer { InTargetSpriteId, InGeometry };
+	}
+
+	void ISpriteUpdater::SetSpriteGeometry(SpriteId InSpriteId, const SSpriteGeometryProps& InGeometry)
+	{		
+		return SetSpriteGeometry(GetSprGeometryInit(InSpriteId, InGeometry));
+	}
+
+	SSpriteSetGeometryCommandInitializer GetSprGeometryInit(SpriteId InTargetSpriteId, const Math::SSpriteTransform& InTransform, const Math::SSize& InSize)
+	{
+		return GetSprGeometryInit(InTargetSpriteId, SSpriteGeometryProps{ InTransform, InSize } );
+	}
+
+	void ISpriteUpdater::SetSpriteGeometry(SpriteId InTargetSpriteId, const Math::SSpriteTransform& InTransform, const Math::SSize& InSize)
+	{
+		return SetSpriteGeometry(GetSprGeometryInit(InTargetSpriteId, InTransform, InSize));
+	}
+
+	SSpriteSetGeometryCommandInitializer GetSprGeometryInit(SpriteId InTargetSpriteId, const Math::SVec2& InPosition, const Math::SSize& InSize)
+	{
+		return GetSprGeometryInit(InTargetSpriteId, Math::SSpriteTransform{InPosition}, InSize);
+	}
+
+	void ISpriteUpdater::SetSpriteGeometry(SpriteId InSpriteId, const Math::SVec2& InPosition, const Math::SSize& InSize)
+	{
+		return SetSpriteGeometry(GetSprGeometryInit(InSpriteId, InPosition, InSize));
+	}
+
+	SSpriteSetGeometryCommandInitializer GetSprGeometryInit(SpriteId InTargetSpriteId, const Math::SVec2& InPosition, float InWidth, float InHeight)
+	{
+		return GetSprGeometryInit(InTargetSpriteId, InPosition, Math::SSize{InWidth, InHeight});
+	}
+
+	void ISpriteUpdater::SetSpriteGeometry(SpriteId InSpriteId, const Math::SVec2& InPosition, float InWidth, float InHeight)
+	{
+		return SetSpriteGeometry(GetSprGeometryInit(InSpriteId, InPosition, InWidth, InHeight));
 	}
 
 	void ISpriteUpdater::SetSpriteMaterial(SpriteId InSpriteId, MaterialInstanceRenderStateInitializerPtr pInRenderState)

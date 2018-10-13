@@ -143,6 +143,7 @@
     <ClCompile Include="..\..\Test\ISpriteRenderTestUtils\FrameCheckContext\FrameCheckContext.cpp" />
     <ClCompile Include="..\..\Test\ISpriteRenderTestUtils\IMPL\D3DDevice\D3DDevice.cpp" />
     <ClCompile Include="..\..\Test\ISpriteRenderTestUtils\IMPL\Environment.cpp" />
+    <ClCompile Include="..\..\Test\ISpriteRenderTestUtils\IMPL\ISpriteRenderSubsystemManager.cpp" />
     <ClCompile Include="..\..\Test\ISpriteRenderTestUtils\IMPL\MASTER.cpp" />
     <ClCompile Include="..\..\Test\ISpriteRenderTestUtils\IMPL\Resources\Resources.cpp" />
     <ClCompile Include="..\..\Test\ISpriteRenderTestUtils\IMPL\Resources\TextureLib.cpp" />
@@ -155,6 +156,10 @@
     <ClCompile Include="..\..\Test\ISpriteRenderTestUtils\IMPL\Utils\TextureElement.cpp" />
     <ClCompile Include="..\..\Test\ISpriteRenderTestUtils\IMPL\Utils\Textures.cpp" />
     <ClCompile Include="..\..\Test\ISpriteRenderTestUtils\IMPL\Utils\WINDOW.cpp" />
+    <ClCompile Include="..\..\Test\ISpriteRenderTestUtils\SprRenHelper\SprRenHelper_Canvas.cpp" />
+    <ClCompile Include="..\..\Test\ISpriteRenderTestUtils\SprRenHelper\SprRenHelper_Sprite.cpp" />
+    <ClCompile Include="..\..\Test\ISpriteRenderTestUtils\Utils\MathUtils.cpp" />
+    <ClCompile Include="..\..\Test\ISpriteRenderTestUtils\Utils\TestUtils.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Test\ISpriteRenderTestUtils\CONFIG\D3DDeviceConfig.h" />
@@ -183,11 +188,19 @@
     <ClInclude Include="..\..\Test\ISpriteRenderTestUtils\IMPL\Utils\TextureElement.h" />
     <ClInclude Include="..\..\Test\ISpriteRenderTestUtils\IMPL\Utils\Textures.h" />
     <ClInclude Include="..\..\Test\ISpriteRenderTestUtils\IMPL\Utils\Window.h" />
-    <ClInclude Include="..\..\Test\ISpriteRenderTestUtils\ISpriteRenderFwd.h" />
     <ClInclude Include="..\..\Test\ISpriteRenderTestUtils\ISpriteRenderSubsystemManager.h" />
+    <ClInclude Include="..\..\Test\ISpriteRenderTestUtils\ISpriteRenderSubsystemManager_PublicTypes.h" />
     <ClInclude Include="..\..\Test\ISpriteRenderTestUtils\MASTER.h" />
-    <ClInclude Include="..\..\Test\ISpriteRenderTestUtils\SpriteRenderMaterialTypes.h" />
+    <ClInclude Include="..\..\Test\ISpriteRenderTestUtils\SprRenHelper\SprRenHelper_Canvas.h" />
+    <ClInclude Include="..\..\Test\ISpriteRenderTestUtils\SprRenHelper\SprRenHelper_ISpriteRenderFwd.h" />
+    <ClInclude Include="..\..\Test\ISpriteRenderTestUtils\SprRenHelper\SprRenHelper_ISpriteUpdaterFwd.h" />
+    <ClInclude Include="..\..\Test\ISpriteRenderTestUtils\SprRenHelper\SprRenHelper_MaterialTypes.h" />
+    <ClInclude Include="..\..\Test\ISpriteRenderTestUtils\SprRenHelper\SprRenHelper_MathTypes.h" />
+    <ClInclude Include="..\..\Test\ISpriteRenderTestUtils\SprRenHelper\SprRenHelper_Sprite.h" />
+    <ClInclude Include="..\..\Test\ISpriteRenderTestUtils\SprRenHelper\SprRenHelper_System.h" />
+    <ClInclude Include="..\..\Test\ISpriteRenderTestUtils\SprRenHelper\SprRenHelper_Types.h" />
     <ClInclude Include="..\..\Test\ISpriteRenderTestUtils\TesterConfig.h" />
+    <ClInclude Include="..\..\Test\ISpriteRenderTestUtils\Utils\MathUtils.h" />
     <ClInclude Include="..\..\Test\ISpriteRenderTestUtils\Utils\TestUtils.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

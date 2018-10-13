@@ -131,13 +131,13 @@ namespace Test::ISpr
 		constexpr float SPRITE_WIDTH = 2.0F / 5;
 		constexpr float SPRITE_HEIGHT = 2.0F / 5;
 		
-		SprId SPR_ID = -1;
+		SpriteHandle SPR_HANDLE;
 		BOOST_REQUIRE_NO_THROW
 		(
-			SPR_ID = CreateSprite(MySprMath::SVec2{0.0F, 0.0F}, SPRITE_WIDTH, SPRITE_HEIGHT, pMat);
+			SPR_HANDLE = CreateSprite(MySprMath::SVec2{0.0F, 0.0F}, SPRITE_WIDTH, SPRITE_HEIGHT, pMat);
 		);
 
-		BOOST_REQUIRE_NO_THROW(ShowSprite(SPR_ID));
+		BOOST_REQUIRE_NO_THROW(ShowSprite(SPR_HANDLE));
 
 		BOOST_TEST_CHECKPOINT("CommitFrame");
 		{
@@ -146,7 +146,7 @@ namespace Test::ISpr
 		}
 
 		BOOST_TEST_CHECKPOINT("Hide sprite");
-		BOOST_REQUIRE_NO_THROW(HideSprite(SPR_ID));
+		BOOST_REQUIRE_NO_THROW(HideSprite(SPR_HANDLE));
 
 		//BOOST_TEST_CHECKPOINT("CommitFrameAfterHide");
 		//{
@@ -155,7 +155,7 @@ namespace Test::ISpr
 		//}		
 
 		BOOST_TEST_CHECKPOINT("DeleteSprite");
-		BOOST_REQUIRE_NO_THROW(DeleteSprite(SPR_ID));
+		BOOST_REQUIRE_NO_THROW(DeleteSprite(SPR_HANDLE));
 	}
 
 	BOOST_AUTO_TEST_SUITE_END() // SuiteUpdater

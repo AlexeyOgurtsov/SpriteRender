@@ -1,7 +1,7 @@
 #pragma once
 
 #include "FixtureBase.h"
-#include "../ISpriteRenderFwd.h"
+#include "../SprRenHelper/SprRenHelper_ISpriteRenderFwd.h"
 #include <string>
 
 namespace Test

@@ -1,7 +1,7 @@
 #pragma once
 
 #include "../Utils/TestUtils.h"
-#include "../SpriteRenderMaterialTypes.h"
+#include "../SprRenHelper/SprRenHelper_MaterialTypes.h"
 #include "../IMPL/Utils/TextureElement.h"
 
 namespace Test

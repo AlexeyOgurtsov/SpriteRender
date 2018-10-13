@@ -6,22 +6,36 @@ namespace Spr
 {
 namespace Ren
 {
+	SSpriteCanvasCreateCommandInitializer GetCanvasInit(SpriteCanvasId InCanvasId, const SSpriteCanvasProps& InCanvasProps)
+	{
+		return SSpriteCanvasCreateCommandInitializer { InCanvasId, InCanvasProps };
+	}
+
 	void ISpriteRender::CreateCanvas(SpriteCanvasId InCanvasId, const SSpriteCanvasProps& InCanvasProps)
 	{	
-		SSpriteCanvasCreateCommandInitializer Initializer { InCanvasId, InCanvasProps };
-		return CreateCanvas(Initializer);
+		return CreateCanvas(GetCanvasInit(InCanvasId, InCanvasProps));
+	}
+
+	SSpriteCanvasCreateCommandInitializer GetCanvasInit(SpriteCanvasId InCanvasId, const SCanvasRect& InRect)
+	{
+		SSpriteCanvasProps Props { InRect };
+		return GetCanvasInit(InCanvasId, Props);
 	}
 
 	void ISpriteRender::CreateCanvas(SpriteCanvasId InCanvasId, const SCanvasRect& InRect)
 	{
-		SSpriteCanvasProps Props { InRect };
-		return CreateCanvas(InCanvasId, Props);
+		return CreateCanvas(GetCanvasInit(InCanvasId, InRect));
+	}
+
+	SSpriteCanvasCreateCommandInitializer GetCanvasInit(SpriteCanvasId InCanvasId, int InWidth, int InHeight, int InLeft, int InTop)
+	{
+		SCanvasRect Rect { InWidth, InHeight, InLeft, InTop };
+		return GetCanvasInit(InCanvasId, Rect);
 	}
 
 	void ISpriteRender::CreateCanvas(SpriteCanvasId InCanvasId, int InWidth, int InHeight, int InLeft, int InTop)
-	{
-		SCanvasRect Rect { InWidth, InHeight, InLeft, InTop };
-		return CreateCanvas(InCanvasId, Rect);
+	{		
+		return CreateCanvas(GetCanvasInit(InCanvasId, InWidth, InHeight, InLeft, InTop));
 	}
 } // Dv::Spr::Ren
 } // Dv::Spr

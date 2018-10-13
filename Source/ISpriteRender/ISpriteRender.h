@@ -11,6 +11,10 @@ namespace Spr
 namespace Ren
 {
 
+SSpriteCanvasCreateCommandInitializer GetCanvasInit(SpriteCanvasId InCanvasId, const SSpriteCanvasProps& InCanvasProps);
+SSpriteCanvasCreateCommandInitializer GetCanvasInit(SpriteCanvasId InCanvasId, const SCanvasRect& InRect);
+SSpriteCanvasCreateCommandInitializer GetCanvasInit(SpriteCanvasId InCanvasId, int InWidth, int InHeight, int InLeft = 0, int InTop = 0);
+
 class ISpriteRender
 {
 public:

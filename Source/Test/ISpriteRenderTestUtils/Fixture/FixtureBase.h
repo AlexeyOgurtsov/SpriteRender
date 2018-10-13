@@ -2,9 +2,15 @@
 
 #include "ISpriteRenderTestUtils/TesterConfig.h"
 #include "../Utils/TestUtils.h"
+#include "../ISpriteRenderSubsystemManager_PublicTypes.h"
 
 namespace Test
 {
+	/**
+	* @see: GetSpriteRenderSubsystemManager() getter.
+	*/
+	class ISpriteRenderSubsystemManager;
+
 	/**
 	* Base class for UNIT-TEST fixtures of any types (Globals, Tests).
 	*/
@@ -16,6 +22,13 @@ namespace Test
 
 		UINT GetRTWidth() const;
 		UINT GetRTHeight() const;
+
+		// ~ Sprite Render helper accessors Begin
+		/**
+		* Gets the default texture format of the sprite render.
+		*/
+		DXGI_FORMAT GetSprRen_DefaultTextureFormat_Diffuse() const;
+		// ~ Sprite Render helper accessors End		
 
 	protected:
 		std::ofstream& GetLog() const;
@@ -65,6 +78,15 @@ namespace Test
 		* ReInit SpriteRender
 		*/
 		void ReInit_SpriteRender();
+
+		/**
+		* We allow to access ISpriteRenderSubsystemManager,
+		* But! Use it only for implementation details only (use helper methods whenever possible!).
+		* That's why we used long name delibarately.
+		*
+		* Access is allowed because otherwise concrete fixtures will be depend on the IMPL::Environment.
+		*/		
+		ISpriteRenderSubsystemManager* GetSpriteRenderSubsystemManager() const;
 
 	private:
 	};
