@@ -105,6 +105,17 @@ namespace Test::ISpr
 		return Handle;
 	}
 
+	SpriteHandle ISprPerTestFixture_SingleCanvas::CreateSprite
+	(
+		const MySprMath::SVec2& InPosition,
+		const MySprMath::SSize& InSize,
+		MySprRen::MaterialInstanceRenderStateInitializerPtr InRenderState,
+		MySpr::ESpriteTransparency InTransparency
+	)
+	{
+		return CreateSprite(InPosition, InSize.Width, InSize.Height, InRenderState, InTransparency);
+	}
+
 	void ISprPerTestFixture_SingleCanvas::DeleteSprite(SpriteHandle InHandle)
 	{
 		T_LOG("Fixture: SingleCanvas: DeleteSprite, Id=" << InHandle->GetId() << "...");
@@ -131,5 +142,48 @@ namespace Test::ISpr
 		T_LOG("Fixture: SingleCanvas: SetSpriteTransparency, Id=" << InHandle->GetId() << "...");
 		InHandle->SetTransparency(GetUpdater(), InTransparency);
 		T_LOG("Fixture: SingleCanvas: Sprite << " << InHandle->GetId() << " Transparency changed");
+	}
+
+	void ISprPerTestFixture_SingleCanvas::SetSpriteGeometry(SpriteHandle InHandle, const MySpr::SSpriteGeometryProps& InGeometry)
+	{
+		T_LOG("Fixture: SingleCanvas: SetSpriteGeometry, Id=" << InHandle->GetId() << "...");
+		InHandle->SetGeometry(GetUpdater(), InGeometry);
+		T_LOG("Fixture: SingleCanvas: Sprite << " << InHandle->GetId() << " Geometry changed");
+	}
+
+	void ISprPerTestFixture_SingleCanvas::SetSpritePosition(SpriteHandle InHandle, const MySprMath::SVec2& InPosition)
+	{
+		T_LOG("Fixture: SingleCanvas: SetSpritePosition, Id=" << InHandle->GetId() << "...");
+		T_LOG("New position: (X;Y)" << InPosition.X << ";" << InPosition.Y);
+		InHandle->SetPosition(GetUpdater(), InPosition);
+		T_LOG("Fixture: SingleCanvas: Sprite << " << InHandle->GetId() << " Position changed");
+	}
+
+	void ISprPerTestFixture_SingleCanvas::ResizeSprite(SpriteHandle InHandle, const MySprMath::SSize& InSize)
+	{
+		return ResizeSprite(InHandle, InSize.Width, InSize.Height);
+	}
+
+	void ISprPerTestFixture_SingleCanvas::ResizeSprite(SpriteHandle InHandle, float InWidth, float InHeight)
+	{
+		T_LOG("Fixture: SingleCanvas: ResizeSprite, Id=" << InHandle->GetId() << "...");
+		T_LOG("New size (width*height)=" << InWidth << ";" << InHeight);
+		InHandle->Resize(GetUpdater(), InWidth, InHeight);
+		T_LOG("Fixture: SingleCanvas: Sprite << " << InHandle->GetId() << " resized");
+	}
+
+	SprVec2 ISprPerTestFixture_SingleCanvas::PointAt(float AlphaX, float AlphaY) const
+	{
+		return GetSpriteRenderSubsystemManager()->GetCanvasCoordSystem(CANV_ID).PointAt(AlphaX, AlphaY);
+	}
+
+	SprVec2 ISprPerTestFixture_SingleCanvas::PointAt(const SprVec2& AlphaVec) const
+	{
+		return PointAt(AlphaVec.X, AlphaVec.Y);
+	}
+	
+	SprSize ISprPerTestFixture_SingleCanvas::ScreenPart(float InWidthFactor, float InHeightFactor) const
+	{
+		return GetSpriteRenderSubsystemManager()->GetCanvasCoordSystem(CANV_ID).GetSizePart(InWidthFactor, InHeightFactor);
 	}
 } // Test::ISpr

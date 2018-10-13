@@ -127,35 +127,59 @@ namespace Test::ISpr
 		BOOST_TEST_CHECKPOINT("Create material");
 		Handle_SprMaterialInstance const pMat = GetMatInst_Blue_10_10();
 
-		BOOST_TEST_CHECKPOINT("CreateSprite");
-		constexpr float SPRITE_WIDTH = 2.0F / 5;
-		constexpr float SPRITE_HEIGHT = 2.0F / 5;
-		
+		// ~Sprite params Begin
+		const MySprMath::SSize SPR_SIZE = ScreenPart(QUARTER, HALF);
+		const MySprMath::SVec2 INIT_POS = PointAt(LEFT, QUARTER_FROM_BOTTOM);
+		const MySprMath::SVec2 POSITION_TO_MOVE = PointAt(EIGHTH_FROM_LEFT, CENTER);
+		// ~Sprite params End
+
 		SpriteHandle SPR_HANDLE;
-		BOOST_REQUIRE_NO_THROW
-		(
-			SPR_HANDLE = CreateSprite(MySprMath::SVec2{0.0F, 0.0F}, SPRITE_WIDTH, SPRITE_HEIGHT, pMat);
-		);
-
-		BOOST_REQUIRE_NO_THROW(ShowSprite(SPR_HANDLE));
-
-		BOOST_TEST_CHECKPOINT("CommitFrame");
+		BOOST_TEST_CHECKPOINT("CreateSprite");		
 		{
-			IFrameCheckContextHandle pChecker = CommitFrame();
-			// @TODO: Check frame result
+			BOOST_REQUIRE_NO_THROW
+			(
+				SPR_HANDLE = CreateSprite(INIT_POS, SPR_SIZE, pMat);
+			);
+		}
+
+		BOOST_TEST_CHECKPOINT("ShowSprite");
+		BOOST_REQUIRE_NO_THROW(ShowSprite(SPR_HANDLE));
+		{
+			BOOST_TEST_CHECKPOINT("CommitFrame");
+			{
+				IFrameCheckContextHandle pChecker = CommitFrame();
+				// @TODO: Check frame result
+			}
+		}
+
+		BOOST_TEST_CHECKPOINT("Move");
+		{
+			BOOST_REQUIRE_NO_THROW
+			(
+				SetSpritePosition(SPR_HANDLE, POSITION_TO_MOVE);
+			);
+			BOOST_TEST_CHECKPOINT("CommitFrame");
+			{
+				IFrameCheckContextHandle pChecker = CommitFrame();
+				// @TODO: Check frame result
+			}
 		}
 
 		BOOST_TEST_CHECKPOINT("Hide sprite");
-		BOOST_REQUIRE_NO_THROW(HideSprite(SPR_HANDLE));
+		{
+			BOOST_REQUIRE_NO_THROW(HideSprite(SPR_HANDLE));
 
-		//BOOST_TEST_CHECKPOINT("CommitFrameAfterHide");
-		//{
-		//	IFrameCheckContextHandle pChecker = CommitFrame();
-		//	// @TODO: Here we may check render result again that sprite is not rendered
-		//}		
+			//BOOST_TEST_CHECKPOINT("CommitFrameAfterHide");
+			//{
+			//	IFrameCheckContextHandle pChecker = CommitFrame();
+			//	// @TODO: Here we may check render result again that sprite is not rendered
+			//}		
+		}
 
 		BOOST_TEST_CHECKPOINT("DeleteSprite");
-		BOOST_REQUIRE_NO_THROW(DeleteSprite(SPR_HANDLE));
+		{
+			BOOST_REQUIRE_NO_THROW(DeleteSprite(SPR_HANDLE));
+		}
 	}
 
 	BOOST_AUTO_TEST_SUITE_END() // SuiteUpdater

@@ -30,6 +30,12 @@ const MySpr::SSpriteProps& Sprite::GetInitProps() const
 	return Initializer.Props; 
 }
 
+void Sprite::SetGeometry(MySprRen::ISpriteUpdater* pInUpdater, const MySpr::SSpriteGeometryProps& InGeometry)
+{
+	CurrInitializer.Props.Geometry = InGeometry;
+	pSubsys->SetSpriteGeometry(pInUpdater, GetId(), CurrInitializer.Props.Geometry);
+}
+
 void Sprite::Resize(MySprRen::ISpriteUpdater* pInUpdater, float InNewWidth, float InNewHeight)
 {
 	CurrInitializer.Props.Geometry.Size.Width = InNewWidth;
@@ -59,6 +65,42 @@ void Sprite::SetTransparency(MySprRen::ISpriteUpdater* pInUpdater, MySpr::ESprit
 {
 	CurrInitializer.Props.RenderMode.Transparency = InTransparency;
 	pSubsys->SetSpriteTransparency(pInUpdater, GetId(), InTransparency);
+}
+
+
+const Handle_SprMaterialInstance& Sprite::GetMatInst()
+{
+	return CurrInitializer.pRenderState;
+}
+
+const MySpr::SSpriteProps& Sprite::GetProps() const
+{
+	return CurrInitializer.Props;
+}
+
+const MySpr::SSpriteGeometryProps& Sprite::GetGeometry() const
+{
+	return CurrInitializer.Props.Geometry;
+}
+
+const MySprMath::SSpriteTransform& Sprite::GetTransform() const
+{
+	return GetGeometry().Transform;
+}
+
+const MySprMath::SVec2& Sprite::GetPosition() const
+{
+	return GetTransform().Position;
+}
+
+const MySprMath::SSize& Sprite::GetSize() const
+{
+	return GetGeometry().Size;
+}
+
+const MySpr::ESpriteTransparency& Sprite::GetTransparency() const
+{
+	return GetProps().RenderMode.Transparency;
 }
 
 } // Test

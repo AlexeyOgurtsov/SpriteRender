@@ -20,6 +20,7 @@ namespace Test::ISpr
 
 		MySprRen::ISpriteUpdater* GetUpdater() const;
 
+		// ~ Sprite render helpers Begin
 		/**
 		* Creates sprite and returns its id.
 		*/
@@ -30,11 +31,39 @@ namespace Test::ISpr
 			MySprRen::MaterialInstanceRenderStateInitializerPtr InRenderState, 
 			MySpr::ESpriteTransparency InTransparency = MySpr::ESpriteTransparency::Opaque
 		);
+		SpriteHandle CreateSprite
+		(
+			const MySprMath::SVec2& InPosition,
+			const MySprMath::SSize& InSize,
+			MySprRen::MaterialInstanceRenderStateInitializerPtr InRenderState,
+			MySpr::ESpriteTransparency InTransparency = MySpr::ESpriteTransparency::Opaque
+		);
 		void DeleteSprite(SpriteHandle InHandle);
 		void HideSprite(SpriteHandle InHandle);
 		void ShowSprite(SpriteHandle InHandle);
 		void SetSpriteTransparency(SpriteHandle InHandle, MySpr::ESpriteTransparency InTransparency);
-		// @TODO: Update sprite geometry, Resize, Move
+		void SetSpriteGeometry(SpriteHandle InHandle, const MySpr::SSpriteGeometryProps& InGeometry);
+		void SetSpritePosition(SpriteHandle InHandle, const MySprMath::SVec2& InPosition);
+		void ResizeSprite(SpriteHandle InHandle, const MySprMath::SSize& InSize);
+		void ResizeSprite(SpriteHandle InHandle, float InWidth, float InHeight);
+		// ~ Sprite render helpers End
+
+		// ~ Screen helpers Begin
+		/**
+		* Returns canvas point by interpolating between the canvas boundaries.
+		*/
+		SprVec2 PointAt(float AlphaX, float AlphaY) const;
+
+		/**
+		* Returns canvas point by interpolating between the canvas boundaries.
+		*/
+		SprVec2 PointAt(const SprVec2& AlphaVec) const;
+
+		/**
+		* Returns size by takings factors of width and height of the canvas
+		*/
+		SprSize ScreenPart(float InWidthFactor, float InHeightFactor) const;
+		// ~ Screen helpers End
 
 	protected:
 		virtual void OnPostSetupTestUser() override;

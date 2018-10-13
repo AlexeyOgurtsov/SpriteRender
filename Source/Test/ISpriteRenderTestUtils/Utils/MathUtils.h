@@ -9,6 +9,23 @@ namespace Test
 {
 	using Vec2 = SprVec2;
 
+	constexpr float HALF = 0.5F;
+	constexpr float QUARTER = 0.25F;
+	constexpr float EIGHTH = 0.125F;
+
+	constexpr float CENTER = 0.5F;
+
+	constexpr float LEFT = 0.0F;
+	constexpr float RIGHT = 1.0F;
+	constexpr float BOTTOM = 0.0F;
+	constexpr float TOP = 1.0F;
+
+	constexpr float QUARTER_FROM_LEFT = LEFT + QUARTER;
+	constexpr float QUARTER_FROM_BOTTOM = BOTTOM + QUARTER;	
+
+	constexpr float EIGHTH_FROM_LEFT = LEFT + EIGHTH;
+	constexpr float EIGHTH_FROM_BOTTOM = BOTTOM + EIGHTH;
+
 	/**
 	* Interpolates between A and B with the given Factor.
 	*/
@@ -27,6 +44,7 @@ namespace Test
 
 		float GetWidth() const { return fabs(RightX - LeftX); }
 		float GetHeight() const { return fabs(TopY - BottomY); }
+		SprSize GetSize() const { return SprSize{GetWidth(), GetHeight()}; }
 
 		/**
 		* Returns point at the given system by interpolating X and Y between boundaries.
@@ -39,6 +57,14 @@ namespace Test
 		Vec2 PointAt(float AlphaX, float AlphaY) const
 		{
 			return Vec2{ Lerp(LeftX, RightX, AlphaX), Lerp(BottomY, TopY, AlphaY) };
+		}
+
+		/**
+		* Returns part of size of the screen.
+		*/
+		SprSize GetSizePart(float InWidthFactor, float InHeightFactor)
+		{
+			return SprSize(GetWidth() * InWidthFactor, GetHeight() * InHeightFactor);
 		}
 
 		ScreenCoordSystemDesc() = default;
