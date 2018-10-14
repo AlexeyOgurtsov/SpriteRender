@@ -13,6 +13,12 @@ namespace Test::IMPL
 
 		virtual const char* GetTestName() const override;
 		virtual PerTestFixtureBase* GetFixture() const override { return TestFixture; }
+		virtual ID3D11DeviceContext* GetDevCon() const override;
+
+		// ~Frame resource accessors Begin		
+		virtual ID3D11Texture2D* GetRT() const override;
+		virtual ID3D11Texture2D* GetDepthStencil() const override;
+		// ~Frame resource accessors End
 		
 	protected:
 		std::ofstream& GetLog() const;

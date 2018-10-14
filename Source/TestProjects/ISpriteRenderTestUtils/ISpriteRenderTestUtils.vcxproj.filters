@@ -114,6 +114,15 @@
     <ClCompile Include="..\..\Test\ISpriteRenderTestUtils\IMPL\ISpriteRenderSubsystemManager.cpp">
       <Filter>IMPL</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Test\ISpriteRenderTestUtils\FrameCheckContext\IFrameCheckContext.cpp">
+      <Filter>FrameCheckContext</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Test\ISpriteRenderTestUtils\FrameCheckContext\IFrameCheckContextUtils.cpp">
+      <Filter>FrameCheckContext</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Test\ISpriteRenderTestUtils\Utils\TexelColor.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Test\ISpriteRenderTestUtils\MASTER.h" />
@@ -225,6 +234,10 @@
     </ClInclude>
     <ClInclude Include="..\..\Test\ISpriteRenderTestUtils\SprRenHelper\SprRenHelper_ISpriteUpdaterFwd.h">
       <Filter>SprRenHelper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Test\ISpriteRenderTestUtils\IFrameCheckContextUtils.h" />
+    <ClInclude Include="..\..\Test\ISpriteRenderTestUtils\Utils\TexelColor.h">
+      <Filter>Utils</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

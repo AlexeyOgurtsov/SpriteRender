@@ -2,6 +2,8 @@
 
 #include "ISprPerTestFixtureBase.h"
 #include "TestHelpers.h"
+#include "ISpriteRenderTestUtils/IFrameCheckContextUtils.h"
+#include "ISpriteRenderTestUtils/IMPL/Utils/TextureElement.h"
 
 namespace Test::ISpr
 {
@@ -64,6 +66,42 @@ namespace Test::ISpr
 		*/
 		SprSize ScreenPart(float InWidthFactor, float InHeightFactor) const;
 		// ~ Screen helpers End
+
+		// ~ Screen check helpers Begin
+		/*
+		* Returns canvas texel color at the given point.
+		* The color is always returned as color in format of the render target.
+		*
+		* @InCanvasPoint: Point in CoordSystem of the canvas (as the sprite render takes).
+		*/
+		TexelColor ScreenColorAt(const IFrameCheckContextHandle& ContextHandle, const SprVec2& InCanvasPoint);
+
+		/**
+		* Returns true if canvas at the given point is clear (meaning that color matches).
+		*/
+		bool ScreenClearAt(const IFrameCheckContextHandle& ContextHandle, const SprVec2& InCanvasPoint);
+
+		/**
+		* Returns true if canvas point color at the given coordinates matches the given;
+		*/
+		bool ColorMatchesScreenAt(const IFrameCheckContextHandle& ContextHandle, const SprVec2& InCanvasPoint, const TexelColor& InColor);
+
+		/**
+		* Returns true if the given screen point color matches color of the texture.
+		*/
+		bool TextureMatchesScreenAt(const IFrameCheckContextHandle& ContextHandle, const SprVec2& InCanvasPoint, const IMPL::TextureElement& InTextureElement);
+
+		/**
+		* Returns true if the given sprite is visible as a color.
+		*/
+		bool SpriteVisibleAsColor(const IFrameCheckContextHandle& ContextHandle, SpriteHandle Sprite, const TexelColor& InColor);
+
+		/**
+		* Returns true if canvas is hidden.
+		*/
+		bool SpriteHidden(const IFrameCheckContextHandle& ContextHandle, SpriteHandle Sprite);
+
+		// ~ Screen check helpers End
 
 	protected:
 		virtual void OnPostSetupTestUser() override;

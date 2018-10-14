@@ -125,6 +125,7 @@ namespace Test::ISpr
 		SetupTest(TestName_MinimalSmoke_Updater_Sprite.c_str());
 
 		BOOST_TEST_CHECKPOINT("Create material");
+		const TexelColor SpriteColor = TexelColor::GetBlue(GetTextureFormat());
 		Handle_SprMaterialInstance const pMat = GetMatInst_Blue_10_10();
 
 		// ~Sprite params Begin
@@ -148,7 +149,7 @@ namespace Test::ISpr
 			BOOST_TEST_CHECKPOINT("CommitFrame");
 			{
 				IFrameCheckContextHandle pChecker = CommitFrame();
-				// @TODO: Check frame result
+				BOOST_REQUIRE(SpriteVisibleAsColor(pChecker, SPR_HANDLE, SpriteColor));
 			}
 		}
 
@@ -161,7 +162,8 @@ namespace Test::ISpr
 			BOOST_TEST_CHECKPOINT("CommitFrame");
 			{
 				IFrameCheckContextHandle pChecker = CommitFrame();
-				// @TODO: Check frame result
+				BOOST_REQUIRE(SpriteVisibleAsColor(pChecker, SPR_HANDLE, SpriteColor));
+				BOOST_REQUIRE(ScreenClearAt(pChecker, INIT_POS));
 			}
 		}
 
@@ -169,11 +171,11 @@ namespace Test::ISpr
 		{
 			BOOST_REQUIRE_NO_THROW(HideSprite(SPR_HANDLE));
 
-			//BOOST_TEST_CHECKPOINT("CommitFrameAfterHide");
-			//{
-			//	IFrameCheckContextHandle pChecker = CommitFrame();
-			//	// @TODO: Here we may check render result again that sprite is not rendered
-			//}		
+			BOOST_TEST_CHECKPOINT("CommitFrameAfterHide");
+			{
+				IFrameCheckContextHandle pChecker = CommitFrame();
+				BOOST_REQUIRE(SpriteHidden(pChecker, SPR_HANDLE));
+			}		
 		}
 
 		BOOST_TEST_CHECKPOINT("DeleteSprite");
