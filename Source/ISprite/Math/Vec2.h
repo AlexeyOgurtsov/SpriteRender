@@ -91,6 +91,11 @@ inline std::string ToString(const SVec2& InValue)
 	s.append("}");
 	return s;
 }
+template<class Strm>
+Strm& operator<<(Strm& S, const SVec2& InValue)
+{
+	return S << ToString(InValue);
+}
 
 } // Dv::Spr::Math
 } // Dv::Spr

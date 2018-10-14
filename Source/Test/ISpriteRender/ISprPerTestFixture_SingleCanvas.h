@@ -2,8 +2,6 @@
 
 #include "ISprPerTestFixtureBase.h"
 #include "TestHelpers.h"
-#include "ISpriteRenderTestUtils/IFrameCheckContextUtils.h"
-#include "ISpriteRenderTestUtils/IMPL/Utils/TextureElement.h"
 
 namespace Test::ISpr
 {
@@ -77,7 +75,7 @@ namespace Test::ISpr
 		TexelColor ScreenColorAt(const IFrameCheckContextHandle& ContextHandle, const SprVec2& InCanvasPoint);
 
 		/**
-		* Returns true if canvas at the given point is clear (meaning that color matches).
+		* Returns true if canvas at the given point is clear (meaning that color matches the clear color).
 		*/
 		bool ScreenClearAt(const IFrameCheckContextHandle& ContextHandle, const SprVec2& InCanvasPoint);
 
@@ -94,12 +92,19 @@ namespace Test::ISpr
 		/**
 		* Returns true if the given sprite is visible as a color.
 		*/
-		bool SpriteVisibleAsColor(const IFrameCheckContextHandle& ContextHandle, SpriteHandle Sprite, const TexelColor& InColor);
+		bool SpriteVisibleAsColor(const IFrameCheckContextHandle& ContextHandle, SpriteHandle InSprite, const TexelColor& InColor);
 
 		/**
 		* Returns true if canvas is hidden.
 		*/
-		bool SpriteHidden(const IFrameCheckContextHandle& ContextHandle, SpriteHandle Sprite);
+		bool SpriteHidden(const IFrameCheckContextHandle& ContextHandle, SpriteHandle InSprite);
+
+		/**
+		* Returns true if the given sprite is not rendered at the given canvas position.
+		*
+		* For example, may be used to check that sprite is moved from the given position.
+		*/
+		bool SpriteHiddenAt(const IFrameCheckContextHandle& ContextHandle, SpriteHandle InSprite, const SprVec2& InCanvasPoint);
 
 		// ~ Screen check helpers End
 

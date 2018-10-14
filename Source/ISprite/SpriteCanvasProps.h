@@ -1,5 +1,7 @@
 #pragma once
 
+#include "ISprite/Math/IntVec.h"
+
 namespace Dv
 {
 namespace Spr
@@ -30,8 +32,18 @@ struct SCanvasRect
 	*/
 	int Top;
 
+	int GetRight() const { return Left + Width; }
+	int GetBottom() const { return Top + Height; }
+
 	/**
-	* Checks, whether the properties of the canvas are correct 
+	* Returns point at the canvas by lerping between its corners on each of the axes.
+	*
+	* WARNING: Y: 0 corresponds to BOTTOM.
+	*/
+	Math::IntVec PointAt(float InAlphaX, float InAlphaY) const;
+
+	/**
+	* Checks, whether the properties of the canvas are correct.
 	*/
 	bool IsValid() const 
 	{

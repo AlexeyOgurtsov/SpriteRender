@@ -2,6 +2,7 @@
 
 #include "SprRenHelper_System.h"
 #include "ISpriteRender/SpriteCanvasCommandInitializers.h"
+#include "../Utils/MathUtils.h"
 #include <memory>
 
 namespace Test
@@ -18,8 +19,14 @@ namespace Test
 
 		CanvasId GetId() const;
 		const MySpr::SSpriteCanvasProps& GetProps() const;
-		// @TODO: Getters
-		// @TODO: Updaters (from manager)
+		const MySpr::SCanvasRect& GetRect() const;
+		ScreenCoordSystemDesc GetCoordSystem() const;
+		int GetWidth() const;
+		int GetHeight() const;
+		int GetLeft() const;
+		int GetTop() const;
+		int GetRight() const;
+		int GetBottom() const;
 
 	private:	
 		ISpriteRenderSubsystemManager* pSubsys = nullptr;

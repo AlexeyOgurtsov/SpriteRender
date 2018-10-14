@@ -186,4 +186,39 @@ namespace Test::ISpr
 	{
 		return GetSpriteRenderSubsystemManager()->GetCanvasCoordSystem(CANV_ID).GetSizePart(InWidthFactor, InHeightFactor);
 	}
+
+	TexelColor ISprPerTestFixture_SingleCanvas::ScreenColorAt(const IFrameCheckContextHandle& ContextHandle, const SprVec2& InCanvasPoint)
+	{
+		return ISprPerTestFixtureBase::CanvasColorAt(CanvHandle, ContextHandle, InCanvasPoint);
+	}
+
+	bool ISprPerTestFixture_SingleCanvas::ScreenClearAt(const IFrameCheckContextHandle& ContextHandle, const SprVec2& InCanvasPoint)
+	{
+		return ISprPerTestFixtureBase::CanvasClearAt(CanvHandle, ContextHandle, InCanvasPoint);
+	}
+
+	bool ISprPerTestFixture_SingleCanvas::ColorMatchesScreenAt(const IFrameCheckContextHandle& ContextHandle, const SprVec2& InCanvasPoint, const TexelColor& InColor)
+	{
+		return ISprPerTestFixtureBase::ColorMatchesCanvasAt(CanvHandle, ContextHandle, InCanvasPoint, InColor);
+	}
+
+	bool ISprPerTestFixture_SingleCanvas::TextureMatchesScreenAt(const IFrameCheckContextHandle& ContextHandle, const SprVec2& InCanvasPoint, const IMPL::TextureElement& InTextureElement)
+	{
+		return ISprPerTestFixtureBase::TextureMatchesCanvasAt(CanvHandle, ContextHandle, InCanvasPoint, InTextureElement);
+	}
+
+	bool ISprPerTestFixture_SingleCanvas::SpriteVisibleAsColor(const IFrameCheckContextHandle& ContextHandle, SpriteHandle InSprite, const TexelColor& InColor)
+	{		
+		return ISprPerTestFixtureBase::SpriteVisibleAsColor(CanvHandle, ContextHandle, InSprite, InColor);
+	}
+
+	bool ISprPerTestFixture_SingleCanvas::SpriteHidden(const IFrameCheckContextHandle& ContextHandle, SpriteHandle InSprite)
+	{
+		return ISprPerTestFixtureBase::SpriteHidden(CanvHandle, ContextHandle, InSprite);
+	}
+
+	bool ISprPerTestFixture_SingleCanvas::SpriteHiddenAt(const IFrameCheckContextHandle& ContextHandle, SpriteHandle InSprite, const SprVec2& InCanvasPoint)
+	{
+		return ISprPerTestFixtureBase::SpriteHiddenAt(CanvHandle, ContextHandle, InSprite, InCanvasPoint);
+	}
 } // Test::ISpr

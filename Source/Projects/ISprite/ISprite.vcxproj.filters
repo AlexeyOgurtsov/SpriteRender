@@ -27,6 +27,12 @@
     <ClCompile Include="..\..\ISprite\IMPL\RenUtils\RenHRUtils.cpp">
       <Filter>Core\IMPL\RenUtils</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\ISprite\IMPL\SpriteCanvasProps.cpp">
+      <Filter>Core\IMPL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\ISprite\Math\MathUtils.cpp">
+      <Filter>Core\Math</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\ISprite\Core\SpriteRenderException.h">
@@ -70,6 +76,12 @@
     </ClInclude>
     <ClInclude Include="..\..\ISprite\SpriteTypes.h">
       <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\ISprite\Math\IntVec.h">
+      <Filter>Core\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\ISprite\Math\MathUtils.h">
+      <Filter>Core\Math</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

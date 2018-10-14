@@ -163,7 +163,7 @@ namespace Test::ISpr
 			{
 				IFrameCheckContextHandle pChecker = CommitFrame();
 				BOOST_REQUIRE(SpriteVisibleAsColor(pChecker, SPR_HANDLE, SpriteColor));
-				BOOST_REQUIRE(ScreenClearAt(pChecker, INIT_POS));
+				BOOST_REQUIRE(SpriteHiddenAt(pChecker, SPR_HANDLE, INIT_POS));
 			}
 		}
 

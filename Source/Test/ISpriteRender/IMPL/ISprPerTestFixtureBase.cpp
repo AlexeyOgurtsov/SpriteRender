@@ -114,4 +114,40 @@ namespace Test::ISpr
 
 		T_LOG("ISpr PerTest: Ticking DONE");
 	}
+
+
+	TexelColor ISprPerTestFixtureBase::CanvasColorAt(CanvasHandle InCanvas, const IFrameCheckContextHandle& ContextHandle, const SprVec2& InCanvasPoint)
+	{
+		return RT_ColorByCanvasPoint(ContextHandle.get(), InCanvas, InCanvasPoint);
+	}
+
+	bool ISprPerTestFixtureBase::CanvasClearAt(CanvasHandle InCanvas, const IFrameCheckContextHandle& ContextHandle, const SprVec2& InCanvasPoint)
+	{
+		return RT_IsCanvasClear_AtCanvasPoint(ContextHandle.get(), InCanvas, InCanvasPoint);
+	}
+
+	bool ISprPerTestFixtureBase::ColorMatchesCanvasAt(CanvasHandle InCanvas, const IFrameCheckContextHandle& ContextHandle, const SprVec2& InCanvasPoint, const TexelColor& InColor)
+	{	
+		return RT_ColorMatchesCanvas_AtCanvasPoint(ContextHandle.get(), InCanvas, InCanvasPoint, InColor);
+	}
+
+	bool ISprPerTestFixtureBase::TextureMatchesCanvasAt(CanvasHandle InCanvas, const IFrameCheckContextHandle& ContextHandle, const SprVec2& InCanvasPoint, const IMPL::TextureElement& InTextureElement)
+	{
+		return RT_TextureMatches_CanvasPoint(ContextHandle.get(), InCanvas, InCanvasPoint, InTextureElement);
+	}
+
+	bool ISprPerTestFixtureBase::SpriteVisibleAsColor(CanvasHandle InCanvas, const IFrameCheckContextHandle& ContextHandle, SpriteHandle InSprite, const TexelColor& InColor)
+	{	
+		return RT_SpriteVisibleAsColor(ContextHandle.get(), InCanvas, InSprite, InColor);
+	}
+
+	bool ISprPerTestFixtureBase::SpriteHidden(CanvasHandle InCanvas, const IFrameCheckContextHandle& ContextHandle, SpriteHandle InSprite)
+	{
+		return RT_SpriteHidden(ContextHandle.get(), InCanvas, InSprite);
+	}
+
+	bool ISprPerTestFixtureBase::SpriteHiddenAt(CanvasHandle InCanvas, const IFrameCheckContextHandle& ContextHandle, SpriteHandle InSprite, const SprVec2& InCanvasPoint)
+	{
+		return RT_SpriteHidden_AtCanvasPoint(ContextHandle.get(), InCanvas, InSprite, InCanvasPoint);
+	}
 } // Test::ISpr

@@ -121,6 +121,7 @@ namespace Test
 		* Description of coordinate system of the entire screen.
 		*/
 		virtual ScreenCoordSystemDesc GetScreenCoordSystem() const = 0;
+
 		/**
 		* Description of the coordinate system of the given canvas.
 		*/

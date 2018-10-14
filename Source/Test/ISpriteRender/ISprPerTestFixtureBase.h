@@ -2,6 +2,8 @@
 
 #include "Test/ISpriteRenderTestUtils/Fixture/PerTestFixtureBase.h"
 #include "ISpriteRenderTestUtils/IFrameCheckContext.h"
+#include "ISpriteRenderTestUtils/IFrameCheckContextUtils.h"
+#include "ISpriteRenderTestUtils/IMPL/Utils/TextureElement.h"
 
 namespace Test::ISpr
 {
@@ -43,6 +45,48 @@ namespace Test::ISpr
 		*/
 		void RenderFrame();
 		void TickN(int InTickCount);
+
+		// ~ Screen check helpers Begin
+		/*
+		* Returns canvas texel color at the given point.
+		* The color is always returned as color in format of the render target.
+		*
+		* @InCanvasPoint: Point in CoordSystem of the canvas (as the sprite render takes).
+		*/
+		TexelColor CanvasColorAt(CanvasHandle InCanvas, const IFrameCheckContextHandle& ContextHandle, const SprVec2& InCanvasPoint);
+
+		/**
+		* Returns true if canvas at the given point is clear (meaning that color matches the clear color).
+		*/
+		bool CanvasClearAt(CanvasHandle InCanvas, const IFrameCheckContextHandle& ContextHandle, const SprVec2& InCanvasPoint);
+
+		/**
+		* Returns true if canvas point color at the given coordinates matches the given;
+		*/
+		bool ColorMatchesCanvasAt(CanvasHandle InCanvas, const IFrameCheckContextHandle& ContextHandle, const SprVec2& InCanvasPoint, const TexelColor& InColor);
+
+		/**
+		* Returns true if the given screen point color matches color of the texture.
+		*/
+		bool TextureMatchesCanvasAt(CanvasHandle InCanvas, const IFrameCheckContextHandle& ContextHandle, const SprVec2& InCanvasPoint, const IMPL::TextureElement& InTextureElement);
+
+		/**
+		* Returns true if the given sprite is visible as a color.
+		*/
+		bool SpriteVisibleAsColor(CanvasHandle InCanvas, const IFrameCheckContextHandle& ContextHandle, SpriteHandle InSprite, const TexelColor& InColor);
+
+		/**
+		* Returns true if canvas is hidden.
+		*/
+		bool SpriteHidden(CanvasHandle InCanvas, const IFrameCheckContextHandle& ContextHandle, SpriteHandle InSprite);
+
+		/**
+		* Returns true if the given sprite is not rendered at the given canvas position.
+		*
+		* For example, may be used to check that sprite is moved from the given position.
+		*/
+		bool SpriteHiddenAt(CanvasHandle InCanvas, const IFrameCheckContextHandle& ContextHandle, SpriteHandle InSprite, const SprVec2& InCanvasPoint);
+		// ~ Screen check helpers End
 
 	private:		
 		void OnPreCommitFrame();

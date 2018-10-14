@@ -21,11 +21,15 @@
   <ItemGroup>
     <ClCompile Include="..\..\ISprite\Core\IMPL\SpriteRenderException.cpp" />
     <ClCompile Include="..\..\ISprite\IMPL\RenUtils\RenHRUtils.cpp" />
+    <ClCompile Include="..\..\ISprite\IMPL\SpriteCanvasProps.cpp" />
+    <ClCompile Include="..\..\ISprite\Math\MathUtils.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\ISprite\Core\SpriteRenderException.h" />
     <ClInclude Include="..\..\ISprite\IMPL\RenUtils\RenHRUtils.h" />
+    <ClInclude Include="..\..\ISprite\Math\IntVec.h" />
     <ClInclude Include="..\..\ISprite\Math\MathMinimal.h" />
+    <ClInclude Include="..\..\ISprite\Math\MathUtils.h" />
     <ClInclude Include="..\..\ISprite\Math\Size.h" />
     <ClInclude Include="..\..\ISprite\Math\SpriteTransform.h" />
     <ClInclude Include="..\..\ISprite\Math\Vec2.h" />

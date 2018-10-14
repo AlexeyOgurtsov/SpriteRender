@@ -8,6 +8,7 @@
 namespace Test
 {
 	using Vec2 = SprVec2;
+	using IntVec = SprIntVec;
 
 	constexpr float HALF = 0.5F;
 	constexpr float QUARTER = 0.25F;
@@ -30,6 +31,11 @@ namespace Test
 	* Interpolates between A and B with the given Factor.
 	*/
 	float Lerp(float A, float B, float Factor);
+
+	/**
+	* Opposite to Lerp: returns value, so that Lerp(A,B,Factor(A,B)) returns InLerpResult.
+	*/
+	float Factor(float A, float B, float InLerpResult);
 
 	/**
 	* Screen coord system description in 2D.
@@ -60,6 +66,14 @@ namespace Test
 		}
 
 		/**
+		* Opposite to PointAt: returns vector, where X and Y are factors in range 0..1.
+		*/
+		Vec2 PointFract(const Vec2& InPointAtResult) const
+		{
+			return Vec2{ Factor(LeftX, RightX, InPointAtResult.X), Factor(BottomY, TopY, InPointAtResult.Y) };
+		}
+
+		/**
 		* Returns part of size of the screen.
 		*/
 		SprSize GetSizePart(float InWidthFactor, float InHeightFactor)
@@ -79,7 +93,6 @@ namespace Test
 		,	BottomY{ InCenter.Y - InHalfHeight }
 		,	TopY{ InCenter.Y + InHalfHeight } {}
 	};
-;
 
 	template<class Strm> Strm& operator<<(Strm& S, const ScreenCoordSystemDesc InDesc)
 	{
