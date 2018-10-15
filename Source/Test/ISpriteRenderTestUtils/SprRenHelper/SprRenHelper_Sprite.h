@@ -29,6 +29,7 @@ namespace Test
 		const MySprMath::SSpriteTransform& GetTransform() const;
 		const MySprMath::SVec2& GetPosition() const;
 		const MySprMath::SSize& GetSize() const;
+		const MySprMath::SVec2 GetCenter() const;
 		const MySpr::ESpriteTransparency& GetTransparency() const;
 
 		const Handle_SprMaterialInstance& GetInitMatInst();

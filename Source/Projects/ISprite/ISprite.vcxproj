@@ -28,8 +28,10 @@
     <ClInclude Include="..\..\ISprite\Core\SpriteRenderException.h" />
     <ClInclude Include="..\..\ISprite\IMPL\RenUtils\RenHRUtils.h" />
     <ClInclude Include="..\..\ISprite\Math\IntVec.h" />
+    <ClInclude Include="..\..\ISprite\Math\MathFwd.h" />
     <ClInclude Include="..\..\ISprite\Math\MathMinimal.h" />
     <ClInclude Include="..\..\ISprite\Math\MathUtils.h" />
+    <ClInclude Include="..\..\ISprite\Math\MathUtilsMinimal.h" />
     <ClInclude Include="..\..\ISprite\Math\Size.h" />
     <ClInclude Include="..\..\ISprite\Math\SpriteTransform.h" />
     <ClInclude Include="..\..\ISprite\Math\Vec2.h" />

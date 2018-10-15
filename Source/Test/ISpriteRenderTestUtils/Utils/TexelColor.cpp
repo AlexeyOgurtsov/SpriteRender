@@ -1,9 +1,60 @@
 #include "TexelColor.h"
 #include "../IMPL/Utils/RenTextureUtils.h"
 #include "TestUtils.h"
+#include "MathUtils.h"
 
 namespace Test
 {
+	uint32_t GetUIntComponentByFactor(DXGI_FORMAT InFormat, float InFactor)
+	{
+		return ClampLerp(0U, GetMaxIntFormatComponent(InFormat), InFactor);
+	}
+
+	uint8_t GetComponentOffset(int InIndex, DXGI_FORMAT InFormat)
+	{
+		BOOST_ASSERT(InIndex < 4);
+
+		UINT const ComponentSize = GetFormatComponentSize(InFormat);
+		return ComponentSize * InIndex;		
+	}
+
+	template<class PtrType>
+	PtrType GetComponentPtr(PtrType Ptr, int InIndex, DXGI_FORMAT InFormat)
+	{
+		return const_cast<PtrType>(static_cast<const void*>(static_cast<const uint8_t*>(Ptr) + GetComponentOffset(InIndex, InFormat)));
+	}
+
+	void SetTextureComponent(void* pOutTexel, int InIndex, DXGI_FORMAT InFormat, float InCoeff)
+	{
+		BOOST_ASSERT(InIndex < 4);
+
+		BOOST_ASSERT(InFormat != DXGI_FORMAT_UNKNOWN);
+		UINT const ComponentSize = GetFormatComponentSize(InFormat);
+		void* const pOutComponent =  GetComponentPtr(pOutTexel, InIndex, InFormat);
+		
+		uint8_t* const pOutByte = static_cast<uint8_t*>(pOutComponent);
+		float* const pOutFloat = static_cast<float*>(pOutComponent);
+
+		// Enough for any UINT format
+		uint32_t UIntComp = GetUIntComponentByFactor(InFormat, InCoeff);
+
+		switch (InFormat)
+		{
+		case DXGI_FORMAT_R8G8B8A8_UNORM: // fall-through
+		case DXGI_FORMAT_R8G8B8A8_UINT:			
+			*pOutByte = static_cast<uint8_t>(UIntComp);
+			return;
+
+		case DXGI_FORMAT_R32G32B32A32_FLOAT:
+			*pOutFloat = InCoeff;
+			return;
+
+		default:
+			break;
+		}
+		BOOST_ASSERT_MSG(false, "SetTextureComponent: unknown texture format!");
+	}
+
 	TexelColor::TexelColor(DXGI_FORMAT InFormat, const void* InData) :
 		Format{InFormat}
 	{
@@ -11,6 +62,84 @@ namespace Test
 		size_t FormatSize = GetFormatTexelSize(InFormat);
 		std::memcpy(data, InData, FormatSize);
 	}
+
+	FLOAT* TexelColor::ToFloat(FLOAT OutColor[4])
+	{
+		OutColor[0] = GetRedFactor();
+		OutColor[1] = GetGreenFactor();
+		OutColor[2] = GetBlueFactor();
+		OutColor[3] = GetAlphaFactor();
+		return OutColor;
+	}
+
+
+	float TexelColor::GetRedComponent() const
+	{
+		return GetComponent(0);
+	}
+
+	float TexelColor::GetGreenComponent() const
+	{
+		return GetComponent(1);
+	}
+
+	float TexelColor::GetBlueComponent() const
+	{
+		return GetComponent(2);
+	}
+
+	float TexelColor::GetAlphaComponent() const
+	{
+		return GetComponent(3);
+	}
+
+	float TexelColor::GetComponent(int InIndex) const
+	{
+		const void* const pComponent = GetComponentPtr(GetData(), InIndex, Format);
+		BOOST_ASSERT(pComponent);
+
+		switch(Format)
+		{
+		case DXGI_FORMAT_R8G8B8A8_UNORM: // fall-through
+		case DXGI_FORMAT_R8G8B8A8_UINT:		
+			return static_cast<float>(*static_cast<const uint8_t*>(pComponent));
+
+		case DXGI_FORMAT_R32G32B32A32_FLOAT:
+			return static_cast<float>(*static_cast<const float*>(pComponent));
+
+		default:
+			break;
+		}
+		BOOST_ASSERT_MSG(false, "TexelColor::GetComponent: Format: not yet impl");
+		return 0;
+	}
+
+	float TexelColor::GetComponentFactor(int InIndex) const
+	{
+		float MaxComponent = GetMaxFormatComponent(Format);
+		return ClampLerpFactor(0.0F, MaxComponent, GetComponent(InIndex));
+	}
+
+	float TexelColor::GetRedFactor() const
+	{
+		return GetComponentFactor(0);
+	}
+
+	float TexelColor::GetGreenFactor() const
+	{
+		return GetComponentFactor(1);
+	}
+
+	float TexelColor::GetBlueFactor() const
+	{
+		return GetComponentFactor(2);
+	}
+
+	float TexelColor::GetAlphaFactor() const
+	{
+		return GetComponentFactor(3);
+	}
+	
 
 	TexelColor TexelColor::GetRed(DXGI_FORMAT InFormat, float InAlpha)
 	{
@@ -35,45 +164,6 @@ namespace Test
 	TexelColor TexelColor::GetBlack(DXGI_FORMAT InFormat, float InAlpha)
 	{
 		return GetColor(InFormat, 0.0F, 0.0F, 0.0F, InAlpha);
-	}
-
-	void SetTextureComponent(void* pOutTexel, int InIndex, DXGI_FORMAT InFormat, float InCoeff)
-	{
-		BOOST_ASSERT(InFormat != DXGI_FORMAT_UNKNOWN);
-		UINT const ComponentSize = GetFormatComponentSize(InFormat);
-		void* const pOutComponent = static_cast<uint8_t*>(pOutTexel) + ComponentSize * InIndex;
-		
-		uint8_t* const pOutByte = static_cast<uint8_t*>(pOutComponent);
-		float* const pOutFloat = static_cast<float*>(pOutComponent);
-
-		switch (InFormat)
-		{
-		case DXGI_FORMAT_R8G8B8A8_UNORM: // fall-through
-		case DXGI_FORMAT_R8G8B8A8_UINT:
-			// We doing extra checks for corner cases for components with values ZERO or ONE, 
-			// because this values are often used in test as references.
-			if (InCoeff <= 0)
-			{
-				*pOutByte = 0;
-			}
-			else if (InCoeff >= 1.0F)
-			{
-				*pOutByte = 255;
-			}
-			else
-			{
-				*pOutByte = static_cast<uint8_t>(255 * InCoeff);
-			}
-			return;
-
-		case DXGI_FORMAT_R32G32B32A32_FLOAT:
-			*pOutFloat = InCoeff;
-			return;
-
-		default:
-			break;
-		}
-		BOOST_ASSERT_MSG(false, "SetTextureComponent: unknown texture format!");
 	}
 
 	TexelColor TexelColor::GetColor(DXGI_FORMAT InFormat, float InRed, float InGreen, float InBlue, float InAlpha)

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../SprRenHelper/SprRenHelper_MathTypes.h"
+#include "ISprite/Math/MathUtils.h"
 #include <cmath>
 #include <string>
 #include <iomanip>
@@ -30,12 +31,23 @@ namespace Test
 	/**
 	* Interpolates between A and B with the given Factor.
 	*/
-	float Lerp(float A, float B, float Factor);
+	template<class T>
+	T Lerp(T A, T B, float Factor) { return MySprMath::Lerp(A, B, Factor); }
+
+	template<class T>
+	T ClampLerp(T A, T B, float Factor) { return MySprMath::ClampLerp(A, B, Factor); }
 
 	/**
 	* Opposite to Lerp: returns value, so that Lerp(A,B,Factor(A,B)) returns InLerpResult.
 	*/
-	float Factor(float A, float B, float InLerpResult);
+	template<class T>
+	float Factor(T A, T B, float InLerpResult) { return MySprMath::LerpFactor(A,B,InLerpResult); }
+
+	/**
+	* Opposite to Lerp: returns value, so that Lerp(A,B,Factor(A,B)) returns InLerpResult.
+	*/
+	template<class T>
+	float ClampLerpFactor(T A, T B, float InLerpResult) { return MySprMath::ClampLerpFactor(A, B, InLerpResult); }
 
 	/**
 	* Screen coord system description in 2D.
@@ -100,5 +112,5 @@ namespace Test
 		S << "(LeftX, RightX)=" << InDesc.LeftX << ";" << InDesc.RightX << std::endl;		
 		S << "(BottomY, TopY)=" << InDesc.BottomY << ";" << InDesc.TopY << std::endl;
 		return S;
-	}
+	}	
 } // Test

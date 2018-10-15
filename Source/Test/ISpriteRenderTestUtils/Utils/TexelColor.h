@@ -18,6 +18,26 @@ namespace Test
 		DXGI_FORMAT GetFormat() const { return Format; }
 		const void* GetData() const { return data; }
 
+		/**
+		* This method is necessary for taking representation, 
+		* where each component is in range 0..1.
+		*
+		* For examle, useful for ClearRenderTargetView.
+		*/
+		FLOAT* ToFloat(FLOAT OutColor[4]);
+
+		float GetRedComponent() const;
+		float GetGreenComponent() const;
+		float GetBlueComponent() const;
+		float GetAlphaComponent() const;
+		float GetComponent(int InIndex) const;
+
+		float GetRedFactor() const;
+		float GetGreenFactor() const;
+		float GetBlueFactor() const;
+		float GetAlphaFactor() const;
+		float GetComponentFactor(int InIndex) const;
+
 		// ~Color Getters Begin
 		static TexelColor GetRed(DXGI_FORMAT InFormat, float InAlpha = 1.0F);
 		static TexelColor GetGreen(DXGI_FORMAT InFormat, float InAlpha = 1.0F);
@@ -33,6 +53,50 @@ namespace Test
 	};
 	bool operator==(const TexelColor& A, const TexelColor& B);
 	bool operator!=(const TexelColor& A, const TexelColor& B);
+
+	/**
+	* @See: GetMaxFormatComponent
+	*/
+	inline UINT GetMaxIntFormatComponent(DXGI_FORMAT InFormat)
+	{
+		switch (InFormat)
+		{
+		case DXGI_FORMAT_R32G32B32A32_FLOAT:
+			BOOST_ASSERT_MSG(false, "GetMaxFormatComponent: NOT UInt format");
+			return 1;
+
+		case DXGI_FORMAT_R8G8B8A8_UNORM:
+			return static_cast<UINT>(255);
+
+		case DXGI_FORMAT_R8G8B8A8_UINT:
+			return static_cast<UINT>(255);
+
+		default:
+			break;
+		}
+		BOOST_ASSERT(!"GetMaxFormatComponent: Format is NOT yet impl");
+		return 0;
+	}
+
+	inline float GetMaxFormatComponent(DXGI_FORMAT InFormat)
+	{
+		switch (InFormat)
+		{
+		case DXGI_FORMAT_R32G32B32A32_FLOAT:
+			return 1.0F;
+
+		case DXGI_FORMAT_R8G8B8A8_UNORM:
+			return static_cast<UINT>(255);
+
+		case DXGI_FORMAT_R8G8B8A8_UINT:
+			return static_cast<UINT>(255);
+
+		default:
+			break;
+		}
+		BOOST_ASSERT(!"GetMaxFormatComponent: Format is NOT yet impl");
+		return 0;
+	}
 
 	inline UINT GetFormatTexelSize(DXGI_FORMAT InFormat)
 	{
@@ -50,7 +114,7 @@ namespace Test
 		default:
 			break;
 		}
-		BOOST_ASSERT(!"Should NOT get here");
+		BOOST_ASSERT(!"GetFormatTexelSize: Format is NOT yet impl");
 		return 0;
 	}
 	inline UINT GetFormatComponentSize(DXGI_FORMAT InFormat)

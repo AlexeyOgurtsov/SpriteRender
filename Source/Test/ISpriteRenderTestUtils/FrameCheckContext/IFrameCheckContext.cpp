@@ -13,6 +13,16 @@ namespace Test
 		return GetDepthStencilDesc().Format;
 	}
 
+	const TesterConfig_D3DDevice_RenderTarget& IFrameCheckContext::GetRTConfig() const
+	{
+		return GetD3DConfig().RenderTarget;
+	}
+
+	const TesterConfig_D3DDevice_DepthStencil& IFrameCheckContext::GetDepthStencilConfig() const
+	{
+		return GetD3DConfig().DepthStencil;
+	}
+
 	UINT IFrameCheckContext::GetRTWidth() const
 	{
 		return GetRTDesc().Width;

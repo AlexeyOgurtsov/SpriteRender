@@ -1,13 +1,19 @@
 #pragma once
 
 #include <d3d11.h>
+#include "../Utils/TexelColor.h"
 
 namespace Test
 {
 	struct TesterConfig_D3DDevice_RenderTarget
 	{
-		DXGI_FORMAT Format = DXGI_FORMAT_R8G8B8A8_UNORM;
-		FLOAT ClearColor[4] = { 0.0F, 0.0F, 0.0F, 1.0F };
+		const FLOAT* GetClearColorFloat() const { return ClearColorFloat; }
+
+		FLOAT ClearColorFloat[4] = { 0.0F, 0.0F, 0.0F, 1.0F };
+		TexelColor ClearColor;
+
+		TesterConfig_D3DDevice_RenderTarget() :
+			ClearColor{TexelColor::GetBlack(DXGI_FORMAT_R8G8B8A8_UNORM)} {}
 	};
 
 	struct TesterConfig_D3DDevice_DepthStencil

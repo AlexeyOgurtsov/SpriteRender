@@ -49,4 +49,9 @@ namespace Test::IMPL
 	{
 		return GetEnv()->GetD3DDevice()->GetDevCon();
 	}
+
+	const TesterConfig_D3DDevice& FrameCheckContext::GetD3DConfig() const
+	{
+		return GetEnv()->GetD3DDevice()->GetConfig();
+	}
 } // Test::IMPL

@@ -6,6 +6,5 @@ namespace Dv
 {
 namespace Spr
 {
-
 } // Dv::Spr
 } // Dv

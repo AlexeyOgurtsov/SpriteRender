@@ -1,5 +1,6 @@
 #include "SprRenHelper_Sprite.h"
 #include "../Utils/TestUtils.h"
+#include "../Utils/MathUtils.h"
 #include "../ISpriteRenderSubsystemManager.h"
 
 namespace Test
@@ -96,6 +97,11 @@ const MySprMath::SVec2& Sprite::GetPosition() const
 const MySprMath::SSize& Sprite::GetSize() const
 {
 	return GetGeometry().Size;
+}
+
+const MySprMath::SVec2 Sprite::GetCenter() const
+{
+	return MySprMath::GetCenter(GetPosition(), GetSize());
 }
 
 const MySpr::ESpriteTransparency& Sprite::GetTransparency() const

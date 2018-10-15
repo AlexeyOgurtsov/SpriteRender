@@ -83,5 +83,11 @@
     <ClInclude Include="..\..\ISprite\Math\MathUtils.h">
       <Filter>Core\Math</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\ISprite\Math\MathFwd.h">
+      <Filter>Core\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\ISprite\Math\MathUtilsMinimal.h">
+      <Filter>Core\Math</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

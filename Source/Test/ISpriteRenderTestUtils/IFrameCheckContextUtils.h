@@ -62,7 +62,7 @@ namespace Test
 	/**
 	* Returns true if sprite is not visible.
 	*/
-	bool RT_SpriteHidden_AtCanvasPoint(IFrameCheckContext* pContext, CanvasHandle InCanvas, SpriteHandle InSprite, const SprVec2& InCanvasPoint);
+	bool RT_SpriteHidden_AtCanvasPoint(IFrameCheckContext* pContext, CanvasHandle InCanvas, SpriteHandle InSprite, const SprVec2& InSpritePosition_AsCanvasPoint);
 
 	/**
 	* Returns true if render target texel with the given coordinates matches another one.

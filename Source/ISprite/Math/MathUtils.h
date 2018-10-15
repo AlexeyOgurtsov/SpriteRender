@@ -1,10 +1,12 @@
 #pragma once
 
+#include "MathUtilsMinimal.h"
+#include "MathMinimal.h"
+#include "Size.h"
+#include "IntVec.h"
+#include "SpriteTransform.h"
+
 namespace Dv::Spr::Math
 {
-	template<class T>
-	T Lerp(T A, T B, float Factor)
-	{
-		return A + (B - A) * static_cast<T>(Factor);
-	}
+	SVec2 GetCenter(const SVec2& InCenter, const SSize& InSize);
 } // Dv::Spr

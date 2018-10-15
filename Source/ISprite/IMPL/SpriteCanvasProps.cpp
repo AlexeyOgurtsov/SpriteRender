@@ -7,7 +7,7 @@ namespace Spr
 { 
 	Math::IntVec SCanvasRect::PointAt(float InAlphaX, float InAlphaY) const
 	{
-		return Math::IntVec { Math::Lerp(Left, GetRight(), InAlphaX),  Math::Lerp(GetBottom(), Top, InAlphaY) };
+		return Math::IntVec { Math::ClampLerp(Left, (GetRight() - 1), InAlphaX),  Math::ClampLerp(GetBottom(), (Top-1), InAlphaY) };
 	}
 } // Dv::Spr
 } // Dv

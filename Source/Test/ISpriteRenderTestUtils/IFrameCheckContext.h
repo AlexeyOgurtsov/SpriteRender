@@ -2,6 +2,7 @@
 
 #include <memory>
 #include <d3d11.h>
+#include "CONFIG/D3DDeviceConfig.h"
 
 namespace Test
 {
@@ -22,6 +23,8 @@ namespace Test
 		// ~ Frame resource helper accessors Begin
 		DXGI_FORMAT GetRTFormat() const;
 		DXGI_FORMAT GetDepthStencilFormat() const;
+		const TesterConfig_D3DDevice_RenderTarget& GetRTConfig() const;
+		const TesterConfig_D3DDevice_DepthStencil& GetDepthStencilConfig() const;
 
 		/**
 		* Width of the render target in texels.
@@ -49,6 +52,9 @@ namespace Test
 		*/
 		virtual ID3D11Texture2D* GetDepthStencil() const = 0;
 		// ~Frame resource accessors End
+
+	protected:
+		virtual const TesterConfig_D3DDevice& GetD3DConfig() const = 0;
 
 	private:
 		const D3D11_TEXTURE2D_DESC& GetRTDesc() const;

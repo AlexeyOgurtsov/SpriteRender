@@ -134,7 +134,7 @@ void Clear(std::ofstream& InLog, D3DDevice* pD3D)
 	if (ID3D11RenderTargetView* pView = pD3D->GetSwapChainBufferRTView())
 	{
 		T_LOG_TO(InLog, "D3DDevice: Render target will be cleared");
-		pD3D->GetDevCon()->ClearRenderTargetView(pView, Cfg.RenderTarget.ClearColor);
+		pD3D->GetDevCon()->ClearRenderTargetView(pView, Cfg.RenderTarget.GetClearColorFloat());
 	}
 
 	if (ID3D11DepthStencilView* pView = pD3D->GetDepthStencilView())
@@ -165,7 +165,7 @@ D3DDevice::D3DDevice(UINT InRTWidth, UINT InRTHeight, std::ofstream* pInLog, HWN
 	_swapChainDesc.BufferDesc.Height = InRTHeight;
 	_swapChainDesc.BufferDesc.RefreshRate.Numerator = DEFAULT_REFRESH_RATE;
 	_swapChainDesc.BufferDesc.RefreshRate.Denominator = 1;
-	_swapChainDesc.BufferDesc.Format = GetConfig().RenderTarget.Format;
+	_swapChainDesc.BufferDesc.Format = GetConfig().RenderTarget.ClearColor.GetFormat();
 	_swapChainDesc.BufferDesc.ScanlineOrdering = DEFAULT_SCANLINE_ORDER;
 	_swapChainDesc.BufferDesc.Scaling = DXGI_MODE_SCALING_STRETCHED;
 	_swapChainDesc.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
@@ -262,7 +262,7 @@ void D3DDevice::InitializeCopyBuffers()
 		(
 			GetDev(),
 			GetRTWidth(), GetRTHeight(),
-			GetConfig().RenderTarget.Format,
+			GetConfig().RenderTarget.ClearColor.GetFormat(),
 			0, // BindFlags
 			D3D11_CPU_ACCESS_READ | D3D11_CPU_ACCESS_WRITE
 		);
