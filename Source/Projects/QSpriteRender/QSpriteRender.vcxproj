@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>15.0</VCProjectVersion>
+    <ProjectGuid>{DCB00EA3-14AD-448F-B387-540ABBF7BCCF}</ProjectGuid>
+    <RootNamespace>QSpriteRender</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>C:\SpriteRender\Out\Lib\</OutDir>
+    <TargetExt>.lib</TargetExt>
+    <IntDir>C:\SpriteRender\Out\Intermediate\QSpriteRender\</IntDir>
+    <TargetName>QSpriteRender_debug</TargetName>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);C:\SpriteRender\Source\;C:\SpriteRender\Source\Test\;C:\SpriteRender\Source\ThirdParty\boost_1_67_0\</IncludePath>
+    <LibraryPath>$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(NETFXKitsDir)Lib\um\x86;C:\SpriteRender\Out\Lib\</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>C:\SpriteRender\Out\Lib\</OutDir>
+    <TargetExt>.lib</TargetExt>
+    <TargetName>QSpriteRender</TargetName>
+    <IntDir>C:\SpriteRender\Out\Intermediate\QSpriteRender\Release</IntDir>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);C:\SpriteRender\Source\;C:\SpriteRender\Source\Test\;C:\SpriteRender\Source\ThirdParty\boost_1_67_0\</IncludePath>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
+      <AdditionalOptions>/wd5040 %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
+      <AdditionalOptions>/wd5040 %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <Link>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\QSpriteRender\IMPL\Canvas\Canvas.h" />
+    <ClInclude Include="..\..\QSpriteRender\IMPL\Canvas\CanvasCommands.h" />
+    <ClInclude Include="..\..\QSpriteRender\IMPL\Environment\AmbientContext.h" />
+    <ClInclude Include="..\..\QSpriteRender\IMPL\Glue\Glue_InterfaceToImpl.h" />
+    <ClInclude Include="..\..\QSpriteRender\IMPL\Render\SpriteRender.h" />
+    <ClInclude Include="..\..\QSpriteRender\IMPL\Render\SpriteUpdater.h" />
+    <ClInclude Include="..\..\QSpriteRender\IMPL\RenUtils\RenBufferTypes.h" />
+    <ClInclude Include="..\..\QSpriteRender\IMPL\RenUtils\RenBufferUtils.h" />
+    <ClInclude Include="..\..\QSpriteRender\IMPL\RenUtils\RenDeviceContextTypes.h" />
+    <ClInclude Include="..\..\QSpriteRender\IMPL\RenUtils\RenDeviceContextUtils.h" />
+    <ClInclude Include="..\..\QSpriteRender\IMPL\RenUtils\RenDrawCall.h" />
+    <ClInclude Include="..\..\QSpriteRender\IMPL\RenUtils\RenDrawCallUtils.h" />
+    <ClInclude Include="..\..\QSpriteRender\IMPL\RenUtils\RenHRUtils.h" />
+    <ClInclude Include="..\..\QSpriteRender\IMPL\RenUtils\RenInputLayoutTypes.h" />
+    <ClInclude Include="..\..\QSpriteRender\IMPL\RenUtils\RenResources.h" />
+    <ClInclude Include="..\..\QSpriteRender\IMPL\RenUtils\RenUtilsSystem.h" />
+    <ClInclude Include="..\..\QSpriteRender\IMPL\RenUtils\Shader.h" />
+    <ClInclude Include="..\..\QSpriteRender\IMPL\RenUtils\ShaderCompileUtils.h" />
+    <ClInclude Include="..\..\QSpriteRender\IMPL\RenUtils\ShaderProg.h" />
+    <ClInclude Include="..\..\QSpriteRender\IMPL\Subsystem\SpriteRenderSubsystem.h" />
+    <ClInclude Include="..\..\QSpriteRender\IMPL\Subsystem\SpriteRenderSubsystemEnvironment.h" />
+    <ClInclude Include="..\..\QSpriteRender\IMPL\Utils\String\Text.h" />
+    <ClInclude Include="..\..\QSpriteRender\INTERFACE\CONFIG\LoggingConfig.h" />
+    <ClInclude Include="..\..\QSpriteRender\INTERFACE\CONFIG\RenderDeviceConfig.h" />
+    <ClInclude Include="..\..\QSpriteRender\INTERFACE\CONFIG\RenTargetConfig.h" />
+    <ClInclude Include="..\..\QSpriteRender\INTERFACE\CONFIG\SpriteRenderConfig.h" />
+    <ClInclude Include="..\..\QSpriteRender\INTERFACE\CONFIG\SpriteRenderShadersConfig.h" />
+    <ClInclude Include="..\..\QSpriteRender\INTERFACE\ISpriteRenderSubsystem.h" />
+    <ClInclude Include="..\..\QSpriteRender\INTERFACE\Material\ISpriteMaterialManager.h" />
+    <ClInclude Include="..\..\QSpriteRender\INTERFACE\Material\MaterialInstanceFactory.h" />
+    <ClInclude Include="..\..\QSpriteRender\INTERFACE\SpriteRenderSubsystemCreate.h" />
+    <ClInclude Include="..\..\QSpriteRender\INTERFACE\SpriteRenderSubsystemHandle.h" />
+    <ClInclude Include="..\..\QSpriteRender\INTERFACE\SpriteRenderSubsystemInitializer.h" />
+    <ClInclude Include="..\..\QSpriteRender\Material\DefaultMaterialInstanceRS.h" />
+    <ClInclude Include="..\..\QSpriteRender\Material\DefaultSpriteMaterial.h" />
+    <ClInclude Include="..\..\QSpriteRender\Material\DefaultSpriteMaterialShader.h" />
+    <ClInclude Include="..\..\QSpriteRender\Material\DefaultSpriteMaterialTypedefs.h" />
+    <ClInclude Include="..\..\QSpriteRender\Material\MaterialInstanceRenderState.h" />
+    <ClInclude Include="..\..\QSpriteRender\Material\MaterialManager.h" />
+    <ClInclude Include="..\..\QSpriteRender\Material\SpriteMaterial.h" />
+    <ClInclude Include="..\..\Test\QSpriteRender\CONFIG\DefaultGlobalConfig.h" />
+    <ClInclude Include="..\..\Test\QSpriteRender\CONFIG\SpriteRenderCustomSetuper.h" />
+    <ClInclude Include="..\..\Test\QSpriteRender\CustomEnvironment.h" />
+    <ClInclude Include="..\..\Test\QSpriteRender\QGlobFixture.h" />
+    <ClInclude Include="..\..\Test\QSpriteRender\QSprGlobFixtureBase.h" />
+    <ClInclude Include="..\..\Test\QSpriteRender\QSpriteRenderTest.h" />
+    <ClInclude Include="..\..\Test\QSpriteRender\SpriteRenderManager.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\QSpriteRender\IMPL\Canvas\Canvas.cpp" />
+    <ClCompile Include="..\..\QSpriteRender\IMPL\Environment\AmbientContext.cpp" />
+    <ClCompile Include="..\..\QSpriteRender\IMPL\Glue\Glue_InterfaceToImpl.cpp" />
+    <ClCompile Include="..\..\QSpriteRender\IMPL\Render\SpriteRender.cpp" />
+    <ClCompile Include="..\..\QSpriteRender\IMPL\Render\SpriteUpdater.cpp" />
+    <ClCompile Include="..\..\QSpriteRender\IMPL\RenUtils\RenBufferUtils.cpp" />
+    <ClCompile Include="..\..\QSpriteRender\IMPL\RenUtils\RenDeviceContextUtils.cpp" />
+    <ClCompile Include="..\..\QSpriteRender\IMPL\RenUtils\RenDrawCallUtils.cpp" />
+    <ClCompile Include="..\..\QSpriteRender\IMPL\RenUtils\RenHRUtils.cpp" />
+    <ClCompile Include="..\..\QSpriteRender\IMPL\RenUtils\RenResources.cpp" />
+    <ClCompile Include="..\..\QSpriteRender\IMPL\RenUtils\Shader.cpp" />
+    <ClCompile Include="..\..\QSpriteRender\IMPL\RenUtils\ShaderCompileUtils.cpp" />
+    <ClCompile Include="..\..\QSpriteRender\IMPL\Subsystem\SpriteRenderSubsystem.cpp" />
+    <ClCompile Include="..\..\QSpriteRender\IMPL\Subsystem\SpriteRenderSubsystemEnvironment.cpp" />
+    <ClCompile Include="..\..\QSpriteRender\IMPL\Utils\String\Text.cpp" />
+    <ClCompile Include="..\..\QSpriteRender\INTERFACE\CONFIG\SpriteRenderConfig.cpp" />
+    <ClCompile Include="..\..\QSpriteRender\INTERFACE\Material\MaterialInstanceFactory.cpp" />
+    <ClCompile Include="..\..\QSpriteRender\INTERFACE\SpriteRenderSubsystemCreate.cpp" />
+    <ClCompile Include="..\..\QSpriteRender\Material\DefaultMaterialInstanceRS.cpp" />
+    <ClCompile Include="..\..\QSpriteRender\Material\DefaultSpriteMaterial.cpp" />
+    <ClCompile Include="..\..\QSpriteRender\Material\DefaultSpriteMaterialShader.cpp" />
+    <ClCompile Include="..\..\QSpriteRender\Material\MaterialInstanceRenderState.cpp" />
+    <ClCompile Include="..\..\QSpriteRender\Material\MaterialManager.cpp" />
+    <ClCompile Include="..\..\Test\QSpriteRender\CONFIG\IMPL\DefaultGlobalConfig.cpp" />
+    <ClCompile Include="..\..\Test\QSpriteRender\IMPL\CustomEnvironment.cpp" />
+    <ClCompile Include="..\..\Test\QSpriteRender\IMPL\QGlobFixture.cpp" />
+    <ClCompile Include="..\..\Test\QSpriteRender\IMPL\QSprGlobFixtureBase.cpp" />
+    <ClCompile Include="..\..\Test\QSpriteRender\IMPL\SpriteRenderManager.cpp" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

@@ -1,0 +1,297 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Исходные файлы">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Файлы заголовков">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Файлы ресурсов">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="IMPL">
+      <UniqueIdentifier>{111ee440-174b-411d-a51f-3e9205c692f2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="INTERFACE">
+      <UniqueIdentifier>{fcf7ed72-7816-4af7-86c2-1aa8f03da86d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Material">
+      <UniqueIdentifier>{5d571f47-22e1-499a-9250-f7193419ac33}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="TEST">
+      <UniqueIdentifier>{92c10d59-6fa8-44b2-9471-53a355533528}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="IMPL\Canvas">
+      <UniqueIdentifier>{c041938c-1c85-42dd-ac75-39d2bf9a003d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="IMPL\Environment">
+      <UniqueIdentifier>{8d905e72-9525-4632-af87-6a29f2d138c0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="IMPL\Glue">
+      <UniqueIdentifier>{5e18c900-a83f-423b-921e-75ae336f4241}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="IMPL\Render">
+      <UniqueIdentifier>{514a2ed6-633e-403b-a84a-47f493d60cfb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="IMPL\RenUtils">
+      <UniqueIdentifier>{74d5b475-dc01-4944-8bd0-278234bb1a2f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="IMPL\Subsystem">
+      <UniqueIdentifier>{022173a0-4e1f-4fa2-93a2-b3bdcbf9ee25}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="IMPL\Utils">
+      <UniqueIdentifier>{138dacbb-5e2a-479b-b8bb-9af9f539dfec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="INTERFACE\CONFIG">
+      <UniqueIdentifier>{7026f63a-eb53-4908-af72-a04053ab2099}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="INTERFACE\Material">
+      <UniqueIdentifier>{c99a5f78-bda9-40db-b7b4-d101ec8a42f0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="TEST\CONFIG">
+      <UniqueIdentifier>{d2731556-04d9-480e-8354-ff1250564e3f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="TEST\IMPL">
+      <UniqueIdentifier>{45fdd5d0-207f-456d-b464-74a4fe242e59}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="TEST\CONFIG\IMPL">
+      <UniqueIdentifier>{ecde4e38-08de-445e-8373-adfba8e301d5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="IMPL\Utils\String">
+      <UniqueIdentifier>{c34437f3-6e60-4119-a9c6-14c9ed7bd0f3}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\QSpriteRender\INTERFACE\CONFIG\LoggingConfig.h">
+      <Filter>INTERFACE\CONFIG</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\QSpriteRender\INTERFACE\CONFIG\RenderDeviceConfig.h">
+      <Filter>INTERFACE\CONFIG</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\QSpriteRender\INTERFACE\CONFIG\RenTargetConfig.h">
+      <Filter>INTERFACE\CONFIG</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\QSpriteRender\INTERFACE\CONFIG\SpriteRenderConfig.h">
+      <Filter>INTERFACE\CONFIG</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\QSpriteRender\INTERFACE\CONFIG\SpriteRenderShadersConfig.h">
+      <Filter>INTERFACE\CONFIG</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Test\QSpriteRender\CustomEnvironment.h">
+      <Filter>TEST</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Test\QSpriteRender\QGlobFixture.h">
+      <Filter>TEST</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Test\QSpriteRender\QSprGlobFixtureBase.h">
+      <Filter>TEST</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Test\QSpriteRender\QSpriteRenderTest.h">
+      <Filter>TEST</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Test\QSpriteRender\SpriteRenderManager.h">
+      <Filter>TEST</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Test\QSpriteRender\CONFIG\DefaultGlobalConfig.h">
+      <Filter>TEST\CONFIG</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Test\QSpriteRender\CONFIG\SpriteRenderCustomSetuper.h">
+      <Filter>TEST\CONFIG</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\QSpriteRender\Material\DefaultMaterialInstanceRS.h">
+      <Filter>Material</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\QSpriteRender\Material\DefaultSpriteMaterial.h">
+      <Filter>Material</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\QSpriteRender\Material\DefaultSpriteMaterialShader.h">
+      <Filter>Material</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\QSpriteRender\Material\DefaultSpriteMaterialTypedefs.h">
+      <Filter>Material</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\QSpriteRender\Material\MaterialInstanceRenderState.h">
+      <Filter>Material</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\QSpriteRender\Material\MaterialManager.h">
+      <Filter>Material</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\QSpriteRender\Material\SpriteMaterial.h">
+      <Filter>Material</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\QSpriteRender\INTERFACE\Material\ISpriteMaterialManager.h">
+      <Filter>INTERFACE\Material</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\QSpriteRender\INTERFACE\Material\MaterialInstanceFactory.h">
+      <Filter>INTERFACE\Material</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\QSpriteRender\INTERFACE\ISpriteRenderSubsystem.h">
+      <Filter>INTERFACE</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\QSpriteRender\INTERFACE\SpriteRenderSubsystemCreate.h">
+      <Filter>INTERFACE</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\QSpriteRender\INTERFACE\SpriteRenderSubsystemHandle.h">
+      <Filter>INTERFACE</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\QSpriteRender\INTERFACE\SpriteRenderSubsystemInitializer.h">
+      <Filter>INTERFACE</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\QSpriteRender\IMPL\Environment\AmbientContext.h">
+      <Filter>IMPL\Environment</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\QSpriteRender\IMPL\Utils\String\Text.h">
+      <Filter>IMPL\Utils\String</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\QSpriteRender\IMPL\RenUtils\RenBufferTypes.h">
+      <Filter>IMPL\RenUtils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\QSpriteRender\IMPL\RenUtils\RenBufferUtils.h">
+      <Filter>IMPL\RenUtils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\QSpriteRender\IMPL\RenUtils\RenDeviceContextTypes.h">
+      <Filter>IMPL\RenUtils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\QSpriteRender\IMPL\RenUtils\RenDeviceContextUtils.h">
+      <Filter>IMPL\RenUtils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\QSpriteRender\IMPL\RenUtils\RenDrawCall.h">
+      <Filter>IMPL\RenUtils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\QSpriteRender\IMPL\RenUtils\RenDrawCallUtils.h">
+      <Filter>IMPL\RenUtils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\QSpriteRender\IMPL\RenUtils\RenHRUtils.h">
+      <Filter>IMPL\RenUtils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\QSpriteRender\IMPL\RenUtils\RenInputLayoutTypes.h">
+      <Filter>IMPL\RenUtils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\QSpriteRender\IMPL\RenUtils\RenResources.h">
+      <Filter>IMPL\RenUtils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\QSpriteRender\IMPL\RenUtils\RenUtilsSystem.h">
+      <Filter>IMPL\RenUtils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\QSpriteRender\IMPL\RenUtils\Shader.h">
+      <Filter>IMPL\RenUtils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\QSpriteRender\IMPL\RenUtils\ShaderCompileUtils.h">
+      <Filter>IMPL\RenUtils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\QSpriteRender\IMPL\RenUtils\ShaderProg.h">
+      <Filter>IMPL\RenUtils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\QSpriteRender\IMPL\Glue\Glue_InterfaceToImpl.h">
+      <Filter>IMPL\Glue</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\QSpriteRender\IMPL\Render\SpriteRender.h">
+      <Filter>IMPL\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\QSpriteRender\IMPL\Render\SpriteUpdater.h">
+      <Filter>IMPL\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\QSpriteRender\IMPL\Canvas\Canvas.h">
+      <Filter>IMPL\Canvas</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\QSpriteRender\IMPL\Canvas\CanvasCommands.h">
+      <Filter>IMPL\Canvas</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\QSpriteRender\IMPL\Subsystem\SpriteRenderSubsystem.h">
+      <Filter>IMPL\Subsystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\QSpriteRender\IMPL\Subsystem\SpriteRenderSubsystemEnvironment.h">
+      <Filter>IMPL\Subsystem</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\QSpriteRender\INTERFACE\CONFIG\SpriteRenderConfig.cpp">
+      <Filter>INTERFACE\CONFIG</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Test\QSpriteRender\CONFIG\IMPL\DefaultGlobalConfig.cpp">
+      <Filter>TEST\CONFIG\IMPL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Test\QSpriteRender\IMPL\CustomEnvironment.cpp">
+      <Filter>TEST\IMPL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Test\QSpriteRender\IMPL\QGlobFixture.cpp">
+      <Filter>TEST\IMPL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Test\QSpriteRender\IMPL\QSprGlobFixtureBase.cpp">
+      <Filter>TEST\IMPL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Test\QSpriteRender\IMPL\SpriteRenderManager.cpp">
+      <Filter>TEST\IMPL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\QSpriteRender\Material\DefaultMaterialInstanceRS.cpp">
+      <Filter>Material</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\QSpriteRender\Material\DefaultSpriteMaterial.cpp">
+      <Filter>Material</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\QSpriteRender\Material\DefaultSpriteMaterialShader.cpp">
+      <Filter>Material</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\QSpriteRender\Material\MaterialInstanceRenderState.cpp">
+      <Filter>Material</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\QSpriteRender\Material\MaterialManager.cpp">
+      <Filter>Material</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\QSpriteRender\INTERFACE\Material\MaterialInstanceFactory.cpp">
+      <Filter>INTERFACE\Material</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\QSpriteRender\INTERFACE\SpriteRenderSubsystemCreate.cpp">
+      <Filter>INTERFACE</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\QSpriteRender\IMPL\Environment\AmbientContext.cpp">
+      <Filter>IMPL\Environment</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\QSpriteRender\IMPL\Utils\String\Text.cpp">
+      <Filter>IMPL\Utils\String</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\QSpriteRender\IMPL\RenUtils\RenBufferUtils.cpp">
+      <Filter>IMPL\RenUtils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\QSpriteRender\IMPL\RenUtils\RenDeviceContextUtils.cpp">
+      <Filter>IMPL\RenUtils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\QSpriteRender\IMPL\RenUtils\RenDrawCallUtils.cpp">
+      <Filter>IMPL\RenUtils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\QSpriteRender\IMPL\RenUtils\RenHRUtils.cpp">
+      <Filter>IMPL\RenUtils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\QSpriteRender\IMPL\RenUtils\RenResources.cpp">
+      <Filter>IMPL\RenUtils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\QSpriteRender\IMPL\RenUtils\Shader.cpp">
+      <Filter>IMPL\RenUtils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\QSpriteRender\IMPL\RenUtils\ShaderCompileUtils.cpp">
+      <Filter>IMPL\RenUtils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\QSpriteRender\IMPL\Glue\Glue_InterfaceToImpl.cpp">
+      <Filter>IMPL\Glue</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\QSpriteRender\IMPL\Render\SpriteRender.cpp">
+      <Filter>IMPL\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\QSpriteRender\IMPL\Render\SpriteUpdater.cpp">
+      <Filter>IMPL\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\QSpriteRender\IMPL\Canvas\Canvas.cpp">
+      <Filter>IMPL\Canvas</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\QSpriteRender\IMPL\Subsystem\SpriteRenderSubsystem.cpp">
+      <Filter>IMPL\Subsystem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\QSpriteRender\IMPL\Subsystem\SpriteRenderSubsystemEnvironment.cpp">
+      <Filter>IMPL\Subsystem</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
