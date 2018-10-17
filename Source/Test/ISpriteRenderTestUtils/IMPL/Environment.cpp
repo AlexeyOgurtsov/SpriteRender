@@ -168,18 +168,43 @@ namespace Test::IMPL
 		}
 	}
 
-	void Environment::InitWindow(UINT InWidth, UINT InHeight)
+	void Environment::ResetWindow(UINT InWidth, UINT InHeight, bool bWindowAlreadyResized)
 	{
-		BOOST_ASSERT_MSG(hWndViewport == nullptr, "Environment::InitWindow: Cannot initialize window twice");
-		BOOST_ASSERT_MSG(InWidth <= 3000, "Environment::InitWindow: window width is too high");
-		BOOST_ASSERT_MSG(InHeight <= 2500, "Environment::InitWindow: window height is too high");
-		hWndViewport = RegisterClassAndCreateWindow(GetModuleHandle(NULL), "SpriteRenderTester_WINDOW_CLASS", StaticWndProc, "SpriteRenderTester", InWidth, InHeight);
+		T_LOG_TO(MainLog, "Environment::ResetWindow...");
+		T_LOG_TO(MainLog, "NewResolution: (width*height)=" << InWidth << "*" << InHeight);
+		BOOST_ASSERT_MSG(hWndViewport == nullptr, "Environment::ResetWindow: Cannot initialize window twice");
+		BOOST_ASSERT_MSG(InWidth <= 3000, "Environment::ResetWindow: window width is too high");
+		BOOST_ASSERT_MSG(InHeight <= 2500, "Environment::ResetWindow: window height is too high");
+		if (hWndViewport == nullptr)
+		{
+			T_LOG_TO(MainLog, "Creating new window..");
+			hWndViewport = RegisterClassAndCreateWindow(GetModuleHandle(NULL), "SpriteRenderTester_WINDOW_CLASS", StaticWndProc, "SpriteRenderTester", InWidth, InHeight);
+			T_LOG_TO(MainLog, "Creating new window DONE");
+		}
+		else
+		{
+			if (!bWindowAlreadyResized)
+			{
+				T_LOG_TO(MainLog, "Window already created, resizing");
+				BOOL bResized = SetWindowPos(hWndViewport, nullptr, 0, 0, InWidth, InHeight,  SWP_NOMOVE | SWP_NOZORDER | SWP_NOACTIVATE);
+				BOOST_ASSERT_MSG(bResized, "Environment::ResetWindow: SetWindowPos must succeed");
+			}
+		}		
 		if (pSpriteRenderManager.get())
 		{
 			T_LOG_TO(MainLog, "Environment::InitWindow: Setting up new window for SpriteRenderManager...");
 			pSpriteRenderManager->OnViewportWindowChanged(hWndViewport);
 			T_LOG_TO(MainLog, "Environment::InitWindow: Setting up new window for SpriteRenderManager DONE");
 		}
+
+		if (pD3DDevice)
+		{
+			T_LOG_TO(MainLog, "Resetting resolution of D3D device...");
+			pD3DDevice->ResetResolution(InWidth, InHeight);
+			T_LOG_TO(MainLog, "Resetting resolution of D3D device DONE");
+		}
+
+		T_LOG_TO(MainLog, "Environment::ResetWindow DONE");
 	}
 
 	LRESULT Environment::StaticWndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)

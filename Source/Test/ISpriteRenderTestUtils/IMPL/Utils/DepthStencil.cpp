@@ -57,4 +57,10 @@ namespace Test::IMPL
 		ResetTex(pDev, /*Out*/pTex, InWidth, InHeight, InFormat, InUsage, InCpuAccessFlags);
 		ResetView(pDev, /*Out*/pView, pTex.get());
 	}
+
+	void DepthStencil::Reset()
+	{
+		pView.reset();
+		pTex.reset();
+	}
 } // Test::IMPL

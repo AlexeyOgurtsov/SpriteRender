@@ -173,7 +173,7 @@ D3DDevice::D3DDevice(UINT InRTWidth, UINT InRTHeight, std::ofstream* pInLog, HWN
 	_swapChainDesc.OutputWindow = hInWnd;
 	_swapChainDesc.Windowed = WINDOWED;
 	_swapChainDesc.SwapEffect = DEFAULT_SWAP_EFFECT;
-	_swapChainDesc.Flags = 0;	
+	_swapChainDesc.Flags = GetConfig().GetDeviceFlags();
 
 	// Create device
 	ID3D11Device*                   pTempDev = nullptr;
@@ -217,6 +217,45 @@ D3DDevice::D3DDevice(UINT InRTWidth, UINT InRTHeight, std::ofstream* pInLog, HWN
 	_pSwapChain.reset(pTempSwapChain);
 	D3DDevice_HandleHR<D3DDeviceException>(this, _HRCreate, "D3D11CreateDeviceAndSwapChain");
 
+	CreateBuffersAndCopies(InRTWidth, InRTHeight);
+
+	T_LOG_TO(*pInLog, "D3DDevice: ctor DONE");
+}
+
+void D3DDevice::ResetResolution(UINT InNewWidth, UINT InNewHeight)
+{
+	T_LOG("D3DDevice::ResetResolution...");
+	T_LOG("(width*height)=" << InNewWidth << "*" << InNewHeight);
+	// ClearState: needs to be done to clear links to the buffers
+	GetDevCon()->ClearState();
+	DestroyBuffersAndCopies();
+	HRESULT hr = GetSwapChain()->ResizeBuffers(1, InNewWidth, InNewHeight, GetConfig().RenderTarget.ClearColor.GetFormat(), GetConfig().GetDeviceFlags());
+	if (FAILED(hr))
+	{
+		T_LOG("D3DDevice::ResetResolution: ResizeBuffer failed, hr = " << GetDevceHRESULTString(hr));
+		D3DDevice_HandleHR<D3DDeviceException>(this, hr, "IDXGISwapChain::ResizeBuffers");
+	}
+	CreateBuffersAndCopies(InNewWidth, InNewHeight);
+	ResizeViewport(InNewWidth, InNewHeight);
+	T_LOG("D3DDevice::ResetResolution DONE");
+}
+
+void D3DDevice::DestroyBuffersAndCopies()
+{
+	T_LOG("D3DDevice::DestroyBuffersAndCopies...");
+	_pCopyBuffer_RT.reset();
+	_pCopyBuffer_DepthStencil.reset();
+	_pSwapChainBufferRTView.reset();
+	_pSwapChainBuffer.reset();
+	_DS.Reset();
+	
+	T_LOG("D3DDevice::DestroyBuffersAndCopies DONE");
+}
+
+void D3DDevice::CreateBuffersAndCopies(UINT InRTWidth, UINT InRTHeight)
+{
+	T_LOG("D3DDevice::CreateBuffersAndCopies...");
+
 	// Create swap chain buffer
 	T_LOG("Getting swap chain buffer...");
 	ID3D11Texture2D* pTempSwapChainBuffer = nullptr;
@@ -247,7 +286,7 @@ D3DDevice::D3DDevice(UINT InRTWidth, UINT InRTHeight, std::ofstream* pInLog, HWN
 
 	InitializeCopyBuffers();
 
-	T_LOG_TO(*pInLog, "D3DDevice: ctor DONE");
+	T_LOG("D3DDevice::CreateBuffersAndCopies DONE");
 }
 
 void D3DDevice::InitializeCopyBuffers()
@@ -293,16 +332,6 @@ void D3DDevice::_UpdateDS()
 	T_LOG("Format: " << GetFormatString(_config.DepthStencil.Format));
 	_DS.Reset(GetDev(), GetRTWidth(), GetRTHeight(), _config.DepthStencil.Format, D3D11_USAGE_DEFAULT, /*CpuAccessFlags*/0);
 	T_LOG("D3DDevice::_UpdateDS DONE");
-}
-
-void D3DDevice::Notify_MainWindowAspectChanged(unsigned int InNewWidth, unsigned int InNewHeight)
-{
-	// TODO: Use ResizeBuffers here as described in the DX11 manual:
-	// - Release view;
-	// - Call ResizeBuffers;
-	// - Create and set a new view;
-
-	ResizeViewport(InNewWidth, InNewHeight);
 }
 
 void D3DDevice::ResizeViewport(unsigned int InWidth, unsigned int InHeight)

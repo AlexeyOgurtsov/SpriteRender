@@ -30,29 +30,37 @@ namespace Test
 		DXGI_FORMAT GetSprRen_DefaultTextureFormat_Diffuse() const;
 		// ~ Sprite Render helper accessors End		
 
-	protected:
 		std::ofstream& GetLog() const;
 
+
+
+		void PushConfig(const TesterConfig& InConfig);
+
+		/**
+		* Pops config.
+		* Default config should not (and cannot) be popped.
+		*/
+		void PopConfig();
+
+
+		TesterConfig* BeginUpdateConfig();
+		void EndUpdateConfig(const TesterConfig* pConfig);
+
+	protected:
 		/**
 		* Is environment globally ready for testing (still may be that individual test is NOT set up)
 		*/
 		bool IsGloballyReadyForTesting() const;
 
 		/**
-		* Returns configuration to be used by default (some tests may override).
+		* Returns config to be used now.
 		*/
-		const TesterConfig& GetDefaultConfig() const;
+		const TesterConfig& GetConfig() const;
 
 		/**
 		* Returns true if default config is set at least once.
 		*/
 		bool IsDefaultConfigSet() const;
-
-		/**
-		* Sets the default configuration.
-		* (WARNING!!! No reinitialization will be performed automatically).
-		*/		
-		void ResetDefaultConfig(const TesterConfig& InConfig);
 
 		/**
 		* Initializes only the Core (logs etc).
@@ -88,6 +96,11 @@ namespace Test
 		*/		
 		ISpriteRenderSubsystemManager* GetSpriteRenderSubsystemManager() const;
 
+		bool PromptPresentationMode_ReturnTrueIfQuit();
+
 	private:
+		void UpdateEnvironment_BasedOnConfig(const TesterConfig& InConfig);
+		bool bUpdatingConfig = false;
 	};
+	void DisableInteractiveMode(FixtureBase* pFixture);
 } // Test

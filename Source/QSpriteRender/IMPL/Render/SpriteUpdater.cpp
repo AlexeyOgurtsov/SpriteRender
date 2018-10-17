@@ -36,22 +36,26 @@ void SpriteUpdater::CreateSprite(const Ren::SSpriteCreateCommandInitializer& InC
 
 void SpriteUpdater::DeleteSprite(const Ren::SSpriteDeleteCommandInitializer& InCommand)
 {
-	_pCanvas->DeleteSprite(InCommand.TargetSpriteId);
+	BOOST_ASSERT_MSG(false, "SpriteUpdater::DeleteSprite");
+	//_pCanvas->DeleteSprite(InCommand.TargetSpriteId);
 }
 
 void SpriteUpdater::HideSprite(const Ren::SSpriteHideCommandInitializer& InCommand)
 {
-	_pCanvas->HideSprite(InCommand.TargetSpriteId);
+	BOOST_ASSERT_MSG(false, "SpriteUpdater::HideSprite");
+	//_pCanvas->HideSprite(InCommand.TargetSpriteId);
 }
 
 void SpriteUpdater::ShowSprite(const Ren::SSpriteShowCommandInitializer& InCommand)
 {
-	_pCanvas->ShowSprite(InCommand.TargetSpriteId);
+	BOOST_ASSERT_MSG(false, "SpriteUpdater::ShowSprite");
+	//_pCanvas->ShowSprite(InCommand.TargetSpriteId);
 }
 
 void SpriteUpdater::SetSpriteTransparency(const Ren::SSpriteSetTransparencyCommandInitializer& InCommand)
 {
-	_pCanvas->SetSpriteTransparency(InCommand.TargetSpriteId, InCommand.Transparency);
+	BOOST_ASSERT_MSG(false, "SpriteUpdater::SetSpriteTransparency()");
+	//_pCanvas->SetSpriteTransparency(InCommand.TargetSpriteId, InCommand.Transparency);
 }
 
 void SpriteUpdater::SetSpriteGeometry(const Ren::SSpriteSetGeometryCommandInitializer& InCommand)
@@ -62,16 +66,16 @@ void SpriteUpdater::SetSpriteGeometry(const Ren::SSpriteSetGeometryCommandInitia
 }
 
 
-/*
 void SpriteUpdater::SetSpriteMaterial(const Ren::SSpriteSetMaterialCommandInitializer& InCommand)
 {
-	_pCanvas->SetMaterialInstance(InCommand.TargetSpriteId, DowncastMaterialInstanceRSHandle(InCommand.pRenderState));
+	BOOST_ASSERT_MSG(false, "SpriteUpdater::SetSpriteMaterial: NOT yet impl");
+	//_pCanvas->SetMaterialInstance(InCommand.TargetSpriteId, DowncastMaterialInstanceRSHandle(InCommand.pRenderState));
 }
-*/
 
 void SpriteUpdater::SetSpriteZOrder(const Ren::SSpriteSetZOrderCommandInitializer& InCommand)
 {
-	_pCanvas->MoveSpriteZOrderAfter(InCommand.TargetSpriteId, InCommand.ZBeforeSpriteId);
+	BOOST_ASSERT_MSG(false, "SpriteUpdater::SetSpriteZOrder: NOT yet impl");
+	//_pCanvas->MoveSpriteZOrderAfter(InCommand.TargetSpriteId, InCommand.ZBeforeSpriteId);
 }
 
 } // Dv::Spr::QRen::IMPL

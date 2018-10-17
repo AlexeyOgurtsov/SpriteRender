@@ -1,6 +1,6 @@
 #include "ISpriteRenderTestUtils/Fixture/FixtureBase.h"
 #include "ISpriteRenderTestUtils/IMPL/Environment.h"
-#include <optional>
+#include <vector>
 #include <boost/assert.hpp>
 
 namespace Test
@@ -10,16 +10,17 @@ namespace Test
 		class Environment;
 	} // IMPL
 
-	/**
-	* Global tester config variable.
-	*/
-	std::optional<TesterConfig> gTesterDefaultConfig;
-
 	namespace {
 		/**
 		* Helper to get the environment within the FixtureBase
 		*/
 		IMPL::Environment* GetEnv() { return IMPL::Environment::Get(); }
+
+		/**
+		* Global tester config variable.
+		*/
+		std::vector<TesterConfig> gConfigStack;
+
 	}
 
 	UINT FixtureBase::GetRTWidth() const
@@ -52,34 +53,70 @@ namespace Test
 		// @TODO
 	}
 
-	const TesterConfig& FixtureBase::GetDefaultConfig()const
+	TesterConfig* FixtureBase::BeginUpdateConfig()
 	{
-		BOOST_ASSERT_MSG(IsDefaultConfigSet(), "FixtureBase::GetDefaultConfig: default config is NOT set yet");
-		return gTesterDefaultConfig.value();
+		T_LOG("FixtureBase::BeginUpdateConfig...");
+		BOOST_ASSERT_MSG( ! bUpdatingConfig, "Config must be not in update state");
+		T_LOG("FixtureBase::BeginUpdateConfig DONE");
+		bUpdatingConfig = true;
+		return &gConfigStack.back();
+	}
+
+	void FixtureBase::EndUpdateConfig(const TesterConfig* pConfig)
+	{
+		T_LOG("FixtureBase::EndUpdateConfig...");
+		BOOST_ASSERT(pConfig);
+		BOOST_ASSERT_MSG(bUpdatingConfig, "Config must be in update state");
+		bUpdatingConfig = false;
+		T_LOG("FixtureBase::EndUpdateConfig DONE");
+	}
+
+	const TesterConfig& FixtureBase::GetConfig()const
+	{
+		BOOST_ASSERT_MSG(IsDefaultConfigSet(), "FixtureBase::GetConfig: ever default config is NOT set yet");
+		return gConfigStack[0];
 	}
 
 	bool FixtureBase::IsDefaultConfigSet() const
 	{
-		return gTesterDefaultConfig.has_value();
+		return gConfigStack.size() > 0;
 	}
 
-	void FixtureBase::ResetDefaultConfig(const TesterConfig& InConfig)
+	void FixtureBase::PushConfig(const TesterConfig& InConfig)
 	{
-		T_LOG("ISpriteRenderTestUtils: FixtureBase::ResetDefaultConfig...");
-		gTesterDefaultConfig = InConfig;		
+		T_LOG("ISpriteRenderTestUtils: FixtureBase::PushConfig...");
+		BOOST_ASSERT_MSG(!bUpdatingConfig, "Config must be not in update state");
+		gConfigStack.push_back(InConfig);	
+		UpdateEnvironment_BasedOnConfig(InConfig);	
+		T_LOG("ISpriteRenderTestUtils: FixtureBase::PushConfig DONE");
+	}
+
+	void FixtureBase::PopConfig()
+	{
+		T_LOG("ISpriteRenderTestUtils: FixtureBase::PopConfig...");
+		BOOST_ASSERT_MSG(!bUpdatingConfig, "Config must be not in update state");
+		BOOST_ASSERT_MSG(gConfigStack.size() > 1, "At least one config except the default must be pushed to pop config!");
+		gConfigStack.pop_back();
+		UpdateEnvironment_BasedOnConfig(gConfigStack.back());	
+		T_LOG("ISpriteRenderTestUtils: FixtureBase::PopConfig DONE");
+	}
+
+	void FixtureBase::UpdateEnvironment_BasedOnConfig(const TesterConfig& InConfig)
+	{
+		T_LOG("ISpriteRenderTestUtils: FixtureBase::UpdateEnvironment_BasedOnConfig...");
 		if (GetEnv()->GetSpriteRenderManager())
 		{
-			T_LOG("ISpriteRenderTestUtils: FixtureBase::ResetDefaultConfig: Sprite render manager exists, notifying it that default config is updated");
+			T_LOG("ISpriteRenderTestUtils: FixtureBase::FixtureBase::UpdateEnvironment_BasedOnConfig: Sprite render manager exists, notifying it that default config is updated");
 			GetEnv()->GetSpriteRenderManager()->OnDefaultTesterConfigUpdated(InConfig);
-			GetEnv()->NotifySpriteRenderManager_D3DDeviceUpdated(/*Reason:*/"FixtureBase::ResetDefaultConfig");
+			GetEnv()->NotifySpriteRenderManager_D3DDeviceUpdated(/*Reason:*/"FixtureBase::FixtureBase::UpdateEnvironment_BasedOnConfig");
 		}
-		T_LOG("ISpriteRenderTestUtils: FixtureBase::ResetDefaultConfig DONE");
+		T_LOG("ISpriteRenderTestUtils: FixtureBase::UpdateEnvironment_BasedOnConfig DONE");
 	}
 
 	void FixtureBase::InitMinimalCore()
 	{
 		// WARNING!!! Logging should NOT be performed here, because the log is NOT yet initialized!!!
-		std::string MainLogFilename = GetMainLogFullFilename(GetDefaultConfig().Log);
+		std::string MainLogFilename = GetMainLogFullFilename(GetConfig().Log);
 		GetEnv()->ReInitMainLog(MainLogFilename.c_str());
 	}
 
@@ -87,24 +124,24 @@ namespace Test
 	{
 		T_LOG("ISpriteRenderTestUtils: FixtureBase::ReInitViewport...");
 		BOOST_ASSERT_MSG(nullptr == GetEnv()->GetWnd(), "FixtureBase::ReInitViewport: viewport window RE initialization is NOT yet implemented");
-		UINT NewWidth = GetDefaultConfig().Viewport.Width;
-		UINT NewHeight = GetDefaultConfig().Viewport.Height;
+		UINT NewWidth = GetConfig().Viewport.Width;
+		UINT NewHeight = GetConfig().Viewport.Height;
 		T_LOG("ISpriteRenderTestUtils: NewWidth = " << NewWidth << "; NewHeight=" << NewHeight);
-		GetEnv()->InitWindow(NewWidth, NewHeight);
+		GetEnv()->ResetWindow(NewWidth, NewHeight);
 		T_LOG("ISpriteRenderTestUtils: FixtureBase::ReInitViewport DONE");
 	}
 
 	void FixtureBase::ReInitD3DDevice()
 	{
 		T_LOG("ISpriteRenderTestUtils: FixtureBase::ReInitD3DDevice...");
-		GetEnv()->ReInit_D3DDevice(GetDefaultConfig().Viewport.Width, GetDefaultConfig().Viewport.Height, GetDefaultConfig().D3D);
+		GetEnv()->ReInit_D3DDevice(GetConfig().Viewport.Width, GetConfig().Viewport.Height, GetConfig().D3D);
 		T_LOG("ISpriteRenderTestUtils: FixtureBase::ReInitD3DDevice DONE");
 	}
 
 	void FixtureBase::ReInitResources()
 	{
 		T_LOG("ISpriteRenderTestUtils: FixtureBase::ReInitResources...");
-		GetEnv()->ReInit_D3DResources(GetDefaultConfig().Resources);
+		GetEnv()->ReInit_D3DResources(GetConfig().Resources);
 		T_LOG("ISpriteRenderTestUtils: FixtureBase::ReInitResources DONE");
 	}
 
@@ -125,5 +162,52 @@ namespace Test
 	DXGI_FORMAT FixtureBase::GetSprRen_DefaultTextureFormat_Diffuse() const
 	{
 		return GetSpriteRenderSubsystemManager()->GetDefaultTextureFormat_Diffuse();
+	}
+
+	bool FixtureBase::PromptPresentationMode_ReturnTrueIfQuit()
+	{
+		T_LOG("FixtureBase::PromptPresentationMode...");
+		if (GetConfig().Tester.bShowMessageBeforeTest)
+		{
+			bool bDisableInteractiveMode = false;
+
+			int Answer = MessageBox(NULL, "Should we continue in interactive mode? (cancel - quit)", "Question", MB_YESNOCANCEL);
+			switch (Answer)
+			{
+			case IDNO:
+				bDisableInteractiveMode = true;
+				break;
+
+			case IDYES:
+				bDisableInteractiveMode = false;
+				break;
+
+			case IDCANCEL:
+				return true;
+
+			default:
+				BOOST_ASSERT_MSG(false, "Should not get here: MessageBox returned wrong value");
+			}
+
+			if (bDisableInteractiveMode)
+			{
+				T_LOG("User chosen to disable interactive mode");
+				DisableInteractiveMode(this);
+			}
+		}
+		T_LOG("FixtureBase::PromptPresentationMode DONE");
+		return false;
+	}
+
+	void DisableInteractiveMode(FixtureBase* pFixture)
+	{
+		T_LOG_TO(pFixture->GetLog(), "Disable interactive mode...");
+		BOOST_ASSERT(pFixture);
+		TesterConfig* pCfg = pFixture->BeginUpdateConfig();
+		pCfg->Tester.bShowMessageBeforeTest = false;
+		pCfg->Tester.DelaySeconds = 0;
+		pCfg->Tester.Presentation = ETestPresenation::NonStop;
+		pFixture->EndUpdateConfig(pCfg);
+		T_LOG_TO(pFixture->GetLog(), "Disable interactive mode DONE");
 	}
 } // Test

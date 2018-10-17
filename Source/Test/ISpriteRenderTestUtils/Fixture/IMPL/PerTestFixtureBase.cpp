@@ -16,6 +16,7 @@ namespace Test
 	,	LocalFrameIndex{0}
 	{
 		BOOST_ASSERT_MSG(IsGloballyReadyForTesting(), "PerTestFixtureBase: Must be globally ready for testing (maybe global fixture is not set)!");
+		PushConfig(GetConfig());
 	}
 
 	PerTestFixtureBase::~PerTestFixtureBase()
@@ -24,6 +25,7 @@ namespace Test
 
 		BOOST_ASSERT_MSG(bSetUp, "PerTextFixtureBase::~DTOR: the test was NOT set up");
 		Pause_IfEnabled();
+		PopConfig();
 
 		T_LOG("--------} END OF TEST '" << TestName <<  "' (From PerTestFixtureBase)");
 	}
@@ -100,7 +102,7 @@ namespace Test
 
 	void PerTestFixtureBase::ShowTestInfo_IfEnabled()
 	{
-		if (GetDefaultConfig().Tester.bShowMessageBeforeTest)
+		if (GetConfig().Tester.bShowMessageBeforeTest)
 		{
 			BeginInteractive();
 			std::string MsgText = std::string("Test: ") + TestName;
@@ -108,6 +110,7 @@ namespace Test
 			MessageBox(NULL, MsgText.c_str(), MsgCaption.c_str(), MB_OK);
 			EndInteractive();			
 		}
+		PromptPresentationMode_ReturnTrueIfQuit();
 	}
 
 	void PerTestFixtureBase::BeginInteractive(bool bPauseTimers)
@@ -134,7 +137,7 @@ namespace Test
 
 	void PerTestFixtureBase::Pause_IfEnabled()
 	{
-		const TesterConfig_Tester& Cfg = GetDefaultConfig().Tester;
+		const TesterConfig_Tester& Cfg = GetConfig().Tester;
 
 		switch (Cfg.Presentation)
 		{

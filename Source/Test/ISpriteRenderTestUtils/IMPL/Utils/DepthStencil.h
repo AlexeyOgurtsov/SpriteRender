@@ -18,6 +18,7 @@ namespace Test::IMPL
 			UINT InWidth, UINT InHeight, 
 			DXGI_FORMAT InFormat, D3D11_USAGE InUsage, UINT InCpuAccessFlags
 		) throw(HRException);
+		void Reset();
 
 	private:
 		TCom<ID3D11Texture2D> pTex;

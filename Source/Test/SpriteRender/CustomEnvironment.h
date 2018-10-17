@@ -10,10 +10,10 @@ namespace Test::ISpr::Spr::IMPL
 	class CustomEnvironment
 	{
 	public:
-		static CustomEnvironment& Get() 
+		static CustomEnvironment* Get() 
 		{
 			static CustomEnvironment Obj;
-			return Obj;
+			return &Obj;
 		}
 
 		/**

@@ -8,7 +8,7 @@ namespace Test::ISpr::Spr
 {
 	namespace
 	{
-		IMPL::CustomEnvironment& GetCustomEnv() { return IMPL::CustomEnvironment::Get(); }
+		IMPL::CustomEnvironment& GetCustomEnv() { return *IMPL::CustomEnvironment::Get(); }
 	}
 
 	SprGlobFixtureBase::SprGlobFixtureBase()
@@ -27,7 +27,7 @@ namespace Test::ISpr::Spr
 	void SprGlobFixtureBase::DoSpriteRenderManager_CustomSetup()
 	{
 		SpriteRenderCustomSetuper Setuper;
-		InitDefaultCustomConfig(Setuper, GetDefaultConfig());
+		InitDefaultCustomConfig(Setuper, GetConfig());
 		GetCustomEnv().ResetDefaultCustomSettings(Setuper);
 	}
 

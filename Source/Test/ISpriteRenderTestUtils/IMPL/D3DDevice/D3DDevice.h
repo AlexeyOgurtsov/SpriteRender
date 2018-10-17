@@ -23,6 +23,13 @@ namespace Test::IMPL
 		const TesterConfig_D3DDevice& GetConfig() const { return _config; }
 
 		/**
+		* Reset screen resolution.
+		*
+		* WARNING!!! None of the RT/DepthStencil buffer links must be used!
+		*/
+		void ResetResolution(UINT InNewWidth, UINT InNewHeight);
+
+		/**
 		* Starts a new frame (clears old buffers contents).
 		*/
 		void BeginFrame(int InLocalFrameIndex, std::ofstream& InLog);
@@ -56,8 +63,6 @@ namespace Test::IMPL
 		unsigned int                          GetRTWidth() const;
 		unsigned int                          GetRTHeight() const;
 
-		void                                  Notify_MainWindowAspectChanged(unsigned int InNewWidth, unsigned int InNewHeight);
-
 	private:
 		std::ofstream& GetLog() const { return *_pLog; }
 		std::ofstream* _pLog = nullptr;
@@ -67,6 +72,9 @@ namespace Test::IMPL
 		std::unique_ptr<IDXGISwapChain, ComReleaser>          _pSwapChain;
 		std::unique_ptr<ID3D11Device, ComReleaser>            _pDev;
 		std::unique_ptr<ID3D11DeviceContext, ComReleaser>     _pDevCon;
+
+		void CreateBuffersAndCopies(UINT InRTWidth, UINT InRTHeight);
+		void DestroyBuffersAndCopies();
 
 		// Render target
 		HRESULT                                                      _HRGetBuffer = E_FAIL;

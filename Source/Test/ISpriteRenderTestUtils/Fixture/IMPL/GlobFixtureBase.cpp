@@ -23,8 +23,14 @@ namespace Test
 
 	void GlobFixtureBase::InitGlobal(const TesterConfig& InDefaultConfig)
 	{
-		ResetDefaultConfig(InDefaultConfig);		
+		PushConfig(InDefaultConfig);
 		InitMinimalCore();
+		// NOTE: We must prompt after the minimal core is initialized to make logging work
+		if (PromptPresentationMode_ReturnTrueIfQuit())
+		{
+			T_LOG("GlobFixtureBase: user chosen to exit");
+			exit(0);
+		}
 		ReInitViewport();
 		ReInitD3DDevice();
 		ReInitResources();
@@ -66,7 +72,7 @@ namespace Test
 		if (IsDefaultConfigSet())
 		{
 			T_LOG("GlobFixtureBase::SetSpriteRenderManager: default config is already set - notifying the sprite render manager");
-			pInManager->OnDefaultTesterConfigUpdated(GetDefaultConfig());
+			pInManager->OnDefaultTesterConfigUpdated(GetConfig());
 		}
 
 		T_LOG("D3D update...");

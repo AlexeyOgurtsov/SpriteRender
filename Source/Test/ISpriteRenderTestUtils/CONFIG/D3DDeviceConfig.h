@@ -42,5 +42,7 @@ namespace Test
 		TesterConfig_D3DDevice_RenderTarget RenderTarget;
 		TesterConfig_D3DDevice_DepthStencil DepthStencil;
 		TesterConfig_D3DDevice_CopyBuffers CopyBuffers;
+
+		UINT GetDeviceFlags() const { return 0; }
 	};
 } // Test

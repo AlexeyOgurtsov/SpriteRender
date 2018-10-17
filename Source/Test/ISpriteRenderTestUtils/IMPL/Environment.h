@@ -85,7 +85,7 @@ namespace Test::IMPL
 		D3DDevice* GetD3DDevice() const { return pD3DDevice.get(); }
 
 		void ReInitMainLog(const char* InLogName);
-		void InitWindow(UINT InWidth, UINT InHeight);
+		void ResetWindow(UINT InWidth, UINT InHeight, bool bWindowAlreadyResized = false);
 
 		HWND GetWnd() const { return hWndViewport; }
 		std::ofstream& GetMainLog() const { return MainLog; }
