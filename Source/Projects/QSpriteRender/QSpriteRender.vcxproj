@@ -152,6 +152,8 @@
     <ClInclude Include="..\..\QSpriteRender\IMPL\RenUtils\Shader.h" />
     <ClInclude Include="..\..\QSpriteRender\IMPL\RenUtils\ShaderCompileUtils.h" />
     <ClInclude Include="..\..\QSpriteRender\IMPL\RenUtils\ShaderProg.h" />
+    <ClInclude Include="..\..\QSpriteRender\IMPL\RenUtils\TEST\UniformBufferTest.h" />
+    <ClInclude Include="..\..\QSpriteRender\IMPL\RenUtils\UniformBuffer.h" />
     <ClInclude Include="..\..\QSpriteRender\IMPL\Subsystem\SpriteRenderSubsystem.h" />
     <ClInclude Include="..\..\QSpriteRender\IMPL\Subsystem\SpriteRenderSubsystemEnvironment.h" />
     <ClInclude Include="..\..\QSpriteRender\IMPL\Utils\String\Text.h" />
@@ -194,6 +196,7 @@
     <ClCompile Include="..\..\QSpriteRender\IMPL\RenUtils\RenResources.cpp" />
     <ClCompile Include="..\..\QSpriteRender\IMPL\RenUtils\Shader.cpp" />
     <ClCompile Include="..\..\QSpriteRender\IMPL\RenUtils\ShaderCompileUtils.cpp" />
+    <ClCompile Include="..\..\QSpriteRender\IMPL\RenUtils\UniformBuffer.cpp" />
     <ClCompile Include="..\..\QSpriteRender\IMPL\Subsystem\SpriteRenderSubsystem.cpp" />
     <ClCompile Include="..\..\QSpriteRender\IMPL\Subsystem\SpriteRenderSubsystemEnvironment.cpp" />
     <ClCompile Include="..\..\QSpriteRender\IMPL\Utils\String\Text.cpp" />

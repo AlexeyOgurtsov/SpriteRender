@@ -64,6 +64,9 @@
     <Filter Include="IMPL\Utils\String">
       <UniqueIdentifier>{c34437f3-6e60-4119-a9c6-14c9ed7bd0f3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="IMPL\RenUtils\TEST">
+      <UniqueIdentifier>{7b1a7d2d-d3f5-4d37-8baf-b38079f05e88}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\QSpriteRender\INTERFACE\CONFIG\LoggingConfig.h">
@@ -207,6 +210,12 @@
     <ClInclude Include="..\..\QSpriteRender\IMPL\Subsystem\SpriteRenderSubsystemEnvironment.h">
       <Filter>IMPL\Subsystem</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\QSpriteRender\IMPL\RenUtils\UniformBuffer.h">
+      <Filter>IMPL\RenUtils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\QSpriteRender\IMPL\RenUtils\TEST\UniformBufferTest.h">
+      <Filter>IMPL\RenUtils\TEST</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\QSpriteRender\INTERFACE\CONFIG\SpriteRenderConfig.cpp">
@@ -292,6 +301,9 @@
     </ClCompile>
     <ClCompile Include="..\..\QSpriteRender\IMPL\Subsystem\SpriteRenderSubsystemEnvironment.cpp">
       <Filter>IMPL\Subsystem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\QSpriteRender\IMPL\RenUtils\UniformBuffer.cpp">
+      <Filter>IMPL\RenUtils</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
