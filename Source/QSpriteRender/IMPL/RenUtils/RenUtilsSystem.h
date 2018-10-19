@@ -2,6 +2,7 @@
 
 #include "ISprite/Core/SpriteRenderException.h"
 #include "d3d11.h"
+#include <boost/assert.hpp>
 #include <memory>
 
 namespace Dv

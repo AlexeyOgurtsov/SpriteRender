@@ -148,6 +148,33 @@ void Clear(std::ofstream& InLog, D3DDevice* pD3D)
 	T_LOG_TO(InLog, "D3DDevice: Clearing DONE");
 }
 
+void SetRS(std::ofstream& InLog, D3DDevice* pD3D)
+{
+	T_LOG_TO(InLog, "D3DDevice: SetRS...");
+	BOOST_ASSERT(pD3D);
+	ID3D11DeviceContext* pDevCon = pD3D->GetDevCon();
+	ID3D11DepthStencilView* pDS = pD3D->GetDepthStencilView();
+	if (pDS)
+	{
+		T_LOG_TO(InLog, "D3DDevice: SetRS: Depth stencil view will be set");
+	}
+	ID3D11RenderTargetView* pRT = pD3D->GetSwapChainBufferRTView();
+	if (pRT)
+	{
+		T_LOG_TO(InLog, "D3DDevice: SetRS: render target view will be set");
+	}
+
+	T_LOG_TO(InLog, "OMSetRenderTargets...");
+	pDevCon->OMSetRenderTargets(1, &pRT, pDS);
+	T_LOG_TO(InLog, "OMSetRenderTargets DONE");
+
+	T_LOG_TO(InLog, "Setting viewport...");
+	pDevCon->RSSetViewports(1, &pD3D->GetViewport());
+	T_LOG_TO(InLog, "Setting viewport DONE");
+
+	T_LOG_TO(InLog, "D3DDevice: SetRS DONE");
+}
+
 D3DDevice::D3DDevice(UINT InRTWidth, UINT InRTHeight, std::ofstream* pInLog, HWND hInWnd, const TesterConfig_D3DDevice& InConfig) :
 	_pLog(pInLog)
 ,	_config(InConfig)

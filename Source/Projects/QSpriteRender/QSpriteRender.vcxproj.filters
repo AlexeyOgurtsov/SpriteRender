@@ -64,8 +64,14 @@
     <Filter Include="IMPL\Utils\String">
       <UniqueIdentifier>{c34437f3-6e60-4119-a9c6-14c9ed7bd0f3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="IMPL\RenUtils\TEST">
-      <UniqueIdentifier>{7b1a7d2d-d3f5-4d37-8baf-b38079f05e88}</UniqueIdentifier>
+    <Filter Include="TEST\IMPL_TEST">
+      <UniqueIdentifier>{2a81f45d-e238-474d-88fd-c7acd7e5caa1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="TEST\IMPL_TEST\RenUtils">
+      <UniqueIdentifier>{f75eec5e-b965-4b0e-bb5a-937732cb778d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="TEST\IMPL_TEST\IMPL">
+      <UniqueIdentifier>{8494e8c7-c70e-4ec7-9640-c72ce0e7751e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -213,8 +219,23 @@
     <ClInclude Include="..\..\QSpriteRender\IMPL\RenUtils\UniformBuffer.h">
       <Filter>IMPL\RenUtils</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\QSpriteRender\IMPL\RenUtils\TEST\UniformBufferTest.h">
-      <Filter>IMPL\RenUtils\TEST</Filter>
+    <ClInclude Include="..\..\Test\QSpriteRender\IMPL_TEST\RenUtils\RenUtilTests.h">
+      <Filter>TEST\IMPL_TEST\RenUtils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Test\QSpriteRender\IMPL_TEST\RenUtils\UniformBufferTest.h">
+      <Filter>TEST\IMPL_TEST\RenUtils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Test\QSpriteRender\IMPL_TEST\ImplTests.h">
+      <Filter>TEST\IMPL_TEST</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Test\QSpriteRender\IMPL_TEST\ImplTestHelper.h">
+      <Filter>TEST\IMPL_TEST</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Test\QSpriteRender\IMPL_TEST\ImplD3DFixture.h">
+      <Filter>TEST\IMPL_TEST</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\QSpriteRender\IMPL\RenUtils\BufferAllocManager.h">
+      <Filter>IMPL\RenUtils</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -303,6 +324,12 @@
       <Filter>IMPL\Subsystem</Filter>
     </ClCompile>
     <ClCompile Include="..\..\QSpriteRender\IMPL\RenUtils\UniformBuffer.cpp">
+      <Filter>IMPL\RenUtils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Test\QSpriteRender\IMPL_TEST\IMPL\ImplD3DFixture.cpp">
+      <Filter>TEST\IMPL_TEST\IMPL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\QSpriteRender\IMPL\RenUtils\BufferAllocManager.cpp">
       <Filter>IMPL\RenUtils</Filter>
     </ClCompile>
   </ItemGroup>

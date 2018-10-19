@@ -2,6 +2,7 @@
 
 #include "RenUtilsSystem.h"
 #include "RenBufferTypes.h"
+#include "BufferAllocManager.h"
 
 namespace Dv
 {
@@ -17,6 +18,16 @@ namespace D3D
 
 struct SUniformBufferInitializer
 {
+	/**
+	* d3d11 device.
+	*/
+	ID3D11Device* pDev = nullptr;
+
+	/**
+	* d3d11 immediate device context.
+	*/
+	ID3D11DeviceContext* pDevCon = nullptr;
+
 	/**
 	* Size of single chunk of data
 	*/
@@ -52,27 +63,6 @@ struct SUniformBufferInitializer
 * Checks the initializer structure using the asserts.
 */
 void CheckUniformBufferInitializer(const SUniformBufferInitializer& InInitializer);
-
-struct UniformBufferAlloc
-{
-	/**
-	* Index of the first datum stored in the buffer.
-	* Really offset in slots from the start of the buffer.
-	*/
-	UINT OffsetInSlots = 0;
-
-	/**
-	* Number of slots that this allocation occupies.
-	*/
-	UINT NumSlots = 0;
-
-	UniformBufferAlloc() = default;
-	UniformBufferAlloc(UINT InOffsetInSlots, UINT InNumSlots) :
-		OffsetInSlots{InOffsetInSlots}
-	,	NumSlots{InNumSlots} {}
-
-	void Invalidate() { OffsetInSlots = 0; NumSlots = 0; }
-};
 
 class UniformBuffer
 {
@@ -123,7 +113,7 @@ public:
 	*
 	* @returns: allocation that was created.
 	*/
-	UniformBufferAlloc Alloc(const void* pInSourceData, UINT InSizeInBytes) throw(SpriteRenderException);
+	BufferAlloc Alloc(const void* pInSourceData, UINT InSizeInBytes) throw(SpriteRenderException);
 
 	/**
 	* Updates the given allocation, by reallocated its data.	
@@ -134,24 +124,29 @@ public:
 	*
 	* @param: InAlloc - allocation. Will be updated.
 	*/
-	void Realloc(UniformBufferAlloc& InAlloc, const void* pInSourceData, UINT InSizeInBytes) throw(SpriteRenderException);
+	void Realloc(BufferAlloc& InAlloc, const void* pInSourceData, UINT InSizeInBytes) throw(SpriteRenderException);
 
 	/**
 	* Frees the allocation, so a new data may be stored in the given position.
 	*
 	* @param: InAlloc - allocation. Do will be updated (invalidated by changing its size to zero).
 	*/
-	void FreeAlloc(UniformBufferAlloc& InAlloc);
+	void FreeAlloc(BufferAlloc& InAlloc);
 
 
 private:
 	BufferHandle pBuffer;
+	ID3D11Device* pDev;
+	ID3D11DeviceContext* pDevCon;
 	UINT SlotSize;
 	UINT CapacityInSlots;
 	UINT BindFlags;
 	D3D11_USAGE Usage;
 	UINT CpuAccessFlags;
 	bool bAutoResizeable;
+
+	bool bStoring;
+	BufferAllocManager Allocs;
 };
 
 } // Dv::Spr::QRen::IMPL::D3D

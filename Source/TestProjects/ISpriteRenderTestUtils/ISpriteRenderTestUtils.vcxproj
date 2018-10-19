@@ -136,6 +136,7 @@
   <ItemGroup>
     <ClCompile Include="..\..\Test\ISpriteRenderTestUtils\CONFIG\IMPL\TestConfig_Tester.cpp" />
     <ClCompile Include="..\..\Test\ISpriteRenderTestUtils\CONFIG\IMPL\TesterConfig_Logging.cpp" />
+    <ClCompile Include="..\..\Test\ISpriteRenderTestUtils\Fixture\IMPL\D3DFixtureBase.cpp" />
     <ClCompile Include="..\..\Test\ISpriteRenderTestUtils\Fixture\IMPL\FixtureBase.cpp" />
     <ClCompile Include="..\..\Test\ISpriteRenderTestUtils\Fixture\IMPL\GlobFixtureBase.cpp" />
     <ClCompile Include="..\..\Test\ISpriteRenderTestUtils\Fixture\IMPL\PerTestFixtureBase.cpp" />
@@ -145,6 +146,7 @@
     <ClCompile Include="..\..\Test\ISpriteRenderTestUtils\FrameCheckContext\IFrameCheckContextUtils.cpp" />
     <ClCompile Include="..\..\Test\ISpriteRenderTestUtils\IMPL\D3DDevice\D3DDevice.cpp" />
     <ClCompile Include="..\..\Test\ISpriteRenderTestUtils\IMPL\Environment.cpp" />
+    <ClCompile Include="..\..\Test\ISpriteRenderTestUtils\IMPL\Environment_PublicTypes.cpp" />
     <ClCompile Include="..\..\Test\ISpriteRenderTestUtils\IMPL\ISpriteRenderSubsystemManager.cpp" />
     <ClCompile Include="..\..\Test\ISpriteRenderTestUtils\IMPL\MASTER.cpp" />
     <ClCompile Include="..\..\Test\ISpriteRenderTestUtils\IMPL\Resources\Resources.cpp" />
@@ -170,6 +172,8 @@
     <ClInclude Include="..\..\Test\ISpriteRenderTestUtils\CONFIG\TesterConfig_Resources.h" />
     <ClInclude Include="..\..\Test\ISpriteRenderTestUtils\CONFIG\TesterConfig_Tester.h" />
     <ClInclude Include="..\..\Test\ISpriteRenderTestUtils\CONFIG\TesterConfig_Viewport.h" />
+    <ClInclude Include="..\..\Test\ISpriteRenderTestUtils\Environment_PublicTypes.h" />
+    <ClInclude Include="..\..\Test\ISpriteRenderTestUtils\Fixture\D3DFixtureBase.h" />
     <ClInclude Include="..\..\Test\ISpriteRenderTestUtils\Fixture\FixtureBase.h" />
     <ClInclude Include="..\..\Test\ISpriteRenderTestUtils\Fixture\GlobFixtureBase.h" />
     <ClInclude Include="..\..\Test\ISpriteRenderTestUtils\Fixture\PerTestFixtureBase.h" />

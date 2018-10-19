@@ -152,8 +152,8 @@
     <ClInclude Include="..\..\QSpriteRender\IMPL\RenUtils\Shader.h" />
     <ClInclude Include="..\..\QSpriteRender\IMPL\RenUtils\ShaderCompileUtils.h" />
     <ClInclude Include="..\..\QSpriteRender\IMPL\RenUtils\ShaderProg.h" />
-    <ClInclude Include="..\..\QSpriteRender\IMPL\RenUtils\TEST\UniformBufferTest.h" />
     <ClInclude Include="..\..\QSpriteRender\IMPL\RenUtils\UniformBuffer.h" />
+    <ClInclude Include="..\..\QSpriteRender\IMPL\RenUtils\BufferAllocManager.h" />
     <ClInclude Include="..\..\QSpriteRender\IMPL\Subsystem\SpriteRenderSubsystem.h" />
     <ClInclude Include="..\..\QSpriteRender\IMPL\Subsystem\SpriteRenderSubsystemEnvironment.h" />
     <ClInclude Include="..\..\QSpriteRender\IMPL\Utils\String\Text.h" />
@@ -178,6 +178,11 @@
     <ClInclude Include="..\..\Test\QSpriteRender\CONFIG\DefaultGlobalConfig.h" />
     <ClInclude Include="..\..\Test\QSpriteRender\CONFIG\SpriteRenderCustomSetuper.h" />
     <ClInclude Include="..\..\Test\QSpriteRender\CustomEnvironment.h" />
+    <ClInclude Include="..\..\Test\QSpriteRender\IMPL_TEST\ImplD3DFixture.h" />
+    <ClInclude Include="..\..\Test\QSpriteRender\IMPL_TEST\ImplTestHelper.h" />
+    <ClInclude Include="..\..\Test\QSpriteRender\IMPL_TEST\ImplTests.h" />
+    <ClInclude Include="..\..\Test\QSpriteRender\IMPL_TEST\RenUtils\RenUtilTests.h" />
+    <ClInclude Include="..\..\Test\QSpriteRender\IMPL_TEST\RenUtils\UniformBufferTest.h" />
     <ClInclude Include="..\..\Test\QSpriteRender\QGlobFixture.h" />
     <ClInclude Include="..\..\Test\QSpriteRender\QSprGlobFixtureBase.h" />
     <ClInclude Include="..\..\Test\QSpriteRender\QSpriteRenderTest.h" />
@@ -197,6 +202,7 @@
     <ClCompile Include="..\..\QSpriteRender\IMPL\RenUtils\Shader.cpp" />
     <ClCompile Include="..\..\QSpriteRender\IMPL\RenUtils\ShaderCompileUtils.cpp" />
     <ClCompile Include="..\..\QSpriteRender\IMPL\RenUtils\UniformBuffer.cpp" />
+    <ClCompile Include="..\..\QSpriteRender\IMPL\RenUtils\BufferAllocManager.cpp" />
     <ClCompile Include="..\..\QSpriteRender\IMPL\Subsystem\SpriteRenderSubsystem.cpp" />
     <ClCompile Include="..\..\QSpriteRender\IMPL\Subsystem\SpriteRenderSubsystemEnvironment.cpp" />
     <ClCompile Include="..\..\QSpriteRender\IMPL\Utils\String\Text.cpp" />
@@ -213,6 +219,7 @@
     <ClCompile Include="..\..\Test\QSpriteRender\IMPL\QGlobFixture.cpp" />
     <ClCompile Include="..\..\Test\QSpriteRender\IMPL\QSprGlobFixtureBase.cpp" />
     <ClCompile Include="..\..\Test\QSpriteRender\IMPL\SpriteRenderManager.cpp" />
+    <ClCompile Include="..\..\Test\QSpriteRender\IMPL_TEST\IMPL\ImplD3DFixture.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

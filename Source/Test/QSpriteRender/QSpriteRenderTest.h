@@ -10,6 +10,7 @@ namespace Test::ISpr::QSpr
 	BOOST_GLOBAL_FIXTURE(QGlobFixture);
 }
 
+#include "IMPL_TEST/ImplTests.h"
 #include "ISpriteRender/AllTests.h"
 
 

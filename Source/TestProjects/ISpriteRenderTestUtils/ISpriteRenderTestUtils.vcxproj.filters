@@ -123,6 +123,12 @@
     <ClCompile Include="..\..\Test\ISpriteRenderTestUtils\Utils\TexelColor.cpp">
       <Filter>Utils</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Test\ISpriteRenderTestUtils\Fixture\IMPL\D3DFixtureBase.cpp">
+      <Filter>Fixture\IMPL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Test\ISpriteRenderTestUtils\IMPL\Environment_PublicTypes.cpp">
+      <Filter>IMPL</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Test\ISpriteRenderTestUtils\MASTER.h" />
@@ -239,5 +245,9 @@
     <ClInclude Include="..\..\Test\ISpriteRenderTestUtils\Utils\TexelColor.h">
       <Filter>Utils</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Test\ISpriteRenderTestUtils\Fixture\D3DFixtureBase.h">
+      <Filter>Fixture</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Test\ISpriteRenderTestUtils\Environment_PublicTypes.h" />
   </ItemGroup>
 </Project>

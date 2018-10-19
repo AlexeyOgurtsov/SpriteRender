@@ -202,6 +202,10 @@ namespace Test::IMPL
 			T_LOG_TO(MainLog, "Resetting resolution of D3D device...");
 			pD3DDevice->ResetResolution(InWidth, InHeight);
 			T_LOG_TO(MainLog, "Resetting resolution of D3D device DONE");
+
+			T_LOG_TO(GetEnv()->GetMainLog(), "Setting up default RS...");
+			SetRS(GetEnv()->GetMainLog(), GetEnv()->GetD3DDevice());
+			T_LOG_TO(GetEnv()->GetMainLog(), "Setting up default RS DONE");
 		}
 
 		T_LOG_TO(MainLog, "Environment::ResetWindow DONE");
@@ -279,10 +283,9 @@ namespace Test::IMPL
 
 	void ResetEnvironment(UINT InResetFlags)
 	{		
-		// @TODO: Log reset flags
 		if (InResetFlags != 0)
 		{
-			T_LOG_TO(GetEnv()->GetMainLog(), "ResetEnvironment: WARNING!!! Any reset flags are IGNORED (NOT YET IMPL)!");
+			T_LOG_TO(GetEnv()->GetMainLog(), "ResetEnvironment: Reset flags set: " << EnvResetFlagsToString(InResetFlags));
 		}
 		// @TODO }
 
@@ -294,7 +297,27 @@ namespace Test::IMPL
 		// Normally we do NOT destroy test resources, only clear them.
 		ClearDynamicTestResources(GetEnv()->GetMainLog());
 
-		GetEnv()->ReInit_SpriteRender();
+		if (InResetFlags & RESET_NO_DEFAULT_RS)
+		{
+			T_LOG_TO(GetEnv()->GetMainLog(), "ResetEnvironment: RESET_NO_DEFAULT_RS set - SKIPPING d3d render state setup");
+		}
+		else
+		{
+			T_LOG_TO(GetEnv()->GetMainLog(), "ResetEnvironment: Setting up default RS...");
+			SetRS(GetEnv()->GetMainLog(), GetEnv()->GetD3DDevice());
+			T_LOG_TO(GetEnv()->GetMainLog(), "ResetEnvironment: Setting up default RS DONE");
+		}
+
+		if (InResetFlags & RESET_NO_SPRITE_RENDER)
+		{
+			T_LOG_TO(GetEnv()->GetMainLog(), "ResetEnvironment: RESET_NO_SPRITE_RENDER set - SKIPPING sprite render initialization");
+		}
+		else
+		{
+			T_LOG_TO(GetEnv()->GetMainLog(), "ResetEnvironment: Initializing sprite render...");
+			GetEnv()->ReInit_SpriteRender();
+			T_LOG_TO(GetEnv()->GetMainLog(), "ResetEnvironment: Initializing sprite render DONE");
+		}
 
 		// We reset all counters as the last line
 		GetEnv()->ResetAllCounters();

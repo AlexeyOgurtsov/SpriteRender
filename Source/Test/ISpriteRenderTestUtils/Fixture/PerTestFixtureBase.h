@@ -2,6 +2,7 @@
 
 #include "FixtureBase.h"
 #include "../SprRenHelper/SprRenHelper_ISpriteRenderFwd.h"
+#include "../Environment_PublicTypes.h"
 #include <string>
 
 namespace Test

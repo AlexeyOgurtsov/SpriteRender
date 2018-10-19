@@ -8,6 +8,7 @@
 #include "Resources/Resources.h"
 #include "../ISpriteRenderSubsystemManager.h"
 #include "Utils/QPC.h"
+#include "../Environment_PublicTypes.h"
 
 namespace Test
 {
@@ -115,6 +116,7 @@ namespace Test::IMPL
 		*/
 		QPC BeginFrameQPC;
 	};
+
 	/**
 	* Resets entire environment or some of its components, dependent on the flags.
 	*/

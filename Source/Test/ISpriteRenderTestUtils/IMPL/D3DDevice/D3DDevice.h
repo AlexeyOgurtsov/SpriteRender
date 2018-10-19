@@ -115,6 +115,11 @@ namespace Test::IMPL
 	};
 
 	/**
+	* Set default RS: depth stencil, render target, viewport.
+	*/
+	void SetRS(std::ofstream& InLog, D3DDevice* pD3D);
+
+	/**
 	* Updates the state of copy buffers based on the current state of real buffers.
 	*/
 	void UpdateCopyBuffers(std::ofstream& InLog, D3DDevice* pD3D);
