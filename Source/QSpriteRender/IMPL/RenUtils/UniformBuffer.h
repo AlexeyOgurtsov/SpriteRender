@@ -3,6 +3,7 @@
 #include "RenUtilsSystem.h"
 #include "RenBufferTypes.h"
 #include "BufferAllocManager.h"
+#include <fstream>
 
 namespace Dv
 {
@@ -18,6 +19,11 @@ namespace D3D
 
 struct SUniformBufferInitializer
 {
+	/**
+	* Log to be used.
+	*/
+	std::ofstream* pLog = nullptr;
+
 	/**
 	* d3d11 device.
 	*/
@@ -67,25 +73,51 @@ void CheckUniformBufferInitializer(const SUniformBufferInitializer& InInitialize
 class UniformBuffer
 {
 public:
+	/**
+	* Creates buffer with the given default parameters.
+	*
+	* Vertex buffer is created with the given default capacity, but NOT automatically flushed.
+	*/
 	UniformBuffer(const SUniformBufferInitializer& InInitializer);
+
+	ID3D11Device* GetDev() const { return pDev; }
+	ID3D11DeviceContext* GetDevCon() const { return pDevCon; }
 
 	ID3D11Buffer* GetBuffer() const { return pBuffer.get(); }
 
+	/**
+	* true if d3d buffer data matches data in ram.
+	*/
+	bool IsD3DBufferUpToDate() const { return bD3DBufferUpToDate; }
+
 	UINT GetSlotSize() const { return SlotSize; }
-	UINT GetCapacityInSlots() const { return CapacityInSlots; }
+	UINT GetNumSlots() const { return CapacityInSlots; }
+	UINT GetCapacityInBytes() const;
 	UINT GetBindFlags() const { return BindFlags; }
 	D3D11_USAGE GetUsage() const { return Usage; }
+	bool IsDynamic() const;
 	UINT GetCpuAccessFlags() const { return CpuAccessFlags; }
 	bool IsAutoResizeable() const { return bAutoResizeable; }
 
+	std::ofstream& GetLog() const;
+
 	void ResetCapacity(UINT InCapacityInSlots);
 	void Clear();
-
 	UINT GetNumFreeSlots() const;
 	UINT GetNumOccupiedSlots() const;
 	UINT GetNumAllocs() const;
+
+	/**
+	* Data: always has size in bytes equal to the current capacity.
+	*/
+	const void* GetData() const;
 	
 	// @TODO: Add iterator for allocs
+
+	/**
+	* Flush: submits data in RAM into the vertex buffer
+	*/
+	void Flush() throw(SpriteRenderException);
 
 	/**
 	* Starts storing of the data into the buffer.
@@ -94,6 +126,8 @@ public:
 
 	/**
 	* Ends storing of the data into the buffer.
+	* 
+	* WARNING!!! Does NOT update data in the d3d11 vertex buffer (@see Flush).
 	*/
 	void EndStore() throw(SpriteRenderException);
 
@@ -135,6 +169,9 @@ public:
 
 
 private:
+	void ReCreateD3DBuffer() throw(SpriteRenderException);
+
+	bool bD3DBufferUpToDate;
 	BufferHandle pBuffer;
 	ID3D11Device* pDev;
 	ID3D11DeviceContext* pDevCon;
@@ -147,7 +184,11 @@ private:
 
 	bool bStoring;
 	BufferAllocManager Allocs;
+	std::vector<uint8_t> Data;
+
+	std::ofstream* pLog = nullptr;
 };
+void LogBufferState(std::ofstream& InLog, const UniformBuffer* pInBuffer);
 
 } // Dv::Spr::QRen::IMPL::D3D
 

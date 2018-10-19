@@ -156,6 +156,7 @@
     <ClInclude Include="..\..\QSpriteRender\IMPL\RenUtils\BufferAllocManager.h" />
     <ClInclude Include="..\..\QSpriteRender\IMPL\Subsystem\SpriteRenderSubsystem.h" />
     <ClInclude Include="..\..\QSpriteRender\IMPL\Subsystem\SpriteRenderSubsystemEnvironment.h" />
+    <ClInclude Include="..\..\QSpriteRender\IMPL\Utils\CommonSystem.h" />
     <ClInclude Include="..\..\QSpriteRender\IMPL\Utils\String\Text.h" />
     <ClInclude Include="..\..\QSpriteRender\INTERFACE\CONFIG\LoggingConfig.h" />
     <ClInclude Include="..\..\QSpriteRender\INTERFACE\CONFIG\RenderDeviceConfig.h" />
@@ -205,6 +206,7 @@
     <ClCompile Include="..\..\QSpriteRender\IMPL\RenUtils\BufferAllocManager.cpp" />
     <ClCompile Include="..\..\QSpriteRender\IMPL\Subsystem\SpriteRenderSubsystem.cpp" />
     <ClCompile Include="..\..\QSpriteRender\IMPL\Subsystem\SpriteRenderSubsystemEnvironment.cpp" />
+    <ClCompile Include="..\..\QSpriteRender\IMPL\Utils\CommonSystem.cpp" />
     <ClCompile Include="..\..\QSpriteRender\IMPL\Utils\String\Text.cpp" />
     <ClCompile Include="..\..\QSpriteRender\INTERFACE\CONFIG\SpriteRenderConfig.cpp" />
     <ClCompile Include="..\..\QSpriteRender\INTERFACE\Material\MaterialInstanceFactory.cpp" />

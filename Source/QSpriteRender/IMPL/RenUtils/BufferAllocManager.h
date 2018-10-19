@@ -4,6 +4,7 @@
 #include <optional>
 #include <list>
 #include <vector>
+#include <string>
 #include <boost/assert.hpp>
 
 namespace Dv
@@ -43,6 +44,7 @@ namespace D3D
 
 		static const BufferAlloc Invalid;
 	};
+	std::string ToString(const BufferAlloc& InAlloc);
 
 	class BufferAllocManager
 	{
@@ -55,6 +57,7 @@ namespace D3D
 		UINT GetNumSlots() const;
 		UINT GetNumOccupiedSlots() const;
 		UINT GetNumFreeSlots() const;
+		UINT GetNumAllocs() const;
 
 		/**
 		* Tries to reset capacity to the given value.

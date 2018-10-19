@@ -237,6 +237,9 @@
     <ClInclude Include="..\..\QSpriteRender\IMPL\RenUtils\BufferAllocManager.h">
       <Filter>IMPL\RenUtils</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\QSpriteRender\IMPL\Utils\CommonSystem.h">
+      <Filter>IMPL\Utils</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\QSpriteRender\INTERFACE\CONFIG\SpriteRenderConfig.cpp">
@@ -331,6 +334,9 @@
     </ClCompile>
     <ClCompile Include="..\..\QSpriteRender\IMPL\RenUtils\BufferAllocManager.cpp">
       <Filter>IMPL\RenUtils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\QSpriteRender\IMPL\Utils\CommonSystem.cpp">
+      <Filter>IMPL\Utils</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

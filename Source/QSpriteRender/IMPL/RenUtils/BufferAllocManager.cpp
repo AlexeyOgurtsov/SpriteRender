@@ -24,6 +24,26 @@ namespace D3D
 
 	const BufferAlloc BufferAlloc::Invalid{ 0, 0 };
 
+	std::string ToString(const BufferAlloc& InAlloc)
+	{
+		std::string result;
+		result.append("{");
+
+		result.append("Offset=");
+		result.append(std::to_string(InAlloc.OffsetInSlots));
+
+		result.append("; NumSlots=");
+		result.append(std::to_string(InAlloc.NumSlots));
+
+		if (false == InAlloc.IsValid())
+		{
+			result.append("; INVALID!");
+		}
+
+		result.append("}");
+		return result;
+	}
+
 	BufferAllocManager::BufferAllocManager()
 	{
 	}
@@ -41,6 +61,11 @@ namespace D3D
 	UINT BufferAllocManager::GetNumFreeSlots() const
 	{
 		return FreeSlotIndices.size();
+	}
+
+	UINT BufferAllocManager::GetNumAllocs() const
+	{
+		return Allocs.size();
 	}
 
 	bool BufferAllocManager::TryResetCapacity(UINT InNewCapacityInSlots)
