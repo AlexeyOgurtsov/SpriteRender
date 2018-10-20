@@ -4,6 +4,7 @@ namespace Test::ISpr::QSpr::IMPL
 {
 	D3DFixture::D3DFixture()
 	{
+		MarkNeverInteractive();
 	}
 
 	D3DFixture::~D3DFixture()

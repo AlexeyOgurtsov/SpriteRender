@@ -102,7 +102,7 @@ namespace Test
 
 	void PerTestFixtureBase::ShowTestInfo_IfEnabled()
 	{
-		if (GetConfig().Tester.bShowMessageBeforeTest)
+		if (ShouldShowInteractiveMessages())
 		{
 			BeginInteractive();
 			std::string MsgText = std::string("Test: ") + TestName;
@@ -116,6 +116,7 @@ namespace Test
 	void PerTestFixtureBase::BeginInteractive(bool bPauseTimers)
 	{
 		BOOST_ASSERT_MSG( ! bInteractive, "PerTestFixtureBase::BeginInteractive: already in interactive mode" );
+		BOOST_ASSERT_MSG( ! IsNeverInteractive(), "PerTestFixtureBase::BeginInteractive: this function should NOT be called if IsNeverInteractive() is true" );
 
 		T_LOG("PerTestFixtureBase::BeginInteractive...");
 		if (bPauseTimers)
@@ -129,6 +130,7 @@ namespace Test
 	void PerTestFixtureBase::EndInteractive()
 	{
 		T_LOG("PerTestFixtureBase::EndInteractive...");		
+		BOOST_ASSERT_MSG( ! IsNeverInteractive(), "PerTestFixtureBase::EndInteractive: this function should NOT be called if IsNeverInteractive() is true" );
 		BOOST_ASSERT_MSG(bInteractive, "PerTestFixtureBase::BeginInteractive: not in interactive mode");
 		GetEnv()->BeginFrame_ResumeDeltaCounter(GetLog());
 		bInteractive = false;
@@ -137,6 +139,12 @@ namespace Test
 
 	void PerTestFixtureBase::Pause_IfEnabled()
 	{
+		if(IsNeverInteractive())
+		{	
+			T_LOG("PerTestFixtureBase::Pause_IfEnabled: Skipping pause - IsNeverInteractive() is ON");
+			return;
+		}
+
 		const TesterConfig_Tester& Cfg = GetConfig().Tester;
 
 		switch (Cfg.Presentation)
@@ -152,6 +160,7 @@ namespace Test
 
 		case ETestPresenation::NonStop:
 			// At this case no pausing is performed at all
+			T_LOG("PerTestFixtureBase::Pause_IfEnabled: Skipping pause - NON-stop presentation mode");
 			return;
 
 		default:

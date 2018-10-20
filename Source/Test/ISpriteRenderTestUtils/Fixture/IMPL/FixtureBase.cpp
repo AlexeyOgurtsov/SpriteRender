@@ -167,7 +167,7 @@ namespace Test
 	bool FixtureBase::PromptPresentationMode_ReturnTrueIfQuit()
 	{
 		T_LOG("FixtureBase::PromptPresentationMode...");
-		if (GetConfig().Tester.bShowMessageBeforeTest)
+		if (ShouldShowInteractiveMessages())
 		{
 			bool bDisableInteractiveMode = false;
 
@@ -197,6 +197,11 @@ namespace Test
 		}
 		T_LOG("FixtureBase::PromptPresentationMode DONE");
 		return false;
+	}
+
+	bool FixtureBase::ShouldShowInteractiveMessages() const
+	{
+		return GetConfig().Tester.bShowMessageBeforeTest && ( ! bNeverInteractive );
 	}
 
 	void DisableInteractiveMode(FixtureBase* pFixture)

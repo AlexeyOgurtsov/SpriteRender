@@ -98,9 +98,18 @@ namespace Test
 
 		bool PromptPresentationMode_ReturnTrueIfQuit();
 
+		/**
+		* Returns true if we should do interactive actions.
+		* Takes into account the IsNeverInteractive() state.
+		*/
+		bool ShouldShowInteractiveMessages() const;
+		bool IsNeverInteractive() const { return bNeverInteractive; }
+		void MarkNeverInteractive() { bNeverInteractive = true; }
+
 	private:
 		void UpdateEnvironment_BasedOnConfig(const TesterConfig& InConfig);
 		bool bUpdatingConfig = false;
+		bool bNeverInteractive = false;
 	};
 	void DisableInteractiveMode(FixtureBase* pFixture);
 } // Test
