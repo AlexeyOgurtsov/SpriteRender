@@ -70,17 +70,19 @@ namespace D3D
 
 	bool BufferAllocManager::TryResetCapacity(UINT InNewCapacityInSlots)
 	{
+		int const InitialSlotCount = GetNumSlots();
+
 		if (GetNumOccupiedSlots() > InNewCapacityInSlots)
 		{
 			return false;
 		}
 		if (GetNumSlots() <= InNewCapacityInSlots)
 		{
-			int const CountSlotsToAppend = static_cast<int>(InNewCapacityInSlots - GetNumSlots());
+			int const CountSlotsToAppend = static_cast<int>(InNewCapacityInSlots - InitialSlotCount);
 			BOOST_ASSERT(CountSlotsToAppend >= 0);
 			for (int i = 0; i < CountSlotsToAppend; i++)
 			{
-				BufferSlotIndex NewSlotIndex = GetNumSlots() + i;
+				BufferSlotIndex NewSlotIndex = InitialSlotCount + i;
 				auto FreeIt = FreeSlotIndices.insert(FreeSlotIndices.end(), NewSlotIndex);
 				auto SlotIt = Slots.insert(Slots.end(), SlotState());
 				SlotIt->MakeFree(FreeIt);
@@ -88,7 +90,7 @@ namespace D3D
 		}
 		else
 		{
-			int const CountSlotsToRemove = static_cast<int>(GetNumSlots() - InNewCapacityInSlots);
+			int const CountSlotsToRemove = static_cast<int>(InitialSlotCount - InNewCapacityInSlots);
 			BOOST_ASSERT(CountSlotsToRemove > 0);
 
 			// We only set capacity if all extra elements are freed
@@ -96,8 +98,8 @@ namespace D3D
 			{
 				for (int i = 0; i < CountSlotsToRemove; i++)
 				{
-					BufferSlotIndex ExtraSlotIndex = GetNumSlots() + i;
-					auto FreeIt = GetSlotByIndex<SlotState>(ExtraSlotIndex + i, this)->GetFreeIt();
+					BufferSlotIndex ExtraSlotIndex = InNewCapacityInSlots + i;
+					auto FreeIt = GetSlotByIndex<SlotState>(ExtraSlotIndex, this)->GetFreeIt();
 					FreeSlotIndices.erase(FreeIt);
 				}
 				Slots.resize(InNewCapacityInSlots);
@@ -112,9 +114,11 @@ namespace D3D
 
 	void BufferAllocManager::Clear()
 	{
-		for(AllocList::iterator AllocIt = Allocs.begin(); AllocIt != Allocs.end(); ++AllocIt)
+		for(AllocList::iterator AllocIt = Allocs.begin(); AllocIt != Allocs.end(); )
 		{
+			AllocList::iterator NextAllocIt = std::next(AllocIt);
 			DoFreeAlloc(AllocIt);
+			AllocIt = NextAllocIt;
 		}
 	}
 

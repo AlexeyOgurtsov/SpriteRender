@@ -183,6 +183,7 @@
     <ClInclude Include="..\..\Test\QSpriteRender\IMPL_TEST\ImplTestHelper.h" />
     <ClInclude Include="..\..\Test\QSpriteRender\IMPL_TEST\ImplTests.h" />
     <ClInclude Include="..\..\Test\QSpriteRender\IMPL_TEST\RenUtils\RenUtilTests.h" />
+    <ClInclude Include="..\..\Test\QSpriteRender\IMPL_TEST\RenUtils\UniformBufferFixture.h" />
     <ClInclude Include="..\..\Test\QSpriteRender\IMPL_TEST\RenUtils\UniformBufferTest.h" />
     <ClInclude Include="..\..\Test\QSpriteRender\QGlobFixture.h" />
     <ClInclude Include="..\..\Test\QSpriteRender\QSprGlobFixtureBase.h" />
@@ -222,6 +223,7 @@
     <ClCompile Include="..\..\Test\QSpriteRender\IMPL\QSprGlobFixtureBase.cpp" />
     <ClCompile Include="..\..\Test\QSpriteRender\IMPL\SpriteRenderManager.cpp" />
     <ClCompile Include="..\..\Test\QSpriteRender\IMPL_TEST\IMPL\ImplD3DFixture.cpp" />
+    <ClCompile Include="..\..\Test\QSpriteRender\IMPL_TEST\RenUtils\UniformBufferFixture.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

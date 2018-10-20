@@ -20,6 +20,10 @@ namespace Test
 		ID3D11DeviceContext* GetDevCon();
 		IDXGISwapChain* GetSwapChain();
 
+	protected:
+		virtual void UserPostSetup() {}
+
 	private:
+		void PostSetup();
 	};
 } // Test

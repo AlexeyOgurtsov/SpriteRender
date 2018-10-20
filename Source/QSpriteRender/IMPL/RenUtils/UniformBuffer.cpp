@@ -24,6 +24,8 @@ namespace D3D
 			Desc.Usage = InBuffer->GetUsage();
 			Desc.CPUAccessFlags = InBuffer->GetCpuAccessFlags();
 			Desc.BindFlags = InBuffer->GetBindFlags();
+			Desc.MiscFlags = 0;
+			Desc.StructureByteStride = 0;
 			return Desc;
 		}
 
@@ -88,7 +90,19 @@ namespace D3D
 			if (InBuffer->IsDynamic())
 			{
 				D3D11_MAPPED_SUBRESOURCE Map;
-				HRESULT hr = pDevCon->Map(pBuffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &Map);
+				D3D11_MAP MapType = D3D11_MAP_WRITE;
+				switch (InBuffer->GetUsage())
+				{
+				case D3D11_USAGE_DYNAMIC:
+					MapType = D3D11_MAP_WRITE_DISCARD;
+					break;
+				case D3D11_USAGE_STAGING:
+					MapType = D3D11_MAP_WRITE;
+					break;
+				default:
+					BOOST_ASSERT_MSG(false, "UniformBuffer: BeginFlush: Unknown usage constant");
+				}
+				HRESULT hr = pDevCon->Map(pBuffer, 0, MapType, 0, &Map);
 				if (SUCCEEDED(hr))
 				{
 					std::memcpy(Map.pData, pInSourceData, InBuffer->GetCapacityInBytes());
@@ -130,6 +144,7 @@ namespace D3D
 		BOOST_ASSERT_MSG(InInitializer.SlotSize > 0, "CheckUniformBufferInitializer: Slot size must be > 0");
 		BOOST_ASSERT_MSG(InInitializer.CapacityInSlots > 0, "CheckUniformBufferInitializer: Capacity in slots must be > 0");
 		BOOST_ASSERT_MSG(InInitializer.Usage != D3D11_USAGE_IMMUTABLE, "CheckUniformBufferInitializer: creating immutable uniform buffer is meaningless, so not supported");
+		BOOST_ASSERT_MSG( ( InInitializer.BindFlags == 0 ) || ( InInitializer.Usage != D3D11_USAGE_STAGING ), "CheckUniformBufferInitializer: STAGING resource must have NO bind flags!");
 
 		BOOST_ASSERT_MSG(false == InInitializer.bAutoResizeable, "CheckUniformBufferInitializer: bAutoResizable NOT implemented!");
 	}
@@ -141,17 +156,21 @@ namespace D3D
 		CheckUniformBufferInitializer(InInitializer);
 		pLog = InInitializer.pLog;
 		T_LOG("UniformBuffer: ctor...");
+		bDebug = InInitializer.bDebug;
+		BufferName = InInitializer.Name;
+		T_LOG("Name: " << InInitializer.Name);
 		pDev = InInitializer.pDev;
 		pDevCon = InInitializer.pDevCon;
 		SlotSize = InInitializer.SlotSize;
 		CapacityInSlots = InInitializer.CapacityInSlots;
+		InitialCapacity = InInitializer.CapacityInSlots;
 		BindFlags = InInitializer.BindFlags;
 		Usage = InInitializer.Usage;
 		CpuAccessFlags = InInitializer.CpuAccessFlags;
 		bAutoResizeable = InInitializer.bAutoResizeable;
 		
 		BOOST_ASSERT_MSG(Allocs.TryResetCapacity(CapacityInSlots), "UniformBuffer::ctor: resetting capacity of the allocation manager should never fail at this point because it's empty!");
-		Data.resize(CapacityInSlots);
+		Data.resize(GetCapacityInBytes());
 		ReCreateD3DBuffer();
 
 		T_LOG("UniformBuffer: ctor DONE");
@@ -159,7 +178,7 @@ namespace D3D
 
 	void UniformBuffer::ReCreateD3DBuffer()  throw(SpriteRenderException)
 	{
-		T_LOG("UniformBuffer::ReCreateD3DBuffer...");
+		T_LOG("UniformBuffer::ReCreateD3DBuffer; Name=" << GetBufferName() << "...");
 
 		LogBufferState(GetLog(), this);
 
@@ -176,7 +195,7 @@ namespace D3D
 
 	bool UniformBuffer::IsDynamic() const
 	{
-		return GetUsage() == D3D11_USAGE_DYNAMIC;
+		return GetUsage() == D3D11_USAGE_DYNAMIC || GetUsage() == D3D11_USAGE_STAGING;
 	}
 
 	const void* UniformBuffer::GetData() const
@@ -190,42 +209,78 @@ namespace D3D
 		return GetNumSlots() * GetSlotSize();
 	}
 
-	void UniformBuffer::ResetCapacity(UINT InCapacityInSlots)
+	ID3D11Buffer* UniformBuffer::GetBuffer() const
 	{
-		T_LOG("UniformBuffer: ResetCapacity...");
-		T_LOG("NewCapacity (in slots) " << InCapacityInSlots);
+		BOOST_ASSERT(pBuffer.get());
+		return pBuffer.get(); 
+	}
 
-		BOOST_ASSERT_MSG(InCapacityInSlots > 0, "UniformBuffer::ResetCapacity: new capacity must be greater than zero!");
-		BOOST_ASSERT_MSG(InCapacityInSlots >= GetNumOccupiedSlots(), "UniformBuffer::ResetCapacity: new capacity must be greater or equal than current count of occupied slots!");
-		
-		// We know that ReCreateD3DBuffer will update this flag automatically, however we set up it now
-		// because later we may refuse to use ReCreateD3DBuffer here and we do NOT want to introduce a bug here.
-		bD3DBufferUpToDate = false;
+	void UniformBuffer::ResetCapacity(UINT InNewCapacityInSlots)
+	{
+		T_LOG("UniformBuffer::ResetCapacity; Name=" << GetBufferName() << "...");
+		T_LOG("NewCapacity (in slots) " << InNewCapacityInSlots);
 
-		InCapacityInSlots = InCapacityInSlots;
-		if (false == Allocs.TryResetCapacity(InCapacityInSlots))
+		BOOST_ASSERT_MSG(InNewCapacityInSlots > 0, "UniformBuffer::ResetCapacity: new capacity must be greater than zero!");
+		if (InNewCapacityInSlots < GetNumOccupiedSlots())
 		{
-			std::string const Msg = "UniformBuffer: AllocManager failed to reset capacity";
-			T_LOG(Msg);
-			throw(SpriteRenderException(Msg));
+			T_LOG("UniformBuffer::ResetCapacity: new capacity is less than current number of slots - skipping reset");
 		}
-		Data.resize(InCapacityInSlots);
-		ReCreateD3DBuffer();
+		else
+		{
+
+			// We know that ReCreateD3DBuffer will update this flag automatically, however we set up it now
+			// because later we may refuse to use ReCreateD3DBuffer here and we do NOT want to introduce a bug here.
+			bD3DBufferUpToDate = false;
+
+			UINT const OldCapacity = CapacityInSlots;
+			if (false == Allocs.TryResetCapacity(InNewCapacityInSlots))
+			{
+				if (OldCapacity < InNewCapacityInSlots)
+				{
+					std::string const Msg = std::string("UniformBuffer: Name=") + GetBufferName() + std::string("; AllocManager failed to reset capacity to greater value");
+					T_LOG(Msg);
+					throw(SpriteRenderException(Msg));
+				}
+				else
+				{
+					T_LOG("UniformBuffer: failed to reset capacity to a lesser value");
+					// NOTE: We should NOT throw here, as it's NOT a fatal failure.
+				}
+			}
+			else
+			{
+				CapacityInSlots = InNewCapacityInSlots;
+				Data.resize(InNewCapacityInSlots * GetSlotSize());
+				ReCreateD3DBuffer();
+			}
+		}
 
 		T_LOG("UniformBuffer: ResetCapacity DONE");
 	}
 
-	void UniformBuffer::Clear()
+	void UniformBuffer::Clear(bool bInResetCapacity)
 	{
-		T_LOG("UniformBuffer: Clear...");
+		T_LOG("UniformBuffer::Clear; Name=" << GetBufferName() << "...");
+		T_LOG("bInResetCapacity: " << (bInResetCapacity ? "YES" : "no"));
 
 		BOOST_ASSERT_MSG( ! IsStoring(), "UniformBuffer::Clear: should not be clear while storing!");
 
 		bD3DBufferUpToDate = false;
 
 		Allocs.Clear();
-		// It's unnecessary to zero the data, but we do zero for debug purposes
-		ZeroMemory(Data.data(), Data.size());
+
+		if (bInResetCapacity)
+		{
+			T_LOG("bInResetCapacity==TRUE: ResettingCapacity to initial:");
+			ResetCapacity(InitialCapacity);
+		}
+
+		if (bDebug)
+		{
+			T_LOG("UniformBuffer::FreeAlloc: Debug mode used - zeroing memory");
+			// It's unnecessary to zero the data, but we do zero for debug purposes
+			ZeroMemory(Data.data(), Data.size());
+		}
 
 		T_LOG("UniformBuffer: Clear DONE");
 	}
@@ -296,7 +351,7 @@ namespace D3D
 
 	BufferAlloc UniformBuffer::Alloc(const void* pInSourceData, UINT InSizeInBytes)
 	{
-		T_LOG("UniformBuffer: Alloc...");
+		T_LOG("UniformBuffer::Alloc; Name=" << GetBufferName() << "...");
 		T_LOG("SizeInBytes = " << InSizeInBytes);
 
 		BOOST_ASSERT_MSG(pInSourceData, "UniformBuffer::Alloc: source data ptr must be non-null");
@@ -307,7 +362,7 @@ namespace D3D
 
 		T_LOG("Source data length in slots = " << SourceData_LengthInSlots);
 
-		std::optional<BufferAlloc> TheAlloc = Allocs.NewAlloc(InSizeInBytes);
+		std::optional<BufferAlloc> TheAlloc = Allocs.NewAlloc(SourceData_LengthInSlots);
 		if (false == TheAlloc.has_value())
 		{
 			T_LOG("AllocManager::NewAlloc failed");
@@ -329,7 +384,7 @@ namespace D3D
 	{
 		BOOST_ASSERT_MSG(!bAutoResizeable, "UniformBuffer::Realloc: auto-resize is NOT implemented yet and this implementation of realloc does NOT work without auto-resize!");
 
-		T_LOG("UniformBuffer: Realloc...");
+		T_LOG("UniformBuffer::ReAlloc; Name=" << GetBufferName() << "...");
 		T_LOG("Alloc=" << ToString(InAlloc));
 		T_LOG("SizeInBytes=" << InSizeInBytes);
 
@@ -355,10 +410,16 @@ namespace D3D
 
 	void UniformBuffer::FreeAlloc(BufferAlloc& InAlloc)
 	{
-		T_LOG("UniformBuffer: FreeAlloc...");
+		T_LOG("UniformBuffer::FreeAlloc; Name=" << GetBufferName() << "...");
 		T_LOG("Alloc=" << ToString(InAlloc));
 
 		BOOST_ASSERT_MSG(InAlloc.IsValid(), "UniformBuffer::FreeAlloc: the given alloc must be valid");
+
+		if (bDebug)
+		{
+			T_LOG("UniformBuffer::FreeAlloc: Debug mode used - zeroing alloc memory");
+			ZeroMemory(Data.data() + InAlloc.OffsetInSlots * SlotSize, InAlloc.NumSlots * SlotSize);
+		}
 
 		Allocs.FreeAlloc(InAlloc);
 		// WARNING!!! We should NOT set the bD3DBufferUpToDate as false here:
@@ -371,6 +432,8 @@ namespace D3D
 	{
 		BOOST_ASSERT(pInBuffer);
 		T_LOG_TO(InLog, "Logging buffer state...");
+		T_LOG_TO(InLog, "Name: " << pInBuffer->GetBufferName());
+		T_LOG_TO(InLog, "bDebug: " << (pInBuffer->IsDebug() ? "YES" : "no"));
 		T_LOG_TO(InLog, "bAutoResizable:" << (pInBuffer->IsAutoResizeable() ? "YES" : "no"));
 		T_LOG_TO(InLog, "SlotSize:" << pInBuffer->GetSlotSize());
 		T_LOG_TO(InLog, "NumFreeSlots / NumOccuppiedSlots = " << pInBuffer->GetNumFreeSlots() << "/" << pInBuffer->GetNumOccupiedSlots());

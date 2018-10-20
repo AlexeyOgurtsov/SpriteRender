@@ -240,6 +240,9 @@
     <ClInclude Include="..\..\QSpriteRender\IMPL\Utils\CommonSystem.h">
       <Filter>IMPL\Utils</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Test\QSpriteRender\IMPL_TEST\RenUtils\UniformBufferFixture.h">
+      <Filter>TEST\IMPL_TEST\RenUtils</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\QSpriteRender\INTERFACE\CONFIG\SpriteRenderConfig.cpp">
@@ -337,6 +340,9 @@
     </ClCompile>
     <ClCompile Include="..\..\QSpriteRender\IMPL\Utils\CommonSystem.cpp">
       <Filter>IMPL\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Test\QSpriteRender\IMPL_TEST\RenUtils\UniformBufferFixture.cpp">
+      <Filter>TEST\IMPL_TEST\RenUtils</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

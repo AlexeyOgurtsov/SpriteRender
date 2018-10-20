@@ -20,6 +20,14 @@ D3DFixtureBase::~D3DFixtureBase()
 void D3DFixtureBase::SetupTest(const char* InTestName)
 {
 	SetupTestBase(InTestName, RESET_NO_SPRITE_RENDER);
+	PostSetup();
+}
+
+void D3DFixtureBase::PostSetup()
+{
+	T_LOG("D3DFixtureBase::PostSetup...");
+	UserPostSetup();
+	T_LOG("D3DFixtureBase::PostSetup DONE");
 }
 
 ID3D11Device* D3DFixtureBase::GetDev()

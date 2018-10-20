@@ -20,6 +20,16 @@ namespace D3D
 struct SUniformBufferInitializer
 {
 	/**
+	* Are we debugging the uniform buffer now?
+	*/
+	bool bDebug = false;
+
+	/**
+	* Name of the buffer.
+	*/
+	std::string Name = "{UNNAMED}";
+
+	/**
 	* Log to be used.
 	*/
 	std::ofstream* pLog = nullptr;
@@ -80,10 +90,16 @@ public:
 	*/
 	UniformBuffer(const SUniformBufferInitializer& InInitializer);
 
+	const std::string& GetBufferName() const { return BufferName; }
+	bool IsDebug() const { return bDebug; }
+
 	ID3D11Device* GetDev() const { return pDev; }
 	ID3D11DeviceContext* GetDevCon() const { return pDevCon; }
 
-	ID3D11Buffer* GetBuffer() const { return pBuffer.get(); }
+	/**
+	* Get buffer: always returns valid buffer pointer;
+	*/
+	ID3D11Buffer* GetBuffer() const;
 
 	/**
 	* true if d3d buffer data matches data in ram.
@@ -101,8 +117,19 @@ public:
 
 	std::ofstream& GetLog() const;
 
-	void ResetCapacity(UINT InCapacityInSlots);
-	void Clear();
+	/**
+	* Resets capacity to a new value.
+	* Capacity maybe even less than current slot count.
+	*/
+	void ResetCapacity(UINT InNewCapacityInSlots);
+
+	/**
+	* Clears entire contents of the buffer.
+	* Should work ever if there're allocations in the buffer.
+	*
+	* @argument: bInResetCapacity: if true, capacity is automatically resetted to initial
+	*/
+	void Clear(bool bInResetCapacity = false);
 	UINT GetNumFreeSlots() const;
 	UINT GetNumOccupiedSlots() const;
 	UINT GetNumAllocs() const;
@@ -171,6 +198,9 @@ public:
 private:
 	void ReCreateD3DBuffer() throw(SpriteRenderException);
 
+	std::string BufferName;
+	bool bDebug;
+
 	bool bD3DBufferUpToDate;
 	BufferHandle pBuffer;
 	ID3D11Device* pDev;
@@ -181,6 +211,7 @@ private:
 	D3D11_USAGE Usage;
 	UINT CpuAccessFlags;
 	bool bAutoResizeable;
+	UINT InitialCapacity;
 
 	bool bStoring;
 	BufferAllocManager Allocs;
