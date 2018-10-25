@@ -97,6 +97,15 @@ namespace Test
 		T_LOG("ISpriteRenderSubsystemManager::Sprite << " << InId << " Hidden");
 	}
 
+	void ISpriteRenderSubsystemManager::SetMatInst(MySprRen::ISpriteUpdater* pInUpdater, SprId InId, MySprRen::MaterialInstanceRenderStateInitializerPtr InRenderState)
+	{
+		T_LOG("ISpriteRenderSubsystemManager::SetMatInst, Id=" << InId << "...");
+		BOOST_ASSERT(pInUpdater);
+		BOOST_ASSERT_MSG(GetSpriteRender(), "ISpriteRenderSubsystemManager::SetMatInst: Sprite render must be initialized");
+		pInUpdater->SetSpriteMaterial(InId, InRenderState);
+		T_LOG("ISpriteRenderSubsystemManager::SetMatInst DONE");
+	}
+
 	void ISpriteRenderSubsystemManager::SetSpriteTransparency(MySprRen::ISpriteUpdater* pInUpdater, SprId InId, MySpr::ESpriteTransparency InTransparency)
 	{
 		T_LOG("ISpriteRenderSubsystemManager::SetTransparency, Id=" << InId << "...");

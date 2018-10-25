@@ -50,6 +50,12 @@ void Sprite::SetPosition(MySprRen::ISpriteUpdater* pInUpdater, const SprVec2& In
 	pSubsys->SetSpriteGeometry(pInUpdater, GetId(), CurrInitializer.Props.Geometry);
 }
 
+void Sprite::SetMatInst(MySprRen::ISpriteUpdater* pInUpdater, const Handle_SprMaterialInstance& InInst)
+{
+	CurrInitializer.pRenderState = InInst;
+	pSubsys->SetMatInst(pInUpdater, GetId(), InInst);
+}
+
 void Sprite::Show(MySprRen::ISpriteUpdater* pInUpdater)
 {
 	CurrInitializer.bShow = true;

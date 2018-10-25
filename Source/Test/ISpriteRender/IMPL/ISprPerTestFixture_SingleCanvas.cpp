@@ -137,6 +137,13 @@ namespace Test::ISpr
 		T_LOG("Fixture: SingleCanvas: Sprite << " << InHandle->GetId() << " Shown");
 	}
 
+	void ISprPerTestFixture_SingleCanvas::SetSpriteMaterial(SpriteHandle InHandle, const MySprRen::MaterialInstanceRenderStateInitializerPtr& InRenderState)
+	{
+		T_LOG("Fixture: SingleCanvas: SetSpriteMaterial, Id=" << InHandle->GetId() << "...");
+		InHandle->SetMatInst(GetUpdater(), InRenderState);
+		T_LOG("Fixture: SingleCanvas: Sprite << " << InHandle->GetId() << " Material changed");
+	}
+
 	void ISprPerTestFixture_SingleCanvas::SetSpriteTransparency(SpriteHandle InHandle, MySpr::ESpriteTransparency InTransparency)
 	{
 		T_LOG("Fixture: SingleCanvas: SetSpriteTransparency, Id=" << InHandle->GetId() << "...");

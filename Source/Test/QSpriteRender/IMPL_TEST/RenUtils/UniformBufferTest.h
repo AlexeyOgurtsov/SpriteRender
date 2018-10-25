@@ -209,11 +209,38 @@ namespace IMPL
 								BOOST_REQUIRE(BufferAlloc_InD3DBuffer(Buf_One, Alloc_One));
 							}
 
+							SlotDynamicBuffer const Buf_Fifth_Altered = GetFilledBuffer(AllocFifth_SlotCount, 555);
+							BOOST_TEST_CHECKPOINT("OverwriteFifthAlloc");
+							{
+								BOOST_REQUIRE_NO_THROW(GetBuffer()->StartStore());
+
+								BOOST_REQUIRE_NO_THROW(OverwriteBufferAlloc(Alloc_Fifth, Buf_Fifth_Altered));
+								BOOST_REQUIRE(Alloc_Fifth.IsValid());
+								BOOST_REQUIRE_EQUAL(Alloc_Fifth.NumSlots, Buf_Fifth.size());
+
+								BOOST_REQUIRE(BufferAlloc_InRAM(Buf_Fifth_Altered, Alloc_Fifth));
+								BOOST_REQUIRE(BufferAlloc_InRAM(Buf_Fourth, Alloc_Fourth));
+								BOOST_REQUIRE(BufferAlloc_InRAM(Buf_Third, Alloc_Third));
+								BOOST_REQUIRE(BufferAlloc_InRAM(Buf_One, Alloc_One));
+
+								BOOST_REQUIRE_NO_THROW(GetBuffer()->EndStore());
+							}
+
+							BOOST_TEST_CHECKPOINT("FlushFifthAllocOverwrite");
+							{
+								BOOST_REQUIRE_NO_THROW(GetBuffer()->Flush());
+
+								BOOST_REQUIRE(BufferAlloc_InD3DBuffer(Buf_Fifth_Altered, Alloc_Fifth));
+								BOOST_REQUIRE(BufferAlloc_InD3DBuffer(Buf_Fourth, Alloc_Fourth));
+								BOOST_REQUIRE(BufferAlloc_InD3DBuffer(Buf_Third, Alloc_Third));
+								BOOST_REQUIRE(BufferAlloc_InD3DBuffer(Buf_One, Alloc_One));
+							}
+
 							BOOST_TEST_CHECKPOINT("TryResetCapacityToOne");
 							{
 								BOOST_REQUIRE_NO_THROW(GetBuffer()->ResetCapacity(1));
 
-								BOOST_REQUIRE(BufferAlloc_InRAM(Buf_Fifth, Alloc_Fifth));
+								BOOST_REQUIRE(BufferAlloc_InRAM(Buf_Fifth_Altered, Alloc_Fifth));
 								BOOST_REQUIRE(BufferAlloc_InRAM(Buf_Fourth, Alloc_Fourth));
 								BOOST_REQUIRE(BufferAlloc_InRAM(Buf_Third, Alloc_Third));
 								BOOST_REQUIRE(BufferAlloc_InRAM(Buf_One, Alloc_One));
@@ -226,7 +253,7 @@ namespace IMPL
 								BOOST_ASSERT_MSG(NewCapacity >= InitiallyAllocatedSlotCount, "For this test NewCapacity must be greater or equal the initially allocated slot count to minimize chance to cut the allocated data by resize");
 								BOOST_REQUIRE_NO_THROW(GetBuffer()->ResetCapacity(NewCapacity));
 
-								BOOST_REQUIRE(BufferAlloc_InRAM(Buf_Fifth, Alloc_Fifth));
+								BOOST_REQUIRE(BufferAlloc_InRAM(Buf_Fifth_Altered, Alloc_Fifth));
 								BOOST_REQUIRE(BufferAlloc_InRAM(Buf_Fourth, Alloc_Fourth));
 								BOOST_REQUIRE(BufferAlloc_InRAM(Buf_Third, Alloc_Third));
 								BOOST_REQUIRE(BufferAlloc_InRAM(Buf_One, Alloc_One));
@@ -236,7 +263,7 @@ namespace IMPL
 							{
 								BOOST_REQUIRE_NO_THROW(GetBuffer()->ResetCapacity(GetBuffer()->GetNumSlots() * 2));
 
-								BOOST_REQUIRE(BufferAlloc_InRAM(Buf_Fifth, Alloc_Fifth));
+								BOOST_REQUIRE(BufferAlloc_InRAM(Buf_Fifth_Altered, Alloc_Fifth));
 								BOOST_REQUIRE(BufferAlloc_InRAM(Buf_Fourth, Alloc_Fourth));
 								BOOST_REQUIRE(BufferAlloc_InRAM(Buf_Third, Alloc_Third));
 								BOOST_REQUIRE(BufferAlloc_InRAM(Buf_One, Alloc_One));
@@ -246,7 +273,7 @@ namespace IMPL
 							{
 								BOOST_REQUIRE_NO_THROW(GetBuffer()->Flush());
 
-								BOOST_REQUIRE(BufferAlloc_InD3DBuffer(Buf_Fifth, Alloc_Fifth));
+								BOOST_REQUIRE(BufferAlloc_InD3DBuffer(Buf_Fifth_Altered, Alloc_Fifth));
 								BOOST_REQUIRE(BufferAlloc_InD3DBuffer(Buf_Fourth, Alloc_Fourth));
 								BOOST_REQUIRE(BufferAlloc_InD3DBuffer(Buf_Third, Alloc_Third));
 								BOOST_REQUIRE(BufferAlloc_InD3DBuffer(Buf_One, Alloc_One));

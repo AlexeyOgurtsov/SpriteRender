@@ -5,7 +5,7 @@ namespace Dv::Spr::Math
 	template<class T>
 	T Lerp(T A, T B, float Factor)
 	{
-		return A + (B - A) * static_cast<T>(Factor);
+		return A + static_cast<T>((B - A) * Factor);
 	}
 
 	template<class T>

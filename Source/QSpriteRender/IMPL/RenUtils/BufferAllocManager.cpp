@@ -12,37 +12,6 @@ namespace IMPL
 
 namespace D3D
 {
-	void BufferAlloc::Invalidate()
-	{
-		OffsetInSlots = 0;
-		NumSlots = 0;
-	}
-	bool BufferAlloc::IsValid() const
-	{
-		return NumSlots > 0;
-	}
-
-	const BufferAlloc BufferAlloc::Invalid{ 0, 0 };
-
-	std::string ToString(const BufferAlloc& InAlloc)
-	{
-		std::string result;
-		result.append("{");
-
-		result.append("Offset=");
-		result.append(std::to_string(InAlloc.OffsetInSlots));
-
-		result.append("; NumSlots=");
-		result.append(std::to_string(InAlloc.NumSlots));
-
-		if (false == InAlloc.IsValid())
-		{
-			result.append("; INVALID!");
-		}
-
-		result.append("}");
-		return result;
-	}
 
 	BufferAllocManager::BufferAllocManager()
 	{

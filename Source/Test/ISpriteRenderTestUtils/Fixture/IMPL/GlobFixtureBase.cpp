@@ -25,12 +25,6 @@ namespace Test
 	{
 		PushConfig(InDefaultConfig);
 		InitMinimalCore();
-		// NOTE: We must prompt after the minimal core is initialized to make logging work
-		if (PromptPresentationMode_ReturnTrueIfQuit())
-		{
-			T_LOG("GlobFixtureBase: user chosen to exit");
-			exit(0);
-		}
 		ReInitViewport();
 		ReInitD3DDevice();
 		ReInitResources();

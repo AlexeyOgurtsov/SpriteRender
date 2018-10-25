@@ -408,6 +408,22 @@ namespace D3D
 		T_LOG("UniformBuffer: Realloc DONE");
 	}
 
+	void UniformBuffer::OverwriteAlloc(const BufferAlloc& InAlloc, const void* pInSourceData, UINT InSizeInBytes, UINT InOffsetInBytes)
+	{
+		BOOST_ASSERT(InAlloc.IsValid());
+		BOOST_ASSERT(pInSourceData);
+		BOOST_ASSERT(InSizeInBytes > 0);
+
+		const UINT AllocSizeInBytes = InAlloc.NumSlots * SlotSize;
+		BOOST_ASSERT(InOffsetInBytes + InSizeInBytes <= AllocSizeInBytes);
+
+
+		const UINT DestOffsetInBytes = InAlloc.OffsetInSlots * SlotSize + InOffsetInBytes;
+		std::memcpy(Data.data() + DestOffsetInBytes, pInSourceData, InSizeInBytes);
+
+		bD3DBufferUpToDate = false;
+	}
+
 	void UniformBuffer::FreeAlloc(BufferAlloc& InAlloc)
 	{
 		T_LOG("UniformBuffer::FreeAlloc; Name=" << GetBufferName() << "...");

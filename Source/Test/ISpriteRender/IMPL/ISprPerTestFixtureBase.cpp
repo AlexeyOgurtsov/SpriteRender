@@ -57,7 +57,6 @@ namespace Test::ISpr
 			}
 			TickN(InTickCount);
 		}
-		// @TODO: Return result
 		T_LOG("CommitFrame RETURNING");
 
 		return CreateFrameCheckContext();
@@ -121,33 +120,33 @@ namespace Test::ISpr
 		return RT_ColorByCanvasPoint(ContextHandle.get(), InCanvas, InCanvasPoint);
 	}
 
-	bool ISprPerTestFixtureBase::CanvasClearAt(CanvasHandle InCanvas, const IFrameCheckContextHandle& ContextHandle, const SprVec2& InCanvasPoint)
+	bool ISprPerTestFixtureBase::CanvasClearAt(CanvasHandle InCanvas, const IFrameCheckContextHandle& ContextHandle, const SprVec2& InCanvasPoint, bool bInMatchAlpha)
 	{
-		return RT_IsCanvasClear_AtCanvasPoint(ContextHandle.get(), InCanvas, InCanvasPoint);
+		return RT_IsCanvasClear_AtCanvasPoint(ContextHandle.get(), InCanvas, InCanvasPoint, bInMatchAlpha);
 	}
 
-	bool ISprPerTestFixtureBase::ColorMatchesCanvasAt(CanvasHandle InCanvas, const IFrameCheckContextHandle& ContextHandle, const SprVec2& InCanvasPoint, const TexelColor& InColor)
+	bool ISprPerTestFixtureBase::ColorMatchesCanvasAt(CanvasHandle InCanvas, const IFrameCheckContextHandle& ContextHandle, const SprVec2& InCanvasPoint, const TexelColor& InColor, bool bInMatchAlpha)
 	{	
-		return RT_ColorMatchesCanvas_AtCanvasPoint(ContextHandle.get(), InCanvas, InCanvasPoint, InColor);
+		return RT_ColorMatchesCanvas_AtCanvasPoint(ContextHandle.get(), InCanvas, InCanvasPoint, InColor, bInMatchAlpha);
 	}
 
-	bool ISprPerTestFixtureBase::TextureMatchesCanvasAt(CanvasHandle InCanvas, const IFrameCheckContextHandle& ContextHandle, const SprVec2& InCanvasPoint, const IMPL::TextureElement& InTextureElement)
+	bool ISprPerTestFixtureBase::TextureMatchesCanvasAt(CanvasHandle InCanvas, const IFrameCheckContextHandle& ContextHandle, const SprVec2& InCanvasPoint, const IMPL::TextureElement& InTextureElement, bool bInMatchAlpha)
 	{
-		return RT_TextureMatches_CanvasPoint(ContextHandle.get(), InCanvas, InCanvasPoint, InTextureElement);
+		return RT_TextureMatches_CanvasPoint(ContextHandle.get(), InCanvas, InCanvasPoint, InTextureElement, bInMatchAlpha);
 	}
 
-	bool ISprPerTestFixtureBase::SpriteVisibleAsColor(CanvasHandle InCanvas, const IFrameCheckContextHandle& ContextHandle, SpriteHandle InSprite, const TexelColor& InColor)
+	bool ISprPerTestFixtureBase::SpriteVisibleAsColor(CanvasHandle InCanvas, const IFrameCheckContextHandle& ContextHandle, SpriteHandle InSprite, const TexelColor& InColor, bool bInMatchAlpha)
 	{	
-		return RT_SpriteVisibleAsColor(ContextHandle.get(), InCanvas, InSprite, InColor);
+		return RT_SpriteVisibleAsColor(ContextHandle.get(), InCanvas, InSprite, InColor, bInMatchAlpha);
 	}
 
-	bool ISprPerTestFixtureBase::SpriteHidden(CanvasHandle InCanvas, const IFrameCheckContextHandle& ContextHandle, SpriteHandle InSprite)
+	bool ISprPerTestFixtureBase::SpriteHidden(CanvasHandle InCanvas, const IFrameCheckContextHandle& ContextHandle, SpriteHandle InSprite, bool bInMatchAlpha)
 	{
-		return RT_SpriteHidden(ContextHandle.get(), InCanvas, InSprite);
+		return RT_SpriteHidden(ContextHandle.get(), InCanvas, InSprite, bInMatchAlpha);
 	}
 
-	bool ISprPerTestFixtureBase::SpriteHiddenAt(CanvasHandle InCanvas, const IFrameCheckContextHandle& ContextHandle, SpriteHandle InSprite, const SprVec2& InCanvasPoint)
+	bool ISprPerTestFixtureBase::SpriteHiddenAt(CanvasHandle InCanvas, const IFrameCheckContextHandle& ContextHandle, SpriteHandle InSprite, const SprVec2& InCanvasPoint, bool bInMatchAlpha)
 	{
-		return RT_SpriteHidden_AtCanvasPoint(ContextHandle.get(), InCanvas, InSprite, InCanvasPoint);
+		return RT_SpriteHidden_AtCanvasPoint(ContextHandle.get(), InCanvas, InSprite, InCanvasPoint, bInMatchAlpha);
 	}
 } // Test::ISpr

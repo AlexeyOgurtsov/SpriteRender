@@ -51,8 +51,6 @@ namespace Test
 		DXGI_FORMAT Format = DXGI_FORMAT_UNKNOWN;
 		uint8_t data[1024];
 	};
-	bool operator==(const TexelColor& A, const TexelColor& B);
-	bool operator!=(const TexelColor& A, const TexelColor& B);
 
 	/**
 	* @See: GetMaxFormatComponent
@@ -122,5 +120,6 @@ namespace Test
 		return GetFormatTexelSize(InFormat) / 4;
 	}
 
-	bool AreTexelsMatch(const void* pTex, DXGI_FORMAT InFormat, const void* pOtherTex, DXGI_FORMAT InOtherFormat);
+	bool AreTexelsMatch(const TexelColor& InA, const TexelColor& InB, bool bInCheckAlpha = false);
+	bool AreTexelsMatch(const void* pTex, DXGI_FORMAT InFormat, const void* pOtherTex, DXGI_FORMAT InOtherFormat, bool bInCheckAlpha = false);
 } // Test

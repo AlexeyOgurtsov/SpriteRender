@@ -46,6 +46,7 @@ namespace Test::ISpr
 		void SetSpritePosition(SpriteHandle InHandle, const MySprMath::SVec2& InPosition);
 		void ResizeSprite(SpriteHandle InHandle, const MySprMath::SSize& InSize);
 		void ResizeSprite(SpriteHandle InHandle, float InWidth, float InHeight);
+		void SetSpriteMaterial(SpriteHandle InHandle, const MySprRen::MaterialInstanceRenderStateInitializerPtr& InRenderState);
 		// ~ Sprite render helpers End
 
 		// ~ Screen helpers Begin

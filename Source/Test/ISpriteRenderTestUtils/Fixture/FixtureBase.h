@@ -103,13 +103,24 @@ namespace Test
 		* Takes into account the IsNeverInteractive() state.
 		*/
 		bool ShouldShowInteractiveMessages() const;
-		bool IsNeverInteractive() const { return bNeverInteractive; }
-		void MarkNeverInteractive() { bNeverInteractive = true; }
 
-	private:
+		/**
+		* Is this test never interactive.
+		*
+		* Takes into account both local and the global interactive flags.
+		*/
+		bool IsNeverInteractive() const;
+
+		/**
+		* Marks that the given test is never interactive (does NOT change the global never interactive)
+		*/
+		void MarkNeverInteractive();
+
+	private:		
+		void DisableInteractiveModeGlobally();
 		void UpdateEnvironment_BasedOnConfig(const TesterConfig& InConfig);
 		bool bUpdatingConfig = false;
-		bool bNeverInteractive = false;
+		bool bNeverInteractive;
+		static bool bGloballyNeverInteractive;
 	};
-	void DisableInteractiveMode(FixtureBase* pFixture);
 } // Test

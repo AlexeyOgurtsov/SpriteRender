@@ -135,10 +135,20 @@
   <ItemGroup>
     <ClInclude Include="..\..\QSpriteRender\IMPL\Canvas\Canvas.h" />
     <ClInclude Include="..\..\QSpriteRender\IMPL\Canvas\CanvasCommands.h" />
+    <ClInclude Include="..\..\QSpriteRender\IMPL\Canvas\Sprite.h" />
+    <ClInclude Include="..\..\QSpriteRender\IMPL\Canvas\SpriteCommands.h" />
+    <ClInclude Include="..\..\QSpriteRender\IMPL\Canvas\SpriteContainerTypes.h" />
+    <ClInclude Include="..\..\QSpriteRender\IMPL\Canvas\SpriteGeometryData.h" />
+    <ClInclude Include="..\..\QSpriteRender\IMPL\Canvas\SpriteManager.h" />
+    <ClInclude Include="..\..\QSpriteRender\IMPL\Canvas\SpriteSetRender.h" />
+    <ClInclude Include="..\..\QSpriteRender\IMPL\Canvas\SpriteSetRenderUtils.h" />
     <ClInclude Include="..\..\QSpriteRender\IMPL\Environment\AmbientContext.h" />
     <ClInclude Include="..\..\QSpriteRender\IMPL\Glue\Glue_InterfaceToImpl.h" />
     <ClInclude Include="..\..\QSpriteRender\IMPL\Render\SpriteRender.h" />
     <ClInclude Include="..\..\QSpriteRender\IMPL\Render\SpriteUpdater.h" />
+    <ClInclude Include="..\..\QSpriteRender\IMPL\RenUtils\BufferAlloc.h" />
+    <ClInclude Include="..\..\QSpriteRender\IMPL\RenUtils\Geometry\SpriteGeometryVertex.h" />
+    <ClInclude Include="..\..\QSpriteRender\IMPL\RenUtils\Geometry\SpriteGeometryVertex_InputLayout.h" />
     <ClInclude Include="..\..\QSpriteRender\IMPL\RenUtils\RenBufferTypes.h" />
     <ClInclude Include="..\..\QSpriteRender\IMPL\RenUtils\RenBufferUtils.h" />
     <ClInclude Include="..\..\QSpriteRender\IMPL\RenUtils\RenDeviceContextTypes.h" />
@@ -192,10 +202,19 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\QSpriteRender\IMPL\Canvas\Canvas.cpp" />
+    <ClCompile Include="..\..\QSpriteRender\IMPL\Canvas\Sprite.cpp" />
+    <ClCompile Include="..\..\QSpriteRender\IMPL\Canvas\SpriteCommands.cpp" />
+    <ClCompile Include="..\..\QSpriteRender\IMPL\Canvas\SpriteContainerTypes.cpp" />
+    <ClCompile Include="..\..\QSpriteRender\IMPL\Canvas\SpriteManager.cpp" />
+    <ClCompile Include="..\..\QSpriteRender\IMPL\Canvas\SpriteSetRender.cpp" />
+    <ClCompile Include="..\..\QSpriteRender\IMPL\Canvas\SpriteSetRenderUtils.cpp" />
     <ClCompile Include="..\..\QSpriteRender\IMPL\Environment\AmbientContext.cpp" />
     <ClCompile Include="..\..\QSpriteRender\IMPL\Glue\Glue_InterfaceToImpl.cpp" />
     <ClCompile Include="..\..\QSpriteRender\IMPL\Render\SpriteRender.cpp" />
     <ClCompile Include="..\..\QSpriteRender\IMPL\Render\SpriteUpdater.cpp" />
+    <ClCompile Include="..\..\QSpriteRender\IMPL\RenUtils\BufferAlloc.cpp" />
+    <ClCompile Include="..\..\QSpriteRender\IMPL\RenUtils\Geometry\SpriteGeometryVertex.cpp" />
+    <ClCompile Include="..\..\QSpriteRender\IMPL\RenUtils\Geometry\SpriteGeometryVertex_InputLayout.cpp" />
     <ClCompile Include="..\..\QSpriteRender\IMPL\RenUtils\RenBufferUtils.cpp" />
     <ClCompile Include="..\..\QSpriteRender\IMPL\RenUtils\RenDeviceContextUtils.cpp" />
     <ClCompile Include="..\..\QSpriteRender\IMPL\RenUtils\RenDrawCallUtils.cpp" />

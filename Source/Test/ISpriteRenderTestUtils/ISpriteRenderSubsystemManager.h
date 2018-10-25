@@ -114,6 +114,7 @@ namespace Test
 		void HideSprite(MySprRen::ISpriteUpdater* pInUpdater, SprId InId);
 		void SetSpriteTransparency(MySprRen::ISpriteUpdater* pInUpdater, SprId InId, MySpr::ESpriteTransparency InTransparency);
 		void SetSpriteGeometry(MySprRen::ISpriteUpdater* pInUpdater, SprId InId, const MySpr::SSpriteGeometryProps& InGeometry);
+		void SetMatInst(MySprRen::ISpriteUpdater* pInUpdater, SprId InId, MySprRen::MaterialInstanceRenderStateInitializerPtr InRenderState);
 		// ~Sprite operations End
 
 		// ~Info getters Begin

@@ -108,9 +108,13 @@ namespace Test
 			std::string MsgText = std::string("Test: ") + TestName;
 			std::string MsgCaption = std::string("Starting test");
 			MessageBox(NULL, MsgText.c_str(), MsgCaption.c_str(), MB_OK);
-			EndInteractive();			
+			EndInteractive();
+			if (PromptPresentationMode_ReturnTrueIfQuit())
+			{
+				T_LOG("Quitting (user chosen \"cancel\")");
+				exit(0);
+			}				
 		}
-		PromptPresentationMode_ReturnTrueIfQuit();
 	}
 
 	void PerTestFixtureBase::BeginInteractive(bool bPauseTimers)
@@ -130,7 +134,8 @@ namespace Test
 	void PerTestFixtureBase::EndInteractive()
 	{
 		T_LOG("PerTestFixtureBase::EndInteractive...");		
-		BOOST_ASSERT_MSG( ! IsNeverInteractive(), "PerTestFixtureBase::EndInteractive: this function should NOT be called if IsNeverInteractive() is true" );
+		// WARNING!!! This function DO may be called ever if IsNeverInteractive()
+		// - to make it possible to return to the normal mode when never interactive is true
 		BOOST_ASSERT_MSG(bInteractive, "PerTestFixtureBase::BeginInteractive: not in interactive mode");
 		GetEnv()->BeginFrame_ResumeDeltaCounter(GetLog());
 		bInteractive = false;

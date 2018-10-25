@@ -37,32 +37,42 @@ namespace Test
 	/**
 	* Checks that RT color matches canvas at the given point.
 	*/
-	bool RT_ColorMatchesCanvas_AtCanvasPoint(IFrameCheckContext* pContext, CanvasHandle InCanvas, const SprVec2& InCanvasPoint, const TexelColor& InColor);
+	bool RT_ColorMatchesCanvas_AtCanvasPoint(IFrameCheckContext* pContext, CanvasHandle InCanvas, const SprVec2& InCanvasPoint, const TexelColor& InColor, bool bMatchAlpha);
 
 	/**
 	* Is canvas at the given point is set to the clear color
 	*/
-	bool RT_IsCanvasClear_AtCanvasPoint(IFrameCheckContext* pContext, CanvasHandle InCanvas, const Vec2& InCanvasPoint);
+	bool RT_IsCanvasClear_AtCanvasPoint(IFrameCheckContext* pContext, CanvasHandle InCanvas, const Vec2& InCanvasPoint, bool bMatchAlpha);
 
 	/**
 	* Returns true, if render target matches texture color.
 	*/
-	bool RT_TextureMatches_CanvasPoint(IFrameCheckContext* pContext, CanvasHandle InCanvas, const SprVec2& InCanvasPoint, const IMPL::TextureElement& InTextureElement);
+	bool RT_TextureMatches_CanvasPoint(IFrameCheckContext* pContext, CanvasHandle InCanvas, const SprVec2& InCanvasPoint, const IMPL::TextureElement& InTextureElement, bool bMatchAlpha);
+
+	/**
+	* Returns true if render target is filled entirely with the given color.
+	*/
+	bool RT_FilledWithColor(IFrameCheckContext* pContext, const TexelColor& InColor, bool bMatchAlpha);
+
+	/**
+	* Returns true if render target is filled entirely with the given color.
+	*/
+	bool RT_Cleared(IFrameCheckContext* pContext, bool bMatchAlpha);
 
 	/**
 	* Returns true if sprite is visible as the given color.
 	*/
-	bool RT_SpriteVisibleAsColor(IFrameCheckContext* pContext, CanvasHandle InCanvas, SpriteHandle InSprite, const TexelColor& InColor);
+	bool RT_SpriteVisibleAsColor(IFrameCheckContext* pContext, CanvasHandle InCanvas, SpriteHandle InSprite, const TexelColor& InColor, bool bMatchAlpha);
 
 	/**
 	* Returns true if sprite is not visible.
 	*/
-	bool RT_SpriteHidden(IFrameCheckContext* pContext, CanvasHandle InCanvas, SpriteHandle InSprite);
+	bool RT_SpriteHidden(IFrameCheckContext* pContext, CanvasHandle InCanvas, SpriteHandle InSprite, bool bMatchAlpha);
 
 	/**
 	* Returns true if sprite is not visible.
 	*/
-	bool RT_SpriteHidden_AtCanvasPoint(IFrameCheckContext* pContext, CanvasHandle InCanvas, SpriteHandle InSprite, const SprVec2& InSpritePosition_AsCanvasPoint);
+	bool RT_SpriteHidden_AtCanvasPoint(IFrameCheckContext* pContext, CanvasHandle InCanvas, SpriteHandle InSprite, const SprVec2& InSpritePosition_AsCanvasPoint, bool bMatchAlpha);
 
 	/**
 	* Returns true if render target texel with the given coordinates matches another one.

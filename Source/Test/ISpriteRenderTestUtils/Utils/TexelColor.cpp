@@ -176,26 +176,30 @@ namespace Test
 		return TexelColor(InFormat, Data);
 	}
 
-	bool AreTexelsMatch(const void* pTex, DXGI_FORMAT InFormat, const void* pOtherTex, DXGI_FORMAT InOtherFormat)
+	bool AreTexelsMatch(const void* pTex, DXGI_FORMAT InFormat, const void* pOtherTex, DXGI_FORMAT InOtherFormat, bool bInCheckAlpha)
 	{
 		BOOST_ASSERT(pTex);
 		BOOST_ASSERT(pOtherTex);
 		BOOST_ASSERT(InFormat != DXGI_FORMAT_UNKNOWN);
 		BOOST_ASSERT(InOtherFormat != DXGI_FORMAT_UNKNOWN);
 
-		BOOST_ASSERT_MSG(InFormat == InOtherFormat, "AreTexelsMatch: This implementation works only if both texels are of the same format");
+		BOOST_ASSERT_MSG(InFormat == InOtherFormat, "AreTexelsMatch: This implementation works only if both texels are of the same format");		
 		size_t texelSize = GetFormatTexelSize(InFormat);
-		int cmpResult = std::memcmp(pTex, pOtherTex, texelSize);
-		return (0 == cmpResult);
+		if (bInCheckAlpha)
+		{
+			int cmpResult = std::memcmp(pTex, pOtherTex, texelSize);
+			return (0 == cmpResult);
+		}
+		else
+		{
+			size_t componentSize = GetFormatComponentSize(InFormat);
+			int cmpResult = std::memcmp(pTex, pOtherTex, texelSize - componentSize);
+			return (0 == cmpResult);
+		}
 	}
 
-	bool operator==(const TexelColor& A, const TexelColor& B)
+	bool AreTexelsMatch(const TexelColor& InA, const TexelColor& InB, bool bInCheckAlpha)
 	{
-		return AreTexelsMatch(A.GetData(), A.GetFormat(), B.GetData(), B.GetFormat());
-	}
-
-	bool operator!=(const TexelColor& A, const TexelColor& B) 
-	{
-		return !(A == B); 
+		return AreTexelsMatch(InA.GetData(), InA.GetFormat(), InB.GetData(), InB.GetFormat(), bInCheckAlpha);
 	}
 } // Test

@@ -43,7 +43,8 @@ namespace Test
 		return GetEnv()->GetMainLog();
 	}
 
-	FixtureBase::FixtureBase()
+	FixtureBase::FixtureBase() :
+		bNeverInteractive{false}
 	{
 		// @TODO
 	}
@@ -192,7 +193,7 @@ namespace Test
 			if (bDisableInteractiveMode)
 			{
 				T_LOG("User chosen to disable interactive mode");
-				DisableInteractiveMode(this);
+				DisableInteractiveModeGlobally();
 			}
 		}
 		T_LOG("FixtureBase::PromptPresentationMode DONE");
@@ -201,18 +202,33 @@ namespace Test
 
 	bool FixtureBase::ShouldShowInteractiveMessages() const
 	{
-		return GetConfig().Tester.bShowMessageBeforeTest && ( ! bNeverInteractive );
+		return GetConfig().Tester.bShowMessageBeforeTest && ( ! IsNeverInteractive() );
 	}
 
-	void DisableInteractiveMode(FixtureBase* pFixture)
+	void FixtureBase::MarkNeverInteractive()
 	{
-		T_LOG_TO(pFixture->GetLog(), "Disable interactive mode...");
-		BOOST_ASSERT(pFixture);
-		TesterConfig* pCfg = pFixture->BeginUpdateConfig();
+		bNeverInteractive = true; 
+	}
+
+	void FixtureBase::DisableInteractiveModeGlobally()
+	{
+		T_LOG("Disable interactive mode...");
+		bGloballyNeverInteractive = true;
+		// WARNING!!! It should work ever is settings are NOT updated!
+		/*		
+		TesterConfig* pCfg = pFixture->BeginUpdateConfig();		
 		pCfg->Tester.bShowMessageBeforeTest = false;
 		pCfg->Tester.DelaySeconds = 0;
 		pCfg->Tester.Presentation = ETestPresenation::NonStop;
 		pFixture->EndUpdateConfig(pCfg);
-		T_LOG_TO(pFixture->GetLog(), "Disable interactive mode DONE");
+		*/
+		T_LOG("Disable interactive mode DONE");
 	}
+
+	bool FixtureBase::IsNeverInteractive() const
+	{
+		return bGloballyNeverInteractive || bNeverInteractive;
+	}
+
+	bool FixtureBase::bGloballyNeverInteractive = false;
 } // Test

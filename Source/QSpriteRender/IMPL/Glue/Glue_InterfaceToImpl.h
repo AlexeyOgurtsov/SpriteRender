@@ -1,7 +1,6 @@
 #pragma once
 
-//#include "QSpriteRender/IMPL/Geometry/SpriteGeometryData.h"
-//#include "QSpriteRender/IMPL/Sprite/SpriteData.h"
+#include "QSpriteRender/IMPL/Canvas/SpriteGeometryData.h"
 #include "QSpriteRender/Material/MaterialInstanceRenderState.h"
 #include "ISpriteRender/SpriteCommandInitializers.h"
 
@@ -23,8 +22,7 @@ namespace QRen
 namespace IMPL
 {
 
-//SSpriteGeometryData FillGeometryDataStruct(const SSpriteGeometryProps& InProps);
-//SSpriteData FillSpriteDataStruct(const SSpriteCreateCommandInitializer& InInitializer);
+SSpriteGeometryData FillGeometryDataStruct(const SSpriteGeometryProps& InProps);
 MaterialInstanceRenderStateHandle DowncastMaterialInstanceRSHandle(const Ren::MaterialInstanceRenderStateInitializerPtr& pInHandle);
 
 } // Dv::Spr::QRen::IMPL

@@ -423,6 +423,7 @@ void D3DDevice::SFrameRenderState::EndFrame(int InLocalFrameIndex)
 	BOOST_ASSERT_MSG(LocalFrameIndex == InLocalFrameIndex, "D3DDevice::SFrameRenderState::EndFrame: inconsistent local frame index");
 	GlobalFrameIndex++;
 	LocalFrameIndex = -1;
+	bFrameStarted = false;
 }
 
 

@@ -1,10 +1,11 @@
 #pragma once
 
-//#include "QSpriteRender/IMPL/SpriteSetRender/SpriteSetRender.h"
-//#include "QSpriteRender/IMPL/Sprite/SpriteManager.h"
+#include "SpriteSetRender.h"
+#include "SpriteManager.h"
 #include "ISprite/SpriteCanvasTypedefs.h"
 #include "ISpriteRender/SpriteCommandInitializers.h"
 #include "CanvasCommands.h"
+#include <memory>
 #include <d3d11.h>
 
 namespace Dv
@@ -17,7 +18,6 @@ namespace IMPL
 {
 
 class AmbientContext;
-class ISpriteGeometryBufferUpdateInterface;
 class SpriteManager;
 
 namespace D3D
@@ -29,13 +29,15 @@ struct SCanvasInitializer
 {
 	SCreateCanvasArgs CreateArgs;
 	AmbientContext* pAmbientContext;
-	ISpriteGeometryBufferUpdateInterface* pSpriteBuffer;
 	const D3D::RenResources* pRenResources;
 
-	SCanvasInitializer(AmbientContext* pInAmbientContext, const SCreateCanvasArgs& InCreateArgs, ISpriteGeometryBufferUpdateInterface* pInSpriteBuffer, const D3D::RenResources* pInRenResources) :
+	bool bDebug = false;
+	UINT MaxSprites = 100;
+	bool bAutoResizeable = false;
+
+	SCanvasInitializer(AmbientContext* pInAmbientContext, const SCreateCanvasArgs& InCreateArgs, const D3D::RenResources* pInRenResources) :
 		CreateArgs(InCreateArgs)
 	,	pAmbientContext(pInAmbientContext)
-	,	pSpriteBuffer(pInSpriteBuffer)
 	,	pRenResources(pInRenResources) {}
 };
 
@@ -88,49 +90,35 @@ public:
 	/**
 	* Returns count of sprites in the visible state.
 	*/
-	//int GetNumVisibleSprites() const { return _sprites.GetNumVisibleSprites(); }
+	int GetNumVisibleSprites() const { return pSprites->GetNumVisibleSprites(); }
 
 	/**
 	* Returns total count of sprites (both visible and hidden).
 	*/
-	//int GetNumSprites() const { return _sprites.GetNumSprites(); }
+	int GetNumSprites() const { return pSprites->GetNumSprites(); }
 
 	/**
-	* Performs rendering of all visible sprites in the set and store the result.
-	* To be called to make the render result reflect the changes made 
-	* by any of the sprite set update functions.
+	* Flushes D3D buffers to perform rendering.
+	*/
+	void FlushD3D();
+
+	/**
+	* Issues DrawCall and RS-change commands to render the given canvas.
 	*
-	* ATTENTION! Performs rendering ever if canvas is in the invisible state.  
+	* WARNING!!! The common render state must already be set
 	*/
-	void RenderAndCache();
+	void Render(ID3D11DeviceContext* pInDevCon, UINT InVBSlot);
 
-	/**
-	* Renders the same as the caching rendering function, but uses the given device context 
-	* and never caches the rendering result.
-	* However, the existing cache must be either valid or invalidated (i.e. contain empty data),
-	* because the render function may use the existing cache to build the new result incrementally.
-	*
-	* @see: RenderAndCache
-	*/
-	void Render(ID3D11DeviceContext* pInDevCon);
-
-	/**
-	* Must be called when a d3d11 buffer is destroyed, and a new buffer is to be used instead of it.
-	* Sprite set state update function (@see RenderAndCache).
-	*/
-	void MarkVertexBufferResetted(ID3D11Buffer* pInOldBuffer, ID3D11Buffer* pInNewBuffer);
 
 	/**
 	* Creates a new sprite.
-	* Sprite set state update function (@see RenderAndCache).
 	*
 	* The sprite with the given id must NOT be registered yet.
 	*/
-	//void CreateSprite(const SCreateSpriteArgs& InArgs);
+	void CreateSprite(const SCreateSpriteArgs& InArgs);
 
 	/**
 	* Immediately deletes all data, related to the given sprite and invalidates the sprite id.
-	* Sprite set state update function (@see RenderAndCache).
 	*
 	* The given id must be valid.
 	*/
@@ -138,7 +126,6 @@ public:
 
 	/**
 	* Makes the given sprite visible.
-	* Sprite set state update function (@see RenderAndCache).
 	*
 	* ATTENTION! The sprite must be invisible right before the call.
 	*/
@@ -146,7 +133,6 @@ public:
 
 	/**
 	* Makes the given sprite hidden.
-	* Sprite set state update function (@see RenderAndCache).
 	*
 	* ATTENTION! The sprite must be visible right before the call.
 	*/
@@ -154,7 +140,6 @@ public:
 
 	/**
 	* Changes ZOrder of the sprite to immediately follow right after the other one.
-	* Sprite set state update function (@see RenderAndCache).
 	*
 	* @argument InId: id of the sprite (must be valid);
 	* @argument InZBeforeSpriteId:
@@ -165,29 +150,26 @@ public:
 
 	/**
 	* Sets a new value of the transparency for the sprite.
-	* Sprite set state update function (@see RenderAndCache).
 	*/
 	void SetSpriteTransparency(SpriteId InId, ESpriteTransparency InTransparency);
 
 	/**
 	* Sets a new material instance for the sprite.
-	* Sprite set state update function (@see RenderAndCache).
 	*/
-	//void SetMaterialInstance(SpriteId InId, MaterialInstanceRenderStateHandle pInRenderState);
+	void SetMaterialInstance(SpriteId InId, MaterialInstanceRenderStateHandle pInRenderState);
 
 	/**
 	* Sets a new geometry props for the sprite.
-	* Sprite set state update function (@see RenderAndCache).
 	*/
-	//void SetSpriteGeometry(SpriteId InId, const SSpriteGeometryData& InGeometry);
+	void SetSpriteGeometry(SpriteId InId, const SSpriteGeometryData& InGeometry);
 
 private:
 	AmbientContext* _pAmbientContext;
 	SpriteCanvasId _id;
 	bool _bVisible;
 	SRenderLayerCanvasProps _props;
-	//SpriteManager _sprites;
-	//SpriteSetRender _render;
+	std::unique_ptr<SpriteManager> pSprites;
+	std::unique_ptr<SpriteSetRender> pRender;
 };
 
 } // Dv::Spr::QRen::IMPL

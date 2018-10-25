@@ -70,6 +70,10 @@ namespace IMPL
 		{
 			return GetBuffer()->Alloc(InBuf.data(), InBuf.size() * sizeof(SlotType));
 		}
+		void OverwriteBufferAlloc(const UBAlloc& InAlloc, const SlotDynamicBuffer& InBuf)
+		{
+			return GetBuffer()->OverwriteAlloc(InAlloc, InBuf.data(), InBuf.size() * sizeof(SlotType));
+		}
 		bool BufferEquals(const SlotDynamicBuffer& InBuf, const void* pInReferenceData) const
 		{
 			BOOST_ASSERT(pInReferenceData);

@@ -22,6 +22,7 @@ namespace Test::ISpr
 	std::string const TestPath_MinimalSmoke_UpdateBrackets = SuitePath_MinimalSmoke + std::string("/") + TestName_MinimalSmoke_UpdateBrackets;
 	BOOST_FIXTURE_TEST_CASE(TestUpdateBrackets, ISprPerTestFixture_Custom)
 	{
+		MarkNeverInteractive();
 		SetupTest(TestName_MinimalSmoke_UpdateBrackets.c_str());
 
 		BOOST_REQUIRE_NO_THROW(GetSprRen()->BeginUpdates());
@@ -36,6 +37,7 @@ namespace Test::ISpr
 		*boost::unit_test::depends_on(TestPath_MinimalSmoke_UpdateBrackets.c_str())
 	)
 	{
+		MarkNeverInteractive();
 		SetupTest(TestName_MinimalSmoke_Canvasses.c_str());
 
 		const CanvasId CanvId = 0;
@@ -71,6 +73,7 @@ namespace Test::ISpr
 	std::string const TestPath_MinimalSmoke_Render_Canvas = SuitePath_MinimalSmoke_Render + std::string("/") + TestName_MinimalSmoke_Render_Canvas;
 	BOOST_FIXTURE_TEST_CASE(TestCanvas, ISprPerTestFixture_Custom)
 	{
+		MarkNeverInteractive();
 		SetupTest(TestName_MinimalSmoke_Render_Canvas.c_str());
 
 		const CanvasId CanvId = 0;
@@ -100,6 +103,7 @@ namespace Test::ISpr
 		*boost::unit_test::depends_on(TestPath_MinimalSmoke_Render_Canvas)
 	)
 	{
+		MarkNeverInteractive();
 		SetupTest(TestName_MinimalSmoke_Render_AllVisibleCanvasses.c_str());
 
 		BOOST_REQUIRE_NO_THROW(GetSprRen()->BeginFrame());
@@ -125,8 +129,10 @@ namespace Test::ISpr
 		SetupTest(TestName_MinimalSmoke_Updater_Sprite.c_str());
 
 		BOOST_TEST_CHECKPOINT("Create material");
-		const TexelColor SpriteColor = TexelColor::GetBlue(GetTextureFormat());
+		const TexelColor INIT_SPRITE_COLOR = TexelColor::GetBlue(GetTextureFormat());
 		Handle_SprMaterialInstance const pMat = GetMatInst_Blue_10_10();
+		const TexelColor SPRITE_COLOR_TO_CHANGE_TO = TexelColor::GetRed(GetTextureFormat());
+		Handle_SprMaterialInstance const pMatToChangeTo = GetMatInst_Red_10_10();
 
 		// ~Sprite params Begin
 		const MySprMath::SSize SPR_SIZE = ScreenPart(QUARTER, HALF);
@@ -149,7 +155,8 @@ namespace Test::ISpr
 			BOOST_TEST_CHECKPOINT("CommitFrame");
 			{
 				IFrameCheckContextHandle pChecker = CommitFrame();
-				BOOST_REQUIRE(SpriteVisibleAsColor(pChecker, SPR_HANDLE, SpriteColor));
+				BOOST_REQUIRE(false == RT_Cleared(pChecker.get(), /*bMatchAlpha=*/false));
+				BOOST_REQUIRE(SpriteVisibleAsColor(pChecker, SPR_HANDLE, INIT_SPRITE_COLOR));
 			}
 		}
 
@@ -162,8 +169,21 @@ namespace Test::ISpr
 			BOOST_TEST_CHECKPOINT("CommitFrame");
 			{
 				IFrameCheckContextHandle pChecker = CommitFrame();
-				BOOST_REQUIRE(SpriteVisibleAsColor(pChecker, SPR_HANDLE, SpriteColor));
+				BOOST_REQUIRE(SpriteVisibleAsColor(pChecker, SPR_HANDLE, INIT_SPRITE_COLOR));
 				BOOST_REQUIRE(SpriteHiddenAt(pChecker, SPR_HANDLE, INIT_POS));
+			}
+		}
+
+		BOOST_TEST_CHECKPOINT("UpdateMaterial");
+		{
+			BOOST_REQUIRE_NO_THROW
+			(
+				SetSpriteMaterial(SPR_HANDLE, pMatToChangeTo);
+			);
+			BOOST_TEST_CHECKPOINT("CommitFrame");
+			{
+				IFrameCheckContextHandle pChecker = CommitFrame();
+				BOOST_REQUIRE(SpriteVisibleAsColor(pChecker, SPR_HANDLE, SPRITE_COLOR_TO_CHANGE_TO));
 			}
 		}
 

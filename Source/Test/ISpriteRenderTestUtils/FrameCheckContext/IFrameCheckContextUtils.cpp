@@ -29,37 +29,47 @@ namespace Test
 		return IMPL::GetTexelColorAt(pContext->GetDevCon(), pContext->GetRT(), TexCoord, /*MipLevel*/ 0);
 	}
 
-	bool RT_ColorMatchesCanvas_AtCanvasPoint(IFrameCheckContext* pContext, CanvasHandle InCanvas, const SprVec2& InCanvasPoint, const TexelColor& InColor)
+	bool RT_ColorMatchesCanvas_AtCanvasPoint(IFrameCheckContext* pContext, CanvasHandle InCanvas, const SprVec2& InCanvasPoint, const TexelColor& InColor, bool bMatchAlpha)
 	{
-		return InColor == RT_ColorByCanvasPoint(pContext, InCanvas, InCanvasPoint);
+		return AreTexelsMatch(InColor, RT_ColorByCanvasPoint(pContext, InCanvas, InCanvasPoint), bMatchAlpha);
 	}
 
-	bool RT_IsCanvasClear_AtCanvasPoint(IFrameCheckContext* pContext, CanvasHandle InCanvas, const Vec2& InCanvasPoint)
+	bool RT_IsCanvasClear_AtCanvasPoint(IFrameCheckContext* pContext, CanvasHandle InCanvas, const Vec2& InCanvasPoint, bool bMatchAlpha)
 	{
-		return RT_ColorMatchesCanvas_AtCanvasPoint(pContext, InCanvas, InCanvasPoint, pContext->GetRTConfig().ClearColor);
+		return RT_ColorMatchesCanvas_AtCanvasPoint(pContext, InCanvas, InCanvasPoint, pContext->GetRTConfig().ClearColor, bMatchAlpha);
 	}
 
-	bool RT_TextureMatches_CanvasPoint(IFrameCheckContext* pContext, CanvasHandle InCanvas, const SprVec2& InCanvasPoint, const IMPL::TextureElement& InTextureElement)
+	bool RT_TextureMatches_CanvasPoint(IFrameCheckContext* pContext, CanvasHandle InCanvas, const SprVec2& InCanvasPoint, const IMPL::TextureElement& InTextureElement, bool bMatchAlpha)
 	{
 		const IntVec Coord {0,0};
 		const TexelColor TexColor = IMPL::GetTexelColorAt(pContext->GetDevCon(), InTextureElement.GetTexture(), Coord, /*Subresource=*/0);
-		return  RT_ColorMatchesCanvas_AtCanvasPoint(pContext, InCanvas, InCanvasPoint, TexColor);
+		return  RT_ColorMatchesCanvas_AtCanvasPoint(pContext, InCanvas, InCanvasPoint, TexColor, bMatchAlpha);
 	}
 
-	bool RT_SpriteVisibleAsColor(IFrameCheckContext* pContext, CanvasHandle InCanvas, SpriteHandle InSprite, const TexelColor& InColor)
+	bool RT_FilledWithColor(IFrameCheckContext* pContext, const TexelColor& InColor, bool bMatchAlpha)
+	{
+		return IMPL::TextureFilledWithColor(pContext->GetDevCon(), pContext->GetRT(), /*MipLevel*/ 0, InColor, bMatchAlpha);
+	}
+
+	bool RT_Cleared(IFrameCheckContext* pContext, bool bMatchAlpha)
+	{
+		return RT_FilledWithColor(pContext, pContext->GetRTConfig().ClearColor, bMatchAlpha);
+	}
+
+	bool RT_SpriteVisibleAsColor(IFrameCheckContext* pContext, CanvasHandle InCanvas, SpriteHandle InSprite, const TexelColor& InColor, bool bMatchAlpha)
 	{
 		SprVec2 const CanvasPoint = InSprite->GetCenter();
-		return RT_IsCanvasClear_AtCanvasPoint(pContext, InCanvas, CanvasPoint);
+		return RT_ColorMatchesCanvas_AtCanvasPoint(pContext, InCanvas, CanvasPoint, InColor, bMatchAlpha);
 	}
 
-	bool RT_SpriteHidden(IFrameCheckContext* pContext, CanvasHandle InCanvas, SpriteHandle InSprite)
+	bool RT_SpriteHidden(IFrameCheckContext* pContext, CanvasHandle InCanvas, SpriteHandle InSprite, bool bMatchAlpha)
 	{
-		return RT_SpriteHidden_AtCanvasPoint(pContext, InCanvas, InSprite, InSprite->GetPosition());
+		return RT_SpriteHidden_AtCanvasPoint(pContext, InCanvas, InSprite, InSprite->GetPosition(), bMatchAlpha);
 	}
 
-	bool RT_SpriteHidden_AtCanvasPoint(IFrameCheckContext* pContext, CanvasHandle InCanvas, SpriteHandle InSprite, const SprVec2& InSpritePosition_AsCanvasPoint)
+	bool RT_SpriteHidden_AtCanvasPoint(IFrameCheckContext* pContext, CanvasHandle InCanvas, SpriteHandle InSprite, const SprVec2& InSpritePosition_AsCanvasPoint, bool bMatchAlpha)
 	{		
 		SprVec2 SpriteCenter = MySprMath::GetCenter(InSpritePosition_AsCanvasPoint, InSprite->GetSize());
-		return RT_IsCanvasClear_AtCanvasPoint(pContext, InCanvas, SpriteCenter);
+		return RT_IsCanvasClear_AtCanvasPoint(pContext, InCanvas, SpriteCenter, bMatchAlpha);
 	}
 } // Test

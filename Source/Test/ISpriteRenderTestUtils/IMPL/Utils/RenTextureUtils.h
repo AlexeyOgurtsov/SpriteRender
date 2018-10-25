@@ -11,6 +11,14 @@
 namespace Test::IMPL
 {
 
+
+/**
+* Returns true if the given MIP-level of the fiven texture is filled with the given color.
+*
+* @NOTE: InSubresource: mip level for non-array (or mip level or array element)
+*/
+bool TextureFilledWithColor(ID3D11DeviceContext* pDevCon, ID3D11Texture2D* pTex, UINT InSubresource, const TexelColor& InRefColor, bool bMatchAlpha);
+
 /**
 * Returns texel color at the given point from the given texture.
 *

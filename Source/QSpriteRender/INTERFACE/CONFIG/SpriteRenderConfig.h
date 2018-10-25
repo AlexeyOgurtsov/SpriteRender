@@ -69,6 +69,11 @@ struct SConfig
 	int InitialSpriteBufferCapacity = INITIAL_SPRITE_BUFFER_CAPACITY;
 
 	/**
+	* Vertex buffer slot.
+	*/
+	UINT VBSlot = 0;
+
+	/**
 	* Default ctor.
 	*
 	* WARNING!!! Creates non-usable config.
@@ -88,6 +93,7 @@ inline void LogRenderConfig(Strm& strm, const SConfig& InConfig)
 	LogRenderTargetConfig(strm, InConfig.RenderTarget);
 	LogShadersConfig(strm, InConfig.Shaders);
 	strm << std::setw(32) << std::left << "Initial sprite buffer capacity: " << InConfig.InitialSpriteBufferCapacity << std::endl;
+	strm << std::setw(32) << std::left << "VB Slot: " << InConfig.VBSlot << std::endl;
 }
 
 /**
@@ -101,6 +107,7 @@ inline void AssertConfigValid(const SConfig& InConfig)
 	AssertRenderTargetConfigValid(InConfig.RenderTarget);
 	AssertShadersConfigValid(InConfig.Shaders);
 	BOOST_ASSERT_MSG(InConfig.InitialSpriteBufferCapacity > 0, "SpriteRender config is invalid: sprite buffer capacity must be greater than zero");
+	BOOST_ASSERT_MSG(InConfig.VBSlot == 0, "SpriteRender config is invalid: at this time only ZERO slot can be used for binding the vertex buffer");
 }
 
 } // Dv::Spr::QRen

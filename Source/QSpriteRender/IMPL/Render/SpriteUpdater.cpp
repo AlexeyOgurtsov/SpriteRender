@@ -25,57 +25,46 @@ SpriteCanvasId SpriteUpdater::GetCanvasId() const
 
 void SpriteUpdater::CreateSprite(const Ren::SSpriteCreateCommandInitializer& InCommand)
 {
-	BOOST_ASSERT_MSG(false, "SpriteUpdater::CreateSprite: NOT yet impl");
-	/*
 	SSpriteGeometryData const geometryData = FillGeometryDataStruct(InCommand.Props.Geometry);
-	SSpriteData const renderLayerSpriteData = FillSpriteDataStruct(InCommand);
-	SCreateSpriteArgs const createSpriteArgs(InCommand, renderLayerSpriteData, geometryData);
-	_pCanvas->CreateSprite(createSpriteArgs);
-	*/
+	SCreateSpriteArgs const createSpriteArgs(InCommand, geometryData);
+	_pCanvas->CreateSprite(createSpriteArgs);	
 }
 
 void SpriteUpdater::DeleteSprite(const Ren::SSpriteDeleteCommandInitializer& InCommand)
 {
-	BOOST_ASSERT_MSG(false, "SpriteUpdater::DeleteSprite");
-	//_pCanvas->DeleteSprite(InCommand.TargetSpriteId);
+	_pCanvas->DeleteSprite(InCommand.TargetSpriteId);
 }
 
 void SpriteUpdater::HideSprite(const Ren::SSpriteHideCommandInitializer& InCommand)
 {
-	BOOST_ASSERT_MSG(false, "SpriteUpdater::HideSprite");
-	//_pCanvas->HideSprite(InCommand.TargetSpriteId);
+	_pCanvas->HideSprite(InCommand.TargetSpriteId);
 }
 
 void SpriteUpdater::ShowSprite(const Ren::SSpriteShowCommandInitializer& InCommand)
 {
-	BOOST_ASSERT_MSG(false, "SpriteUpdater::ShowSprite");
-	//_pCanvas->ShowSprite(InCommand.TargetSpriteId);
+	_pCanvas->ShowSprite(InCommand.TargetSpriteId);
 }
 
 void SpriteUpdater::SetSpriteTransparency(const Ren::SSpriteSetTransparencyCommandInitializer& InCommand)
 {
-	BOOST_ASSERT_MSG(false, "SpriteUpdater::SetSpriteTransparency()");
-	//_pCanvas->SetSpriteTransparency(InCommand.TargetSpriteId, InCommand.Transparency);
+	_pCanvas->SetSpriteTransparency(InCommand.TargetSpriteId, InCommand.Transparency);
 }
 
 void SpriteUpdater::SetSpriteGeometry(const Ren::SSpriteSetGeometryCommandInitializer& InCommand)
 {
-	BOOST_ASSERT_MSG(false, "SpriteUpdater::SetSpriteGeometry: NOT yet impl");
-	//SSpriteGeometryData const geometryData = FillGeometryDataStruct(InCommand.Geometry);
-	//_pCanvas->SetSpriteGeometry(InCommand.TargetSpriteId, geometryData);
+	SSpriteGeometryData const geometryData = FillGeometryDataStruct(InCommand.Geometry);
+	_pCanvas->SetSpriteGeometry(InCommand.TargetSpriteId, geometryData);
 }
 
 
 void SpriteUpdater::SetSpriteMaterial(const Ren::SSpriteSetMaterialCommandInitializer& InCommand)
 {
-	BOOST_ASSERT_MSG(false, "SpriteUpdater::SetSpriteMaterial: NOT yet impl");
-	//_pCanvas->SetMaterialInstance(InCommand.TargetSpriteId, DowncastMaterialInstanceRSHandle(InCommand.pRenderState));
+	_pCanvas->SetMaterialInstance(InCommand.TargetSpriteId, DowncastMaterialInstanceRSHandle(InCommand.pRenderState));
 }
 
 void SpriteUpdater::SetSpriteZOrder(const Ren::SSpriteSetZOrderCommandInitializer& InCommand)
 {
-	BOOST_ASSERT_MSG(false, "SpriteUpdater::SetSpriteZOrder: NOT yet impl");
-	//_pCanvas->MoveSpriteZOrderAfter(InCommand.TargetSpriteId, InCommand.ZBeforeSpriteId);
+	_pCanvas->MoveSpriteZOrderAfter(InCommand.TargetSpriteId, InCommand.ZBeforeSpriteId);
 }
 
 } // Dv::Spr::QRen::IMPL

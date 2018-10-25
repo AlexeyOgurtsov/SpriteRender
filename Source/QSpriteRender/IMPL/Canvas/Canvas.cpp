@@ -1,5 +1,6 @@
 #include "Canvas.h"
-#include <boost/assert.hpp>
+#include "../RenUtils/RenResources.h"
+#include "../Utils/CommonSystem.h"
 
 namespace Dv
 {
@@ -15,13 +16,24 @@ Canvas::Canvas(const SCanvasInitializer& InInitializer) :
 	_id(InInitializer.CreateArgs.GetTargetCanvasId())
 ,	_bVisible(InInitializer.CreateArgs.ShouldShow())
 ,	_props(InInitializer.CreateArgs.GetProps())
-//,	_sprites(SSpriteManagerInitializer{InInitializer.pSpriteBuffer})
-//,	_render(SSpriteSetRenderInitializer{&_sprites, InInitializer.pRenResources})
 {
-	
+	// SpriteManager
+	SSpriteManagerInitializer SpriteManagerInitializer 
+	{
+		InInitializer.pAmbientContext, 
+		InInitializer.pRenResources->GetDev(),
+		InInitializer.pRenResources->GetDevCon(),
+		InInitializer.bDebug,
+	};
+	SpriteManagerInitializer.bAutoResizeable = InInitializer.bAutoResizeable;
+	SpriteManagerInitializer.MaxSprites = InInitializer.MaxSprites;
+	pSprites.reset(new SpriteManager{ SpriteManagerInitializer });
+
+	// Render
+	SpriteSetRenderInitializer RenderInitializer { InInitializer.pAmbientContext, pSprites.get(), InInitializer.pRenResources };
+	pRender.reset(new SpriteSetRender(RenderInitializer));
 }
 
-/*
 void Canvas::UpdateRect(const SRenderLayerCanvasRect& InNewRect)
 {
 	_props.RTRect = InNewRect;
@@ -37,87 +49,55 @@ void Canvas::Hide()
 	_bVisible = false;
 }
 
-void Canvas::RenderAndCache()
+void Canvas::FlushD3D()
 {
-	_render.RenderAndCache();
+	pSprites->FlushD3D();
 }
 
-void Canvas::Render(ID3D11DeviceContext* pInDevCon)
+void Canvas::Render(ID3D11DeviceContext* pInDevCon, UINT InVBSlot)
 {
-	_render.Render(pInDevCon);
+	pRender->Render(pInDevCon, InVBSlot);
 }
 
-void Canvas::MarkVertexBufferResetted(ID3D11Buffer* pInOldBuffer, ID3D11Buffer* pInNewBuffer)
-{
-	_render.MarkVertexBufferResetted(pInOldBuffer, pInNewBuffer);
-}
-*/
-
-/*
 void Canvas::CreateSprite(const SCreateSpriteArgs& InArgs)
 {
-	Sprite* pSprite = _sprites.CreateSprite(InArgs);
-	_render.MarkSpriteCreated(pSprite);
+	pSprites->CreateSprite(InArgs);
 }
 
 void Canvas::DeleteSprite(SpriteId InId)
 {
-	Sprite* pSprite = _sprites.FindById(InId);
-	BOOST_ASSERT_MSG(pSprite, "Canvas::DeleteSprite: sprite with the given ID NOT FOUND");
-	_render.MarkSpritePendingDelete(pSprite);
-	_sprites.DeleteSprite(InId);
+	pSprites->DeleteSprite(InId);
 }
 
 void Canvas::ShowSprite(SpriteId InId)
 {
-	Sprite* pSprite = _sprites.FindById(InId);
-	BOOST_ASSERT_MSG(pSprite, "Canvas::ShowSprite: sprite with the given ID NOT FOUND");
-	pSprite->Show();
-	_render.MarkSpriteShown(pSprite);
+	pSprites->ShowSprite(InId);
 }
 
 void Canvas::HideSprite(SpriteId InId)
 {
-	Sprite* pSprite = _sprites.FindById(InId);
-	BOOST_ASSERT_MSG(pSprite, "Canvas::HideSprite: sprite with the given ID NOT FOUND");
-	pSprite->Hide();
-	_render.MarkSpriteHidden(pSprite);
+	pSprites->HideSprite(InId);
 }
 
 void Canvas::MoveSpriteZOrderAfter(SpriteId InId, SpriteId InZBeforeSpriteId)
 {
-	Sprite* pSprite = _sprites.FindById(InId);
-	BOOST_ASSERT_MSG(pSprite, "Canvas::MoveSpriteZOrderAfter: sprite with the given ID NOT FOUND");
-	_sprites.MoveSpriteZOrderAfter(pSprite, InZBeforeSpriteId);
-	_render.MarkSpriteZOrderChanged(pSprite);
+	pSprites->MoveSpriteZOrderAfter(InId, InZBeforeSpriteId);
 }
 
 void Canvas::SetSpriteTransparency(SpriteId InId, ESpriteTransparency InTransparency)
 {
-	Sprite* pSprite = _sprites.FindById(InId);
-	BOOST_ASSERT_MSG(pSprite, "Canvas::SetSpriteTransparency: sprite with the given ID NOT FOUND");
-	pSprite->UpdateTransparency(InTransparency);
-	_render.MarkSpriteRenderStateChanged(pSprite);
+	pSprites->SetSpriteTransparency(InId, InTransparency);
 }
-*/
 
-//void Canvas::SetMaterialInstance(Ren::SpriteId InId, Ren::MaterialInstanceRenderStateHandle pInRenderState)
-//{
-//	BOOST_ASSERT_MSG(false, "Canvas::SetMaterialInstance: NOT yet impl");
+void Canvas::SetMaterialInstance(SpriteId InId, MaterialInstanceRenderStateHandle pInRenderState)
+{
+	pSprites->SetMaterialInstance(InId, pInRenderState);
+}
 
-	//Sprite* pSprite = _sprites.FindById(InId);
-	//BOOST_ASSERT_MSG(pSprite, "Canvas::SetMaterialInstance: sprite with the given ID NOT FOUND");
-	//pSprite->UpdateMaterialInstance(pInRenderState);
-	//_render.MarkSpriteRenderStateChanged(pSprite);
-//}
-
-//void Canvas::SetSpriteGeometry(SpriteId InId, const SSpriteGeometryData& InGeometry)
-//{
-//	Sprite* pSprite = _sprites.FindById(InId);
-//	BOOST_ASSERT_MSG(pSprite, "Canvas::SetSpriteGeometry: sprite with the given ID NOT FOUND");
-//	pSprite->UpdateGeometry(InGeometry);
-//	// we should NOT notify render that the geometry is changed.
-//}
+void Canvas::SetSpriteGeometry(SpriteId InId, const SSpriteGeometryData& InGeometry)
+{
+	pSprites->SetSpriteGeometry(InId, InGeometry);
+}
 
 } // Dv::Spr::QRen::IMPL
 

@@ -179,13 +179,21 @@ public:
 	/**
 	* Updates the given allocation, by reallocated its data.	
 	* Size of the source data must be a multiple of the SlotSize;
-	* (throws an exception if unable to occupy the data)
+	* (throws an exception if unable to reallocate the data)
 	* Must be called between StartStore/EndStore.
 	* Offset of the allocation DO may change.
 	*
 	* @param: InAlloc - allocation. Will be updated.
 	*/
 	void Realloc(BufferAlloc& InAlloc, const void* pInSourceData, UINT InSizeInBytes) throw(SpriteRenderException);
+
+	/**
+	* Overwrites (maybe partly) data of the alloc.
+	* WARNING!!! The data part must be completely inside the alloc.
+	*
+	* @param: InOffsetInBytes: offset in bytes from the start of the alloc.
+	*/
+	void OverwriteAlloc(const BufferAlloc& InAlloc, const void* pInSourceData, UINT InSizeInBytes, UINT InOffsetInBytes = 0);
 
 	/**
 	* Frees the allocation, so a new data may be stored in the given position.

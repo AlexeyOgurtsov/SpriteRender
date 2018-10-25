@@ -36,7 +36,7 @@ namespace Test
 	void ResourceFixture::SetTextureFormat(DXGI_FORMAT InFormat, bool bInForceOverwrite)
 	{
 		T_LOG_TO(GetMyLog(), "ResourceFixture: Setting texture format...");
-		if (InFormat != DXGI_FORMAT_UNKNOWN)
+		if (TextureFormat != DXGI_FORMAT_UNKNOWN)
 		{
 			T_LOG_TO(GetMyLog(), "ResourceFixture: Format already set!");
 			BOOST_ASSERT_MSG(bInForceOverwrite, "ResourceFixture::SetTextureFormat: WARNING!!! bInForceOverwrite to be passed to overwrite the already set texture format!");

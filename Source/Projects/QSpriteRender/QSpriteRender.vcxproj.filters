@@ -73,6 +73,9 @@
     <Filter Include="TEST\IMPL_TEST\IMPL">
       <UniqueIdentifier>{8494e8c7-c70e-4ec7-9640-c72ce0e7751e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="IMPL\RenUtils\Geometry">
+      <UniqueIdentifier>{4965c998-e2d2-4be5-a872-be386058401e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\QSpriteRender\INTERFACE\CONFIG\LoggingConfig.h">
@@ -243,6 +246,36 @@
     <ClInclude Include="..\..\Test\QSpriteRender\IMPL_TEST\RenUtils\UniformBufferFixture.h">
       <Filter>TEST\IMPL_TEST\RenUtils</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\QSpriteRender\IMPL\Canvas\Sprite.h">
+      <Filter>IMPL\Canvas</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\QSpriteRender\IMPL\Canvas\SpriteGeometryData.h">
+      <Filter>IMPL\Canvas</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\QSpriteRender\IMPL\Canvas\SpriteManager.h">
+      <Filter>IMPL\Canvas</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\QSpriteRender\IMPL\RenUtils\Geometry\SpriteGeometryVertex.h">
+      <Filter>IMPL\RenUtils\Geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\QSpriteRender\IMPL\RenUtils\Geometry\SpriteGeometryVertex_InputLayout.h">
+      <Filter>IMPL\RenUtils\Geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\QSpriteRender\IMPL\RenUtils\BufferAlloc.h">
+      <Filter>IMPL\RenUtils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\QSpriteRender\IMPL\Canvas\SpriteCommands.h">
+      <Filter>IMPL\Canvas</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\QSpriteRender\IMPL\Canvas\SpriteContainerTypes.h">
+      <Filter>IMPL\Canvas</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\QSpriteRender\IMPL\Canvas\SpriteSetRender.h">
+      <Filter>IMPL\Canvas</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\QSpriteRender\IMPL\Canvas\SpriteSetRenderUtils.h">
+      <Filter>IMPL\Canvas</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\QSpriteRender\INTERFACE\CONFIG\SpriteRenderConfig.cpp">
@@ -343,6 +376,33 @@
     </ClCompile>
     <ClCompile Include="..\..\Test\QSpriteRender\IMPL_TEST\RenUtils\UniformBufferFixture.cpp">
       <Filter>TEST\IMPL_TEST\RenUtils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\QSpriteRender\IMPL\Canvas\SpriteManager.cpp">
+      <Filter>IMPL\Canvas</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\QSpriteRender\IMPL\RenUtils\Geometry\SpriteGeometryVertex.cpp">
+      <Filter>IMPL\RenUtils\Geometry</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\QSpriteRender\IMPL\RenUtils\Geometry\SpriteGeometryVertex_InputLayout.cpp">
+      <Filter>IMPL\RenUtils\Geometry</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\QSpriteRender\IMPL\Canvas\Sprite.cpp">
+      <Filter>IMPL\Canvas</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\QSpriteRender\IMPL\RenUtils\BufferAlloc.cpp">
+      <Filter>IMPL\RenUtils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\QSpriteRender\IMPL\Canvas\SpriteCommands.cpp">
+      <Filter>IMPL\Canvas</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\QSpriteRender\IMPL\Canvas\SpriteContainerTypes.cpp">
+      <Filter>IMPL\Canvas</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\QSpriteRender\IMPL\Canvas\SpriteSetRender.cpp">
+      <Filter>IMPL\Canvas</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\QSpriteRender\IMPL\Canvas\SpriteSetRenderUtils.cpp">
+      <Filter>IMPL\Canvas</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -15,15 +15,4 @@ namespace Test::ISpr::Spr
 
 namespace Test::ISpr::Spr
 {
-	// This set of tests is only presented to check that the tester itself works
-	BOOST_AUTO_TEST_SUITE(SuiteMetaTest)
-	BOOST_FIXTURE_TEST_CASE(MetaTestSmoke, ISprPerTestFixture_Custom)
-	{
-		SetupTest("SmokeMetaTest");
-	}
-	BOOST_FIXTURE_TEST_CASE(MetaTestSmoke2, ISprPerTestFixture_Custom)
-	{
-		SetupTest("SmokeMetaTest2");
-	}
-	BOOST_AUTO_TEST_SUITE_END() // SuiteMetaTest
 } // Test::ISpr::Spr

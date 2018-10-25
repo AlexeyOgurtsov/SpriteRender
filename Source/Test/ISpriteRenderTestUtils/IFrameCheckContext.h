@@ -14,7 +14,7 @@ namespace Test
 	class IFrameCheckContext
 	{
 	public:
-		~IFrameCheckContext() = default;
+		virtual ~IFrameCheckContext() = default;
 
 		virtual const char* GetTestName() const =0;
 		virtual PerTestFixtureBase* GetFixture() const = 0;

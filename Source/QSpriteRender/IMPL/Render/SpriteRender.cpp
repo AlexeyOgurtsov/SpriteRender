@@ -32,7 +32,6 @@ void SetupCommonRS(D3D::RenResources* pRenResources)
 	ID3D11DepthStencilView* const pDepthStencilView = pRenResources->GetConfig().RenderTarget.pDepthStencilView;
 	pDevCon->OMSetRenderTargets(1, &pRTView, pDepthStencilView);
 
-	//BOOST_ASSERT_MSG(false, "SetupRS: We must setup viewport here");
 	D3D11_VIEWPORT viewport;
 	ZeroMemory(&viewport, sizeof(viewport));
 	viewport.Width = static_cast<float>(pRenResources->GetRTWidth());
@@ -44,32 +43,12 @@ void SetupCommonRS(D3D::RenResources* pRenResources)
 	pDevCon->RSSetViewports(1, &viewport);
 }
 
-/**
-* Perform caching or non-caching rendering of the canvas based on the config.
-*/
-//void RenderCanvasWithAppropriateMode(Canvas* pCanvas, ID3D11DeviceContext* pDevCon, const SConfig& InConfig)
-//{
-//	pCanvas->Render(pDevCon);
-//}
-
-/**
-* Commits changes to the sprite geometry VB
-* and notifies the canvas if buffer the updated.
-*/
-void CommitChangesToSpriteGeometryVB_AndNotifyCanvas(ID3D11DeviceContext* pInDevCon, SpriteGeometryBuffer* pSpriteGeometryVB, Canvas* pCanvas)
+void SetRS_AndRenderCanvas(ID3D11DeviceContext* pDevCon, Canvas* pCanvas, UINT InVBSlot)
 {
-	BOOST_ASSERT_MSG(false, "CommitChangesToSpriteGeometryVB_AndNotifyCanvas: NOT yet impl");
-	/*
-	pSpriteGeometryVB->CommitDeletesAndUpdates(pInDevCon);
-	pSpriteGeometryVB->CommitAdded(pInDevCon);
-
-	ID3D11Buffer* pOldVB = pSpriteGeometryVB->GetOldBuffer();
-	ID3D11Buffer* pVB = pSpriteGeometryVB->GetBuffer();
-	if (pOldVB != pVB)
-	{
-		pCanvas->MarkVertexBufferResetted(pOldVB, pVB);
-	}
-	*/
+	BOOST_ASSERT(pDevCon);
+	BOOST_ASSERT(pCanvas);
+	pCanvas->FlushD3D();
+	pCanvas->Render(pDevCon, InVBSlot);
 }
 
 SpriteRender::~SpriteRender()
@@ -118,32 +97,25 @@ void SpriteRender::EndFrame()
 	BOOST_ASSERT_MSG(_bRenderingStarted, "SpriteRender::EndFrame: BeginFrame must be called.");
 
 	_bRenderingStarted = false;
-
-	/**
-	* To be called after all rendering calls are done.
-	*/
-	//BOOST_ASSERT_MSG(false, "SpriteRender::BeginFrame: NOT yet implemented");
 }
 
 void SpriteRender::RenderAllVisibleCanvasses()
 {
-	BOOST_ASSERT_MSG(false, "SpriteRender::RenderAllVisibleCanvasses: NOT yet impl");
 	BOOST_ASSERT_MSG(_bRenderingStarted, "SpriteRender::RenderAllVisibleCanvasses: must be called inside BeginFrame()/EndFrame pair only.");
 
 	if (_pCanvas && _pCanvas->IsVisible())
 	{
-		//RenderCanvasWithAppropriateMode(_pCanvas.get(), GetDevCon(), GetConfig());
+		SetRS_AndRenderCanvas(GetDevCon(), _pCanvas.get(), GetConfig().VBSlot);
 	}
 }
 
 void SpriteRender::RenderCanvas(SpriteCanvasId InCanvasId)
 {
-	BOOST_ASSERT_MSG(false, "SpriteRender::RenderCanvas: NOT yet impl");
 	BOOST_ASSERT_MSG(_bRenderingStarted, "SpriteRender::RenderCanvas: must be called inside BeginFrame()/EndFrame pair only.");
 
 	BOOST_ASSERT_MSG(_pCanvas && _pCanvas->GetId() == InCanvasId, "SpriteRender::RenderCanvas: The canvas with the given Id must be created");
 
-	//RenderCanvasWithAppropriateMode(_pCanvas.get(), GetDevCon(), GetConfig());
+	SetRS_AndRenderCanvas(GetDevCon(), _pCanvas.get(), GetConfig().VBSlot);
 }
 
 void SpriteRender::BeginUpdates()
@@ -156,14 +128,10 @@ void SpriteRender::BeginUpdates()
 
 void SpriteRender::EndUpdates()
 {
-	BOOST_ASSERT_MSG(false, "SpriteRender::EndUpdates: NOT yet impl");
-	
 	BOOST_ASSERT_MSG(IsUpdating(), "SpriteRender::EndUpdates: BeginUpdates() has NOT been called yet");
 	BOOST_ASSERT_MSG( ! IsUpdatingCanvas(), "SpriteRender::EndUpdates: none of the canvasses must be in the updating state");
 
 	_bUpdating = false;
-
-	//CommitChangesToSpriteGeometryVB_AndNotifyCanvas(GetDevCon(), GetSpriteGeometryBuffer(), _pCanvas.get());
 }
 
 Ren::ISpriteUpdater* SpriteRender::BeginCanvasUpdate(SpriteCanvasId InCanvasId)
@@ -188,33 +156,26 @@ void SpriteRender::EndCanvasUpdate(Ren::ISpriteUpdater* pInUpdater)
 
 void SpriteRender::ShowCanvas(SpriteCanvasId InCanvasId)
 {
-	BOOST_ASSERT_MSG(false, "SpriteRender::ShowCanvas: NOT yet impl");
-
 	BOOST_ASSERT_MSG(_pCanvas && _pCanvas->GetId() == InCanvasId, "SpriteRender::ShowCanvas: The canvas with the given Id must be created");
-	//_pCanvas->Show();
+	_pCanvas->Show();
 }
 
 void SpriteRender::HideCanvas(SpriteCanvasId InCanvasId)
 {
-	BOOST_ASSERT_MSG(false, "SpriteRender::HideCanvas: NOT yet impl");
-
 	BOOST_ASSERT_MSG(_pCanvas && _pCanvas->GetId() == InCanvasId, "SpriteRender::HideCanvas: The canvas with the given Id must be created");
-	//_pCanvas->Hide();
+	_pCanvas->Hide();
 }
 
 
 void SpriteRender::CreateCanvas(const Ren::SSpriteCanvasCreateCommandInitializer& InInitializer)
 {
-	BOOST_ASSERT_MSG(false, "SpriteRender::CreateCanvas: NOT yet impl");
-	/*
 	BOOST_ASSERT_MSG( ! _bRenderingStarted, "SpriteRender::CreateCanvas: cannot be called during the rendering" );
 	BOOST_ASSERT_MSG( _pCanvas.get() == nullptr, "SpriteRender::CreateCanvas: only one canvas is supported now" );
 
 	SCreateCanvasArgs const createCanvasArgs { InInitializer };
-	SCanvasInitializer const canvasInitializer { GetAmbientContext(), createCanvasArgs, GetSpriteGeometryBuffer(), GetRenResources() };
+	SCanvasInitializer const canvasInitializer { GetAmbientContext(), createCanvasArgs, GetRenResources() };
 	auto pNewCanvas = new Canvas(canvasInitializer);
 	_pCanvas.reset(pNewCanvas);
-	*/
 }
 
 void SpriteRender::DeleteCanvas(SpriteCanvasId InCanvasId)
@@ -245,11 +206,6 @@ AmbientContext* SpriteRender::GetAmbientContext()
 {
 	return _pEnv->GetAmbientContext();
 }
-
-//SpriteGeometryBuffer* SpriteRender::GetSpriteGeometryBuffer()
-//{
-//	return _pEnv->GetSpriteGeometryBuffer();
-//}
 
 D3D::RenResources* SpriteRender::GetRenResources()
 {

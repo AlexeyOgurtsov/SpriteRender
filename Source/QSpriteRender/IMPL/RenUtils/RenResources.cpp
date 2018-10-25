@@ -1,5 +1,5 @@
 #include "RenResources.h"
-//#include "QSpriteRender/IMPL/Geometry/SpriteGeometryVertex_InputLayout.h"
+#include "Geometry/SpriteGeometryVertex_InputLayout.h"
 #include "QSpriteRender/IMPL/Environment/AmbientContext.h"
 #include <boost/assert.hpp>
 
@@ -28,7 +28,7 @@ namespace D3D
 		BOOST_ASSERT(_pDev);
 		BOOST_ASSERT(_pDevCon);
 		BOOST_ASSERT(_pAmbientContext);
-		//_pSpriteInputLayout = RegisterInputLayout_SpriteGeometryVertex(_pDev, InInitializer.Render.Shaders);
+		_pSpriteInputLayout = RegisterInputLayout_SpriteGeometryVertex(_pDev, InInitializer.Render.Shaders);
 		_pRasterizerState = CreateRasterizerState(_pDev);
 		_pDefaultSampler = CreateDefaultSampler(_pDev);
 		_pDepthStencilState = CreateDepthStencilState(_pDev);
@@ -71,7 +71,7 @@ namespace D3D
 		desc.MipLODBias = 0.0F;
 		desc.MaxAnisotropy = 1;
 		desc.ComparisonFunc = D3D11_COMPARISON_ALWAYS;
-		desc.Filter = D3D11_FILTER_COMPARISON_ANISOTROPIC;
+		desc.Filter = D3D11_FILTER_ANISOTROPIC;
 		ID3D11SamplerState* pTempState = nullptr;
 		HRESULT hr = pDev->CreateSamplerState(&desc, &pTempState);
 		if(FAILED(hr))
@@ -87,7 +87,7 @@ namespace D3D
 		ZeroMemory(&desc, sizeof(desc));
 		desc.DepthEnable = TRUE;
 		desc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ALL;
-		desc.DepthFunc = D3D11_COMPARISON_LESS;
+		desc.DepthFunc = D3D11_COMPARISON_ALWAYS;
 		desc.StencilEnable = FALSE;
 		desc.StencilReadMask = 0;
 		desc.StencilWriteMask = 0;

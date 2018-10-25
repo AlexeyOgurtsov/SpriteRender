@@ -58,34 +58,34 @@ namespace Test::ISpr
 		/**
 		* Returns true if canvas at the given point is clear (meaning that color matches the clear color).
 		*/
-		bool CanvasClearAt(CanvasHandle InCanvas, const IFrameCheckContextHandle& ContextHandle, const SprVec2& InCanvasPoint);
+		bool CanvasClearAt(CanvasHandle InCanvas, const IFrameCheckContextHandle& ContextHandle, const SprVec2& InCanvasPoint, bool bInMatchAlpha = false);
 
 		/**
 		* Returns true if canvas point color at the given coordinates matches the given;
 		*/
-		bool ColorMatchesCanvasAt(CanvasHandle InCanvas, const IFrameCheckContextHandle& ContextHandle, const SprVec2& InCanvasPoint, const TexelColor& InColor);
+		bool ColorMatchesCanvasAt(CanvasHandle InCanvas, const IFrameCheckContextHandle& ContextHandle, const SprVec2& InCanvasPoint, const TexelColor& InColor, bool bInMatchAlpha = false);
 
 		/**
 		* Returns true if the given screen point color matches color of the texture.
 		*/
-		bool TextureMatchesCanvasAt(CanvasHandle InCanvas, const IFrameCheckContextHandle& ContextHandle, const SprVec2& InCanvasPoint, const IMPL::TextureElement& InTextureElement);
+		bool TextureMatchesCanvasAt(CanvasHandle InCanvas, const IFrameCheckContextHandle& ContextHandle, const SprVec2& InCanvasPoint, const IMPL::TextureElement& InTextureElement, bool bInMatchAlpha = false);
 
 		/**
 		* Returns true if the given sprite is visible as a color.
 		*/
-		bool SpriteVisibleAsColor(CanvasHandle InCanvas, const IFrameCheckContextHandle& ContextHandle, SpriteHandle InSprite, const TexelColor& InColor);
+		bool SpriteVisibleAsColor(CanvasHandle InCanvas, const IFrameCheckContextHandle& ContextHandle, SpriteHandle InSprite, const TexelColor& InColor, bool bInMatchAlpha = false);
 
 		/**
 		* Returns true if canvas is hidden.
 		*/
-		bool SpriteHidden(CanvasHandle InCanvas, const IFrameCheckContextHandle& ContextHandle, SpriteHandle InSprite);
+		bool SpriteHidden(CanvasHandle InCanvas, const IFrameCheckContextHandle& ContextHandle, SpriteHandle InSprite, bool bInMatchAlpha = false);
 
 		/**
 		* Returns true if the given sprite is not rendered at the given canvas position.
 		*
 		* For example, may be used to check that sprite is moved from the given position.
 		*/
-		bool SpriteHiddenAt(CanvasHandle InCanvas, const IFrameCheckContextHandle& ContextHandle, SpriteHandle InSprite, const SprVec2& InCanvasPoint);
+		bool SpriteHiddenAt(CanvasHandle InCanvas, const IFrameCheckContextHandle& ContextHandle, SpriteHandle InSprite, const SprVec2& InCanvasPoint, bool bInMatchAlpha = false);
 		// ~ Screen check helpers End
 
 	private:		

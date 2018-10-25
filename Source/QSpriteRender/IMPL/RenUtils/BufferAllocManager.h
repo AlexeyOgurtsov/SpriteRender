@@ -1,5 +1,6 @@
 #pragma once
 
+#include "BufferAlloc.h"
 #include <windows.h>
 #include <optional>
 #include <list>
@@ -18,34 +19,6 @@ namespace IMPL
 
 namespace D3D
 {
-	using BufferSlotIndex = UINT;
-
-
-	struct BufferAlloc
-	{
-		/**
-		* Index of the first datum stored in the buffer.
-		* Really offset in slots from the start of the buffer.
-		*/
-		BufferSlotIndex OffsetInSlots = 0;
-
-		/**
-		* Number of slots that this allocation occupies.
-		*/
-		UINT NumSlots = 0;
-		
-		BufferAlloc() = default;
-		BufferAlloc(BufferSlotIndex InOffsetInSlots, UINT InNumSlots) :
-			OffsetInSlots{InOffsetInSlots}
-		,	NumSlots{InNumSlots} {}
-
-		void Invalidate();
-		bool IsValid() const;
-
-		static const BufferAlloc Invalid;
-	};
-	std::string ToString(const BufferAlloc& InAlloc);
-
 	class BufferAllocManager
 	{
 	public:
