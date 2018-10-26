@@ -32,6 +32,14 @@ namespace Test::ISpr
 			MySprRen::MaterialInstanceRenderStateInitializerPtr InRenderState, 
 			MySpr::ESpriteTransparency InTransparency = MySpr::ESpriteTransparency::Opaque
 		);
+		SpriteHandle CreateSprite_ZOrderAfter
+		(
+			const SpriteHandle& InZBeforeSpriteId,
+			const MySprMath::SVec2& InPosition,			
+			float InWidth, float InHeight,
+			MySprRen::MaterialInstanceRenderStateInitializerPtr InRenderState,
+			MySpr::ESpriteTransparency InTransparency = MySpr::ESpriteTransparency::Opaque
+		);
 		SpriteHandle CreateSprite
 		(
 			const MySprMath::SVec2& InPosition,
@@ -39,6 +47,14 @@ namespace Test::ISpr
 			MySprRen::MaterialInstanceRenderStateInitializerPtr InRenderState,
 			MySpr::ESpriteTransparency InTransparency = MySpr::ESpriteTransparency::Opaque
 		);
+		SpriteHandle CreateSprite_ZOrderAfter
+		(
+			const SpriteHandle& InZBeforeSpriteId,
+			const MySprMath::SVec2& InPosition,
+			const MySprMath::SSize& InSize,
+			MySprRen::MaterialInstanceRenderStateInitializerPtr InRenderState,
+			MySpr::ESpriteTransparency InTransparency = MySpr::ESpriteTransparency::Opaque
+		);		
 		void CreateSprite(TSSprite& InSprite);
 		void DeleteSprite(SpriteHandle InHandle);
 		void DeleteSprite(TSSprite& InSprite);

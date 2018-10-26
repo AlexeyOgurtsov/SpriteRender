@@ -6,9 +6,42 @@ namespace Spr
 {
 namespace Ren
 {
+	SSpriteCreateCommandInitializer GetSprInit_ZOrderAfter(SpriteId InSpriteId, SpriteId InZBeforeSpriteId, const SSpriteProps& InProps, MaterialInstanceRenderStateInitializerPtr InRenderState)
+	{
+		SSpriteCreateCommandInitializer Initializer = GetSprInit(InSpriteId, InProps, InRenderState);
+		Initializer.ZBeforeSpriteId = InZBeforeSpriteId;
+		return Initializer;
+	}
+
+	SSpriteCreateCommandInitializer GetSprInit_ZOrderAfter(SpriteId InSpriteId, SpriteId InZBeforeSpriteId, const SSpriteGeometryProps& InGeometry, MaterialInstanceRenderStateInitializerPtr InRenderState, ESpriteTransparency InTransparency)
+	{
+		SSpriteCreateCommandInitializer Initializer = GetSprInit(InSpriteId, InGeometry, InRenderState, InTransparency);
+		Initializer.ZBeforeSpriteId = InZBeforeSpriteId;
+		return Initializer;
+	}
+
+	SSpriteCreateCommandInitializer GetSprInit_ZOrderAfter(SpriteId InSpriteId, SpriteId InZBeforeSpriteId, const Math::SSpriteTransform& InTransform, const Math::SSize& InSize, MaterialInstanceRenderStateInitializerPtr InRenderState, ESpriteTransparency InTransparency)
+	{
+		SSpriteCreateCommandInitializer Initializer = GetSprInit(InSpriteId, InTransform, InSize, InRenderState, InTransparency);
+		Initializer.ZBeforeSpriteId = InZBeforeSpriteId;
+		return Initializer;
+	}
+
+	SSpriteCreateCommandInitializer GetSprInit_ZOrderAfter(SpriteId InSpriteId, SpriteId InZBeforeSpriteId, const Math::SVec2& InPosition, float InWidth, float InHeight, MaterialInstanceRenderStateInitializerPtr InRenderState, ESpriteTransparency InTransparency)
+	{
+		SSpriteCreateCommandInitializer Initializer = GetSprInit(InSpriteId, InPosition, InWidth, InHeight, InRenderState, InTransparency);
+		Initializer.ZBeforeSpriteId = InZBeforeSpriteId;
+		return Initializer;
+	}	
+
 	SSpriteCreateCommandInitializer GetSprInit(SpriteId InSpriteId, const SSpriteProps& InProps, MaterialInstanceRenderStateInitializerPtr InRenderState)
 	{
 		return SSpriteCreateCommandInitializer { InSpriteId, InProps, InRenderState };		
+	}
+
+	void ISpriteUpdater::CreateSprite_ZOrderAfter(SpriteId InSpriteId, SpriteId InZBeforeSpriteId, const SSpriteProps& InProps, MaterialInstanceRenderStateInitializerPtr InRenderState)
+	{
+		return CreateSprite(GetSprInit_ZOrderAfter(InSpriteId, InZBeforeSpriteId, InProps, InRenderState));
 	}
 
 	void ISpriteUpdater::CreateSprite(SpriteId InSpriteId, const SSpriteProps& InProps, MaterialInstanceRenderStateInitializerPtr InRenderState)
@@ -23,6 +56,11 @@ namespace Ren
 		return GetSprInit(InSpriteId, Props, InRenderState);
 	}
 
+	void ISpriteUpdater::CreateSprite_ZOrderAfter(SpriteId InSpriteId, SpriteId InZBeforeSpriteId, const SSpriteGeometryProps& InGeometry, MaterialInstanceRenderStateInitializerPtr InRenderState, ESpriteTransparency InTransparency)
+	{
+		return CreateSprite(GetSprInit_ZOrderAfter(InSpriteId, InZBeforeSpriteId, InGeometry, InRenderState, InTransparency));
+	}
+
 	void ISpriteUpdater::CreateSprite(SpriteId InSpriteId, const SSpriteGeometryProps& InGeometry, MaterialInstanceRenderStateInitializerPtr InRenderState, ESpriteTransparency InTransparency)
 	{		
 		return CreateSprite(GetSprInit(InSpriteId, InGeometry, InRenderState, InTransparency));
@@ -34,6 +72,11 @@ namespace Ren
 		return GetSprInit(InSpriteId, Geometry, InRenderState, InTransparency);
 	}
 
+	void ISpriteUpdater::CreateSprite_ZOrderAfter(SpriteId InSpriteId, SpriteId InZBeforeSpriteId, const Math::SSpriteTransform& InTransform, const Math::SSize& InSize, MaterialInstanceRenderStateInitializerPtr InRenderState, ESpriteTransparency InTransparency)
+	{
+		return CreateSprite(GetSprInit_ZOrderAfter(InSpriteId, InZBeforeSpriteId, InTransform, InSize, InRenderState, InTransparency));
+	}
+
 	void ISpriteUpdater::CreateSprite(SpriteId InSpriteId, const Math::SSpriteTransform& InTransform, const Math::SSize& InSize, MaterialInstanceRenderStateInitializerPtr InRenderState, ESpriteTransparency InTransparency)
 	{
 		return CreateSprite(GetSprInit(InSpriteId, InTransform, InSize, InRenderState, InTransparency));
@@ -42,6 +85,11 @@ namespace Ren
 	SSpriteCreateCommandInitializer GetSprInit(SpriteId InSpriteId, const Math::SVec2& InPosition, float InWidth, float InHeight, MaterialInstanceRenderStateInitializerPtr InRenderState, ESpriteTransparency InTransparency)
 	{
 		return GetSprInit(InSpriteId, Math::SSpriteTransform{InPosition}, Math::SSize{InWidth, InHeight}, InRenderState, InTransparency);	
+	}
+
+	void ISpriteUpdater::CreateSprite_ZOrderAfter(SpriteId InSpriteId, SpriteId InZBeforeSpriteId, const Math::SVec2& InPosition, float InWidth, float InHeight, MaterialInstanceRenderStateInitializerPtr InRenderState, ESpriteTransparency InTransparency)
+	{
+		return CreateSprite(GetSprInit_ZOrderAfter(InSpriteId, InZBeforeSpriteId, InPosition, InWidth, InHeight, InRenderState, InTransparency));
 	}
 
 	void ISpriteUpdater::CreateSprite(SpriteId InSpriteId, const Math::SVec2& InPosition, float InWidth, float InHeight, MaterialInstanceRenderStateInitializerPtr InRenderState, ESpriteTransparency InTransparency)

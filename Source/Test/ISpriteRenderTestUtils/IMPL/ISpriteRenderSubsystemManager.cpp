@@ -46,6 +46,31 @@ namespace Test
 		T_LOG("ISpriteRenderSubsystemManager::HideCanvas DONE");
 	}
 
+	SpriteHandle ISpriteRenderSubsystemManager::CreateSprite_ZOrderAfter
+	(
+		SprId InId,
+		SprId InZBeforeSpriteId,
+		MySprRen::ISpriteUpdater* pInUpdater,
+		CanvasHandle pInCanvas,
+		const MySprMath::SVec2& InPosition,
+		float InWidth, float InHeight,
+		MySprRen::MaterialInstanceRenderStateInitializerPtr InRenderState,
+		MySpr::ESpriteTransparency InTransparency
+	)
+	{
+		T_LOG("ISpriteRenderSubsystemManager::CreateSprite_ZOrderAfter, Id=" << InId << "...");
+		BOOST_ASSERT(pInUpdater);
+		BOOST_ASSERT_MSG(GetSpriteRender(), "ISpriteRenderSubsystemManager::CreateSprite: Sprite render must be initialized");
+		T_LOG("ZBeforeSprite Id: " << InZBeforeSpriteId << (MySpr::IsValidSpriteId(InZBeforeSpriteId) ? "(valid)" : "(invalid=<OnTop>)"));
+		T_LOG("Position: " << ToString(InPosition));
+		T_LOG("(Width*Height)=" << InWidth << "*" << InHeight);
+		T_LOG("Transparency=" << ToString(InTransparency));
+		MySprRen::SSpriteCreateCommandInitializer const Initializer = MySprRen::GetSprInit(InId, InPosition, InWidth, InHeight, InRenderState, InTransparency);
+		pInUpdater->CreateSprite_ZOrderAfter(InId, InZBeforeSpriteId, InPosition, InWidth, InHeight, InRenderState, InTransparency);
+		T_LOG("ISpriteRenderSubsystemManager: Sprite " << InId << " Created");
+		return std::make_unique<Sprite>(this, pInCanvas, Initializer);
+	}
+
 	SpriteHandle ISpriteRenderSubsystemManager::CreateSprite
 	(
 		SprId InId,
@@ -57,16 +82,7 @@ namespace Test
 		MySpr::ESpriteTransparency InTransparency
 	)
 	{
-		T_LOG("ISpriteRenderSubsystemManager::CreateSprite, Id=" << InId << "...");
-		BOOST_ASSERT(pInUpdater);
-		BOOST_ASSERT_MSG(GetSpriteRender(), "ISpriteRenderSubsystemManager::CreateSprite: Sprite render must be initialized");
-		T_LOG("Position: " << ToString(InPosition));
-		T_LOG("(Width*Height)=" << InWidth << "*" << InHeight);
-		T_LOG("Transparency=" << ToString(InTransparency));
-		MySprRen::SSpriteCreateCommandInitializer const Initializer = MySprRen::GetSprInit(InId, InPosition, InWidth, InHeight, InRenderState, InTransparency);
-		pInUpdater->CreateSprite(InId, InPosition, InWidth, InHeight, InRenderState, InTransparency);
-		T_LOG("ISpriteRenderSubsystemManager: Sprite " << InId << " Created");
-		return std::make_unique<Sprite>(this, pInCanvas, Initializer);
+		return CreateSprite_ZOrderAfter(InId, MySpr::NULL_SPRITE_ID, pInUpdater, pInCanvas, InPosition, InWidth, InHeight, InRenderState, InTransparency);
 	}
 
 	void ISpriteRenderSubsystemManager::DeleteSprite(MySprRen::ISpriteUpdater* pInUpdater, SpriteHandle InHandle)

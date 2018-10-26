@@ -85,9 +85,9 @@ namespace D3D
 	{
 		D3D11_DEPTH_STENCIL_DESC desc;
 		ZeroMemory(&desc, sizeof(desc));
-		desc.DepthEnable = TRUE;
+		desc.DepthEnable = FALSE;
 		desc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ALL;
-		desc.DepthFunc = D3D11_COMPARISON_ALWAYS;
+		desc.DepthFunc = D3D11_COMPARISON_NEVER;
 		desc.StencilEnable = FALSE;
 		desc.StencilReadMask = 0;
 		desc.StencilWriteMask = 0;

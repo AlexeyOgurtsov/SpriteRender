@@ -18,12 +18,32 @@ namespace Test
 	(
 		const TSMaterial& InMaterial,
 		const MySprMath::SSize& InInitSize,
-		const MySprMath::SVec2& InInitPos
+		const MySprMath::SVec2& InInitPos,
+		MySpr::ESpriteTransparency InInitTransparency
 	) :
-		InitMaterial{InMaterial}
-	,	InitSize{InInitSize}
-	,	InitPos{InInitPos} {}
+		TSSprite{nullptr, InMaterial, InInitSize, InInitPos, InInitTransparency}
+	{
+	}
 
+	TSSprite::TSSprite
+	(
+		TSSprite* InZBeforeSpriteId,
+		const TSMaterial& InMaterial,
+		const MySprMath::SSize& InInitSize,
+		const MySprMath::SVec2& InInitPos,
+		MySpr::ESpriteTransparency InInitTransparency
+	) :
+		InZBeforeSpriteId{InZBeforeSpriteId}
+	,	InitMaterial{InMaterial}
+	,	InitSize{InInitSize}
+	,	InitPos{InInitPos}
+	,	InitTransparency{ InInitTransparency } {}
+
+	SpriteHandle TSSprite::GetInitZBeforeSpriteHandle() const
+	{
+		BOOST_ASSERT_MSG(nullptr == InZBeforeSpriteId || InZBeforeSpriteId->GetHandle(), "ZBefore sprite must be created, or set as nullptr");
+		return InZBeforeSpriteId ? InZBeforeSpriteId->GetHandle() : nullptr;
+	}
 
 	void TSSprite::SetHandle(const SpriteHandle& InHandle)
 	{

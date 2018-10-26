@@ -9,9 +9,16 @@ namespace Spr
 namespace Ren
 {
 
+SSpriteCreateCommandInitializer GetSprInit_ZOrderAfter(SpriteId InSpriteId, SpriteId InZBeforeSpriteId, const SSpriteProps& InProps, MaterialInstanceRenderStateInitializerPtr InRenderState);
 SSpriteCreateCommandInitializer GetSprInit(SpriteId InSpriteId, const SSpriteProps& InProps, MaterialInstanceRenderStateInitializerPtr InRenderState);
+
+SSpriteCreateCommandInitializer GetSprInit_ZOrderAfter(SpriteId InSpriteId, SpriteId InZBeforeSpriteId, const SSpriteGeometryProps& InGeometry, MaterialInstanceRenderStateInitializerPtr InRenderState, ESpriteTransparency InTransparency = ESpriteTransparency::Opaque);
 SSpriteCreateCommandInitializer GetSprInit(SpriteId InSpriteId, const SSpriteGeometryProps& InGeometry, MaterialInstanceRenderStateInitializerPtr InRenderState, ESpriteTransparency InTransparency = ESpriteTransparency::Opaque);
+
+SSpriteCreateCommandInitializer GetSprInit_ZOrderAfter(SpriteId InSpriteId, SpriteId InZBeforeSpriteId, const Math::SSpriteTransform& InTransform, const Math::SSize& InSize, MaterialInstanceRenderStateInitializerPtr InRenderState, ESpriteTransparency InTransparency = ESpriteTransparency::Opaque);
 SSpriteCreateCommandInitializer GetSprInit(SpriteId InSpriteId, const Math::SSpriteTransform& InTransform, const Math::SSize& InSize, MaterialInstanceRenderStateInitializerPtr InRenderState, ESpriteTransparency InTransparency = ESpriteTransparency::Opaque);
+
+SSpriteCreateCommandInitializer GetSprInit_ZOrderAfter(SpriteId InSpriteId, SpriteId InZBeforeSpriteId, const Math::SVec2& InPosition, float InWidth, float InHeight, MaterialInstanceRenderStateInitializerPtr InRenderState, ESpriteTransparency InTransparency = ESpriteTransparency::Opaque);
 SSpriteCreateCommandInitializer GetSprInit(SpriteId InSpriteId, const Math::SVec2& InPosition, float InWidth, float InHeight, MaterialInstanceRenderStateInitializerPtr InRenderState, ESpriteTransparency InTransparency = ESpriteTransparency::Opaque);
 
 SSpriteSetGeometryCommandInitializer GetSprGeometryInit(SpriteId InTargetSpriteId, const SSpriteGeometryProps& InGeometry);
@@ -25,14 +32,19 @@ public:
 	virtual ~ISpriteUpdater() = default;
 
 	// ~Helper interface Begin
+	void CreateSprite_ZOrderAfter(SpriteId InSpriteId, SpriteId InZBeforeSpriteId, const SSpriteProps& InProps, MaterialInstanceRenderStateInitializerPtr InRenderState);
 	void CreateSprite(SpriteId InSpriteId, const SSpriteProps& InProps, MaterialInstanceRenderStateInitializerPtr InRenderState);
+
+	void CreateSprite_ZOrderAfter(SpriteId InSpriteId, SpriteId InZBeforeSpriteId, const SSpriteGeometryProps& InGeometry, MaterialInstanceRenderStateInitializerPtr InRenderState, ESpriteTransparency InTransparency = ESpriteTransparency::Opaque);
 	void CreateSprite(SpriteId InSpriteId, const SSpriteGeometryProps& InGeometry, MaterialInstanceRenderStateInitializerPtr InRenderState, ESpriteTransparency InTransparency = ESpriteTransparency::Opaque);
 
+	void CreateSprite_ZOrderAfter(SpriteId InSpriteId, SpriteId InZBeforeSpriteId, const Math::SSpriteTransform& InTransform, const Math::SSize& InSize, MaterialInstanceRenderStateInitializerPtr InRenderState, ESpriteTransparency InTransparency = ESpriteTransparency::Opaque);
 	/**
 	* Creates sprite with the given transform and size and default texture coordinates.
 	*/
 	void CreateSprite(SpriteId InSpriteId, const Math::SSpriteTransform& InTransform, const Math::SSize& InSize, MaterialInstanceRenderStateInitializerPtr InRenderState, ESpriteTransparency InTransparency = ESpriteTransparency::Opaque);
 	
+	void CreateSprite_ZOrderAfter(SpriteId InSpriteId, SpriteId InZBeforeSpriteId,  const Math::SVec2& InPosition, float InWidth, float InHeight, MaterialInstanceRenderStateInitializerPtr InRenderState, ESpriteTransparency InTransparency = ESpriteTransparency::Opaque);
 	/**
 	* Creates sprite with the given position and size.
 	* The preferred method to create sprites quickly.

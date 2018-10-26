@@ -90,6 +90,23 @@ namespace Test::ISpr
 		return pUpdater;
 	}
 
+	SpriteHandle ISprPerTestFixture_SingleCanvas::CreateSprite_ZOrderAfter
+	(
+		const SpriteHandle& InZBeforeSpriteId,
+		const MySprMath::SVec2& InPosition,		
+		float InWidth, float InHeight,
+		MySprRen::MaterialInstanceRenderStateInitializerPtr InRenderState,
+		MySpr::ESpriteTransparency InTransparency
+	)
+	{
+		SprId const Id = GetSprId();
+		T_LOG("Fixture: SingleCanvas: CreateSprite_ZOrderAfter, Id=" << Id << "...");
+		MySpr::SpriteId ZBeforeSpriteId = ((InZBeforeSpriteId != nullptr) ? InZBeforeSpriteId->GetId() : MySpr::NULL_SPRITE_ID);
+		SpriteHandle Handle = GetSpriteRenderSubsystemManager()->CreateSprite_ZOrderAfter(Id, ZBeforeSpriteId, GetUpdater(), CanvHandle, InPosition, InWidth, InHeight, InRenderState, InTransparency);
+		T_LOG("Fixture: SingleCanvas: Sprite " << Id << " Created");
+		return Handle;
+	}
+
 	SpriteHandle ISprPerTestFixture_SingleCanvas::CreateSprite
 	(
 		const MySprMath::SVec2& InPosition, 
@@ -98,11 +115,19 @@ namespace Test::ISpr
 		MySpr::ESpriteTransparency InTransparency
 	)
 	{
-		SprId const Id = GetSprId();
-		T_LOG("Fixture: SingleCanvas: CreateSprite, Id=" << Id << "...");
-		SpriteHandle Handle = GetSpriteRenderSubsystemManager()->CreateSprite(Id, GetUpdater(), CanvHandle, InPosition, InWidth, InHeight, InRenderState, InTransparency);
-		T_LOG("Fixture: SingleCanvas: Sprite " << Id << " Created");
-		return Handle;
+		return CreateSprite_ZOrderAfter(nullptr, InPosition, InWidth, InHeight, InRenderState, InTransparency);
+	}
+
+	SpriteHandle ISprPerTestFixture_SingleCanvas::CreateSprite_ZOrderAfter
+	(
+		const SpriteHandle& InZBeforeSpriteId,
+		const MySprMath::SVec2& InPosition,
+		const MySprMath::SSize& InSize,
+		MySprRen::MaterialInstanceRenderStateInitializerPtr InRenderState,
+		MySpr::ESpriteTransparency InTransparency
+	)
+	{
+		return CreateSprite_ZOrderAfter(InZBeforeSpriteId, InPosition, InSize.Width, InSize.Height, InRenderState, InTransparency);
 	}
 
 	SpriteHandle ISprPerTestFixture_SingleCanvas::CreateSprite
@@ -113,13 +138,20 @@ namespace Test::ISpr
 		MySpr::ESpriteTransparency InTransparency
 	)
 	{
-		return CreateSprite(InPosition, InSize.Width, InSize.Height, InRenderState, InTransparency);
+		return CreateSprite_ZOrderAfter
+		(
+			nullptr,
+			InPosition,
+			InSize,
+			InRenderState,
+			InTransparency
+		);
 	}
 
 	void ISprPerTestFixture_SingleCanvas::CreateSprite(TSSprite& InSprite)
 	{
-		InSprite.SetHandle(CreateSprite(InSprite.GetInitPos(), InSprite.GetInitSize(), InSprite.GetInitMatInst()));
-	}
+		InSprite.SetHandle(CreateSprite_ZOrderAfter(InSprite.GetInitZBeforeSpriteHandle(), InSprite.GetInitPos(), InSprite.GetInitSize(), InSprite.GetInitMatInst()));
+	}	
 
 	void ISprPerTestFixture_SingleCanvas::DeleteSprite(TSSprite& InSprite)
 	{
@@ -334,9 +366,9 @@ namespace Test::ISpr
 	
 	void ISprPerTestFixture_SingleCanvas::CreateSprites(TSSpriteVector& InSprites)
 	{
-		for (TSSprite& S : InSprites)
+		for(int i = 0; i < static_cast<int>(InSprites.size()); i++)
 		{
-			CreateSprite(S);
+			CreateSprite(InSprites[i]);
 		}
 	}
 

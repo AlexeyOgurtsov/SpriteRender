@@ -31,6 +31,7 @@ void SetupCommonRS(D3D::RenResources* pRenResources)
 	ID3D11RenderTargetView* const pRTView = pRenResources->GetConfig().RenderTarget.pRenderTargetView;
 	ID3D11DepthStencilView* const pDepthStencilView = pRenResources->GetConfig().RenderTarget.pDepthStencilView;
 	pDevCon->OMSetRenderTargets(1, &pRTView, pDepthStencilView);
+	pDevCon->OMSetDepthStencilState(pRenResources->GetDepthStencilState(), /*StencilRef*/0);
 
 	D3D11_VIEWPORT viewport;
 	ZeroMemory(&viewport, sizeof(viewport));

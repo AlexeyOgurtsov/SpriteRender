@@ -109,6 +109,17 @@ namespace Test
 			MySprRen::MaterialInstanceRenderStateInitializerPtr InRenderState,
 			MySpr::ESpriteTransparency InTransparency = MySpr::ESpriteTransparency::Opaque
 		);
+		SpriteHandle CreateSprite_ZOrderAfter
+		(
+			SprId InId,
+			SprId InZBeforeSpriteId,
+			MySprRen::ISpriteUpdater* pInUpdater,
+			CanvasHandle pInCanvas,
+			const MySprMath::SVec2& InPosition,
+			float InWidth, float InHeight,
+			MySprRen::MaterialInstanceRenderStateInitializerPtr InRenderState,
+			MySpr::ESpriteTransparency InTransparency = MySpr::ESpriteTransparency::Opaque
+		);
 		void DeleteSprite(MySprRen::ISpriteUpdater* pInUpdater, SpriteHandle InHandle);
 		void ShowSprite(MySprRen::ISpriteUpdater* pInUpdater, SprId InId);
 		void HideSprite(MySprRen::ISpriteUpdater* pInUpdater, SprId InId);

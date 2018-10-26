@@ -339,6 +339,42 @@ namespace Test::ISpr
 		}
 	}
 
+	std::string const TestName_MinimalSmoke_Updater_SpriteDefaultZOrder = std::string("TestSpriteDefaultZOrder");
+	std::string const TestPath_MinimalSmoke_Updater_SpriteDefaultZOrder = SuitePath_MinimalSmoke_Updater + std::string("/") + TestName_MinimalSmoke_Updater_SpriteDefaultZOrder;
+	BOOST_FIXTURE_TEST_CASE
+	(
+		TestSpriteDefaultZOrder, ISprPerTestFixture_SingleCanvas_Smoke,
+		*boost::unit_test::depends_on(TestPath_MinimalSmoke_Updater_FewSprites_Hide)
+	)
+	{
+		// Testing that default ZOrder of created sprites is correct:
+		// Newest sprite is always added on top by default:
+		SetupTest(TestPath_MinimalSmoke_Updater_SpriteDefaultZOrder.c_str());
+
+		TSMaterialVector const SpriteMaterials = GetTSMaterials(10);
+		TSSpriteVector const Sprites = PrepareSprites(SpriteMaterials);
+
+		const int MaxVisibleSpriteIndex = static_cast<int>(Sprites.size() - 1);
+		const TSSprite* pMaxZOrderSprite = &(Sprites.back());
+
+		// Not: here we created sprites, that are not overlapped, so user can see them and their order in interactive mode
+
+		BOOST_TEST_CHECKPOINT("Moving to position of sprite with maximal ZOrder");
+		// Moving to position of sprite with maximum Z order should not affect visibility of the sprite with maximum visibility
+
+		for (int i = 0; i < MaxVisibleSpriteIndex; i++)
+		{
+			const TSSprite* pSpriteToMove = &Sprites[i];
+			BOOST_REQUIRE_NO_THROW(SetSpritePosition(*pSpriteToMove, pMaxZOrderSprite->GetInitPos()));
+
+			BOOST_TEST_CHECKPOINT("CommitFrame");
+			{
+				IFrameCheckContextHandle pChecker = CommitFrame();
+				BOOST_REQUIRE(SpriteVisibleAsColor(pChecker, pMaxZOrderSprite->GetHandle(), pMaxZOrderSprite->GetInitUniColor()));
+			}
+		}
+	}
+
 	BOOST_AUTO_TEST_SUITE_END() // SuiteUpdater
 
 	BOOST_AUTO_TEST_SUITE_END() // SuiteMinimalSmoke

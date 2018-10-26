@@ -113,13 +113,27 @@ namespace Test
 	public:
 		TSSprite
 		(
+			TSSprite* InZBeforeSpriteId,
 			const TSMaterial& InMaterial,
 			const MySprMath::SSize& InInitSize,
-			const MySprMath::SVec2& InInitPos
+			const MySprMath::SVec2& InInitPos,
+			MySpr::ESpriteTransparency InInitTransparency = MySpr::ESpriteTransparency::Opaque
+		);
+		TSSprite
+		(
+			const TSMaterial& InMaterial,
+			const MySprMath::SSize& InInitSize,
+			const MySprMath::SVec2& InInitPos,
+			MySpr::ESpriteTransparency InInitTransparency = MySpr::ESpriteTransparency::Opaque
 		);
 		void SetHandle(const SpriteHandle& InHandle);
 		const SpriteHandle& GetHandle() const { return Handle; }
 
+		/**
+		* If nullptr, then initially sprite was added on top of the ZOrder.
+		*/
+		TSSprite* GetInitZBeforeSprite() const { return InZBeforeSpriteId; }
+		SpriteHandle GetInitZBeforeSpriteHandle() const;
 		const TSMaterial& GetInitMaterial() const { return InitMaterial; }		
 
 		bool IsUniColor() const { return GetInitMaterial().IsUniColor(); }
@@ -128,6 +142,7 @@ namespace Test
 
 		const MySprMath::SSize& GetInitSize() const { return InitSize; }
 		const MySprMath::SVec2& GetInitPos() const { return InitPos; }
+		const MySpr::ESpriteTransparency& GetInitTransparency() const { return InitTransparency; }
 
 	
 		bool IsCreated() const { return Handle.get(); }
@@ -136,9 +151,11 @@ namespace Test
 	private:
 		mutable SpriteHandle Handle;
 	
+		TSSprite* InZBeforeSpriteId = nullptr;
 		TSMaterial InitMaterial;
 		MySprMath::SSize InitSize;
 		MySprMath::SVec2 InitPos;
+		MySpr::ESpriteTransparency InitTransparency;
 	};
 
 	using TSSpriteVector = std::vector<TSSprite>;	
