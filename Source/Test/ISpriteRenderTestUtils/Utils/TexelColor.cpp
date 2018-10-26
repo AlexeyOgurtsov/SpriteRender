@@ -5,54 +5,58 @@
 
 namespace Test
 {
-	uint32_t GetUIntComponentByFactor(DXGI_FORMAT InFormat, float InFactor)
+	namespace
 	{
-		return ClampLerp(0U, GetMaxIntFormatComponent(InFormat), InFactor);
-	}
-
-	uint8_t GetComponentOffset(int InIndex, DXGI_FORMAT InFormat)
-	{
-		BOOST_ASSERT(InIndex < 4);
-
-		UINT const ComponentSize = GetFormatComponentSize(InFormat);
-		return ComponentSize * InIndex;		
-	}
-
-	template<class PtrType>
-	PtrType GetComponentPtr(PtrType Ptr, int InIndex, DXGI_FORMAT InFormat)
-	{
-		return const_cast<PtrType>(static_cast<const void*>(static_cast<const uint8_t*>(Ptr) + GetComponentOffset(InIndex, InFormat)));
-	}
-
-	void SetTextureComponent(void* pOutTexel, int InIndex, DXGI_FORMAT InFormat, float InCoeff)
-	{
-		BOOST_ASSERT(InIndex < 4);
-
-		BOOST_ASSERT(InFormat != DXGI_FORMAT_UNKNOWN);
-		UINT const ComponentSize = GetFormatComponentSize(InFormat);
-		void* const pOutComponent =  GetComponentPtr(pOutTexel, InIndex, InFormat);
-		
-		uint8_t* const pOutByte = static_cast<uint8_t*>(pOutComponent);
-		float* const pOutFloat = static_cast<float*>(pOutComponent);
-
-		// Enough for any UINT format
-		uint32_t UIntComp = GetUIntComponentByFactor(InFormat, InCoeff);
-
-		switch (InFormat)
+		uint32_t GetUIntComponentByFactor(DXGI_FORMAT InFormat, float InFactor)
 		{
-		case DXGI_FORMAT_R8G8B8A8_UNORM: // fall-through
-		case DXGI_FORMAT_R8G8B8A8_UINT:			
-			*pOutByte = static_cast<uint8_t>(UIntComp);
-			return;
-
-		case DXGI_FORMAT_R32G32B32A32_FLOAT:
-			*pOutFloat = InCoeff;
-			return;
-
-		default:
-			break;
+			return ClampLerp(0U, GetMaxIntFormatComponent(InFormat), InFactor);
 		}
-		BOOST_ASSERT_MSG(false, "SetTextureComponent: unknown texture format!");
+
+		uint8_t GetComponentOffset(int InIndex, DXGI_FORMAT InFormat)
+		{
+			BOOST_ASSERT(InIndex < 4);
+
+			UINT const ComponentSize = GetFormatComponentSize(InFormat);
+			return ComponentSize * InIndex;
+		}
+
+		template<class PtrType>
+		PtrType GetComponentPtr(PtrType Ptr, int InIndex, DXGI_FORMAT InFormat)
+		{
+			return const_cast<PtrType>(static_cast<const void*>(static_cast<const uint8_t*>(Ptr) + GetComponentOffset(InIndex, InFormat)));
+		}
+
+		void SetTextureComponent(void* pOutTexel, int InIndex, DXGI_FORMAT InFormat, EColorBrightnessLevel InColorBrightnessLevel, float InCoeff)
+		{
+			BOOST_ASSERT(InIndex < 4);
+
+			BOOST_ASSERT(InFormat != DXGI_FORMAT_UNKNOWN);
+			UINT const ComponentSize = GetFormatComponentSize(InFormat);
+			void* const pOutComponent = GetComponentPtr(pOutTexel, InIndex, InFormat);
+
+			uint8_t* const pOutByte = static_cast<uint8_t*>(pOutComponent);
+			float* const pOutFloat = static_cast<float*>(pOutComponent);
+
+			// Enough for any UINT format
+			float BrightnessFactor = GetBrightnessFactor(InColorBrightnessLevel);
+			uint32_t const UIntComp = GetUIntComponentByFactor(InFormat, InCoeff) * BrightnessFactor;
+
+			switch (InFormat)
+			{
+			case DXGI_FORMAT_R8G8B8A8_UNORM: // fall-through
+			case DXGI_FORMAT_R8G8B8A8_UINT:
+				*pOutByte = static_cast<uint8_t>(UIntComp);
+				return;
+
+			case DXGI_FORMAT_R32G32B32A32_FLOAT:
+				*pOutFloat = InCoeff * BrightnessFactor;
+				return;
+
+			default:
+				break;
+			}
+			BOOST_ASSERT_MSG(false, "SetTextureComponent: unknown texture format!");
+		}
 	}
 
 	TexelColor::TexelColor(DXGI_FORMAT InFormat, const void* InData) :
@@ -141,38 +145,53 @@ namespace Test
 	}
 	
 
-	TexelColor TexelColor::GetRed(DXGI_FORMAT InFormat, float InAlpha)
+	TexelColor TexelColor::GetRed(DXGI_FORMAT InFormat, EColorBrightnessLevel InColorBrightnessLevel, float InAlpha)
 	{
-		return GetColor(InFormat, 1.0F, 0.0F, 0.0F, InAlpha);
+		return GetColor(InFormat, 1.0F, 0.0F, 0.0F, InColorBrightnessLevel, InAlpha);
 	}
 
-	TexelColor TexelColor::GetGreen(DXGI_FORMAT InFormat, float InAlpha)
+	TexelColor TexelColor::GetGreen(DXGI_FORMAT InFormat, EColorBrightnessLevel InColorBrightnessLevel, float InAlpha)
 	{
-		return GetColor(InFormat, 0.0F, 1.0F, 0.0F, InAlpha); 
+		return GetColor(InFormat, 0.0F, 1.0F, 0.0F, InColorBrightnessLevel, InAlpha);
 	}
 
-	TexelColor TexelColor::GetBlue(DXGI_FORMAT InFormat, float InAlpha)
+	TexelColor TexelColor::GetBlue(DXGI_FORMAT InFormat, EColorBrightnessLevel InColorBrightnessLevel, float InAlpha)
 	{
-		return GetColor(InFormat, 0.0F, 0.0F, 1.0F, InAlpha);
+		return GetColor(InFormat, 0.0F, 0.0F, 1.0F, InColorBrightnessLevel, InAlpha);
 	}
 
-	TexelColor TexelColor::GetWhite(DXGI_FORMAT InFormat, float InAlpha)
+	TexelColor TexelColor::GetWhite(DXGI_FORMAT InFormat, EColorBrightnessLevel InColorBrightnessLevel, float InAlpha)
 	{
-		return GetColor(InFormat, 1.0F, 1.0F, 1.0F, InAlpha);
+		return GetColor(InFormat, 1.0F, 1.0F, 1.0F, InColorBrightnessLevel, InAlpha);
 	}
 
-	TexelColor TexelColor::GetBlack(DXGI_FORMAT InFormat, float InAlpha)
+	TexelColor TexelColor::GetBlack(DXGI_FORMAT InFormat, EColorBrightnessLevel InColorBrightnessLevel, float InAlpha)
 	{
-		return GetColor(InFormat, 0.0F, 0.0F, 0.0F, InAlpha);
+		return GetColor(InFormat, 0.0F, 0.0F, 0.0F, InColorBrightnessLevel, InAlpha);
 	}
 
-	TexelColor TexelColor::GetColor(DXGI_FORMAT InFormat, float InRed, float InGreen, float InBlue, float InAlpha)
+	TexelColor TexelColor::GetRedGreen(DXGI_FORMAT InFormat, EColorBrightnessLevel InColorBrightnessLevel, float InAlpha)
+	{
+		return GetColor(InFormat, 1.0F, 1.0F, 0.0F, InColorBrightnessLevel, InAlpha);
+	}
+
+	TexelColor TexelColor::GetRedBlue(DXGI_FORMAT InFormat, EColorBrightnessLevel InColorBrightnessLevel, float InAlpha)
+	{
+		return GetColor(InFormat, 1.0F, 0.0F, 1.0F, InColorBrightnessLevel, InAlpha);
+	}
+
+	TexelColor TexelColor::GetGreenBlue(DXGI_FORMAT InFormat, EColorBrightnessLevel InColorBrightnessLevel, float InAlpha)
+	{
+		return GetColor(InFormat, 0.0F, 1.0F, 1.0F, InColorBrightnessLevel, InAlpha);
+	}
+
+	TexelColor TexelColor::GetColor(DXGI_FORMAT InFormat, float InRed, float InGreen, float InBlue, EColorBrightnessLevel InColorBrightnessLevel, float InAlpha)
 	{		
 		uint8_t Data[1024];
-		SetTextureComponent(Data, 0, InFormat, InRed);
-		SetTextureComponent(Data, 1, InFormat, InGreen);
-		SetTextureComponent(Data, 2, InFormat, InBlue);
-		SetTextureComponent(Data, 3, InFormat, InAlpha);
+		SetTextureComponent(Data, 0, InFormat, InColorBrightnessLevel, InRed);
+		SetTextureComponent(Data, 1, InFormat, InColorBrightnessLevel, InGreen);
+		SetTextureComponent(Data, 2, InFormat, InColorBrightnessLevel, InBlue);
+		SetTextureComponent(Data, 3, InFormat, EColorBrightnessLevel::Highest, InAlpha);
 		return TexelColor(InFormat, Data);
 	}
 
@@ -201,5 +220,24 @@ namespace Test
 	bool AreTexelsMatch(const TexelColor& InA, const TexelColor& InB, bool bInCheckAlpha)
 	{
 		return AreTexelsMatch(InA.GetData(), InA.GetFormat(), InB.GetData(), InB.GetFormat(), bInCheckAlpha);
+	}
+
+	float GetBrightnessFactor(EColorBrightnessLevel InBrighness)
+	{
+		return (static_cast<float>(InBrighness)) / (NUM_TEX_BRIGHTNESS_LEVELS);
+	}
+
+	uint8_t ComponentCoeffFromBool(bool bInSet, EColorBrightnessLevel InBrighness)
+	{
+		BOOST_ASSERT(static_cast<float>(InBrighness) > 0);
+		if (bInSet)
+		{
+			float const BrightnessCoeff = GetBrightnessFactor(InBrighness);
+			return static_cast<uint8_t>(255 * BrightnessCoeff);
+		}
+		else
+		{
+			return 0;
+		}
 	}
 } // Test

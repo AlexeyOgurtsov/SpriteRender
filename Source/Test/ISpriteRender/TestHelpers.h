@@ -7,6 +7,7 @@
 #include "ISpriteRender/ISpriteRender.h"
 #include "ISpriteRenderTestUtils/SprRenHelper/SprRenHelper_System.h"
 #include "ISpriteRenderTestUtils/SprRenHelper/SprRenHelper_ISpriteRenderFwd.h"
+#include "boost/test/predicate_result.hpp"
 #include <string>
 
 namespace Test::ISpr

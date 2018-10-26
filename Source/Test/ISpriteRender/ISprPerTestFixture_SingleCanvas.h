@@ -43,21 +43,21 @@ namespace Test::ISpr
 		void DeleteSprite(SpriteHandle InHandle);
 		void DeleteSprite(TSSprite& InSprite);
 		void HideSprite(SpriteHandle InHandle);
-		void HideSprite(TSSprite& InSprite);
+		void HideSprite(const TSSprite& InSprite);
 		void ShowSprite(SpriteHandle InHandle);
-		void ShowSprite(TSSprite& InSprite);
+		void ShowSprite(const TSSprite& InSprite);
 		void SetSpriteTransparency(SpriteHandle InHandle, MySpr::ESpriteTransparency InTransparency);
-		void SetSpriteTransparency(TSSprite& InSprite, MySpr::ESpriteTransparency InTransparency);
+		void SetSpriteTransparency(const TSSprite& InSprite, MySpr::ESpriteTransparency InTransparency);
 		void SetSpriteGeometry(SpriteHandle InHandle, const MySpr::SSpriteGeometryProps& InGeometry);
-		void SetSpriteGeometry(TSSprite& InSprite, const MySpr::SSpriteGeometryProps& InGeometry);
+		void SetSpriteGeometry(const TSSprite& InSprite, const MySpr::SSpriteGeometryProps& InGeometry);
 		void SetSpritePosition(SpriteHandle InHandle, const MySprMath::SVec2& InPosition);
-		void SetSpritePosition(TSSprite& InSprite, const MySprMath::SVec2& InPosition);
+		void SetSpritePosition(const TSSprite& InSprite, const MySprMath::SVec2& InPosition);
 		void ResizeSprite(SpriteHandle InHandle, const MySprMath::SSize& InSize);
-		void ResizeSprite(TSSprite& InSprite, const MySprMath::SSize& InSize);
+		void ResizeSprite(const TSSprite& InSprite, const MySprMath::SSize& InSize);
 		void ResizeSprite(SpriteHandle InHandle, float InWidth, float InHeight);
-		void ResizeSprite(TSSprite& InSprite, float InWidth, float InHeight);
+		void ResizeSprite(const TSSprite& InSprite, float InWidth, float InHeight);
 		void SetSpriteMaterial(SpriteHandle InHandle, const MySprRen::MaterialInstanceRenderStateInitializerPtr& InRenderState);
-		void SetSpriteMaterial(TSSprite& InSprite, const MySprRen::MaterialInstanceRenderStateInitializerPtr& InRenderState);
+		void SetSpriteMaterial(const TSSprite& InSprite, const MySprRen::MaterialInstanceRenderStateInitializerPtr& InRenderState);
 		// ~ Sprite render helpers End
 
 		// ~ Screen helpers Begin
@@ -107,9 +107,14 @@ namespace Test::ISpr
 		bool SpriteVisibleAsColor(const IFrameCheckContextHandle& ContextHandle, SpriteHandle InSprite, const TexelColor& InColor);
 
 		/**
-		* Returns true if canvas is hidden.
+		* Returns true if sprite is hidden.
 		*/
 		bool SpriteHidden(const IFrameCheckContextHandle& ContextHandle, SpriteHandle InSprite);
+
+		/**
+		* Returns true if sprite is hidden.
+		*/
+		bool SpriteHidden(const IFrameCheckContextHandle& ContextHandle, const TSSprite& InSprite);
 
 		/**
 		* Returns true if the given sprite is not rendered at the given canvas position.
@@ -118,7 +123,40 @@ namespace Test::ISpr
 		*/
 		bool SpriteHiddenAt(const IFrameCheckContextHandle& ContextHandle, SpriteHandle InSprite, const SprVec2& InCanvasPoint);
 
+		/**
+		* Returns true if the given sprite is not rendered at the given canvas position.
+		*
+		* For example, may be used to check that sprite is moved from the given position.
+		*/
+		bool SpriteHiddenAt(const IFrameCheckContextHandle& ContextHandle, const TSSprite& InSprite, const SprVec2& InCanvasPoint);
+
 		// ~ Screen check helpers End
+
+		// ~ TestSprite helpers Begin
+		/**
+		* Creates vector of TestSprite object with the given colors and assigns their positions, so they NOT overlapped;
+		* WARNING!!! CreateSprite is NOT called automatically!
+		*/
+		TSSpriteVector LayoutSprites(const TSMaterialVector& InMaterials);
+
+		/**
+		* Prepares sprites (creates, registers, optionally shows).
+		* By default shows sprites.
+		*/
+		TSSpriteVector PrepareSprites(const TSMaterialVector& InMaterials, bool bShouldShow = true);
+
+		/**
+		* Creates all sprites in the vector.
+		*/
+		void CreateSprites(TSSpriteVector& InSprites);
+
+		/**
+		* Shows all sprites in the vector.
+		*/
+		void ShowSprites(const TSSpriteVector& InSprites);
+
+		boost::test_tools::predicate_result CheckVisibility(const IFrameCheckContextHandle& ContextHandle, const TSSpriteVector& InSprites);
+		// ~ TestSprite helpers End
 
 	protected:
 		virtual void OnPostSetupTestUser() override;

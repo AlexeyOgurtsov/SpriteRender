@@ -39,6 +39,7 @@ namespace Test
 		void Resize(MySprRen::ISpriteUpdater* pInUpdater, float InNewWidth, float InNewHeight);
 		void SetPosition(MySprRen::ISpriteUpdater* pInUpdater, const SprVec2& InPosition);
 		void SetMatInst(MySprRen::ISpriteUpdater* pInUpdater, const Handle_SprMaterialInstance& InInst);
+		bool IsVisible() const;
 
 		void Show(MySprRen::ISpriteUpdater* pInUpdater);
 		void Hide(MySprRen::ISpriteUpdater* pInUpdater);

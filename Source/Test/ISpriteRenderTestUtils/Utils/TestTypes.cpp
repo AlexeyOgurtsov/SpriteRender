@@ -1,8 +1,9 @@
 #include "TestTypes.h"
+#include "../IMPL/Resources/TextureLib.h"
 
 namespace Test
 {
-	TestMaterial::TestMaterial
+	TSMaterial::TSMaterial
 	(
 		const TexelColor& InUniColor,
 		const Handle_SprMaterialInstance& InMatInst
@@ -13,10 +14,9 @@ namespace Test
 		BOOST_ASSERT(InitMatInst);
 	}
 
-
 	TSSprite::TSSprite
 	(
-		const TestMaterial& InMaterial,
+		const TSMaterial& InMaterial,
 		const MySprMath::SSize& InInitSize,
 		const MySprMath::SVec2& InInitPos
 	) :
@@ -25,9 +25,13 @@ namespace Test
 	,	InitPos{InInitPos} {}
 
 
-	void TSSprite::SetHandle(const SpriteHandle& InHandle) 
+	void TSSprite::SetHandle(const SpriteHandle& InHandle)
 	{
 		BOOST_ASSERT_MSG(nullptr == InHandle || IsNotCreated(), "TSSprite: You cannot assign handle for already-created sprite");
 		Handle = InHandle;
 	}
+
+	const TSMaterialGenProps TSMaterialGenProps::StrictDefault{ TMAT_GET_DEFAULT_FLAGS | TSMAT_GEN_NO_BRIGHT_COEFF, /*bStrict*/true };
+	const TSMaterialGenProps TSMaterialGenProps::StrictWithBrightCoeff{ TMAT_GET_DEFAULT_FLAGS, /*bStrict*/true };
+	const TSMaterialGenProps TSMaterialGenProps::StrictOnlyMain{ TMAT_GET_DEFAULT_FLAGS | TSMAT_GEN_NO_BRIGHT_COEFF | TSMAT_GEN_ONLY_ONE_COMPONENT, /*bStrict*/true };
 } // Test

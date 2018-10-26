@@ -223,28 +223,11 @@ namespace Test::ISpr
 		/**
 		* Material to be used to flush the sprites into a new color.
 		*/
-		const TestMaterial NEW_MATERIAL = GetTestMat_White();
+		const TSMaterial NEW_MATERIAL = GetTestMat_White();
 
-		constexpr size_t NUM_SPRITES = 3;
-		constexpr float DENOM_SIZE_X = (2 * NUM_SPRITES + 1);
-		constexpr float DENOM_SIZE_Y = DENOM_SIZE_X;
-		constexpr float INV_DENOM_SIZE_X = 1.0F/ DENOM_SIZE_X;
-		constexpr float INV_DENOM_SIZE_Y = 1.0F/ DENOM_SIZE_Y;
-		MySprMath::SSize const SPRITE_SIZE = ScreenPart(INV_DENOM_SIZE_X, INV_DENOM_SIZE_Y);
+		TSMaterialVector const SpriteMaterials = GetTSMaterials(10);
+		TSSpriteVector Sprites = LayoutSprites(SpriteMaterials);
 
-		std::vector<TSSprite> Sprites;
-		TestMaterial SpriteMaterials[NUM_SPRITES] = 
-		{
-			GetTestMat_Red(),
-			GetTestMat_Green(),
-			GetTestMat_Blue()
-		};
-		for (int i = 0; i < NUM_SPRITES; i++)
-		{
-			TestMaterial* pMat = &SpriteMaterials[i];
-			MySprMath::SVec2 Pos = PointAt ((1 + i * 2) * INV_DENOM_SIZE_X, HALF);
-			Sprites.emplace_back(*pMat, SPRITE_SIZE, Pos);
-		}
 
 		BOOST_TEST_CHECKPOINT("Create sprites");
 		for (TSSprite& S : Sprites)
@@ -286,6 +269,72 @@ namespace Test::ISpr
 						BOOST_REQUIRE(SpriteVisibleAsColor(pChecker, OldSprite->GetHandle(), OldSprite->GetInitUniColor()));
 					}
 				}
+			}
+		}
+	}
+
+	std::string const TestName_MinimalSmoke_Updater_FewSprites_Hide = std::string("TestFewSpritesHide");
+	std::string const TestPath_MinimalSmoke_Updater_FewSprites_Hide = SuitePath_MinimalSmoke_Updater + std::string("/") + TestName_MinimalSmoke_Updater_FewSprites_Hide;
+	BOOST_FIXTURE_TEST_CASE
+	(
+		TestFewSpritesHide, ISprPerTestFixture_SingleCanvas_Smoke,
+		*boost::unit_test::depends_on(TestPath_MinimalSmoke_Updater_FewSprites)
+	)
+	{
+		// Testing that any sprite in the middle can be hidden, without affecting others.
+		SetupTest(TestPath_MinimalSmoke_Updater_FewSprites_Hide.c_str());
+
+		TSMaterialVector const SpriteMaterials = GetTSMaterials(10);
+		TSSpriteVector const Sprites = PrepareSprites(SpriteMaterials);
+
+		BOOST_ASSERT_MSG(Sprites.size() >= 7, "Always must be not less than (to prevent indices to be out of range and call hide twice on already hidden sprite)");
+
+		UINT const MiddleSpriteIndex = Sprites.size() / 2;
+
+		BOOST_TEST_CHECKPOINT("Hiding sprite in the middle");
+		{
+			BOOST_REQUIRE_NO_THROW(HideSprite(Sprites[MiddleSpriteIndex]));
+
+			BOOST_TEST_CHECKPOINT("CommitFrame");
+			{
+				IFrameCheckContextHandle pChecker = CommitFrame();
+				BOOST_TEST(CheckVisibility(pChecker, Sprites));
+			}
+		}
+
+		BOOST_TEST_CHECKPOINT("Hiding sprites before and after the middle");
+		{
+			BOOST_REQUIRE_NO_THROW(HideSprite(Sprites[MiddleSpriteIndex - 1]));
+			BOOST_REQUIRE_NO_THROW(HideSprite(Sprites[MiddleSpriteIndex + 1]));
+
+			BOOST_TEST_CHECKPOINT("CommitFrame");
+			{
+				IFrameCheckContextHandle pChecker = CommitFrame();
+				BOOST_TEST(CheckVisibility(pChecker, Sprites));
+			}
+		}
+
+		BOOST_TEST_CHECKPOINT("Hiding sprites at the beginning");
+		{
+			BOOST_REQUIRE_NO_THROW(HideSprite(Sprites[0]));
+			BOOST_REQUIRE_NO_THROW(HideSprite(Sprites[1]));
+
+			BOOST_TEST_CHECKPOINT("CommitFrame");
+			{
+				IFrameCheckContextHandle pChecker = CommitFrame();
+				BOOST_TEST(CheckVisibility(pChecker, Sprites));
+			}
+		}
+
+		BOOST_TEST_CHECKPOINT("Hiding sprites at the end");
+		{
+			BOOST_REQUIRE_NO_THROW(HideSprite(Sprites[Sprites.size() - 1]));
+			BOOST_REQUIRE_NO_THROW(HideSprite(Sprites[Sprites.size() - 2]));
+
+			BOOST_TEST_CHECKPOINT("CommitFrame");
+			{
+				IFrameCheckContextHandle pChecker = CommitFrame();
+				BOOST_TEST(CheckVisibility(pChecker, Sprites));
 			}
 		}
 	}

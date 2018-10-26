@@ -62,6 +62,11 @@ void Sprite::Show(MySprRen::ISpriteUpdater* pInUpdater)
 	pSubsys->ShowSprite(pInUpdater, GetId());
 }
 
+bool Sprite::IsVisible() const
+{
+	return CurrInitializer.bShow;
+}
+
 void Sprite::Hide(MySprRen::ISpriteUpdater* pInUpdater)
 {
 	CurrInitializer.bShow = false;

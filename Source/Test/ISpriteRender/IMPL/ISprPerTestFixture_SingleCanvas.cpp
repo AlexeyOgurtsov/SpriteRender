@@ -128,49 +128,49 @@ namespace Test::ISpr
 		InSprite.SetHandle(Test::SpriteHandle{});
 	}
 
-	void ISprPerTestFixture_SingleCanvas::HideSprite(TSSprite& InSprite)
+	void ISprPerTestFixture_SingleCanvas::HideSprite(const TSSprite& InSprite)
 	{
 		BOOST_ASSERT(InSprite.IsCreated());
 		HideSprite(InSprite.GetHandle());
 	}
 
-	void ISprPerTestFixture_SingleCanvas::ShowSprite(TSSprite& InSprite)
+	void ISprPerTestFixture_SingleCanvas::ShowSprite(const TSSprite& InSprite)
 	{
 		BOOST_ASSERT(InSprite.IsCreated());
 		ShowSprite(InSprite.GetHandle());
 	}
 
-	void ISprPerTestFixture_SingleCanvas::SetSpriteTransparency(TSSprite& InSprite, MySpr::ESpriteTransparency InTransparency)
+	void ISprPerTestFixture_SingleCanvas::SetSpriteTransparency(const TSSprite& InSprite, MySpr::ESpriteTransparency InTransparency)
 	{
 		BOOST_ASSERT(InSprite.IsCreated());
 		SetSpriteTransparency(InSprite.GetHandle(), InTransparency);
 	}
 
-	void ISprPerTestFixture_SingleCanvas::SetSpriteGeometry(TSSprite& InSprite, const MySpr::SSpriteGeometryProps& InGeometry)
+	void ISprPerTestFixture_SingleCanvas::SetSpriteGeometry(const TSSprite& InSprite, const MySpr::SSpriteGeometryProps& InGeometry)
 	{
 		BOOST_ASSERT(InSprite.IsCreated());
 		SetSpriteGeometry(InSprite.GetHandle(), InGeometry);
 	}
 
-	void ISprPerTestFixture_SingleCanvas::SetSpritePosition(TSSprite& InSprite, const MySprMath::SVec2& InPosition)
+	void ISprPerTestFixture_SingleCanvas::SetSpritePosition(const TSSprite& InSprite, const MySprMath::SVec2& InPosition)
 	{
 		BOOST_ASSERT(InSprite.IsCreated());
 		SetSpritePosition(InSprite.GetHandle(), InPosition);
 	}
 
-	void ISprPerTestFixture_SingleCanvas::ResizeSprite(TSSprite& InSprite, const MySprMath::SSize& InSize)
+	void ISprPerTestFixture_SingleCanvas::ResizeSprite(const TSSprite& InSprite, const MySprMath::SSize& InSize)
 	{
 		BOOST_ASSERT(InSprite.IsCreated());
 		ResizeSprite(InSprite.GetHandle(), InSize);
 	}
 
-	void ISprPerTestFixture_SingleCanvas::ResizeSprite(TSSprite& InSprite, float InWidth, float InHeight)
+	void ISprPerTestFixture_SingleCanvas::ResizeSprite(const TSSprite& InSprite, float InWidth, float InHeight)
 	{
 		BOOST_ASSERT(InSprite.IsCreated());
 		ResizeSprite(InSprite.GetHandle(), InWidth, InHeight);
 	}
 
-	void ISprPerTestFixture_SingleCanvas::SetSpriteMaterial(TSSprite& InSprite, const MySprRen::MaterialInstanceRenderStateInitializerPtr& InRenderState)
+	void ISprPerTestFixture_SingleCanvas::SetSpriteMaterial(const TSSprite& InSprite, const MySprRen::MaterialInstanceRenderStateInitializerPtr& InRenderState)
 	{
 		BOOST_ASSERT(InSprite.IsCreated());
 		SetSpriteMaterial(InSprite.GetHandle(), InRenderState);
@@ -283,9 +283,97 @@ namespace Test::ISpr
 	{
 		return ISprPerTestFixtureBase::SpriteHidden(CanvHandle, ContextHandle, InSprite);
 	}
+	
+	bool ISprPerTestFixture_SingleCanvas::SpriteHidden(const IFrameCheckContextHandle& ContextHandle, const TSSprite& InSprite)
+	{
+		return ISprPerTestFixture_SingleCanvas::SpriteHidden(ContextHandle, InSprite.GetHandle());
+	}
 
 	bool ISprPerTestFixture_SingleCanvas::SpriteHiddenAt(const IFrameCheckContextHandle& ContextHandle, SpriteHandle InSprite, const SprVec2& InCanvasPoint)
 	{
 		return ISprPerTestFixtureBase::SpriteHiddenAt(CanvHandle, ContextHandle, InSprite, InCanvasPoint);
+	}
+
+	bool ISprPerTestFixture_SingleCanvas::SpriteHiddenAt(const IFrameCheckContextHandle& ContextHandle, const TSSprite& InSprite, const SprVec2& InCanvasPoint)
+	{
+		return SpriteHiddenAt(ContextHandle, InSprite.GetHandle(), InCanvasPoint);
+	}
+
+	TSSpriteVector ISprPerTestFixture_SingleCanvas::LayoutSprites(const TSMaterialVector& InMaterials)
+	{
+		size_t const NUM_SPRITES = InMaterials.size();
+
+		float const X_COEFF = 2.0F;
+		float const DENOM_SIZE_X = (X_COEFF * NUM_SPRITES + 1);
+		float const DENOM_SIZE_Y = DENOM_SIZE_X;
+		float const INV_DENOM_SIZE_X = 1.0F/ DENOM_SIZE_X;
+		float const INV_DENOM_SIZE_Y = 1.0F/ DENOM_SIZE_Y;
+		MySprMath::SSize const SPRITE_SIZE = ScreenPart(INV_DENOM_SIZE_X, INV_DENOM_SIZE_Y);
+
+		TSSpriteVector Sprites;
+		for (int i = 0; i < static_cast<int>(NUM_SPRITES); i++)
+		{
+			const TSMaterial* pMat = &InMaterials[i];			
+			MySprMath::SVec2 Pos = PointAt ((1 + i * X_COEFF) * INV_DENOM_SIZE_X, HALF);
+			Sprites.emplace_back(*pMat, SPRITE_SIZE, Pos);
+		}
+	
+		return Sprites;
+	}
+
+	TSSpriteVector ISprPerTestFixture_SingleCanvas::PrepareSprites(const TSMaterialVector& InMaterials, bool bShouldShow)
+	{
+		TSSpriteVector Sprites = LayoutSprites(InMaterials);
+		CreateSprites(Sprites);
+		if (bShouldShow)
+		{
+			ShowSprites(Sprites);
+		}
+		return Sprites;
+	}
+	
+	void ISprPerTestFixture_SingleCanvas::CreateSprites(TSSpriteVector& InSprites)
+	{
+		for (TSSprite& S : InSprites)
+		{
+			CreateSprite(S);
+		}
+	}
+
+	void ISprPerTestFixture_SingleCanvas::ShowSprites(const TSSpriteVector& InSprites)
+	{
+		for (const TSSprite& S : InSprites)
+		{
+			ShowSprite(S);
+		}
+	}
+
+	boost::test_tools::predicate_result ISprPerTestFixture_SingleCanvas::CheckVisibility(const IFrameCheckContextHandle& ContextHandle, const TSSpriteVector& InSprites)
+	{
+		for (int SpriteIndex = 0; SpriteIndex < static_cast<int>(InSprites.size()); SpriteIndex++)
+		{
+			const TSSprite* pS = &(InSprites[SpriteIndex]);
+
+			if (pS->GetHandle()->IsVisible())
+			{
+				if (false == SpriteVisibleAsColor(ContextHandle, pS->GetHandle(), pS->GetInitUniColor()))
+				{
+					boost::test_tools::predicate_result res{ false };
+					res.message() << "Sprite " << SpriteIndex << "must be visible";
+					return res;
+				}
+			}
+			else
+			{
+				// At this point the sprite must be hidden
+				if (false == SpriteHidden(ContextHandle, pS->GetHandle()))
+				{
+					boost::test_tools::predicate_result res{ false };
+					res.message() << "Sprite " << SpriteIndex << "must be hidden";
+					return res;
+				}
+			}
+		}
+		return true;
 	}
 } // Test::ISpr

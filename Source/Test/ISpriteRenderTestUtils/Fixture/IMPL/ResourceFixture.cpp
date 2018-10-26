@@ -46,44 +46,84 @@ namespace Test
 		T_LOG_TO(GetMyLog(), "ResourceFixture: Setting texture format DONE");
 	}
 
-	TextureElement& ResourceFixture::GetRedTexture_10_10()
+	TextureElement& ResourceFixture::GetTexture_10_10(bool bInRed, bool bInGreen, bool bInBlue, bool bInAlpha, EColorBrightnessLevel InBrightness)
 	{
-		return GetRedTexture_10_10(GetTextureFormat());
+		return GetTexture_10_10(bInRed, bInGreen, bInBlue, bInAlpha, InBrightness, GetTextureFormat());
 	}
 
-	TextureElement& ResourceFixture::GetGreenTexture_10_10()
+	TextureElement& ResourceFixture::GetRedTexture_10_10(EColorBrightnessLevel InBrightness)
 	{
-		return GetGreenTexture_10_10(GetTextureFormat());
+		return GetRedTexture_10_10(InBrightness, GetTextureFormat());
 	}
 
-	TextureElement& ResourceFixture::GetBlueTexture_10_10()
+	TextureElement& ResourceFixture::GetGreenTexture_10_10(EColorBrightnessLevel InBrightness)
 	{
-		return GetBlueTexture_10_10(GetTextureFormat());
+		return GetGreenTexture_10_10(InBrightness, GetTextureFormat());
 	}
 
-	TextureElement& ResourceFixture::GetWhiteTexture_10_10()
+	TextureElement& ResourceFixture::GetBlueTexture_10_10(EColorBrightnessLevel InBrightness)
 	{
-		return GetWhiteTexture_10_10(GetTextureFormat());
+		return GetBlueTexture_10_10(InBrightness, GetTextureFormat());
 	}
 
-	TextureElement& ResourceFixture::GetRedTexture_10_10(DXGI_FORMAT InFormat)
+	TextureElement& ResourceFixture::GetWhiteTexture_10_10(EColorBrightnessLevel InBrightness)
 	{
-		return GetTexLib()->GetRedTexture_10_10(InFormat);
+		return GetWhiteTexture_10_10(InBrightness, GetTextureFormat());
 	}
 
-	TextureElement& ResourceFixture::GetGreenTexture_10_10(DXGI_FORMAT InFormat)
+	TextureElement& ResourceFixture::GetRedGreenTexture_10_10(EColorBrightnessLevel InBrightness)
 	{
-		return GetTexLib()->GetGreenTexture_10_10(InFormat);
+		return GetRedGreenTexture_10_10(InBrightness, GetTextureFormat());
 	}
 
-	TextureElement& ResourceFixture::GetBlueTexture_10_10(DXGI_FORMAT InFormat)
+	TextureElement& ResourceFixture::GetRedBlueTexture_10_10(EColorBrightnessLevel InBrightness)
 	{
-		return GetTexLib()->GetBlueTexture_10_10(InFormat);
+		return GetRedBlueTexture_10_10(InBrightness, GetTextureFormat());
 	}
 
-	TextureElement& ResourceFixture::GetWhiteTexture_10_10(DXGI_FORMAT InFormat)
+	TextureElement& ResourceFixture::GetGreenBlueTexture_10_10(EColorBrightnessLevel InBrightness)
 	{
-		return GetTexLib()->GetWhiteTexture_10_10(InFormat);
+		return GetGreenBlueTexture_10_10(InBrightness, GetTextureFormat());
+	}
+
+	TextureElement& ResourceFixture::GetTexture_10_10(bool bInRed, bool bInGreen, bool bInBlue, bool bInAlpha, EColorBrightnessLevel InBrightness, DXGI_FORMAT InFormat)
+	{
+		return GetTexLib()->GetTexture_10_10(bInRed, bInGreen, bInBlue, bInAlpha, InBrightness, InFormat);
+	}
+
+	TextureElement& ResourceFixture::GetRedTexture_10_10(EColorBrightnessLevel InBrightness, DXGI_FORMAT InFormat)
+	{
+		return GetTexLib()->GetRedTexture_10_10(InFormat, InBrightness);
+	}
+
+	TextureElement& ResourceFixture::GetGreenTexture_10_10(EColorBrightnessLevel InBrightness, DXGI_FORMAT InFormat)
+	{
+		return GetTexLib()->GetGreenTexture_10_10(InFormat, InBrightness);
+	}
+
+	TextureElement& ResourceFixture::GetBlueTexture_10_10(EColorBrightnessLevel InBrightness, DXGI_FORMAT InFormat)
+	{
+		return GetTexLib()->GetBlueTexture_10_10(InFormat, InBrightness);
+	}
+
+	TextureElement& ResourceFixture::GetWhiteTexture_10_10(EColorBrightnessLevel InBrightness, DXGI_FORMAT InFormat)
+	{
+		return GetTexLib()->GetWhiteTexture_10_10(InFormat, InBrightness);
+	}
+
+	TextureElement& ResourceFixture::GetRedGreenTexture_10_10(EColorBrightnessLevel InBrightness, DXGI_FORMAT InFormat)
+	{
+		return GetTexLib()->GetRedGreenTexture_10_10(InFormat, InBrightness);
+	}
+
+	TextureElement& ResourceFixture::GetRedBlueTexture_10_10(EColorBrightnessLevel InBrightness, DXGI_FORMAT InFormat)
+	{
+		return GetTexLib()->GetRedBlueTexture_10_10(InFormat, InBrightness);
+	}
+
+	TextureElement& ResourceFixture::GetGreenBlueTexture_10_10(EColorBrightnessLevel InBrightness, DXGI_FORMAT InFormat)
+	{
+		return GetTexLib()->GetGreenBlueTexture_10_10(InFormat, InBrightness);
 	}
 
 	Handle_SprMaterialInstance ResourceFixture::CreateMatInst_Default(const char* pInName, const TextureElement& InElem)
@@ -91,84 +131,250 @@ namespace Test
 		return GetSprRenManager()->CreateMatInst_Default(pInName, InElem.GetShaderResourceView());
 	}
 
+	Handle_SprMaterialInstance ResourceFixture::CreateMatInst_Default_10_10(bool bInRed, bool bInGreen, bool bInBlue, bool bInAlpha, EColorBrightnessLevel InBrightness, const char* pInName)
+	{
+		return GetSprRenManager()->CreateMatInst_Default(pInName, GetTexture_10_10(bInRed, bInGreen, bInBlue, bInAlpha, InBrightness).GetShaderResourceView());
+	}
+
 	std::ofstream& ResourceFixture::GetMyLog() const
 	{
 		return GetEnv()->GetMainLog();
 	}
 
-	Handle_SprMaterialInstance ResourceFixture::GetMatInst_Red_10_10()
+	Handle_SprMaterialInstance ResourceFixture::GetMatInst_Red_10_10(EColorBrightnessLevel InBrightness)
 	{
-		if (nullptr == pMatInst_Red_10_10)
+		return GetMatInst(true, false, false, false, InBrightness);
+	}
+
+	Handle_SprMaterialInstance ResourceFixture::GetMatInst_Green_10_10(EColorBrightnessLevel InBrightness)
+	{
+		return GetMatInst(false, true, false, false, InBrightness);
+	}
+
+	Handle_SprMaterialInstance ResourceFixture::GetMatInst_Blue_10_10(EColorBrightnessLevel InBrightness)
+	{
+		return GetMatInst(false, false, true, false, InBrightness);
+	}
+
+	Handle_SprMaterialInstance ResourceFixture::GetMatInst_RedBlue_10_10(EColorBrightnessLevel InBrightness)
+	{
+		return GetMatInst(true, false, true, false, InBrightness);
+	}
+
+	Handle_SprMaterialInstance ResourceFixture::GetMatInst_RedGreen_10_10(EColorBrightnessLevel InBrightness)
+	{
+		return GetMatInst(true, true, false, false, InBrightness);;
+	}
+
+	Handle_SprMaterialInstance ResourceFixture::GetMatInst_GreenBlue_10_10(EColorBrightnessLevel InBrightness)
+	{
+		return GetMatInst(false, true, true, false, InBrightness);;
+	}
+
+	Handle_SprMaterialInstance ResourceFixture::GetMatInst_White_10_10(EColorBrightnessLevel InBrightness)
+	{
+		return GetMatInst(true, true, true, false, InBrightness);
+	}
+
+	Handle_SprMaterialInstance ResourceFixture::CreateMatInst_Default_Red_10_10(EColorBrightnessLevel InBrightness, const char* pInName)
+	{
+		return CreateMatInst_Default(pInName, GetRedTexture_10_10(InBrightness));
+	}
+
+	Handle_SprMaterialInstance ResourceFixture::CreateMatInst_Default_Green_10_10(EColorBrightnessLevel InBrightness, const char* pInName)
+	{
+		return CreateMatInst_Default(pInName, GetGreenTexture_10_10(InBrightness));
+	}
+
+	Handle_SprMaterialInstance ResourceFixture::CreateMatInst_Default_Blue_10_10(EColorBrightnessLevel InBrightness, const char* pInName)
+	{
+		return CreateMatInst_Default(pInName, GetBlueTexture_10_10(InBrightness));
+	}
+
+	Handle_SprMaterialInstance ResourceFixture::CreateMatInst_Default_White_10_10(EColorBrightnessLevel InBrightness, const char* pInName)
+	{
+		return CreateMatInst_Default(pInName, GetWhiteTexture_10_10(InBrightness));
+	}
+
+	Handle_SprMaterialInstance ResourceFixture::CreateMatInst_Default_RedBlue_10_10(EColorBrightnessLevel InBrightness, const char* pInName)
+	{
+		return CreateMatInst_Default(pInName, GetRedBlueTexture_10_10(InBrightness));
+	}
+
+	Handle_SprMaterialInstance ResourceFixture::CreateMatInst_Default_RedGreen_10_10(EColorBrightnessLevel InBrightness, const char* pInName)
+	{
+		return CreateMatInst_Default(pInName, GetRedGreenTexture_10_10(InBrightness));
+	}
+
+	Handle_SprMaterialInstance ResourceFixture::CreateMatInst_Default_GreenBlue_10_10(EColorBrightnessLevel InBrightness, const char* pInName)
+	{
+		return CreateMatInst_Default(pInName, GetGreenBlueTexture_10_10(InBrightness));
+	}
+
+	Handle_SprMaterialInstance ResourceFixture::GetMatInst(bool bInRed, bool bInGreen, bool bInBlue, bool bInAlpha, EColorBrightnessLevel InBrightness)
+	{
+		Handle_SprMaterialInstance* pCachedMatInst = GetArrayByColorElementPtr(pMatInstances, bInRed, bInGreen, bInBlue, bInAlpha, InBrightness);
+		if (nullptr == *pCachedMatInst)
 		{
-			pMatInst_Red_10_10 = CreateMatInst_Default_Red_10_10();
+			*pCachedMatInst = CreateMatInst_Default_10_10(bInRed, bInGreen, bInBlue, bInAlpha, InBrightness);
 		}
-		return pMatInst_Red_10_10;
+		return *pCachedMatInst;
 	}
 
-	Handle_SprMaterialInstance ResourceFixture::GetMatInst_Green_10_10()
+	TSMaterial ResourceFixture::GetTestMat(bool bInRed, bool bInGreen, bool bInBlue, bool bInAlpha, EColorBrightnessLevel InBrightness)
 	{
-		if (nullptr == pMatInst_Green_10_10)
+		return TSMaterial
+		(
+			TexelColor::GetColor(GetTextureFormat(), bInRed, bInGreen, bInBlue, InBrightness, bInAlpha), 
+			GetMatInst(bInRed, bInGreen, bInBlue, bInAlpha, InBrightness)
+		);
+	}
+
+	TSMaterial ResourceFixture::GetTestMat_Red(EColorBrightnessLevel InBrightness)
+	{
+		return TSMaterial(TexelColor::GetRed(GetTextureFormat()), GetMatInst_Red_10_10(InBrightness));
+	}
+
+	TSMaterial ResourceFixture::GetTestMat_Green(EColorBrightnessLevel InBrightness)
+	{
+		return TSMaterial(TexelColor::GetGreen(GetTextureFormat()), GetMatInst_Green_10_10(InBrightness));
+	}
+
+	TSMaterial ResourceFixture::GetTestMat_Blue(EColorBrightnessLevel InBrightness)
+	{
+		return TSMaterial(TexelColor::GetBlue(GetTextureFormat()), GetMatInst_Blue_10_10(InBrightness));
+	}
+
+	TSMaterial ResourceFixture::GetTestMat_White(EColorBrightnessLevel InBrightness)
+	{
+		return TSMaterial(TexelColor::GetWhite(GetTextureFormat()), GetMatInst_White_10_10(InBrightness));
+	}
+
+	TSMaterial ResourceFixture::GetTestMat_RedGreen(EColorBrightnessLevel InBrightness)
+	{
+		return TSMaterial(TexelColor::GetRedGreen(GetTextureFormat()), GetMatInst_RedGreen_10_10(InBrightness));
+	}
+
+	TSMaterial ResourceFixture::GetTestMat_RedBlue(EColorBrightnessLevel InBrightness)
+	{
+		return TSMaterial(TexelColor::GetRedBlue(GetTextureFormat()), GetMatInst_RedBlue_10_10(InBrightness));
+	}
+
+	TSMaterial ResourceFixture::GetTestMat_GreenBlue(EColorBrightnessLevel InBrightness)
+	{
+		return TSMaterial(TexelColor::GetGreenBlue(GetTextureFormat()), GetMatInst_GreenBlue_10_10(InBrightness));
+	}
+
+	bool ResourceFixture::Append_TSMaterial_MainColors(TSMaterialVector* pOutResult, UINT InCount, EColorBrightnessLevel InBrightness)
+	{
+		BOOST_ASSERT(pOutResult);
+		if (pOutResult->size() < InCount)
 		{
-			pMatInst_Green_10_10 = CreateMatInst_Default_Green_10_10();
+			pOutResult->emplace_back(GetTestMat_Red(InBrightness));
 		}
-		return pMatInst_Green_10_10;
-	}
-
-	Handle_SprMaterialInstance ResourceFixture::GetMatInst_Blue_10_10()
-	{
-		if (nullptr == pMatInst_Blue_10_10)
+		else
 		{
-			pMatInst_Blue_10_10 = CreateMatInst_Default_Blue_10_10();
+			return true;
 		}
-		return pMatInst_Blue_10_10;
-	}
-
-	Handle_SprMaterialInstance ResourceFixture::GetMatInst_White_10_10()
-	{
-		if (nullptr == pMatInst_White_10_10)
+		if (pOutResult->size() < InCount)
 		{
-			pMatInst_White_10_10 = CreateMatInst_Default_White_10_10();
+			pOutResult->emplace_back(GetTestMat_Green(InBrightness));
 		}
-		return pMatInst_White_10_10;
+		else
+		{
+			return true;
+		}
+		if (pOutResult->size() < InCount)
+		{
+			pOutResult->emplace_back(GetTestMat_Blue(InBrightness));
+		}
+		else
+		{
+			return true;
+		}
+		return false;
+	}
+	bool ResourceFixture::Append_TSMaterial_TwoColorCombis(TSMaterialVector* pOutResult, UINT InCount, EColorBrightnessLevel InBrightness)
+	{
+		BOOST_ASSERT(pOutResult);
+		if (pOutResult->size() < InCount)
+		{
+			pOutResult->emplace_back(GetTestMat_RedGreen(InBrightness));
+		}
+		else
+		{
+			return true;
+		}
+		if (pOutResult->size() < InCount)
+		{
+			pOutResult->emplace_back(GetTestMat_RedBlue(InBrightness));
+		}
+		else
+		{
+			return true;
+		}
+		if (pOutResult->size() < InCount)
+		{
+			pOutResult->emplace_back(GetTestMat_GreenBlue(InBrightness));
+		}
+		else
+		{
+			return true;
+		}
+		return false;
 	}
 
-	Handle_SprMaterialInstance ResourceFixture::CreateMatInst_Default_Red_10_10(const char* pInName)
+	TSMaterialVector ResourceFixture::Generate_TSMaterialVector(UINT InCount, const TSMaterialGenProps& InProps)
 	{
-		return CreateMatInst_Default(pInName, GetRedTexture_10_10());
+		BOOST_ASSERT_MSG(InProps.bStrict, "ResourceFixture::Generate_TSMaterialVector: At this time only strict generation is supported");
+		BOOST_ASSERT_MSG(InProps.GenFlags & TSMAT_GEN_NO_BRIGHT_COEFF, "ResourceFixture::Generate_TSMaterialVector: using bright coeff at this time will cause precision errors whn comparing (so tests will fail). Eliminate the issue, then this feature will be allowed");
+
+		TSMaterialVector Result;
+		Result.reserve(InCount);
+
+		/**
+		* Here we will use the same colors again if the existings colors are not sufficient.
+		*/
+		while (true)
+		{
+			if (Append_TSMaterial_MainColors(&Result, InCount, EColorBrightnessLevel::Highest))
+			{
+				return Result;
+			}
+
+			if (0 == (InProps.GenFlags & TSMAT_GEN_ONLY_ONE_COMPONENT))
+			{
+				if (Append_TSMaterial_TwoColorCombis(&Result, InCount, EColorBrightnessLevel::Highest))
+				{
+					return Result;
+				}
+			}
+
+			// @TODO: 
+			if (0 == (InProps.GenFlags & TSMAT_GEN_NO_BRIGHT_COEFF))
+			{
+				if (Append_TSMaterial_MainColors(&Result, InCount, EColorBrightnessLevel::Low))
+				{
+					return Result;
+				}
+
+				if (0 == (InProps.GenFlags & TSMAT_GEN_ONLY_ONE_COMPONENT))
+				{
+					if (Append_TSMaterial_TwoColorCombis(&Result, InCount, EColorBrightnessLevel::Low))
+					{
+						return Result;
+					}
+				}
+			}
+		}
+
+		BOOST_ASSERT(Result.size() == InCount);
+
+		return Result;
 	}
 
-	Handle_SprMaterialInstance ResourceFixture::CreateMatInst_Default_Green_10_10(const char* pInName)
+	TSMaterialVector ResourceFixture::GetTSMaterials(UINT InCount, const TSMaterialGenProps& InProps)
 	{
-		return CreateMatInst_Default(pInName, GetGreenTexture_10_10());
-	}
-
-	Handle_SprMaterialInstance ResourceFixture::CreateMatInst_Default_Blue_10_10(const char* pInName)
-	{
-		return CreateMatInst_Default(pInName, GetBlueTexture_10_10());
-	}
-
-	Handle_SprMaterialInstance ResourceFixture::CreateMatInst_Default_White_10_10(const char* pInName)
-	{
-		return CreateMatInst_Default(pInName, GetWhiteTexture_10_10());
-	}
-
-	TestMaterial ResourceFixture::GetTestMat_Red()
-	{
-		return TestMaterial(TexelColor::GetRed(GetTextureFormat()), CreateMatInst_Default_Red_10_10());
-	}
-
-	TestMaterial ResourceFixture::GetTestMat_Green()
-	{
-		return TestMaterial(TexelColor::GetGreen(GetTextureFormat()), CreateMatInst_Default_Green_10_10());
-	}
-
-	TestMaterial ResourceFixture::GetTestMat_Blue()
-	{
-		return TestMaterial(TexelColor::GetBlue(GetTextureFormat()), CreateMatInst_Default_Blue_10_10());
-	}
-
-	TestMaterial ResourceFixture::GetTestMat_White()
-	{
-		return TestMaterial(TexelColor::GetWhite(GetTextureFormat()), CreateMatInst_Default_White_10_10());
+		return Generate_TSMaterialVector(InCount, InProps);
 	}
 } // Test

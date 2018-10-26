@@ -13,6 +13,7 @@ namespace Test::IMPL
 	
 		T_LOG("TexturesLib: ctor...");
 		BOOST_ASSERT(pTextures);
+		ZeroMemory(_Texture_10_10_R8G8B8A8_UNORM, sizeof(_Texture_10_10_R8G8B8A8_UNORM));
 		// @TODO: Initialize default textures
 		T_LOG("TexturesLib: ctor DONE");
 	}
@@ -23,32 +24,90 @@ namespace Test::IMPL
 		T_LOG("TexturesLib: ~DTOR DONE");
 	}
 
-	TextureElement& TextureLib::GetRedTexture_10_10(DXGI_FORMAT InFormat)
+	TextureElement& TextureLib::GetLazyTexture_10_10_ByColor(TextureElement** pOutTex, bool bRed, bool bGreen, bool bBlue, bool bAlpha, EColorBrightnessLevel BrightnessLevel, DXGI_FORMAT InFormat)
 	{
-		TextureElement** ppTex = &_pRedTexture_10_10_R8G8B8A8_UNORM;
-		constexpr uint8_t color[4] = { 255, 0, 0, 0 };
-		return GetLazyTexture_10_10(ppTex, color, InFormat);
+		uint8_t const red_component = ComponentCoeffFromBool(bRed, BrightnessLevel);
+		uint8_t const green_component = ComponentCoeffFromBool(bGreen, BrightnessLevel);
+		uint8_t const blue_component = ComponentCoeffFromBool(bBlue, BrightnessLevel);
+		uint8_t const alpha_component = ComponentCoeffFromBool(bAlpha, EColorBrightnessLevel::Highest);
+		uint8_t const color[4] = { red_component, green_component, blue_component, alpha_component };
+		return GetLazyTexture_10_10(pOutTex, color, InFormat);
+	}
+
+	TextureElement& TextureLib::GetTexture_10_10(bool bRed, bool bGreen, bool bBlue, bool bAlpha, EColorBrightnessLevel InBrightness, DXGI_FORMAT InFormat)
+	{
+		TextureElement** ppTex = GetArrayByColorElementPtr(_Texture_10_10_R8G8B8A8_UNORM, bRed, bGreen, bBlue, bAlpha, InBrightness);
+		return GetLazyTexture_10_10_ByColor(ppTex, bRed, bGreen, bBlue, bAlpha, InBrightness, InFormat);
+	}
+
+	TextureElement& TextureLib::GetRedTexture_10_10(DXGI_FORMAT InFormat)
+	{		
+		return GetRedTexture_10_10(InFormat, EColorBrightnessLevel::Highest);
 	}
 
 	TextureElement& TextureLib::GetGreenTexture_10_10(DXGI_FORMAT InFormat)
 	{
-		TextureElement** ppTex = &_pGreenTexture_10_10_R8G8B8A8_UNORM;
-		constexpr uint8_t color[4] = { 0, 255, 0, 0 };
-		return GetLazyTexture_10_10(ppTex, color, InFormat);
+		return GetGreenTexture_10_10(InFormat, EColorBrightnessLevel::Highest);
 	}
 
 	TextureElement& TextureLib::GetBlueTexture_10_10(DXGI_FORMAT InFormat)
 	{
-		TextureElement** ppTex = &_pBlueTexture_10_10_R8G8B8A8_UNORM;
-		constexpr uint8_t color[4] = { 0, 0, 255, 0 };
-		return GetLazyTexture_10_10(ppTex, color, InFormat);
+		return GetBlueTexture_10_10(InFormat, EColorBrightnessLevel::Highest);
 	}
 
 	TextureElement& TextureLib::GetWhiteTexture_10_10(DXGI_FORMAT InFormat)
 	{
-		TextureElement** ppTex = &_pWhiteTexture_10_10_R8G8B8A8_UNORM;
-		constexpr uint8_t color[4] = { 255, 255, 255, 0 };
-		return GetLazyTexture_10_10(ppTex, color, InFormat);
+		return GetWhiteTexture_10_10(InFormat, EColorBrightnessLevel::Highest);
+	}
+
+	TextureElement& TextureLib::GetRedGreenTexture_10_10(DXGI_FORMAT InFormat)
+	{
+		return GetRedGreenTexture_10_10(InFormat, EColorBrightnessLevel::Highest);
+	}
+
+	TextureElement& TextureLib::GetRedBlueTexture_10_10(DXGI_FORMAT InFormat)
+	{
+		return GetRedBlueTexture_10_10(InFormat, EColorBrightnessLevel::Highest);
+	}
+
+	TextureElement& TextureLib::GetGreenBlueTexture_10_10(DXGI_FORMAT InFormat)
+	{
+		return GetGreenBlueTexture_10_10(InFormat, EColorBrightnessLevel::Highest);
+	}
+
+	TextureElement& TextureLib::GetRedTexture_10_10(DXGI_FORMAT InFormat, EColorBrightnessLevel InBrightness)
+	{
+		return GetTexture_10_10(true, false, false, false, InBrightness, InFormat);
+	}
+
+	TextureElement& TextureLib::GetGreenTexture_10_10(DXGI_FORMAT InFormat, EColorBrightnessLevel InBrightness)
+	{
+		return GetTexture_10_10(false, true, false, false, InBrightness, InFormat);
+	}
+
+	TextureElement& TextureLib::GetBlueTexture_10_10(DXGI_FORMAT InFormat, EColorBrightnessLevel InBrightness)
+	{
+		return GetTexture_10_10(false, false, true, false, InBrightness, InFormat);
+	}
+
+	TextureElement& TextureLib::GetWhiteTexture_10_10(DXGI_FORMAT InFormat, EColorBrightnessLevel InBrightness)
+	{
+		return GetTexture_10_10(true, true, true, false, InBrightness, InFormat);
+	}
+
+	TextureElement& TextureLib::GetRedGreenTexture_10_10(DXGI_FORMAT InFormat, EColorBrightnessLevel InBrightness)
+	{
+		return GetTexture_10_10(true, true, false, false, InBrightness, InFormat);
+	}
+
+	TextureElement& TextureLib::GetRedBlueTexture_10_10(DXGI_FORMAT InFormat, EColorBrightnessLevel InBrightness)
+	{
+		return GetTexture_10_10(true, false, true, false, InBrightness, InFormat);
+	}
+
+	TextureElement& TextureLib::GetGreenBlueTexture_10_10(DXGI_FORMAT InFormat, EColorBrightnessLevel InBrightness)
+	{
+		return GetTexture_10_10(false, true, true, false, InBrightness, InFormat);
 	}
 
 	TextureElement& TextureLib::GetLazyTexture_10_10(TextureElement** pOutTex, const uint8_t InColor[4], DXGI_FORMAT InFormat)

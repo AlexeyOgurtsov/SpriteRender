@@ -4,9 +4,34 @@
 #include <boost/assert.hpp>
 #include <cstdlib>
 #include <cstdint>
+#include "MiscUtils.h"
 
 namespace Test
 {
+
+	enum class EColorBrightnessLevel
+	{
+		Off = 0,
+		Lowest,
+		Low,
+		High,
+		Highest
+	};
+
+	constexpr UINT NUM_TEX_BRIGHTNESS_LEVELS = 4;
+	constexpr UINT DEFAULT_MINIMAL_TEX_SIZE = 10;
+	constexpr UINT BOOL_INDEX_NUM = 2;
+
+	template<class T>
+	using TArrayByColor = T[BOOL_INDEX_NUM][BOOL_INDEX_NUM][BOOL_INDEX_NUM][BOOL_INDEX_NUM][NUM_TEX_BRIGHTNESS_LEVELS];
+
+	uint8_t ComponentCoeffFromBool(bool bInSet, EColorBrightnessLevel InBrighness);
+
+	template<class T> T* GetArrayByColorElementPtr(TArrayByColor<T>& InArr, bool bInRed, bool bInGreen, bool bInBlue, bool bInAlpha, EColorBrightnessLevel InBrightness)
+	{
+		return &InArr[BoolToIndex(bInRed)][BoolToIndex(bInGreen)][BoolToIndex(bInBlue)][BoolToIndex(bInAlpha)][static_cast<UINT>(InBrightness)];
+	}
+
 	/**
 	* Texel color.
 	*/
@@ -39,12 +64,15 @@ namespace Test
 		float GetComponentFactor(int InIndex) const;
 
 		// ~Color Getters Begin
-		static TexelColor GetRed(DXGI_FORMAT InFormat, float InAlpha = 1.0F);
-		static TexelColor GetGreen(DXGI_FORMAT InFormat, float InAlpha = 1.0F);
-		static TexelColor GetBlue(DXGI_FORMAT InFormat, float InAlpha = 1.0F);
-		static TexelColor GetWhite(DXGI_FORMAT InFormat, float InAlpha = 1.0F);
-		static TexelColor GetBlack(DXGI_FORMAT InFormat, float InAlpha = 1.0F);
-		static TexelColor GetColor(DXGI_FORMAT, float InRed, float InGreen, float InBlue, float InAlpha = 1.0F);
+		static TexelColor GetRed(DXGI_FORMAT InFormat, EColorBrightnessLevel InColorBrightnessLevel = EColorBrightnessLevel::Highest, float InAlpha = 1.0F);
+		static TexelColor GetGreen(DXGI_FORMAT InFormat, EColorBrightnessLevel InColorBrightnessLevel = EColorBrightnessLevel::Highest, float InAlpha = 1.0F);
+		static TexelColor GetBlue(DXGI_FORMAT InFormat, EColorBrightnessLevel InColorBrightnessLevel = EColorBrightnessLevel::Highest, float InAlpha = 1.0F);
+		static TexelColor GetWhite(DXGI_FORMAT InFormat, EColorBrightnessLevel InColorBrightnessLevel = EColorBrightnessLevel::Highest, float InAlpha = 1.0F);
+		static TexelColor GetBlack(DXGI_FORMAT InFormat, EColorBrightnessLevel InColorBrightnessLevel = EColorBrightnessLevel::Highest, float InAlpha = 1.0F);
+		static TexelColor GetRedGreen(DXGI_FORMAT InFormat, EColorBrightnessLevel InColorBrightnessLevel = EColorBrightnessLevel::Highest, float InAlpha = 1.0F);
+		static TexelColor GetRedBlue(DXGI_FORMAT InFormat, EColorBrightnessLevel InColorBrightnessLevel = EColorBrightnessLevel::Highest, float InAlpha = 1.0F);
+		static TexelColor GetGreenBlue(DXGI_FORMAT InFormat, EColorBrightnessLevel InColorBrightnessLevel = EColorBrightnessLevel::Highest, float InAlpha = 1.0F);
+		static TexelColor GetColor(DXGI_FORMAT, float InRed, float InGreen, float InBlue, EColorBrightnessLevel InColorBrightnessLevel = EColorBrightnessLevel::Highest, float InAlpha = 1.0F);
 		// ~Color Getters End
 
 	private:
@@ -122,4 +150,6 @@ namespace Test
 
 	bool AreTexelsMatch(const TexelColor& InA, const TexelColor& InB, bool bInCheckAlpha = false);
 	bool AreTexelsMatch(const void* pTex, DXGI_FORMAT InFormat, const void* pOtherTex, DXGI_FORMAT InOtherFormat, bool bInCheckAlpha = false);
+
+	float GetBrightnessFactor(EColorBrightnessLevel InBrighness);
 } // Test
