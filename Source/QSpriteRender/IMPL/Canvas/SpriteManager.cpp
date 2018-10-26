@@ -46,7 +46,7 @@ namespace QRen
 			Initializer.Name = "VertexBuffer";
 			Initializer.pDev = pDev;
 			Initializer.pDevCon = pDevCon;
-			Initializer.SlotSize = GetVBStride();
+			Initializer.SlotSize = D3D::SPRITE_GEOMETRY_SIZE;
 			Initializer.bAutoResizeable = bInAutoResizeable;
 			Initializer.BindFlags = D3D11_BIND_VERTEX_BUFFER;
 			Initializer.Usage = D3D11_USAGE_DYNAMIC;

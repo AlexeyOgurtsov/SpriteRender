@@ -163,6 +163,7 @@
     <ClCompile Include="..\..\Test\ISpriteRenderTestUtils\SprRenHelper\SprRenHelper_Canvas.cpp" />
     <ClCompile Include="..\..\Test\ISpriteRenderTestUtils\SprRenHelper\SprRenHelper_Sprite.cpp" />
     <ClCompile Include="..\..\Test\ISpriteRenderTestUtils\Utils\MathUtils.cpp" />
+    <ClCompile Include="..\..\Test\ISpriteRenderTestUtils\Utils\TestTypes.cpp" />
     <ClCompile Include="..\..\Test\ISpriteRenderTestUtils\Utils\TestUtils.cpp" />
     <ClCompile Include="..\..\Test\ISpriteRenderTestUtils\Utils\TexelColor.cpp" />
   </ItemGroup>
@@ -209,6 +210,7 @@
     <ClInclude Include="..\..\Test\ISpriteRenderTestUtils\SprRenHelper\SprRenHelper_Types.h" />
     <ClInclude Include="..\..\Test\ISpriteRenderTestUtils\TesterConfig.h" />
     <ClInclude Include="..\..\Test\ISpriteRenderTestUtils\Utils\MathUtils.h" />
+    <ClInclude Include="..\..\Test\ISpriteRenderTestUtils\Utils\TestTypes.h" />
     <ClInclude Include="..\..\Test\ISpriteRenderTestUtils\Utils\TestUtils.h" />
     <ClInclude Include="..\..\Test\ISpriteRenderTestUtils\Utils\TexelColor.h" />
   </ItemGroup>

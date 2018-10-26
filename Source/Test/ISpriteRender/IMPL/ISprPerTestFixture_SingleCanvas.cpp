@@ -116,6 +116,66 @@ namespace Test::ISpr
 		return CreateSprite(InPosition, InSize.Width, InSize.Height, InRenderState, InTransparency);
 	}
 
+	void ISprPerTestFixture_SingleCanvas::CreateSprite(TSSprite& InSprite)
+	{
+		InSprite.SetHandle(CreateSprite(InSprite.GetInitPos(), InSprite.GetInitSize(), InSprite.GetInitMatInst()));
+	}
+
+	void ISprPerTestFixture_SingleCanvas::DeleteSprite(TSSprite& InSprite)
+	{
+		BOOST_ASSERT(InSprite.IsCreated());
+		DeleteSprite(InSprite.GetHandle());
+		InSprite.SetHandle(Test::SpriteHandle{});
+	}
+
+	void ISprPerTestFixture_SingleCanvas::HideSprite(TSSprite& InSprite)
+	{
+		BOOST_ASSERT(InSprite.IsCreated());
+		HideSprite(InSprite.GetHandle());
+	}
+
+	void ISprPerTestFixture_SingleCanvas::ShowSprite(TSSprite& InSprite)
+	{
+		BOOST_ASSERT(InSprite.IsCreated());
+		ShowSprite(InSprite.GetHandle());
+	}
+
+	void ISprPerTestFixture_SingleCanvas::SetSpriteTransparency(TSSprite& InSprite, MySpr::ESpriteTransparency InTransparency)
+	{
+		BOOST_ASSERT(InSprite.IsCreated());
+		SetSpriteTransparency(InSprite.GetHandle(), InTransparency);
+	}
+
+	void ISprPerTestFixture_SingleCanvas::SetSpriteGeometry(TSSprite& InSprite, const MySpr::SSpriteGeometryProps& InGeometry)
+	{
+		BOOST_ASSERT(InSprite.IsCreated());
+		SetSpriteGeometry(InSprite.GetHandle(), InGeometry);
+	}
+
+	void ISprPerTestFixture_SingleCanvas::SetSpritePosition(TSSprite& InSprite, const MySprMath::SVec2& InPosition)
+	{
+		BOOST_ASSERT(InSprite.IsCreated());
+		SetSpritePosition(InSprite.GetHandle(), InPosition);
+	}
+
+	void ISprPerTestFixture_SingleCanvas::ResizeSprite(TSSprite& InSprite, const MySprMath::SSize& InSize)
+	{
+		BOOST_ASSERT(InSprite.IsCreated());
+		ResizeSprite(InSprite.GetHandle(), InSize);
+	}
+
+	void ISprPerTestFixture_SingleCanvas::ResizeSprite(TSSprite& InSprite, float InWidth, float InHeight)
+	{
+		BOOST_ASSERT(InSprite.IsCreated());
+		ResizeSprite(InSprite.GetHandle(), InWidth, InHeight);
+	}
+
+	void ISprPerTestFixture_SingleCanvas::SetSpriteMaterial(TSSprite& InSprite, const MySprRen::MaterialInstanceRenderStateInitializerPtr& InRenderState)
+	{
+		BOOST_ASSERT(InSprite.IsCreated());
+		SetSpriteMaterial(InSprite.GetHandle(), InRenderState);
+	}
+
 	void ISprPerTestFixture_SingleCanvas::DeleteSprite(SpriteHandle InHandle)
 	{
 		T_LOG("Fixture: SingleCanvas: DeleteSprite, Id=" << InHandle->GetId() << "...");

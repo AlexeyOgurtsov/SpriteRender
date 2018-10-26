@@ -151,4 +151,24 @@ namespace Test
 	{
 		return CreateMatInst_Default(pInName, GetWhiteTexture_10_10());
 	}
+
+	TestMaterial ResourceFixture::GetTestMat_Red()
+	{
+		return TestMaterial(TexelColor::GetRed(GetTextureFormat()), CreateMatInst_Default_Red_10_10());
+	}
+
+	TestMaterial ResourceFixture::GetTestMat_Green()
+	{
+		return TestMaterial(TexelColor::GetGreen(GetTextureFormat()), CreateMatInst_Default_Green_10_10());
+	}
+
+	TestMaterial ResourceFixture::GetTestMat_Blue()
+	{
+		return TestMaterial(TexelColor::GetBlue(GetTextureFormat()), CreateMatInst_Default_Blue_10_10());
+	}
+
+	TestMaterial ResourceFixture::GetTestMat_White()
+	{
+		return TestMaterial(TexelColor::GetWhite(GetTextureFormat()), CreateMatInst_Default_White_10_10());
+	}
 } // Test

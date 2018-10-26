@@ -129,6 +129,9 @@
     <ClCompile Include="..\..\Test\ISpriteRenderTestUtils\IMPL\Environment_PublicTypes.cpp">
       <Filter>IMPL</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Test\ISpriteRenderTestUtils\Utils\TestTypes.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Test\ISpriteRenderTestUtils\MASTER.h" />
@@ -249,5 +252,8 @@
       <Filter>Fixture</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Test\ISpriteRenderTestUtils\Environment_PublicTypes.h" />
+    <ClInclude Include="..\..\Test\ISpriteRenderTestUtils\Utils\TestTypes.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

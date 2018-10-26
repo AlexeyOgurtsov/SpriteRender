@@ -3,6 +3,7 @@
 #include "../Utils/TestUtils.h"
 #include "../SprRenHelper/SprRenHelper_MaterialTypes.h"
 #include "../IMPL/Utils/TextureElement.h"
+#include "../Utils/TestTypes.h"
 
 namespace Test
 {
@@ -60,6 +61,13 @@ namespace Test
 		Handle_SprMaterialInstance CreateMatInst_Default_Blue_10_10(const char* pInName = "Blue");
 		Handle_SprMaterialInstance CreateMatInst_Default_White_10_10(const char* pInName = "White");
 		// ~ Materials End
+
+		// ~TestMaterial Begin
+		TestMaterial GetTestMat_Red();
+		TestMaterial GetTestMat_Green();
+		TestMaterial GetTestMat_Blue();
+		TestMaterial GetTestMat_White();
+		// ~TestMaterial End
 
 	private:
 		DXGI_FORMAT TextureFormat = DXGI_FORMAT_UNKNOWN;

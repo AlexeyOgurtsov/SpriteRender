@@ -2,6 +2,7 @@
 
 #include "ISprPerTestFixtureBase.h"
 #include "TestHelpers.h"
+#include "ISpriteRenderTestUtils/Utils/TestTypes.h"
 
 namespace Test::ISpr
 {
@@ -38,15 +39,25 @@ namespace Test::ISpr
 			MySprRen::MaterialInstanceRenderStateInitializerPtr InRenderState,
 			MySpr::ESpriteTransparency InTransparency = MySpr::ESpriteTransparency::Opaque
 		);
+		void CreateSprite(TSSprite& InSprite);
 		void DeleteSprite(SpriteHandle InHandle);
+		void DeleteSprite(TSSprite& InSprite);
 		void HideSprite(SpriteHandle InHandle);
+		void HideSprite(TSSprite& InSprite);
 		void ShowSprite(SpriteHandle InHandle);
+		void ShowSprite(TSSprite& InSprite);
 		void SetSpriteTransparency(SpriteHandle InHandle, MySpr::ESpriteTransparency InTransparency);
+		void SetSpriteTransparency(TSSprite& InSprite, MySpr::ESpriteTransparency InTransparency);
 		void SetSpriteGeometry(SpriteHandle InHandle, const MySpr::SSpriteGeometryProps& InGeometry);
+		void SetSpriteGeometry(TSSprite& InSprite, const MySpr::SSpriteGeometryProps& InGeometry);
 		void SetSpritePosition(SpriteHandle InHandle, const MySprMath::SVec2& InPosition);
+		void SetSpritePosition(TSSprite& InSprite, const MySprMath::SVec2& InPosition);
 		void ResizeSprite(SpriteHandle InHandle, const MySprMath::SSize& InSize);
+		void ResizeSprite(TSSprite& InSprite, const MySprMath::SSize& InSize);
 		void ResizeSprite(SpriteHandle InHandle, float InWidth, float InHeight);
+		void ResizeSprite(TSSprite& InSprite, float InWidth, float InHeight);
 		void SetSpriteMaterial(SpriteHandle InHandle, const MySprRen::MaterialInstanceRenderStateInitializerPtr& InRenderState);
+		void SetSpriteMaterial(TSSprite& InSprite, const MySprRen::MaterialInstanceRenderStateInitializerPtr& InRenderState);
 		// ~ Sprite render helpers End
 
 		// ~ Screen helpers Begin
