@@ -5,6 +5,8 @@
 */
 
 #include "MinimalSmokeTests.h"
+#include "MinimalMoveZOrderTests.h"
+#include "MinimalTransparencyTests.h"
 
 namespace Test::ISpr
 {

@@ -30,6 +30,12 @@
     <ClInclude Include="..\..\Test\ISpriteRender\ISprPerTestFixture_SingleCanvas_Smoke.h">
       <Filter>TEST</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Test\ISpriteRender\MinimalMoveZOrderTests.h">
+      <Filter>TEST</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Test\ISpriteRender\MinimalTransparencyTests.h">
+      <Filter>TEST</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="IMPL">

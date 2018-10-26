@@ -74,6 +74,10 @@ namespace Test::ISpr
 		void ResizeSprite(const TSSprite& InSprite, float InWidth, float InHeight);
 		void SetSpriteMaterial(SpriteHandle InHandle, const MySprRen::MaterialInstanceRenderStateInitializerPtr& InRenderState);
 		void SetSpriteMaterial(const TSSprite& InSprite, const MySprRen::MaterialInstanceRenderStateInitializerPtr& InRenderState);
+		void MoveSpriteZOrderAfter(SpriteHandle InHandle, SpriteHandle InZBeforeSpriteHandle);
+		void MoveSpriteZOrderAfter(const TSSprite& InSprite, const TSSprite* InZBeforeSprite);
+		void MoveSpriteZOrderOnTop(SpriteHandle InHandle);
+		void MoveSpriteZOrderOnTop(const TSSprite& InSprite);
 		// ~ Sprite render helpers End
 
 		// ~ Screen helpers Begin
@@ -170,6 +174,11 @@ namespace Test::ISpr
 		* Shows all sprites in the vector.
 		*/
 		void ShowSprites(const TSSpriteVector& InSprites);
+
+		/**
+		* Moves all sprites to the given pos.
+		*/
+		void MoveAllSpritesTo(const TSSpriteVector& InSprites, const MySprMath::SVec2& InPos);
 
 		boost::test_tools::predicate_result CheckVisibility(const IFrameCheckContextHandle& ContextHandle, const TSSpriteVector& InSprites);
 		// ~ TestSprite helpers End

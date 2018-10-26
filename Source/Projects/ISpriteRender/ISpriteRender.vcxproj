@@ -143,7 +143,9 @@
     <ClInclude Include="..\..\Test\ISpriteRender\ISprPerTestFixtureBase.h" />
     <ClInclude Include="..\..\Test\ISpriteRender\ISprPerTestFixture_Custom.h" />
     <ClInclude Include="..\..\Test\ISpriteRender\ISprPerTestFixture_SingleCanvas_Smoke.h" />
+    <ClInclude Include="..\..\Test\ISpriteRender\MinimalMoveZOrderTests.h" />
     <ClInclude Include="..\..\Test\ISpriteRender\MinimalSmokeTests.h" />
+    <ClInclude Include="..\..\Test\ISpriteRender\MinimalTransparencyTests.h" />
     <ClInclude Include="..\..\Test\ISpriteRender\TestHelpers.h" />
   </ItemGroup>
   <ItemGroup>

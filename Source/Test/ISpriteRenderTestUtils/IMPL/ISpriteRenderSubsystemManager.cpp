@@ -122,6 +122,16 @@ namespace Test
 		T_LOG("ISpriteRenderSubsystemManager::SetMatInst DONE");
 	}
 
+	void ISpriteRenderSubsystemManager::MoveSpriteZOrderAfter(MySprRen::ISpriteUpdater* pInUpdater, SprId InId, SprId InZBeforeSpriteId)
+	{
+		T_LOG("ISpriteRenderSubsystemManager::MoveSpriteZOrderAfter, Id=" << InId << "...");
+		BOOST_ASSERT(pInUpdater);
+		BOOST_ASSERT_MSG(GetSpriteRender(), "ISpriteRenderSubsystemManager::CreateSprite: Sprite render must be initialized");
+		T_LOG("ZBeforeSprite Id: " << InZBeforeSpriteId << (MySpr::IsValidSpriteId(InZBeforeSpriteId) ? "(valid)" : "(invalid=<OnTop>)"));		
+		pInUpdater->SetSpriteZOrder(InId, InZBeforeSpriteId);
+		T_LOG("ISpriteRenderSubsystemManager: Sprite " << InId << " MoveSpriteZOrderAfter called");
+	}
+
 	void ISpriteRenderSubsystemManager::SetSpriteTransparency(MySprRen::ISpriteUpdater* pInUpdater, SprId InId, MySpr::ESpriteTransparency InTransparency)
 	{
 		T_LOG("ISpriteRenderSubsystemManager::SetTransparency, Id=" << InId << "...");

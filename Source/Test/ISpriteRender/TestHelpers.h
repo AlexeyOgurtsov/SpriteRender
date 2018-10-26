@@ -18,5 +18,9 @@ namespace Test::ISpr
 	std::string const SuitePath_MinimalSmoke_Render = SuitePath_MinimalSmoke + std::string("/") + SuiteName_Render;
 	std::string const SuiteName_Updater { "SuiteUpdater" };
 	std::string const SuitePath_MinimalSmoke_Updater = SuitePath_MinimalSmoke + std::string("/") + SuiteName_Updater;
+	
+
+	std::string const SuitePath_MinimalMoveZOrder { "SuiteMinimalMoveZOrder" };
+	std::string const SuitePath_MinimalTransparency { "SuiteMinimalTransparency" };
 	// ~ Sprite render test suite paths End
 } // Test::ISpr
