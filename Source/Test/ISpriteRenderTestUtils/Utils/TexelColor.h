@@ -8,6 +8,13 @@
 
 namespace Test
 {
+	constexpr float COLOR_COMPONENT_TOLERANCE = 0.1F;
+
+	enum class EBlendOp
+	{
+		Additive = 0,
+		Subtractive
+	};
 
 	enum class EColorBrightnessLevel
 	{
@@ -16,20 +23,21 @@ namespace Test
 		Low,
 		High,
 		Highest
-	};
+	};	
 
-	constexpr UINT NUM_TEX_BRIGHTNESS_LEVELS = 4;
+	constexpr UINT MAX_BRIGHTNESS_LEVEL = 4;
+	constexpr UINT NUM_TEX_BRIGHTNESS_LEVELS = 5;	
 	constexpr UINT DEFAULT_MINIMAL_TEX_SIZE = 10;
 	constexpr UINT BOOL_INDEX_NUM = 2;
 
 	template<class T>
-	using TArrayByColor = T[BOOL_INDEX_NUM][BOOL_INDEX_NUM][BOOL_INDEX_NUM][BOOL_INDEX_NUM][NUM_TEX_BRIGHTNESS_LEVELS];
+	using TArrayByColor = T[BOOL_INDEX_NUM][BOOL_INDEX_NUM][BOOL_INDEX_NUM][NUM_TEX_BRIGHTNESS_LEVELS][NUM_TEX_BRIGHTNESS_LEVELS];
 
 	uint8_t ComponentCoeffFromBool(bool bInSet, EColorBrightnessLevel InBrighness);
 
-	template<class T> T* GetArrayByColorElementPtr(TArrayByColor<T>& InArr, bool bInRed, bool bInGreen, bool bInBlue, bool bInAlpha, EColorBrightnessLevel InBrightness)
+	template<class T> T* GetArrayByColorElementPtr(TArrayByColor<T>& InArr, bool bInRed, bool bInGreen, bool bInBlue, EColorBrightnessLevel InAlphaBrightness, EColorBrightnessLevel InBrightness)
 	{
-		return &InArr[BoolToIndex(bInRed)][BoolToIndex(bInGreen)][BoolToIndex(bInBlue)][BoolToIndex(bInAlpha)][static_cast<UINT>(InBrightness)];
+		return &InArr[BoolToIndex(bInRed)][BoolToIndex(bInGreen)][BoolToIndex(bInBlue)][static_cast<UINT>(InAlphaBrightness)][static_cast<UINT>(InBrightness)];
 	}
 
 	/**
@@ -64,15 +72,15 @@ namespace Test
 		float GetComponentFactor(int InIndex) const;
 
 		// ~Color Getters Begin
-		static TexelColor GetRed(DXGI_FORMAT InFormat, EColorBrightnessLevel InColorBrightnessLevel = EColorBrightnessLevel::Highest, float InAlpha = 1.0F);
-		static TexelColor GetGreen(DXGI_FORMAT InFormat, EColorBrightnessLevel InColorBrightnessLevel = EColorBrightnessLevel::Highest, float InAlpha = 1.0F);
-		static TexelColor GetBlue(DXGI_FORMAT InFormat, EColorBrightnessLevel InColorBrightnessLevel = EColorBrightnessLevel::Highest, float InAlpha = 1.0F);
-		static TexelColor GetWhite(DXGI_FORMAT InFormat, EColorBrightnessLevel InColorBrightnessLevel = EColorBrightnessLevel::Highest, float InAlpha = 1.0F);
-		static TexelColor GetBlack(DXGI_FORMAT InFormat, EColorBrightnessLevel InColorBrightnessLevel = EColorBrightnessLevel::Highest, float InAlpha = 1.0F);
-		static TexelColor GetRedGreen(DXGI_FORMAT InFormat, EColorBrightnessLevel InColorBrightnessLevel = EColorBrightnessLevel::Highest, float InAlpha = 1.0F);
-		static TexelColor GetRedBlue(DXGI_FORMAT InFormat, EColorBrightnessLevel InColorBrightnessLevel = EColorBrightnessLevel::Highest, float InAlpha = 1.0F);
-		static TexelColor GetGreenBlue(DXGI_FORMAT InFormat, EColorBrightnessLevel InColorBrightnessLevel = EColorBrightnessLevel::Highest, float InAlpha = 1.0F);
-		static TexelColor GetColor(DXGI_FORMAT, float InRed, float InGreen, float InBlue, EColorBrightnessLevel InColorBrightnessLevel = EColorBrightnessLevel::Highest, float InAlpha = 1.0F);
+		static TexelColor GetRed(DXGI_FORMAT InFormat, EColorBrightnessLevel InAlphaBrightness = EColorBrightnessLevel::Highest, EColorBrightnessLevel InColorBrightnessLevel = EColorBrightnessLevel::Highest);
+		static TexelColor GetGreen(DXGI_FORMAT InFormat, EColorBrightnessLevel InAlphaBrightness = EColorBrightnessLevel::Highest, EColorBrightnessLevel InColorBrightnessLevel = EColorBrightnessLevel::Highest);
+		static TexelColor GetBlue(DXGI_FORMAT InFormat, EColorBrightnessLevel InAlphaBrightness = EColorBrightnessLevel::Highest, EColorBrightnessLevel InColorBrightnessLevel = EColorBrightnessLevel::Highest);
+		static TexelColor GetWhite(DXGI_FORMAT InFormat, EColorBrightnessLevel InAlphaBrightness = EColorBrightnessLevel::Highest, EColorBrightnessLevel InColorBrightnessLevel = EColorBrightnessLevel::Highest);
+		static TexelColor GetBlack(DXGI_FORMAT InFormat, EColorBrightnessLevel InAlphaBrightness = EColorBrightnessLevel::Highest, EColorBrightnessLevel InColorBrightnessLevel = EColorBrightnessLevel::Highest);
+		static TexelColor GetRedGreen(DXGI_FORMAT InFormat, EColorBrightnessLevel InAlphaBrightness = EColorBrightnessLevel::Highest, EColorBrightnessLevel InColorBrightnessLevel = EColorBrightnessLevel::Highest);
+		static TexelColor GetRedBlue(DXGI_FORMAT InFormat, EColorBrightnessLevel InAlphaBrightness = EColorBrightnessLevel::Highest, EColorBrightnessLevel InColorBrightnessLevel = EColorBrightnessLevel::Highest);
+		static TexelColor GetGreenBlue(DXGI_FORMAT InFormat, EColorBrightnessLevel InAlphaBrightness = EColorBrightnessLevel::Highest, EColorBrightnessLevel InColorBrightnessLevel = EColorBrightnessLevel::Highest);
+		static TexelColor GetColor(DXGI_FORMAT, float InRed, float InGreen, float InBlue, EColorBrightnessLevel InAlphaBrightness = EColorBrightnessLevel::Highest, EColorBrightnessLevel InColorBrightnessLevel = EColorBrightnessLevel::Highest);
 		// ~Color Getters End
 
 	private:
@@ -150,6 +158,13 @@ namespace Test
 
 	bool AreTexelsMatch(const TexelColor& InA, const TexelColor& InB, bool bInCheckAlpha = false);
 	bool AreTexelsMatch(const void* pTex, DXGI_FORMAT InFormat, const void* pOtherTex, DXGI_FORMAT InOtherFormat, bool bInCheckAlpha = false);
+
+	/**
+	* Returns true if the given result is adequate for the given alpha blending.
+	* (alpha component itself is never checked).
+	*/
+	bool CheckAlphaBlendResult(const TexelColor& InRef, const TexelColor& InDest, const TexelColor& InSource, EBlendOp InOp);
+	TexelColor GetAdditiveAlphaResult(const TexelColor& InDest, const TexelColor& InSource, EBlendOp InBlendOp);
 
 	float GetBrightnessFactor(EColorBrightnessLevel InBrighness);
 } // Test

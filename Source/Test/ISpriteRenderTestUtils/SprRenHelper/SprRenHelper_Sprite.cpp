@@ -50,6 +50,28 @@ void Sprite::SetPosition(MySprRen::ISpriteUpdater* pInUpdater, const SprVec2& In
 	pSubsys->SetSpriteGeometry(pInUpdater, GetId(), CurrInitializer.Props.Geometry);
 }
 
+void Sprite::SetRotationAngle(MySprRen::ISpriteUpdater* pInUpdater, float InAngleDegs)
+{
+	CurrInitializer.Props.Geometry.Transform.AngleDegs = InAngleDegs;
+	pSubsys->SetSpriteGeometry(pInUpdater, GetId(), CurrInitializer.Props.Geometry);
+}
+
+void Sprite::SetOrigin(MySprRen::ISpriteUpdater* pInUpdater, const SprVec2& InNewOrigin)
+{
+	CurrInitializer.Props.Geometry.Transform.Origin = InNewOrigin;
+	pSubsys->SetSpriteGeometry(pInUpdater, GetId(), CurrInitializer.Props.Geometry);
+}
+
+void Sprite::SetOriginToLeftBottom(MySprRen::ISpriteUpdater* pInUpdater)
+{
+	return SetOrigin(pInUpdater, MySprMath::SVec2{0.0F, 0.0F});
+}
+
+void Sprite::SetOriginToCenter(MySprRen::ISpriteUpdater* pInUpdater)
+{
+	return SetOrigin(pInUpdater, MySprMath::SVec2{ GetSize().Width / 2.0F, GetSize().Height / 2.0F });
+}
+
 void Sprite::SetMatInst(MySprRen::ISpriteUpdater* pInUpdater, const Handle_SprMaterialInstance& InInst)
 {
 	CurrInitializer.pRenderState = InInst;
@@ -100,7 +122,7 @@ const MySprMath::SSpriteTransform& Sprite::GetTransform() const
 	return GetGeometry().Transform;
 }
 
-const MySprMath::SVec2& Sprite::GetPosition() const
+const MySprMath::SVec2& Sprite::GetOriginPosition() const
 {
 	return GetTransform().Position;
 }
@@ -110,9 +132,24 @@ const MySprMath::SSize& Sprite::GetSize() const
 	return GetGeometry().Size;
 }
 
-const MySprMath::SVec2 Sprite::GetCenter() const
+const MySprMath::SVec2 Sprite::GetOrigin() const
 {
-	return MySprMath::GetCenter(GetPosition(), GetSize());
+	return GetTransform().Origin;
+}
+
+float Sprite::GetRotationAngle() const
+{
+	return GetTransform().AngleDegs;
+}
+
+MySprMath::SVec2 Sprite::GetCenter() const
+{
+	return MySprMath::GetCenterOfRotatedRect(GetLBPosition(), GetSize(), GetOrigin(), GetRotationAngle());
+}
+
+MySprMath::SVec2 Sprite::GetLBPosition() const
+{
+	return GetOriginPosition() - GetOrigin();
 }
 
 const MySpr::ESpriteTransparency& Sprite::GetTransparency() const

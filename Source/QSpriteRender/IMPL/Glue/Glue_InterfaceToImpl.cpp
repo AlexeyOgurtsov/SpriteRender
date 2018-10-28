@@ -18,6 +18,9 @@ SSpriteGeometryData FillGeometryDataStruct(const SSpriteGeometryProps& InProps)
 	resultGeometry.Width = InProps.Size.Width;
 	resultGeometry.PositionX = InProps.Transform.Position.X;
 	resultGeometry.PositionY = InProps.Transform.Position.Y;
+	resultGeometry.OriginOffset[0] = InProps.Transform.Origin.X;
+	resultGeometry.OriginOffset[1] = InProps.Transform.Origin.Y;
+	resultGeometry.AngleDegs = InProps.Transform.AngleDegs;
 	for (int vertexIndex = 0; vertexIndex < 4; vertexIndex++)
 	{
 		resultGeometry.TexCoordX[vertexIndex] = InProps.Vertices.V[vertexIndex].TexCoord.X;

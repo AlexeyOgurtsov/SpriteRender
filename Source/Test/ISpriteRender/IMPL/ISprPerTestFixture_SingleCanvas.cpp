@@ -96,13 +96,23 @@ namespace Test::ISpr
 		const MySprMath::SVec2& InPosition,
 		float InWidth, float InHeight,
 		MySprRen::MaterialInstanceRenderStateInitializerPtr InRenderState,
-		MySpr::ESpriteTransparency InTransparency
+		const SpriteTransparencyMode& InTransparencyMode,
+		const MySprMath::SVec2& InOrigin,
+		float InRotationAngle
 	)
 	{
 		SprId const Id = GetSprId();
 		T_LOG("Fixture: SingleCanvas: CreateSprite_ZOrderAfter, Id=" << Id << "...");
 		MySpr::SpriteId ZBeforeSpriteId = ((InZBeforeSpriteId != nullptr) ? InZBeforeSpriteId->GetId() : MySpr::NULL_SPRITE_ID);
-		SpriteHandle Handle = GetSpriteRenderSubsystemManager()->CreateSprite_ZOrderAfter(Id, ZBeforeSpriteId, GetUpdater(), CanvHandle, InPosition, InWidth, InHeight, InRenderState, InTransparency);
+
+		// @TODO: Here we must pass the angle
+		SpriteHandle Handle = GetSpriteRenderSubsystemManager()->CreateSprite_ZOrderAfter
+		(
+			Id, ZBeforeSpriteId,
+			GetUpdater(), CanvHandle, 
+			InPosition, InWidth, InHeight, InRenderState, InTransparencyMode,
+			InOrigin, InRotationAngle
+		);
 		T_LOG("Fixture: SingleCanvas: Sprite " << Id << " Created");
 		return Handle;
 	}
@@ -112,10 +122,12 @@ namespace Test::ISpr
 		const MySprMath::SVec2& InPosition,
 		float InWidth, float InHeight,
 		MySprRen::MaterialInstanceRenderStateInitializerPtr InRenderState,
-		MySpr::ESpriteTransparency InTransparency
+		const SpriteTransparencyMode& InTransparencyMode,
+		const MySprMath::SVec2& InOrigin,
+		float InRotationAngle
 	)
 	{
-		return CreateSprite_ZOrderAfter(nullptr, InPosition, InWidth, InHeight, InRenderState, InTransparency);
+		return CreateSprite_ZOrderAfter(nullptr, InPosition, InWidth, InHeight, InRenderState, InTransparencyMode, InOrigin, InRotationAngle);
 	}
 
 	SpriteHandle ISprPerTestFixture_SingleCanvas::CreateSprite_ZOrderAfter
@@ -124,10 +136,12 @@ namespace Test::ISpr
 		const MySprMath::SVec2& InPosition,
 		const MySprMath::SSize& InSize,
 		MySprRen::MaterialInstanceRenderStateInitializerPtr InRenderState,
-		MySpr::ESpriteTransparency InTransparency
+		const SpriteTransparencyMode& InTransparencyMode,
+		const MySprMath::SVec2& InOrigin,
+		float InRotationAngle
 	)
 	{
-		return CreateSprite_ZOrderAfter(InZBeforeSpriteId, InPosition, InSize.Width, InSize.Height, InRenderState, InTransparency);
+		return CreateSprite_ZOrderAfter(InZBeforeSpriteId, InPosition, InSize.Width, InSize.Height, InRenderState, InTransparencyMode, InOrigin, InRotationAngle);
 	}
 
 	SpriteHandle ISprPerTestFixture_SingleCanvas::CreateSprite
@@ -135,7 +149,9 @@ namespace Test::ISpr
 		const MySprMath::SVec2& InPosition,
 		const MySprMath::SSize& InSize,
 		MySprRen::MaterialInstanceRenderStateInitializerPtr InRenderState,
-		MySpr::ESpriteTransparency InTransparency
+		const SpriteTransparencyMode& InTransparencyMode,
+		const MySprMath::SVec2& InOrigin,
+		float InRotationAngle
 	)
 	{
 		return CreateSprite_ZOrderAfter
@@ -144,13 +160,27 @@ namespace Test::ISpr
 			InPosition,
 			InSize,
 			InRenderState,
-			InTransparency
+			InTransparencyMode,
+			InOrigin,
+			InRotationAngle
 		);
 	}
 
 	void ISprPerTestFixture_SingleCanvas::CreateSprite(TSSprite& InSprite)
 	{
-		InSprite.SetHandle(CreateSprite_ZOrderAfter(InSprite.GetInitZBeforeSpriteHandle(), InSprite.GetInitPos(), InSprite.GetInitSize(), InSprite.GetInitMatInst()));
+		InSprite.SetHandle
+		(
+			CreateSprite_ZOrderAfter
+			(
+				InSprite.GetInitZBeforeSpriteHandle(), 
+				InSprite.GetInitPos(), 
+				InSprite.GetInitSize(), 
+				InSprite.GetInitMatInst(), 
+				InSprite.GetInitTransparencyMode(), 
+				InSprite.GetInitOrigin(),
+				InSprite.GetInitRotationAngle()
+			)
+		);
 	}
 
 	void ISprPerTestFixture_SingleCanvas::DeleteSprite(TSSprite& InSprite)
@@ -200,6 +230,46 @@ namespace Test::ISpr
 	{
 		BOOST_ASSERT(InSprite.IsCreated());
 		ResizeSprite(InSprite.GetHandle(), InWidth, InHeight);
+	}
+
+	void ISprPerTestFixture_SingleCanvas::SetRotationAngle(SpriteHandle InHandle, float InAngleDegs)
+	{
+		T_LOG("Fixture: SingleCanvas: SetRotationAngle, Id=" << InHandle->GetId() << "...");
+		T_LOG("New rotation angle: " << InAngleDegs);
+		InHandle->SetRotationAngle(GetUpdater(), InAngleDegs);
+		T_LOG("Rotation angle after set: " << InHandle->GetRotationAngle());
+		T_LOG("Fixture: SingleCanvas: Sprite << " << InHandle->GetId() << " Rotation angle changed");
+	}
+
+	void ISprPerTestFixture_SingleCanvas::SetRotationAngle(const TSSprite& InSprite, float InAngleDegs)
+	{
+		BOOST_ASSERT(InSprite.IsCreated());
+		SetRotationAngle(InSprite.GetHandle(), InAngleDegs);
+	}
+
+	void ISprPerTestFixture_SingleCanvas::SetSpriteOrigin(SpriteHandle InHandle, const MySprMath::SVec2& InNewOrigin_FromSpriteLB)
+	{
+		T_LOG("Fixture: SingleCanvas: SetSpriteOrigin, Id=" << InHandle->GetId() << "...");
+		T_LOG("New sprite origin: " << InNewOrigin_FromSpriteLB);
+		InHandle->SetOrigin(GetUpdater(), InNewOrigin_FromSpriteLB);
+		T_LOG("Fixture: SingleCanvas: Sprite << " << InHandle->GetId() << " Sprite origin changed");
+	}
+	
+	void ISprPerTestFixture_SingleCanvas::SetSpriteOriginToCenter(SpriteHandle InHandle)
+	{
+		return SetSpriteOrigin(InHandle, MySprMath::SVec2{InHandle->GetSize().Width / 2.0F, InHandle->GetSize().Height / 2.0F});
+	}
+
+	void ISprPerTestFixture_SingleCanvas::SetSpriteOrigin(const TSSprite& InSprite, const MySprMath::SVec2& InNewOrigin_FromSpriteLB)
+	{
+		BOOST_ASSERT(InSprite.IsCreated());
+		SetSpriteOrigin(InSprite.GetHandle(), InNewOrigin_FromSpriteLB);
+	}
+
+	void ISprPerTestFixture_SingleCanvas::SetSpriteOriginToCenter(const TSSprite& InSprite)
+	{
+		BOOST_ASSERT(InSprite.IsCreated());
+		SetSpriteOriginToCenter(InSprite.GetHandle());
 	}
 
 	void ISprPerTestFixture_SingleCanvas::SetSpriteMaterial(const TSSprite& InSprite, const MySprRen::MaterialInstanceRenderStateInitializerPtr& InRenderState)
@@ -337,6 +407,16 @@ namespace Test::ISpr
 		return ISprPerTestFixtureBase::SpriteVisibleAsColor(CanvHandle, ContextHandle, InSprite, InColor);
 	}
 
+	bool ISprPerTestFixture_SingleCanvas::SpriteBlendedProperly(const IFrameCheckContextHandle& ContextHandle, const TSSprite& InSourceSprite, const TSSprite& InDestSprite, EBlendOp InBlendOp)
+	{
+		return SpriteBlendedProperly(ContextHandle, InSourceSprite, InDestSprite.GetInitUniColor(), InBlendOp);
+	}
+	
+	bool ISprPerTestFixture_SingleCanvas::SpriteBlendedProperly(const IFrameCheckContextHandle& ContextHandle, const TSSprite& InSourceSprite, const TexelColor& InDestColor, EBlendOp InBlendOp)
+	{
+		return RT_SpriteBlendedProperly(ContextHandle.get(), CanvHandle, InSourceSprite.GetHandle(), InSourceSprite.GetInitUniColor(), InDestColor, InBlendOp);
+	}
+
 	bool ISprPerTestFixture_SingleCanvas::SpriteHidden(const IFrameCheckContextHandle& ContextHandle, SpriteHandle InSprite)
 	{
 		return ISprPerTestFixtureBase::SpriteHidden(CanvHandle, ContextHandle, InSprite);
@@ -412,6 +492,85 @@ namespace Test::ISpr
 		{
 			SetSpritePosition(S, InPos);
 		}
+	}
+
+	int ISprPerTestFixture_SingleCanvas::PrepareSprite
+	(
+		TSSpriteVector* pOutSprites,
+		const TSMaterial& InMaterial,
+		const MySprMath::SVec2& InPosition, const MySprMath::SSize& InSize,
+		const MySprMath::SVec2& InOrigin,
+		float InRotationAngle,
+		bool bInShow
+	)
+	{
+		return PrepareSprite(pOutSprites, SpriteTransparencyMode::Opaque, InMaterial, InPosition, InSize, InOrigin, InRotationAngle, bInShow);
+	}
+
+	int ISprPerTestFixture_SingleCanvas::PrepareSprite
+	(
+		TSSpriteVector* pOutSprites,
+		const SpriteTransparencyMode& InTransparencyMode,
+		const TSMaterial& InMaterial,
+		const MySprMath::SVec2& InPosition, const MySprMath::SSize& InSize,
+		const MySprMath::SVec2& InOrigin,
+		float InRotationAngle,
+		bool bInShow
+	)
+	{
+		return PrepareSprite_ZOrderAfter(pOutSprites, nullptr, InTransparencyMode, InMaterial, InPosition, InSize, InOrigin, InRotationAngle, bInShow);
+	}
+
+	/**
+	* Prepares sprite (creates, registers, optionally shows (by default).
+	*/
+	int ISprPerTestFixture_SingleCanvas::PrepareSprite_ZOrderAfter
+	(
+		TSSpriteVector* pOutSprites,
+		TSSprite* pZBeforeSprite,
+		const TSMaterial& InMaterial,
+		const MySprMath::SVec2& InPosition, const MySprMath::SSize& InSize,
+		const MySprMath::SVec2& InOrigin,
+		float InRotationAngle,
+		bool bInShow 
+	)
+	{
+		return PrepareSprite_ZOrderAfter(pOutSprites, pZBeforeSprite, SpriteTransparencyMode::Opaque, InMaterial, InPosition, InSize, InOrigin, InRotationAngle, bInShow);
+	}
+
+	int ISprPerTestFixture_SingleCanvas::PrepareSprite_ZOrderAfter
+	(
+		TSSpriteVector* pOutSprites,
+		TSSprite* pZBeforeSprite,
+		const SpriteTransparencyMode& InTransparencyMode,
+		const TSMaterial& InMaterial,
+		const MySprMath::SVec2& InPosition, const MySprMath::SSize& InSize,
+		const MySprMath::SVec2& InOrigin,
+		float InRotationAngle,
+		bool bInShow
+	)
+	{
+		BOOST_ASSERT(pOutSprites);
+		// WARNING: pZBeforeSprite: do may be nullptr (and it is most of times)
+		
+		auto const it = pOutSprites->emplace_back
+		( 
+			pZBeforeSprite,
+			InMaterial, 
+			ScreenPart(InSize.Width, InSize.Height), 
+			PointAt(InPosition.X, InPosition.Y),
+			InTransparencyMode,
+			InOrigin,
+			InRotationAngle
+		);
+		int const index = (pOutSprites->size() - 1);
+		TSSprite& S = (*pOutSprites)[index];
+		CreateSprite(S);
+		if (bInShow)
+		{
+			ShowSprite(S);
+		}
+		return index;
 	}
 
 	boost::test_tools::predicate_result ISprPerTestFixture_SingleCanvas::CheckVisibility(const IFrameCheckContextHandle& ContextHandle, const TSSpriteVector& InSprites)

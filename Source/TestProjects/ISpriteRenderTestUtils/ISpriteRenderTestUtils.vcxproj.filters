@@ -135,6 +135,9 @@
     <ClCompile Include="..\..\Test\ISpriteRenderTestUtils\Utils\MiscUtils.cpp">
       <Filter>Utils</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Test\ISpriteRenderTestUtils\SprRenHelper\SprRenHelper_Transparency.cpp">
+      <Filter>SprRenHelper</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Test\ISpriteRenderTestUtils\MASTER.h" />
@@ -260,6 +263,9 @@
     </ClInclude>
     <ClInclude Include="..\..\Test\ISpriteRenderTestUtils\Utils\MiscUtils.h">
       <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Test\ISpriteRenderTestUtils\SprRenHelper\SprRenHelper_Transparency.h">
+      <Filter>SprRenHelper</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

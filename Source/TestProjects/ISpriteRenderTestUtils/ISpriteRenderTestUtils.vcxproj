@@ -162,6 +162,7 @@
     <ClCompile Include="..\..\Test\ISpriteRenderTestUtils\IMPL\Utils\WINDOW.cpp" />
     <ClCompile Include="..\..\Test\ISpriteRenderTestUtils\SprRenHelper\SprRenHelper_Canvas.cpp" />
     <ClCompile Include="..\..\Test\ISpriteRenderTestUtils\SprRenHelper\SprRenHelper_Sprite.cpp" />
+    <ClCompile Include="..\..\Test\ISpriteRenderTestUtils\SprRenHelper\SprRenHelper_Transparency.cpp" />
     <ClCompile Include="..\..\Test\ISpriteRenderTestUtils\Utils\MathUtils.cpp" />
     <ClCompile Include="..\..\Test\ISpriteRenderTestUtils\Utils\MiscUtils.cpp" />
     <ClCompile Include="..\..\Test\ISpriteRenderTestUtils\Utils\TestTypes.cpp" />
@@ -208,6 +209,7 @@
     <ClInclude Include="..\..\Test\ISpriteRenderTestUtils\SprRenHelper\SprRenHelper_MathTypes.h" />
     <ClInclude Include="..\..\Test\ISpriteRenderTestUtils\SprRenHelper\SprRenHelper_Sprite.h" />
     <ClInclude Include="..\..\Test\ISpriteRenderTestUtils\SprRenHelper\SprRenHelper_System.h" />
+    <ClInclude Include="..\..\Test\ISpriteRenderTestUtils\SprRenHelper\SprRenHelper_Transparency.h" />
     <ClInclude Include="..\..\Test\ISpriteRenderTestUtils\SprRenHelper\SprRenHelper_Types.h" />
     <ClInclude Include="..\..\Test\ISpriteRenderTestUtils\TesterConfig.h" />
     <ClInclude Include="..\..\Test\ISpriteRenderTestUtils\Utils\MathUtils.h" />

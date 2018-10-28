@@ -34,6 +34,12 @@ namespace Test
 		return AreTexelsMatch(InColor, RT_ColorByCanvasPoint(pContext, InCanvas, InCanvasPoint), bMatchAlpha);
 	}
 
+	bool RT_TexelBlendedProperly(IFrameCheckContext* pContext, CanvasHandle InCanvas, const SprVec2& InCanvasPoint, const TexelColor& InSourceColor, const TexelColor& InDestColor, EBlendOp InOp)
+	{
+		TexelColor ColorToCheck = RT_ColorByCanvasPoint(pContext, InCanvas, InCanvasPoint);
+		return CheckAlphaBlendResult(ColorToCheck, InDestColor, InSourceColor, InOp);
+	}
+
 	bool RT_IsCanvasClear_AtCanvasPoint(IFrameCheckContext* pContext, CanvasHandle InCanvas, const Vec2& InCanvasPoint, bool bMatchAlpha)
 	{
 		return RT_ColorMatchesCanvas_AtCanvasPoint(pContext, InCanvas, InCanvasPoint, pContext->GetRTConfig().ClearColor, bMatchAlpha);
@@ -62,14 +68,20 @@ namespace Test
 		return RT_ColorMatchesCanvas_AtCanvasPoint(pContext, InCanvas, CanvasPoint, InColor, bMatchAlpha);
 	}
 
-	bool RT_SpriteHidden(IFrameCheckContext* pContext, CanvasHandle InCanvas, SpriteHandle InSprite, bool bMatchAlpha)
+	bool RT_SpriteBlendedProperly(IFrameCheckContext* pContext, CanvasHandle InCanvas, SpriteHandle InSprite, const TexelColor& InSourceColor, const TexelColor& InDestColor, EBlendOp InOp)
 	{
-		return RT_SpriteHidden_AtCanvasPoint(pContext, InCanvas, InSprite, InSprite->GetPosition(), bMatchAlpha);
+		SprVec2 const CanvasPoint = InSprite->GetCenter();
+		return RT_TexelBlendedProperly(pContext, InCanvas, CanvasPoint, InSourceColor, InDestColor, InOp);
 	}
 
-	bool RT_SpriteHidden_AtCanvasPoint(IFrameCheckContext* pContext, CanvasHandle InCanvas, SpriteHandle InSprite, const SprVec2& InSpritePosition_AsCanvasPoint, bool bMatchAlpha)
+	bool RT_SpriteHidden(IFrameCheckContext* pContext, CanvasHandle InCanvas, SpriteHandle InSprite, bool bMatchAlpha)
+	{
+		return RT_SpriteHidden_AtCanvasPoint(pContext, InCanvas, InSprite, InSprite->GetLBPosition(), bMatchAlpha);
+	}
+
+	bool RT_SpriteHidden_AtCanvasPoint(IFrameCheckContext* pContext, CanvasHandle InCanvas, SpriteHandle InSprite, const SprVec2& InSpriteLBPosition_AsCanvasPoint, bool bMatchAlpha)
 	{		
-		SprVec2 SpriteCenter = MySprMath::GetCenter(InSpritePosition_AsCanvasPoint, InSprite->GetSize());
+		SprVec2 SpriteCenter = MySprMath::GetCenterOfRotatedRect(InSpriteLBPosition_AsCanvasPoint, InSprite->GetSize(), InSprite->GetOrigin(), InSprite->GetRotationAngle());
 		return RT_IsCanvasClear_AtCanvasPoint(pContext, InCanvas, SpriteCenter, bMatchAlpha);
 	}
 } // Test

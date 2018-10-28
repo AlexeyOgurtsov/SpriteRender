@@ -3,6 +3,7 @@
 #include "ISpriteRenderSubsystemManager_PublicTypes.h"
 #include "SprRenHelper/SprRenHelper_ISpriteRenderFwd.h"
 #include "SprRenHelper/SprRenHelper_ISpriteUpdaterFwd.h"
+#include "SprRenHelper/SprRenHelper_Transparency.h"
 #include <fstream>
 #include <windows.h> // HWND
 
@@ -107,7 +108,9 @@ namespace Test
 			const MySprMath::SVec2& InPosition,
 			float InWidth, float InHeight,
 			MySprRen::MaterialInstanceRenderStateInitializerPtr InRenderState,
-			MySpr::ESpriteTransparency InTransparency = MySpr::ESpriteTransparency::Opaque
+			const SpriteTransparencyMode& InTransparencyMode = SpriteTransparencyMode::Opaque,
+			const MySprMath::SVec2& InOrigin = { 0.0F, 0.0F },
+			float InRotationAngle = 0.0F
 		);
 		SpriteHandle CreateSprite_ZOrderAfter
 		(
@@ -118,7 +121,9 @@ namespace Test
 			const MySprMath::SVec2& InPosition,
 			float InWidth, float InHeight,
 			MySprRen::MaterialInstanceRenderStateInitializerPtr InRenderState,
-			MySpr::ESpriteTransparency InTransparency = MySpr::ESpriteTransparency::Opaque
+			const SpriteTransparencyMode& InTransparencyMode = SpriteTransparencyMode::Opaque,
+			const MySprMath::SVec2& InOrigin = { 0.0F, 0.0F },
+			float InRotationAngle = 0.0F
 		);
 		void DeleteSprite(MySprRen::ISpriteUpdater* pInUpdater, SpriteHandle InHandle);
 		void ShowSprite(MySprRen::ISpriteUpdater* pInUpdater, SprId InId);

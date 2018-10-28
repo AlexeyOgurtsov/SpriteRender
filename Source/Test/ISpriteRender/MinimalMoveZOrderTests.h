@@ -4,10 +4,7 @@
 * Minimal ZOrder feature tests that any implementation should provide.
 *
 * Includes Move-On-Z-Top test.
-*
-* Should NEVER contain sofisticated tests or corner cases tests
-* ( just "Should work" tests ).
-*
+
 * All other unit tests of the MoveZOrder feature should depend on this test!
 */
 

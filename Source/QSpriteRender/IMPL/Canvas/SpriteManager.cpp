@@ -2,6 +2,7 @@
 #include "../Utils/CommonSystem.h"
 #include "../Environment/AmbientContext.h"
 #include "../RenUtils/Geometry/SpriteGeometryVertex.h"
+#include "ISprite/Math/MathUtils.h"
 
 namespace Dv
 {
@@ -91,14 +92,24 @@ namespace QRen
 
 		size_t FillSpriteGeometry_ReturnSizeInBytes(D3D::SD3D11SpriteGeometryVertex* pOutVertices, const SSpriteGeometryData& InGeometry)
 		{
+			Math::SVec2 Vertices[4];
+			Math::CalculateRectVertices
+			(
+				Vertices,
+				Math::SVec2{ InGeometry.PositionX, InGeometry.PositionY },
+				Math::SSize{ InGeometry.Width, InGeometry.Height },
+				Math::SVec2{ InGeometry.OriginOffset[0], InGeometry.OriginOffset[1] },
+				InGeometry.AngleDegs
+			);
+
 			// Top 
-			D3D::SetD3D11SpriteVertex(&pOutVertices[0], InGeometry.PositionX, InGeometry.PositionY + InGeometry.Height, InGeometry.Z, InGeometry.TexCoordX[0], InGeometry.TexCoordY[0]);
+			D3D::SetD3D11SpriteVertex(&pOutVertices[0], Vertices[0].X, Vertices[0].Y, InGeometry.Z, InGeometry.TexCoordX[0], InGeometry.TexCoordY[0]);
 			// Top right
-			D3D::SetD3D11SpriteVertex(&pOutVertices[1], InGeometry.PositionX + InGeometry.Width, InGeometry.PositionY + InGeometry.Height, InGeometry.Z, InGeometry.TexCoordX[1], InGeometry.TexCoordY[1]);
+			D3D::SetD3D11SpriteVertex(&pOutVertices[1], Vertices[1].X, Vertices[1].Y, InGeometry.Z, InGeometry.TexCoordX[1], InGeometry.TexCoordY[1]);
 			// Bottom
-			D3D::SetD3D11SpriteVertex(&pOutVertices[2], InGeometry.PositionX, InGeometry.PositionY, InGeometry.Z, InGeometry.TexCoordX[2], InGeometry.TexCoordY[2]);
+			D3D::SetD3D11SpriteVertex(&pOutVertices[2], Vertices[2].X, Vertices[2].Y, InGeometry.Z, InGeometry.TexCoordX[2], InGeometry.TexCoordY[2]);
 			// Bottom right
-			D3D::SetD3D11SpriteVertex(&pOutVertices[3], InGeometry.PositionX + InGeometry.Width, InGeometry.PositionY, InGeometry.Z, InGeometry.TexCoordX[3], InGeometry.TexCoordY[3]);
+			D3D::SetD3D11SpriteVertex(&pOutVertices[3], Vertices[3].X, Vertices[3].Y, InGeometry.Z, InGeometry.TexCoordX[3], InGeometry.TexCoordY[3]);
 			return (sizeof(D3D::SD3D11SpriteGeometryVertex) * 4);
 		}
 

@@ -18,7 +18,7 @@ namespace Test::IMPL
 
 		const TesterConfig_Resources_Textures& GetConfig() const { return Config; }
 
-		TextureElement& GetTexture_10_10(bool bRed, bool bGreen, bool bBlue, bool bAlpha, EColorBrightnessLevel InBrightness, DXGI_FORMAT InFormat);
+		TextureElement& GetTexture_10_10(bool bRed, bool bGreen, bool bBlue, EColorBrightnessLevel InAlphaBrighness, EColorBrightnessLevel InBrightness, DXGI_FORMAT InFormat);
 
 		TextureElement& GetRedTexture_10_10(DXGI_FORMAT InFormat);
 		TextureElement& GetGreenTexture_10_10(DXGI_FORMAT InFormat);
@@ -30,19 +30,19 @@ namespace Test::IMPL
 		TextureElement& GetGreenBlueTexture_10_10(DXGI_FORMAT InFormat);
 
 
-		TextureElement& GetRedTexture_10_10(DXGI_FORMAT InFormat, EColorBrightnessLevel InBrightness);
-		TextureElement& GetGreenTexture_10_10(DXGI_FORMAT InFormat, EColorBrightnessLevel InBrightness);
-		TextureElement& GetBlueTexture_10_10(DXGI_FORMAT InFormat, EColorBrightnessLevel InBrightness);
-		TextureElement& GetWhiteTexture_10_10(DXGI_FORMAT InFormat, EColorBrightnessLevel InBrightness);
+		TextureElement& GetRedTexture_10_10(DXGI_FORMAT InFormatt, EColorBrightnessLevel InAlphaBrighness, EColorBrightnessLevel InBrightness);
+		TextureElement& GetGreenTexture_10_10(DXGI_FORMAT InFormatt, EColorBrightnessLevel InAlphaBrighness, EColorBrightnessLevel InBrightness);
+		TextureElement& GetBlueTexture_10_10(DXGI_FORMAT InFormatt, EColorBrightnessLevel InAlphaBrighness, EColorBrightnessLevel InBrightness);
+		TextureElement& GetWhiteTexture_10_10(DXGI_FORMAT InFormatt, EColorBrightnessLevel InAlphaBrighness, EColorBrightnessLevel InBrightness);
 
-		TextureElement& GetRedGreenTexture_10_10(DXGI_FORMAT InFormat, EColorBrightnessLevel InBrightness);
-		TextureElement& GetRedBlueTexture_10_10(DXGI_FORMAT InFormat, EColorBrightnessLevel InBrightness);
-		TextureElement& GetGreenBlueTexture_10_10(DXGI_FORMAT InFormat, EColorBrightnessLevel InBrightness);		
+		TextureElement& GetRedGreenTexture_10_10(DXGI_FORMAT InFormatt, EColorBrightnessLevel InAlphaBrighness, EColorBrightnessLevel InBrightness);
+		TextureElement& GetRedBlueTexture_10_10(DXGI_FORMAT InFormatt, EColorBrightnessLevel InAlphaBrighness, EColorBrightnessLevel InBrightness);
+		TextureElement& GetGreenBlueTexture_10_10(DXGI_FORMAT InFormatt, EColorBrightnessLevel InAlphaBrighness, EColorBrightnessLevel InBrightness);
 
 	private:
 		std::ofstream& GetLog() const { return *pLog; }
 
-		TextureElement& GetLazyTexture_10_10_ByColor(TextureElement** pOutTex, bool bRed, bool bGreen, bool bBlue, bool bAlpha, EColorBrightnessLevel InBrightness, DXGI_FORMAT InFormat);
+		TextureElement& GetLazyTexture_10_10_ByColor(TextureElement** pOutTex, bool bRed, bool bGreen, bool bBlue, EColorBrightnessLevel InAlphaBrighness, EColorBrightnessLevel InBrightness, DXGI_FORMAT InFormat);
 		TextureElement& GetLazyTexture_10_10(TextureElement** pOutTex, const uint8_t InColor[4], DXGI_FORMAT InFormat);
 		TextureElement& GetLazyTexture_R8G8B8A8_UNORM(TextureElement** pOutTex, UINT InWidth, UINT InHeight, const uint8_t InColor[4], UINT InNumMips = 1);
 

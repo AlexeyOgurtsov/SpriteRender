@@ -39,7 +39,7 @@ namespace Test
 
 			// Enough for any UINT format
 			float BrightnessFactor = GetBrightnessFactor(InColorBrightnessLevel);
-			uint32_t const UIntComp = GetUIntComponentByFactor(InFormat, InCoeff) * BrightnessFactor;
+			uint32_t const UIntComp = static_cast<uint32_t>(GetUIntComponentByFactor(InFormat, InCoeff) * BrightnessFactor);
 
 			switch (InFormat)
 			{
@@ -145,53 +145,53 @@ namespace Test
 	}
 	
 
-	TexelColor TexelColor::GetRed(DXGI_FORMAT InFormat, EColorBrightnessLevel InColorBrightnessLevel, float InAlpha)
+	TexelColor TexelColor::GetRed(DXGI_FORMAT InFormat, EColorBrightnessLevel InAlphaBrightness, EColorBrightnessLevel InColorBrightnessLevel)
 	{
-		return GetColor(InFormat, 1.0F, 0.0F, 0.0F, InColorBrightnessLevel, InAlpha);
+		return GetColor(InFormat, 1.0F, 0.0F, 0.0F, InAlphaBrightness, InColorBrightnessLevel);
 	}
 
-	TexelColor TexelColor::GetGreen(DXGI_FORMAT InFormat, EColorBrightnessLevel InColorBrightnessLevel, float InAlpha)
+	TexelColor TexelColor::GetGreen(DXGI_FORMAT InFormat, EColorBrightnessLevel InAlphaBrightness, EColorBrightnessLevel InColorBrightnessLevel)
 	{
-		return GetColor(InFormat, 0.0F, 1.0F, 0.0F, InColorBrightnessLevel, InAlpha);
+		return GetColor(InFormat, 0.0F, 1.0F, 0.0F, InAlphaBrightness, InColorBrightnessLevel);
 	}
 
-	TexelColor TexelColor::GetBlue(DXGI_FORMAT InFormat, EColorBrightnessLevel InColorBrightnessLevel, float InAlpha)
+	TexelColor TexelColor::GetBlue(DXGI_FORMAT InFormat, EColorBrightnessLevel InAlphaBrightness, EColorBrightnessLevel InColorBrightnessLevel)
 	{
-		return GetColor(InFormat, 0.0F, 0.0F, 1.0F, InColorBrightnessLevel, InAlpha);
+		return GetColor(InFormat, 0.0F, 0.0F, 1.0F, InColorBrightnessLevel);
 	}
 
-	TexelColor TexelColor::GetWhite(DXGI_FORMAT InFormat, EColorBrightnessLevel InColorBrightnessLevel, float InAlpha)
+	TexelColor TexelColor::GetWhite(DXGI_FORMAT InFormat, EColorBrightnessLevel InAlphaBrightness, EColorBrightnessLevel InColorBrightnessLevel)
 	{
-		return GetColor(InFormat, 1.0F, 1.0F, 1.0F, InColorBrightnessLevel, InAlpha);
+		return GetColor(InFormat, 1.0F, 1.0F, 1.0F, InAlphaBrightness, InColorBrightnessLevel);
 	}
 
-	TexelColor TexelColor::GetBlack(DXGI_FORMAT InFormat, EColorBrightnessLevel InColorBrightnessLevel, float InAlpha)
+	TexelColor TexelColor::GetBlack(DXGI_FORMAT InFormat, EColorBrightnessLevel InAlphaBrightness, EColorBrightnessLevel InColorBrightnessLevel)
 	{
-		return GetColor(InFormat, 0.0F, 0.0F, 0.0F, InColorBrightnessLevel, InAlpha);
+		return GetColor(InFormat, 0.0F, 0.0F, 0.0F, InColorBrightnessLevel);
 	}
 
-	TexelColor TexelColor::GetRedGreen(DXGI_FORMAT InFormat, EColorBrightnessLevel InColorBrightnessLevel, float InAlpha)
+	TexelColor TexelColor::GetRedGreen(DXGI_FORMAT InFormat, EColorBrightnessLevel InAlphaBrightness, EColorBrightnessLevel InColorBrightnessLevel)
 	{
-		return GetColor(InFormat, 1.0F, 1.0F, 0.0F, InColorBrightnessLevel, InAlpha);
+		return GetColor(InFormat, 1.0F, 1.0F, 0.0F, InAlphaBrightness, InColorBrightnessLevel);
 	}
 
-	TexelColor TexelColor::GetRedBlue(DXGI_FORMAT InFormat, EColorBrightnessLevel InColorBrightnessLevel, float InAlpha)
+	TexelColor TexelColor::GetRedBlue(DXGI_FORMAT InFormat, EColorBrightnessLevel InAlphaBrightness, EColorBrightnessLevel InColorBrightnessLevel)
 	{
-		return GetColor(InFormat, 1.0F, 0.0F, 1.0F, InColorBrightnessLevel, InAlpha);
+		return GetColor(InFormat, 1.0F, 0.0F, 1.0F, InColorBrightnessLevel);
 	}
 
-	TexelColor TexelColor::GetGreenBlue(DXGI_FORMAT InFormat, EColorBrightnessLevel InColorBrightnessLevel, float InAlpha)
+	TexelColor TexelColor::GetGreenBlue(DXGI_FORMAT InFormat, EColorBrightnessLevel InAlphaBrightness, EColorBrightnessLevel InColorBrightnessLevel)
 	{
-		return GetColor(InFormat, 0.0F, 1.0F, 1.0F, InColorBrightnessLevel, InAlpha);
+		return GetColor(InFormat, 0.0F, 1.0F, 1.0F, InAlphaBrightness, InColorBrightnessLevel);
 	}
 
-	TexelColor TexelColor::GetColor(DXGI_FORMAT InFormat, float InRed, float InGreen, float InBlue, EColorBrightnessLevel InColorBrightnessLevel, float InAlpha)
+	TexelColor TexelColor::GetColor(DXGI_FORMAT InFormat, float InRed, float InGreen, float InBlue, EColorBrightnessLevel InAlphaBrightness, EColorBrightnessLevel InColorBrightnessLevel)
 	{		
 		uint8_t Data[1024];
 		SetTextureComponent(Data, 0, InFormat, InColorBrightnessLevel, InRed);
 		SetTextureComponent(Data, 1, InFormat, InColorBrightnessLevel, InGreen);
 		SetTextureComponent(Data, 2, InFormat, InColorBrightnessLevel, InBlue);
-		SetTextureComponent(Data, 3, InFormat, EColorBrightnessLevel::Highest, InAlpha);
+		SetTextureComponent(Data, 3, InFormat, InAlphaBrightness, 1.0F);
 		return TexelColor(InFormat, Data);
 	}
 
@@ -222,9 +222,68 @@ namespace Test
 		return AreTexelsMatch(InA.GetData(), InA.GetFormat(), InB.GetData(), InB.GetFormat(), bInCheckAlpha);
 	}
 
+	bool CheckAlphaBlendResultComponent(const TexelColor& InRef, const TexelColor& InAlphaBlendResult, UINT InComponentIndex)	
+	{
+		BOOST_ASSERT(InComponentIndex < 4);
+		float const RefComponent = InRef.GetComponentFactor(InComponentIndex);
+		float const AlphaBlendResultComponent = InAlphaBlendResult.GetComponentFactor(InComponentIndex);
+		return AreNearlyEqual(RefComponent, AlphaBlendResultComponent, COLOR_COMPONENT_TOLERANCE);
+	}
+
+	bool CheckAlphaBlendResult(const TexelColor& InRef, const TexelColor& InDest, const TexelColor& InSource, EBlendOp InOp)
+	{
+		TexelColor AlphaBlendResult = GetAdditiveAlphaResult(InDest, InSource, InOp);
+		if (false == CheckAlphaBlendResultComponent(InRef, AlphaBlendResult, 0))
+		{
+			return false;
+		}
+		if (false == CheckAlphaBlendResultComponent(InRef, AlphaBlendResult, 1))
+		{
+			return false;
+		}
+		if (false == CheckAlphaBlendResultComponent(InRef, AlphaBlendResult, 2))
+		{
+			return false;
+		}
+		return true;
+	}
+
+	float GetAlphaBlendComponentResult(const TexelColor& InDest, const TexelColor& InSource, UINT InComponentIndex, EBlendOp InOp)
+	{
+		BOOST_ASSERT(InComponentIndex < 4);
+		float const Source = InSource.GetComponentFactor(InComponentIndex);
+		float const Dest = InDest.GetComponentFactor(InComponentIndex);
+
+		float const SourceAlpha = InSource.GetAlphaFactor();
+		float const InvSourceAlpha = 1.0F - SourceAlpha;
+
+		float const SourceTerm = SourceAlpha * Source;
+		float const DestTerm = InvSourceAlpha * Dest;
+
+		switch (InOp)
+		{
+		case EBlendOp::Additive:
+			return Clamp(0.0F, 1.0F, SourceTerm + DestTerm);
+
+		default:
+			BOOST_ASSERT_MSG(false, "GetAlphaBlendCompoentResult: this blend mode is not yet implemented");
+			return -1.0F;
+		}
+		BOOST_ASSERT_MSG(false, "GetAlphaBlendCompoentResult: should never get here");
+		return -1.0F;
+	}
+
+	TexelColor GetAdditiveAlphaResult(const TexelColor& InDest, const TexelColor& InSource, EBlendOp const InOp)
+	{
+		float const Red = GetAlphaBlendComponentResult(InDest, InSource, 0, InOp);
+		float const Green = GetAlphaBlendComponentResult(InDest, InSource, 1, InOp);
+		float const Blue = GetAlphaBlendComponentResult(InDest, InSource, 2, InOp);
+		return TexelColor::GetColor(InSource.GetFormat(), Red, Green, Blue, EColorBrightnessLevel::Highest, EColorBrightnessLevel::Highest);
+	}
+
 	float GetBrightnessFactor(EColorBrightnessLevel InBrighness)
 	{
-		return (static_cast<float>(InBrighness)) / (NUM_TEX_BRIGHTNESS_LEVELS);
+		return (static_cast<float>(InBrighness)) / (MAX_BRIGHTNESS_LEVEL);
 	}
 
 	uint8_t ComponentCoeffFromBool(bool bInSet, EColorBrightnessLevel InBrighness)

@@ -19,6 +19,8 @@ struct SSpriteGeometryData
 	float PositionX, PositionY;
 	float Width, Height;
 	float TexCoordX[4], TexCoordY[4];
+	float OriginOffset[2];
+	float AngleDegs;
 };
 
 } // Dv::Spr::Ren::IMPL

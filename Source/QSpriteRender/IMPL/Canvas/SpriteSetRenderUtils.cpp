@@ -23,7 +23,7 @@ ID3D11BlendState* GetSpriteTransparencyBlendState(ESpriteTransparency InTranspar
 {
 	switch (InTransparency)
 	{
-	case ESpriteTransparency::Transparent:
+	case ESpriteTransparency::BlendAdditive:
 		return pInRenResources->GetBlendStateAdditive();
 
 	case ESpriteTransparency::Opaque:

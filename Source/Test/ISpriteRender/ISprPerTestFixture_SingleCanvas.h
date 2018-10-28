@@ -27,10 +27,12 @@ namespace Test::ISpr
 		*/
 		SpriteHandle CreateSprite
 		(
-			const MySprMath::SVec2& InPosition, 
-			float InWidth, float InHeight, 
-			MySprRen::MaterialInstanceRenderStateInitializerPtr InRenderState, 
-			MySpr::ESpriteTransparency InTransparency = MySpr::ESpriteTransparency::Opaque
+			const MySprMath::SVec2& InPosition,
+			float InWidth, float InHeight,
+			MySprRen::MaterialInstanceRenderStateInitializerPtr InRenderState,
+			const SpriteTransparencyMode& InTransparencyMode = SpriteTransparencyMode::Opaque,
+			const MySprMath::SVec2& InOrigin = { 0.0F, 0.0F },
+			float InRotationAngle = 0.0F
 		);
 		SpriteHandle CreateSprite_ZOrderAfter
 		(
@@ -38,14 +40,18 @@ namespace Test::ISpr
 			const MySprMath::SVec2& InPosition,			
 			float InWidth, float InHeight,
 			MySprRen::MaterialInstanceRenderStateInitializerPtr InRenderState,
-			MySpr::ESpriteTransparency InTransparency = MySpr::ESpriteTransparency::Opaque
+			const SpriteTransparencyMode& InTransparencyMode = SpriteTransparencyMode::Opaque,
+			const MySprMath::SVec2& InOrigin = { 0.0F, 0.0F },
+			float InRotationAngle = 0.0F
 		);
 		SpriteHandle CreateSprite
 		(
 			const MySprMath::SVec2& InPosition,
 			const MySprMath::SSize& InSize,
 			MySprRen::MaterialInstanceRenderStateInitializerPtr InRenderState,
-			MySpr::ESpriteTransparency InTransparency = MySpr::ESpriteTransparency::Opaque
+			const SpriteTransparencyMode& InTransparencyMode = SpriteTransparencyMode::Opaque,
+			const MySprMath::SVec2& InOrigin = { 0.0F, 0.0F },
+			float InRotationAngle = 0.0F
 		);
 		SpriteHandle CreateSprite_ZOrderAfter
 		(
@@ -53,7 +59,9 @@ namespace Test::ISpr
 			const MySprMath::SVec2& InPosition,
 			const MySprMath::SSize& InSize,
 			MySprRen::MaterialInstanceRenderStateInitializerPtr InRenderState,
-			MySpr::ESpriteTransparency InTransparency = MySpr::ESpriteTransparency::Opaque
+			const SpriteTransparencyMode& InTransparencyMode = SpriteTransparencyMode::Opaque,
+			const MySprMath::SVec2& InOrigin = { 0.0F, 0.0F },
+			float InRotationAngle = 0.0F
 		);		
 		void CreateSprite(TSSprite& InSprite);
 		void DeleteSprite(SpriteHandle InHandle);
@@ -68,6 +76,18 @@ namespace Test::ISpr
 		void SetSpriteGeometry(const TSSprite& InSprite, const MySpr::SSpriteGeometryProps& InGeometry);
 		void SetSpritePosition(SpriteHandle InHandle, const MySprMath::SVec2& InPosition);
 		void SetSpritePosition(const TSSprite& InSprite, const MySprMath::SVec2& InPosition);
+		void SetRotationAngle(SpriteHandle InHandle, float InAngleDegs);
+		void SetRotationAngle(const TSSprite& InSprite, float InAngleDegs);
+		/**
+		* Sets sprite new origin relative to the sprite left-bottom position.
+		*/
+		void SetSpriteOrigin(SpriteHandle InHandle, const MySprMath::SVec2& InNewOrigin_FromSpriteLB);
+		void SetSpriteOrigin(const TSSprite& InSprite, const MySprMath::SVec2& InNewOrigin_FromSpriteLB);
+		/**
+		* Sets sprite new origin at the center of the sprite.
+		*/
+		void SetSpriteOriginToCenter(SpriteHandle InHandle);
+		void SetSpriteOriginToCenter(const TSSprite& InSprite);
 		void ResizeSprite(SpriteHandle InHandle, const MySprMath::SSize& InSize);
 		void ResizeSprite(const TSSprite& InSprite, const MySprMath::SSize& InSize);
 		void ResizeSprite(SpriteHandle InHandle, float InWidth, float InHeight);
@@ -150,6 +170,16 @@ namespace Test::ISpr
 		*/
 		bool SpriteHiddenAt(const IFrameCheckContextHandle& ContextHandle, const TSSprite& InSprite, const SprVec2& InCanvasPoint);
 
+		/**
+		* Returns true if source and dest sprites are blended properly.
+		*/
+		bool SpriteBlendedProperly(const IFrameCheckContextHandle& ContextHandle, const TSSprite& InSourceSprite, const TSSprite& InDestSprite, EBlendOp InBlendOp);
+
+		/**
+		* Returns true if the given sprite is blended propely with the given dest color
+		*/
+		bool SpriteBlendedProperly(const IFrameCheckContextHandle& ContextHandle, const TSSprite& InSourceSprite, const TexelColor& InDestColor, EBlendOp InBlendOp);
+
 		// ~ Screen check helpers End
 
 		// ~ TestSprite helpers Begin
@@ -166,7 +196,7 @@ namespace Test::ISpr
 		TSSpriteVector PrepareSprites(const TSMaterialVector& InMaterials, bool bShouldShow = true);
 
 		/**
-		* Creates all sprites in the vector.
+		* Creates all sprites in the vector (by default invisible).
 		*/
 		void CreateSprites(TSSpriteVector& InSprites);
 
@@ -180,6 +210,67 @@ namespace Test::ISpr
 		*/
 		void MoveAllSpritesTo(const TSSpriteVector& InSprites, const MySprMath::SVec2& InPos);
 
+		/**
+		* Prepares sprite (creates, registers, optionally shows (by default).
+		*/
+		int PrepareSprite_ZOrderAfter
+		(
+			TSSpriteVector* pOutSprites,
+			TSSprite* pZBeforeSprite,
+			const TSMaterial& InMaterial,
+			const MySprMath::SVec2& InPosition = DEFAULT_SPRITE_CANV_SPACE_POSITION, const MySprMath::SSize& InSize = DEFAULT_SPRITE_CANV_SPACE_SIZE,
+			const MySprMath::SVec2& InOrigin = MySprMath::SVec2{ 0.0F, 0.0F },
+			float InRotationAngle = 0.0F,
+			bool bInShow = true
+		);
+
+		/**
+		* Prepares sprite (creates, registers, optionally shows (by default).
+		* Optionally sets transparency.
+		*/
+		int PrepareSprite_ZOrderAfter
+		(
+			TSSpriteVector* pOutSprites, 
+			TSSprite* pZBeforeSprite,
+			const SpriteTransparencyMode& InTransparencyMode, 
+			const TSMaterial& InMaterial, 
+			const MySprMath::SVec2& InPosition = DEFAULT_SPRITE_CANV_SPACE_POSITION, const MySprMath::SSize& InSize = DEFAULT_SPRITE_CANV_SPACE_SIZE,
+			const MySprMath::SVec2& InOrigin = MySprMath::SVec2{ 0.0F, 0.0F },
+			float InRotationAngle = 0.0F,
+			bool bInShow = true
+		);
+
+		/**
+		* Prepares sprite (creates, registers, optionally shows (by default).
+		*/
+		int PrepareSprite
+		(
+			TSSpriteVector* pOutSprites,
+			const TSMaterial& InMaterial,
+			const MySprMath::SVec2& InPosition = DEFAULT_SPRITE_CANV_SPACE_POSITION, const MySprMath::SSize& InSize = DEFAULT_SPRITE_CANV_SPACE_SIZE,
+			const MySprMath::SVec2& InOrigin = MySprMath::SVec2{ 0.0F, 0.0F },
+			float InRotationAngle = 0.0F,
+			bool bInShow = true
+		);
+
+		/**
+		* Prepares sprite (creates, registers, optionally shows (by default).
+		* Optionally sets transparency.
+		*/
+		int PrepareSprite
+		(
+			TSSpriteVector* pOutSprites,
+			const SpriteTransparencyMode& InTransparencyMode,
+			const TSMaterial& InMaterial,
+			const MySprMath::SVec2& InPosition = DEFAULT_SPRITE_CANV_SPACE_POSITION, const MySprMath::SSize& InSize = DEFAULT_SPRITE_CANV_SPACE_SIZE,
+			const MySprMath::SVec2& InOrigin = MySprMath::SVec2{ 0.0F, 0.0F },
+			float InRotationAngle = 0.0F,
+			bool bInShow = true
+		);
+
+		/**
+		* Returns true if all sprites are either visible or not, according to current state;
+		*/
 		boost::test_tools::predicate_result CheckVisibility(const IFrameCheckContextHandle& ContextHandle, const TSSpriteVector& InSprites);
 		// ~ TestSprite helpers End
 

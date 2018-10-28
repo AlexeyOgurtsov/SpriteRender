@@ -40,6 +40,11 @@ namespace Test
 	bool RT_ColorMatchesCanvas_AtCanvasPoint(IFrameCheckContext* pContext, CanvasHandle InCanvas, const SprVec2& InCanvasPoint, const TexelColor& InColor, bool bMatchAlpha);
 
 	/**
+	* Checks that the given canvas point contains valid result of blending source and dest blend colors using the given blending op.
+	*/
+	bool RT_TexelBlendedProperly(IFrameCheckContext* pContext, CanvasHandle InCanvas, const SprVec2& InCanvasPoint, const TexelColor& InSourceColor, const TexelColor& InDestColor, EBlendOp InOp);
+
+	/**
 	* Is canvas at the given point is set to the clear color
 	*/
 	bool RT_IsCanvasClear_AtCanvasPoint(IFrameCheckContext* pContext, CanvasHandle InCanvas, const Vec2& InCanvasPoint, bool bMatchAlpha);
@@ -65,6 +70,11 @@ namespace Test
 	bool RT_SpriteVisibleAsColor(IFrameCheckContext* pContext, CanvasHandle InCanvas, SpriteHandle InSprite, const TexelColor& InColor, bool bMatchAlpha);
 
 	/**
+	* Returns true if sprite is blended properly as the given color.
+	*/
+	bool RT_SpriteBlendedProperly(IFrameCheckContext* pContext, CanvasHandle InCanvas, SpriteHandle InSprite, const TexelColor& InSourceColor, const TexelColor& InDestColor, EBlendOp InOp);	
+
+	/**
 	* Returns true if sprite is not visible.
 	*/
 	bool RT_SpriteHidden(IFrameCheckContext* pContext, CanvasHandle InCanvas, SpriteHandle InSprite, bool bMatchAlpha);
@@ -72,7 +82,7 @@ namespace Test
 	/**
 	* Returns true if sprite is not visible.
 	*/
-	bool RT_SpriteHidden_AtCanvasPoint(IFrameCheckContext* pContext, CanvasHandle InCanvas, SpriteHandle InSprite, const SprVec2& InSpritePosition_AsCanvasPoint, bool bMatchAlpha);
+	bool RT_SpriteHidden_AtCanvasPoint(IFrameCheckContext* pContext, CanvasHandle InCanvas, SpriteHandle InSprite, const SprVec2& InSpriteLBPosition_AsCanvasPoint, bool bMatchAlpha);
 
 	/**
 	* Returns true if render target texel with the given coordinates matches another one.

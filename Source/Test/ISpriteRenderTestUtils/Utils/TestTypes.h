@@ -3,6 +3,7 @@
 #include "../SprRenHelper/SprRenHelper_System.h"
 #include "../SprRenHelper/SprRenHelper_ISpriteRenderFwd.h"
 #include "../SprRenHelper/SprRenHelper_Sprite.h"
+#include "../SprRenHelper/SprRenHelper_Transparency.h"
 #include "TexelColor.h"
 #include <boost/assert.hpp>
 #include <optional>
@@ -105,6 +106,22 @@ namespace Test
 		static const TSMaterialGenProps StrictOnlyMain;
 	};	
 
+	// ~ Sprite helper constants Begin
+	/**
+	* Default position of the sprite (for example, for PrepareSprite command).
+	*
+	* Canvas coordinate system is used (fractions of canvas in 0..1 range).
+	*/
+	const MySprMath::SVec2 DEFAULT_SPRITE_CANV_SPACE_POSITION{ QUARTER, QUARTER };
+
+	/**
+	* Default size of the sprite (for example, for PrepareSprite command).
+	*
+	* Canvas coordinate system is used (fractions of canvas in 0..1 range).
+	*/
+	const MySprMath::SSize DEFAULT_SPRITE_CANV_SPACE_SIZE{ QUARTER, QUARTER };
+	// ~ Sprite helpers constants End
+
 	/**
 	* Sprite with some additional testing into.	
 	*/
@@ -117,14 +134,18 @@ namespace Test
 			const TSMaterial& InMaterial,
 			const MySprMath::SSize& InInitSize,
 			const MySprMath::SVec2& InInitPos,
-			MySpr::ESpriteTransparency InInitTransparency = MySpr::ESpriteTransparency::Opaque
+			const SpriteTransparencyMode& InInitTransparencyMode = SpriteTransparencyMode::Opaque,
+			const MySprMath::SVec2& InInitOrigin = { 0.0F, 0.0F },
+			float InInitRotationAngle = 0.0F
 		);
 		TSSprite
 		(
 			const TSMaterial& InMaterial,
 			const MySprMath::SSize& InInitSize,
 			const MySprMath::SVec2& InInitPos,
-			MySpr::ESpriteTransparency InInitTransparency = MySpr::ESpriteTransparency::Opaque
+			const SpriteTransparencyMode& InInitTransparencyMode = SpriteTransparencyMode::Opaque,
+			const MySprMath::SVec2& InInitOrigin = { 0.0F, 0.0F },
+			float InInitRotationAngle = 0.0F
 		);
 		void SetHandle(const SpriteHandle& InHandle);
 		const SpriteHandle& GetHandle() const { return Handle; }
@@ -140,9 +161,18 @@ namespace Test
 		const TexelColor& GetInitUniColor() const { return GetInitMaterial().GetInitUniColor(); }
 		const Handle_SprMaterialInstance& GetInitMatInst() const { return GetInitMaterial().GetInitMatInst(); }
 
+		/**
+		* Origin of the geometry.
+		*
+		* WARNING!!! Do NOT mix up it with the real middle center.
+		* This center is set in the properties of the sprite itself as offset from the bottom-left point!
+		*/
+		const MySprMath::SVec2& GetInitOrigin() const { return InitOrigin; }
 		const MySprMath::SSize& GetInitSize() const { return InitSize; }
 		const MySprMath::SVec2& GetInitPos() const { return InitPos; }
-		const MySpr::ESpriteTransparency& GetInitTransparency() const { return InitTransparency; }
+		float GetInitRotationAngle() const { return InitRotationAngle; }
+		MySpr::ESpriteTransparency GetInitTransparency() const { return GetInitTransparencyMode().GetTransparency(); }
+		const SpriteTransparencyMode& GetInitTransparencyMode() const { return InitTransparencyMode; }
 
 	
 		bool IsCreated() const { return Handle.get(); }
@@ -155,7 +185,9 @@ namespace Test
 		TSMaterial InitMaterial;
 		MySprMath::SSize InitSize;
 		MySprMath::SVec2 InitPos;
-		MySpr::ESpriteTransparency InitTransparency;
+		MySprMath::SVec2 InitOrigin;
+		float InitRotationAngle;
+		SpriteTransparencyMode InitTransparencyMode;
 	};
 
 	using TSSpriteVector = std::vector<TSSprite>;	

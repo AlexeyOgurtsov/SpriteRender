@@ -55,7 +55,9 @@ namespace Test
 		const MySprMath::SVec2& InPosition,
 		float InWidth, float InHeight,
 		MySprRen::MaterialInstanceRenderStateInitializerPtr InRenderState,
-		MySpr::ESpriteTransparency InTransparency
+		const SpriteTransparencyMode& InTransparencyMode,
+		const MySprMath::SVec2& InOrigin,
+		float InRotationAngle
 	)
 	{
 		T_LOG("ISpriteRenderSubsystemManager::CreateSprite_ZOrderAfter, Id=" << InId << "...");
@@ -63,10 +65,12 @@ namespace Test
 		BOOST_ASSERT_MSG(GetSpriteRender(), "ISpriteRenderSubsystemManager::CreateSprite: Sprite render must be initialized");
 		T_LOG("ZBeforeSprite Id: " << InZBeforeSpriteId << (MySpr::IsValidSpriteId(InZBeforeSpriteId) ? "(valid)" : "(invalid=<OnTop>)"));
 		T_LOG("Position: " << ToString(InPosition));
+		T_LOG("Origin (relative to left-bottom corner of the sprite)=" << InOrigin);
 		T_LOG("(Width*Height)=" << InWidth << "*" << InHeight);
-		T_LOG("Transparency=" << ToString(InTransparency));
-		MySprRen::SSpriteCreateCommandInitializer const Initializer = MySprRen::GetSprInit(InId, InPosition, InWidth, InHeight, InRenderState, InTransparency);
-		pInUpdater->CreateSprite_ZOrderAfter(InId, InZBeforeSpriteId, InPosition, InWidth, InHeight, InRenderState, InTransparency);
+		T_LOG("RotationAngle=" << InRotationAngle);
+		T_LOG("Transparency=" << ToString(InTransparencyMode.GetTransparency()));		
+		MySprRen::SSpriteCreateCommandInitializer const Initializer = MySprRen::GetSprInit(InId, InPosition, InWidth, InHeight, InRenderState, InTransparencyMode.GetTransparency(), InOrigin, InRotationAngle);
+		pInUpdater->CreateSprite(Initializer);
 		T_LOG("ISpriteRenderSubsystemManager: Sprite " << InId << " Created");
 		return std::make_unique<Sprite>(this, pInCanvas, Initializer);
 	}
@@ -79,10 +83,12 @@ namespace Test
 		const MySprMath::SVec2& InPosition,
 		float InWidth, float InHeight,
 		MySprRen::MaterialInstanceRenderStateInitializerPtr InRenderState,
-		MySpr::ESpriteTransparency InTransparency
+		const SpriteTransparencyMode& InTransparencyMode,
+		const MySprMath::SVec2& InOrigin,
+		float InRotationAngle
 	)
 	{
-		return CreateSprite_ZOrderAfter(InId, MySpr::NULL_SPRITE_ID, pInUpdater, pInCanvas, InPosition, InWidth, InHeight, InRenderState, InTransparency);
+		return CreateSprite_ZOrderAfter(InId, MySpr::NULL_SPRITE_ID, pInUpdater, pInCanvas, InPosition, InWidth, InHeight, InRenderState, InTransparencyMode, InOrigin, InRotationAngle);
 	}
 
 	void ISpriteRenderSubsystemManager::DeleteSprite(MySprRen::ISpriteUpdater* pInUpdater, SpriteHandle InHandle)

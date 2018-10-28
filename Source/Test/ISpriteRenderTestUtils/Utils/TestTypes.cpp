@@ -19,9 +19,11 @@ namespace Test
 		const TSMaterial& InMaterial,
 		const MySprMath::SSize& InInitSize,
 		const MySprMath::SVec2& InInitPos,
-		MySpr::ESpriteTransparency InInitTransparency
+		const SpriteTransparencyMode& InInitTransparencyMode,
+		const MySprMath::SVec2& InInitOrigin,
+		float InInitRotationAngle
 	) :
-		TSSprite{nullptr, InMaterial, InInitSize, InInitPos, InInitTransparency}
+		TSSprite{nullptr, InMaterial, InInitSize, InInitPos, InInitTransparencyMode, InInitOrigin, InInitRotationAngle }
 	{
 	}
 
@@ -31,13 +33,17 @@ namespace Test
 		const TSMaterial& InMaterial,
 		const MySprMath::SSize& InInitSize,
 		const MySprMath::SVec2& InInitPos,
-		MySpr::ESpriteTransparency InInitTransparency
+		const SpriteTransparencyMode& InInitTransparencyMode,
+		const MySprMath::SVec2& InInitOrigin,
+		float InInitRotationAngle
 	) :
 		InZBeforeSpriteId{InZBeforeSpriteId}
 	,	InitMaterial{InMaterial}
 	,	InitSize{InInitSize}
 	,	InitPos{InInitPos}
-	,	InitTransparency{ InInitTransparency } {}
+	,	InitOrigin{InInitOrigin}
+	,	InitRotationAngle{ InInitRotationAngle }
+	,	InitTransparencyMode { InInitTransparencyMode }  {}
 
 	SpriteHandle TSSprite::GetInitZBeforeSpriteHandle() const
 	{

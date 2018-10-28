@@ -27,9 +27,19 @@ namespace Test
 		const MySpr::SSpriteProps& GetProps() const;
 		const MySpr::SSpriteGeometryProps& GetGeometry() const;
 		const MySprMath::SSpriteTransform& GetTransform() const;
-		const MySprMath::SVec2& GetPosition() const;
+		/**
+		* Position that sprite origin point has in the coord system of the canvas.
+		*/
+		const MySprMath::SVec2& GetOriginPosition() const;
+
+		/**
+		* Position of the left bottom point position (no matter where the origin point is located).
+		*/
+		MySprMath::SVec2 GetLBPosition() const;
+
 		const MySprMath::SSize& GetSize() const;
-		const MySprMath::SVec2 GetCenter() const;
+		const MySprMath::SVec2 GetOrigin() const;
+		MySprMath::SVec2 GetCenter() const;
 		const MySpr::ESpriteTransparency& GetTransparency() const;
 
 		const Handle_SprMaterialInstance& GetInitMatInst();
@@ -38,6 +48,15 @@ namespace Test
 		void SetGeometry(MySprRen::ISpriteUpdater* pInUpdater, const MySpr::SSpriteGeometryProps& InGeometry);
 		void Resize(MySprRen::ISpriteUpdater* pInUpdater, float InNewWidth, float InNewHeight);
 		void SetPosition(MySprRen::ISpriteUpdater* pInUpdater, const SprVec2& InPosition);
+		void SetRotationAngle(MySprRen::ISpriteUpdater* pInUpdater, float InAngleDegs);
+		float GetRotationAngle() const;
+
+		/**
+		* Origin point of the sprite from the left bottom point of the sprite.
+		*/
+		void SetOrigin(MySprRen::ISpriteUpdater* pInUpdater, const SprVec2& InNewOrigin);
+		void SetOriginToLeftBottom(MySprRen::ISpriteUpdater* pInUpdater);
+		void SetOriginToCenter(MySprRen::ISpriteUpdater* pInUpdater);
 		void SetMatInst(MySprRen::ISpriteUpdater* pInUpdater, const Handle_SprMaterialInstance& InInst);
 		bool IsVisible() const;
 

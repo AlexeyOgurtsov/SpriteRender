@@ -27,9 +27,9 @@ namespace Ren
 		return Initializer;
 	}
 
-	SSpriteCreateCommandInitializer GetSprInit_ZOrderAfter(SpriteId InSpriteId, SpriteId InZBeforeSpriteId, const Math::SVec2& InPosition, float InWidth, float InHeight, MaterialInstanceRenderStateInitializerPtr InRenderState, ESpriteTransparency InTransparency)
+	SSpriteCreateCommandInitializer GetSprInit_ZOrderAfter(SpriteId InSpriteId, SpriteId InZBeforeSpriteId, const Math::SVec2& InPosition, float InWidth, float InHeight, MaterialInstanceRenderStateInitializerPtr InRenderState, ESpriteTransparency InTransparency, const Math::SVec2& InOrigin, float InAngleDegs)
 	{
-		SSpriteCreateCommandInitializer Initializer = GetSprInit(InSpriteId, InPosition, InWidth, InHeight, InRenderState, InTransparency);
+		SSpriteCreateCommandInitializer Initializer = GetSprInit(InSpriteId, InPosition, InWidth, InHeight, InRenderState, InTransparency, InOrigin, InAngleDegs);
 		Initializer.ZBeforeSpriteId = InZBeforeSpriteId;
 		return Initializer;
 	}	
@@ -82,19 +82,19 @@ namespace Ren
 		return CreateSprite(GetSprInit(InSpriteId, InTransform, InSize, InRenderState, InTransparency));
 	}
 
-	SSpriteCreateCommandInitializer GetSprInit(SpriteId InSpriteId, const Math::SVec2& InPosition, float InWidth, float InHeight, MaterialInstanceRenderStateInitializerPtr InRenderState, ESpriteTransparency InTransparency)
+	SSpriteCreateCommandInitializer GetSprInit(SpriteId InSpriteId, const Math::SVec2& InPosition, float InWidth, float InHeight, MaterialInstanceRenderStateInitializerPtr InRenderState, ESpriteTransparency InTransparency, const Math::SVec2& InOrigin, float InAngleDegs)
 	{
-		return GetSprInit(InSpriteId, Math::SSpriteTransform{InPosition}, Math::SSize{InWidth, InHeight}, InRenderState, InTransparency);	
+		return GetSprInit(InSpriteId, Math::SSpriteTransform{InPosition, InOrigin, InAngleDegs }, Math::SSize{InWidth, InHeight}, InRenderState, InTransparency);
 	}
 
-	void ISpriteUpdater::CreateSprite_ZOrderAfter(SpriteId InSpriteId, SpriteId InZBeforeSpriteId, const Math::SVec2& InPosition, float InWidth, float InHeight, MaterialInstanceRenderStateInitializerPtr InRenderState, ESpriteTransparency InTransparency)
+	void ISpriteUpdater::CreateSprite_ZOrderAfter(SpriteId InSpriteId, SpriteId InZBeforeSpriteId, const Math::SVec2& InPosition, float InWidth, float InHeight, MaterialInstanceRenderStateInitializerPtr InRenderState, ESpriteTransparency InTransparency, const Math::SVec2& InOrigin, float InAngleDegs)
 	{
-		return CreateSprite(GetSprInit_ZOrderAfter(InSpriteId, InZBeforeSpriteId, InPosition, InWidth, InHeight, InRenderState, InTransparency));
+		return CreateSprite(GetSprInit_ZOrderAfter(InSpriteId, InZBeforeSpriteId, InPosition, InWidth, InHeight, InRenderState, InTransparency, InOrigin, InAngleDegs));
 	}
 
-	void ISpriteUpdater::CreateSprite(SpriteId InSpriteId, const Math::SVec2& InPosition, float InWidth, float InHeight, MaterialInstanceRenderStateInitializerPtr InRenderState, ESpriteTransparency InTransparency)
+	void ISpriteUpdater::CreateSprite(SpriteId InSpriteId, const Math::SVec2& InPosition, float InWidth, float InHeight, MaterialInstanceRenderStateInitializerPtr InRenderState, ESpriteTransparency InTransparency, const Math::SVec2& InOrigin, float InAngleDegs)
 	{
-		return CreateSprite(GetSprInit(InSpriteId, InPosition, InWidth, InHeight, InRenderState, InTransparency));
+		return CreateSprite(GetSprInit(InSpriteId, InPosition, InWidth, InHeight, InRenderState, InTransparency, InOrigin, InAngleDegs));
 	}
 
 	void ISpriteUpdater::DeleteSprite(SpriteId InSpriteId)	
@@ -141,9 +141,9 @@ namespace Ren
 		return SetSpriteGeometry(GetSprGeometryInit(InTargetSpriteId, InTransform, InSize));
 	}
 
-	SSpriteSetGeometryCommandInitializer GetSprGeometryInit(SpriteId InTargetSpriteId, const Math::SVec2& InPosition, const Math::SSize& InSize)
+	SSpriteSetGeometryCommandInitializer GetSprGeometryInit(SpriteId InTargetSpriteId, const Math::SVec2& InPosition, const Math::SSize& InSize, const Math::SVec2& InOrigin, float InAngleDegs)
 	{
-		return GetSprGeometryInit(InTargetSpriteId, Math::SSpriteTransform{InPosition}, InSize);
+		return GetSprGeometryInit(InTargetSpriteId, Math::SSpriteTransform{InPosition, InOrigin, InAngleDegs }, InSize);
 	}
 
 	void ISpriteUpdater::SetSpriteGeometry(SpriteId InSpriteId, const Math::SVec2& InPosition, const Math::SSize& InSize)
@@ -151,9 +151,9 @@ namespace Ren
 		return SetSpriteGeometry(GetSprGeometryInit(InSpriteId, InPosition, InSize));
 	}
 
-	SSpriteSetGeometryCommandInitializer GetSprGeometryInit(SpriteId InTargetSpriteId, const Math::SVec2& InPosition, float InWidth, float InHeight)
+	SSpriteSetGeometryCommandInitializer GetSprGeometryInit(SpriteId InTargetSpriteId, const Math::SVec2& InPosition, float InWidth, float InHeight, const Math::SVec2& InOrigin, float InAngleDegs)
 	{
-		return GetSprGeometryInit(InTargetSpriteId, InPosition, Math::SSize{InWidth, InHeight});
+		return GetSprGeometryInit(InTargetSpriteId, InPosition, Math::SSize{InWidth, InHeight}, InOrigin, InAngleDegs);
 	}
 
 	void ISpriteUpdater::SetSpriteGeometry(SpriteId InSpriteId, const Math::SVec2& InPosition, float InWidth, float InHeight)

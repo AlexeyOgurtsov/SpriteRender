@@ -8,7 +8,7 @@ namespace Spr
 enum class ESpriteTransparency
 {
 	Opaque = 0,
-	Transparent
+	BlendAdditive
 };
 inline bool IsTransparent(ESpriteTransparency InTransparency)
 {
@@ -22,8 +22,8 @@ inline const char* ToString(ESpriteTransparency InTransparency)
 	case ESpriteTransparency::Opaque:
 		return "Opaque";
 
-	case ESpriteTransparency::Transparent:
-		return "Transparent";
+	case ESpriteTransparency::BlendAdditive:
+		return "BlendAdditive";
 
 	default:
 		break;

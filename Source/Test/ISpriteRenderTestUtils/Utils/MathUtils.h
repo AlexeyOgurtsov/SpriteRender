@@ -11,6 +11,8 @@ namespace Test
 	using Vec2 = SprVec2;
 	using IntVec = SprIntVec;
 
+	constexpr float EPS = MySprMath::EPS;
+
 	constexpr float HALF = 0.5F;
 	constexpr float QUARTER = 0.25F;
 	constexpr float EIGHTH = 0.125F;
@@ -27,6 +29,25 @@ namespace Test
 
 	constexpr float EIGHTH_FROM_LEFT = LEFT + EIGHTH;
 	constexpr float EIGHTH_FROM_BOTTOM = BOTTOM + EIGHTH;
+
+	/**
+	* Checks, whether two numbers are nearly equal with the given tolerance.
+	*/
+	template<class T>
+	T AreNearlyEqual(T A, T B, T InTolerance = EPS)
+	{
+		return MySprMath::AreNearlyEqual(A, B, InTolerance);
+	}
+
+	/**
+	* Clamp
+	*/
+	template<class T>
+	T Clamp(T A, T B, T C)
+	{
+		return MySprMath::Clamp(A, B, C);
+	}
+
 
 	/**
 	* Interpolates between A and B with the given Factor.

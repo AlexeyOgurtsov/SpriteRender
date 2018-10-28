@@ -6,6 +6,7 @@
 
 #include "MinimalSmokeTests.h"
 #include "MinimalMoveZOrderTests.h"
+#include "MinimalRotationTests.h"
 #include "MinimalTransparencyTests.h"
 
 namespace Test::ISpr

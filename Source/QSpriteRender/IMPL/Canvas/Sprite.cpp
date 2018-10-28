@@ -54,7 +54,7 @@ namespace IMPL
 
 	bool Sprite::IsTransparent() const
 	{
-		return RenderMode.Transparency != ESpriteTransparency::Transparent;
+		return RenderMode.Transparency != ESpriteTransparency::BlendAdditive;
 	}
 
 	bool Sprite::IsHidden() const

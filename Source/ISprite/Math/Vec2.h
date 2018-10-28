@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include "MathUtilsMinimal.h"
 
 namespace Dv
 {
@@ -20,22 +21,27 @@ struct SVec2
 		X(InX), Y(InY) {}
 
 
-	SVec2 operator+(const SVec2& InOther)
+	SVec2 operator+(const SVec2& InOther) const
 	{
 		return SVec2{X + InOther.X, Y + InOther.Y};
 	}
 
-	SVec2 operator-(const SVec2& InOther)
+	SVec2 operator-() const
+	{
+		return SVec2{-X, -Y};
+	}
+
+	SVec2 operator-(const SVec2& InOther) const
 	{
 		return SVec2{X - InOther.X, Y - InOther.Y};
 	}
 
-	SVec2 operator*(float InCoeff)
+	SVec2 operator*(float InCoeff) const
 	{
 		return SVec2{X * InCoeff, Y * InCoeff};
 	}
 
-	SVec2 operator/(float InCoeff)
+	SVec2 operator/(float InCoeff) const
 	{
 		return SVec2{X / InCoeff, Y / InCoeff};
 	}
@@ -68,12 +74,17 @@ struct SVec2
 	}
 };
 
+inline bool AreNearlyEqual(const SVec2& InLeft, const SVec2& InRight, float InTolerance = EPS)
+{
+	return AreNearlyEqual(InLeft.X, InRight.X, InTolerance) && AreNearlyEqual(InLeft.Y, InRight.Y, InTolerance);
+}
+
 bool operator==(const SVec2& InLeft, const SVec2& InRight);
 bool operator!=(const SVec2& InLeft, const SVec2& InRight);
 
 inline bool operator==(const SVec2& InLeft, const SVec2& InRight)
 {
-	return InLeft.X == InRight.X && InLeft.Y == InRight.Y;
+	return AreNearlyEqual(InLeft, InRight, ZERO_TOLERANCE);
 }
 
 inline bool operator!=(const SVec2& InLeft, const SVec2& InRight)

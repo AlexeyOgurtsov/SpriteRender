@@ -3,10 +3,7 @@
 /**
 * Minimal Transparency feature tests that any implementation should provide.
 *
-* Includes primitive alpha-blending.
-*
-* Should NEVER contain sofisticated tests or corner cases tests
-* ( just "Should work" tests ).
+* Includes primitive additive alpha-blending.
 *
 * All other unit tests of the Transparency feature should depend on this test!
 */
@@ -33,13 +30,57 @@ namespace Test::ISpr
 	)
 	{
 		// Testing that alpha-blending works.
+		// We alternatingly show Opaque sprites, then transparent sprite over it, then check result,
+		// then again for another opaque/transparent pair.
 
-		SetupTest(TestPath_MinimalTransparency_TestAlpha.c_str());
+		SetupTest(TestPath_MinimalTransparency_TestAlpha.c_str());		
 
-		TSMaterialVector const SpriteMaterials = GetTSMaterials(10);
-		TSSpriteVector const Sprites = PrepareSprites(SpriteMaterials);
+		TSSpriteVector Sprites;
 
-		// @TODO
+		std::vector<EBlendOp> const Ops = { EBlendOp::Additive };
+
+		TSMaterialVector const OpaqueMaterials = GetTSMaterials(10, TSMaterialGenProps::StrictOnlyMain);
+		TSMaterialVector const TransparentMaterials =
+		{
+			GetTestMat_Red(/*Alpha*/EColorBrightnessLevel::Off, /*Brightness*/EColorBrightnessLevel::Highest), 
+			GetTestMat_Red(/*Alpha*/EColorBrightnessLevel::Low, /*Brightness*/EColorBrightnessLevel::Highest)
+		};
+
+		for (int k = 0; k < static_cast<int>(Ops.size()); k++)
+		{
+			EBlendOp Op = Ops[k];
+			for (int i = 0; i < static_cast<int>(OpaqueMaterials.size()); i++)
+			{
+				const TSMaterial* pOpaqueMaterial = &OpaqueMaterials[i];
+
+				for (int j = 0; j < static_cast<int>(TransparentMaterials.size()); j++)
+				{
+					int SprOpaqueIndex = PrepareSprite(&Sprites, *pOpaqueMaterial);
+
+					BOOST_TEST_CHECKPOINT("CommitFrame");
+					{
+						// Opaque sprite must always override the transparent, when rendered over it
+						IFrameCheckContextHandle pChecker = CommitFrame();
+						TSSprite* pSprOpaque = &Sprites[SprOpaqueIndex];
+						BOOST_REQUIRE(SpriteVisibleAsColor(pChecker, pSprOpaque->GetHandle(), pSprOpaque->GetInitUniColor()));
+					}
+
+					const TSMaterial* pTransparentMaterial = &TransparentMaterials[j];
+
+					int SprTransparentIndex = PrepareSprite(&Sprites, SpriteTransparencyMode::AlphaBlend_Additive, *pTransparentMaterial);
+
+					BOOST_TEST_CHECKPOINT("CommitFrame");
+					{
+						// Transparent material must blend correctly with opaque when rendered over it
+						IFrameCheckContextHandle pChecker = CommitFrame();
+						TSSprite* pSprTransparent = &Sprites[SprTransparentIndex];
+						// WARNING!!! We need to update spr opaque pointer here, because the array me be reallocated!!!
+						TSSprite* pSprOpaque = &Sprites[SprOpaqueIndex];
+						BOOST_REQUIRE(SpriteBlendedProperly(pChecker, /*Src=*/*pSprTransparent, /*Dest=*/*pSprOpaque, Op));
+					}
+				}
+			}
+		}
 	}
 } // Test::ISpr
 
