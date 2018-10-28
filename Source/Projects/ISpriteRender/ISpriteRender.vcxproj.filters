@@ -39,6 +39,12 @@
     <ClInclude Include="..\..\Test\ISpriteRender\MinimalRotationTests.h">
       <Filter>TEST</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Test\ISpriteRender\MinimalHeavyLoadTests.h">
+      <Filter>TEST</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Test\ISpriteRender\MinimalExtraChecks.h">
+      <Filter>TEST</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="IMPL">

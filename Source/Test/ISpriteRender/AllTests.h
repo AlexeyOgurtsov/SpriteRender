@@ -8,6 +8,8 @@
 #include "MinimalMoveZOrderTests.h"
 #include "MinimalRotationTests.h"
 #include "MinimalTransparencyTests.h"
+#include "MinimalHeavyLoadTests.h"
+#include "MinimalExtraChecks.h"
 
 namespace Test::ISpr
 {

@@ -262,8 +262,11 @@ namespace QRen
 		T_LOG("SpriteManager::ShowSprite...");
 		Sprite* const pSprite = GetSpriteById(InId);
 		BOOST_ASSERT_MSG(pSprite, "SpriteManager::ShowSprite: sprite with the given Id must exist");
-		pSprite->SetVisibility(true);
-		IncrementVisibleSprites();
+		if (pSprite->IsHidden())
+		{
+			pSprite->SetVisibility(true);
+			IncrementVisibleSprites();
+		}
 		T_LOG("SpriteManager::ShowSprite DONE");
 	}
 	
@@ -272,8 +275,11 @@ namespace QRen
 		T_LOG("SpriteManager::HideSprite...");
 		Sprite* const pSprite = GetSpriteById(InId);
 		BOOST_ASSERT_MSG(pSprite, "SpriteManager::HideSprite: sprite with the given Id must exist");
-		pSprite->SetVisibility(false);
-		DecrVisibleSprites();
+		if (pSprite->IsVisible())
+		{
+			pSprite->SetVisibility(false);
+			DecrVisibleSprites();
+		}
 		T_LOG("SpriteManager::HideSprite DONE");
 	}
 
