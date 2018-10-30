@@ -6,7 +6,6 @@
 #include "QSpriteRender/Material/MaterialInstanceRenderState.h"
 #include "../RenUtils/BufferAlloc.h"
 #include "SpriteContainerTypes.h"
-#include <optional>
 
 namespace Dv
 {
@@ -74,7 +73,8 @@ public:
 	bool IsTransparent() const;
 
 	const SpriteIterator& GetIterator() const;
-	void BindIterator(const SpriteIterator& InIterator);
+	void BindStorageIterator(SpriteStorageList::iterator InItStorage);
+	void BindIteratorByZOrder(SpriteList::iterator InItByZOrder);
 
 private:
 	SpriteId Id;
@@ -83,7 +83,7 @@ private:
 	MaterialInstanceRenderStateHandle pMaterialRenderState;
 	D3D::BufferAlloc VBAlloc;
 	bool bVisible;
-	std::optional<SpriteIterator> Iterator;
+	SpriteIterator Iterator;
 };
 
 } // Dv::Spr::QRen::IMPL

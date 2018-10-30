@@ -1,6 +1,7 @@
 #pragma once
 
 #include "ISpriteRender/ISpriteRender.h"
+#include "CanvasManager.h"
 #include <fstream>
 
 namespace Dv
@@ -111,6 +112,36 @@ public:
 	*/
 	virtual void MoveCanvasZOrderAfter(SpriteCanvasId InCanvasId, SpriteCanvasId InZBeforeCanvasId) override;
 
+	/**
+	* Capacity of the canvas in sprites.
+	*/
+	virtual int GetCapacityInSprites_ForCanvas(SpriteCanvasId InCanvasId) const override;
+
+	/**
+	* Total number of sprites (both visible and hidden) for the given canvas.
+	*/
+	virtual int GetNumSprites_ForCanvas(SpriteCanvasId InCanvasId) const override;
+
+	/**
+	* Number of visible sprites for the given canvas
+	*/
+	virtual int GetNumVisibleSprites_ForCanvas(SpriteCanvasId InCanvasId) const override;
+
+	/**
+	* Max count of canvasses.
+	*/
+	virtual int GetMaxCanvasLimit() const override;
+
+	/**
+	* Count of visible canvasses
+	*/
+	virtual int GetNumCanvasses() const override;
+
+	/**
+	* Count of visible canvasses
+	*/
+	virtual int GetNumVisibleCanvasses() const override;
+
 private:
 	std::ofstream& GetLog();
 	AmbientContext* GetAmbientContext();
@@ -118,9 +149,11 @@ private:
 	D3D::RenResources* GetRenResources();
 	ID3D11DeviceContext* GetDevCon();
 	const SConfig& GetConfig() const;
+	CanvasManager* GetCanvasManager() const { return pCanvasManager.get(); }
+
+	std::unique_ptr<CanvasManager> pCanvasManager;
 
 	Environment* _pEnv;
-	std::unique_ptr<Canvas> _pCanvas;
 	bool _bRenderingStarted;
 	bool IsUpdating() const;
 	bool IsUpdatingCanvas() const;

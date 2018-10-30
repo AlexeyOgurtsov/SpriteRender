@@ -12,11 +12,12 @@ namespace QRen
 {
 	namespace IMPL
 	{
-		SSpriteManagerInitializer::SSpriteManagerInitializer(AmbientContext* pInAmbientContext, ID3D11Device* pInDev, ID3D11DeviceContext* pInDevCon, bool bInDebug) :
-			pAmbientContext{ pInAmbientContext }
-			, pDev{ pInDev }
-			, pDevCon{ pInDevCon }
-			, bDebug{ bInDebug }
+		SSpriteManagerInitializer::SSpriteManagerInitializer(const std::string& InCanvasName, AmbientContext* pInAmbientContext, ID3D11Device* pInDev, ID3D11DeviceContext* pInDevCon, bool bInDebug) :
+			CanvasName{InCanvasName}
+		,	pAmbientContext{ pInAmbientContext }
+		,	pDev{ pInDev }
+		,	pDevCon{ pInDevCon }
+		,	bDebug{ bInDebug }
 		{
 			BOOST_ASSERT(pAmbientContext);
 			BOOST_ASSERT(pDev);
@@ -44,7 +45,7 @@ namespace QRen
 			D3D::SUniformBufferInitializer Initializer;
 			Initializer.pLog = &GetLog();
 			Initializer.bDebug = bDebug;
-			Initializer.Name = "VertexBuffer";
+			Initializer.Name = GetCanvasName() + std::string("_VB");
 			Initializer.pDev = pDev;
 			Initializer.pDevCon = pDevCon;
 			Initializer.SlotSize = D3D::SPRITE_GEOMETRY_SIZE;
@@ -90,7 +91,7 @@ namespace QRen
 			return SpriteListIterator{ &SpritesByZOrder, SpritesByZOrder.begin(), ESpriteVisibilityFilter::OnlyVisible };
 		}
 
-		size_t FillSpriteGeometry_ReturnSizeInBytes(D3D::SD3D11SpriteGeometryVertex* pOutVertices, const SSpriteGeometryData& InGeometry)
+		size_t FillSpriteGeometry_ReturnSizeInBytes(D3D::SD3D11SpriteGeometryVertex* pOutVertices, Spr::SpriteId InSpriteId, const SSpriteGeometryData& InGeometry)
 		{
 			Math::SVec2 Vertices[4];
 			Math::CalculateRectVertices
@@ -103,27 +104,27 @@ namespace QRen
 			);
 
 			// Top 
-			D3D::SetD3D11SpriteVertex(&pOutVertices[0], Vertices[0].X, Vertices[0].Y, InGeometry.Z, InGeometry.TexCoordX[0], InGeometry.TexCoordY[0]);
+			D3D::SetD3D11SpriteVertex(&pOutVertices[0], InSpriteId, Vertices[0].X, Vertices[0].Y, InGeometry.Z, InGeometry.TexCoordX[0], InGeometry.TexCoordY[0]);
 			// Top right
-			D3D::SetD3D11SpriteVertex(&pOutVertices[1], Vertices[1].X, Vertices[1].Y, InGeometry.Z, InGeometry.TexCoordX[1], InGeometry.TexCoordY[1]);
+			D3D::SetD3D11SpriteVertex(&pOutVertices[1], InSpriteId, Vertices[1].X, Vertices[1].Y, InGeometry.Z, InGeometry.TexCoordX[1], InGeometry.TexCoordY[1]);
 			// Bottom
-			D3D::SetD3D11SpriteVertex(&pOutVertices[2], Vertices[2].X, Vertices[2].Y, InGeometry.Z, InGeometry.TexCoordX[2], InGeometry.TexCoordY[2]);
+			D3D::SetD3D11SpriteVertex(&pOutVertices[2], InSpriteId, Vertices[2].X, Vertices[2].Y, InGeometry.Z, InGeometry.TexCoordX[2], InGeometry.TexCoordY[2]);
 			// Bottom right
-			D3D::SetD3D11SpriteVertex(&pOutVertices[3], Vertices[3].X, Vertices[3].Y, InGeometry.Z, InGeometry.TexCoordX[3], InGeometry.TexCoordY[3]);
+			D3D::SetD3D11SpriteVertex(&pOutVertices[3], InSpriteId, Vertices[3].X, Vertices[3].Y, InGeometry.Z, InGeometry.TexCoordX[3], InGeometry.TexCoordY[3]);
 			return (sizeof(D3D::SD3D11SpriteGeometryVertex) * 4);
 		}
 
-		D3D::BufferAlloc AllocSprite(D3D::UniformBuffer* pVB, const SSpriteGeometryData& InGeometry)
+		D3D::BufferAlloc AllocSprite(D3D::UniformBuffer* pVB, Spr::SpriteId InSpriteId, const SSpriteGeometryData& InGeometry)
 		{
 			D3D::SD3D11SpriteGeometryVertex Vertices[4];
-			const size_t SZ = FillSpriteGeometry_ReturnSizeInBytes(Vertices, InGeometry);
+			const size_t SZ = FillSpriteGeometry_ReturnSizeInBytes(Vertices, InSpriteId, InGeometry);
 			return pVB->Alloc(Vertices, SZ);
 		}
 
-		void ReallocSprite(D3D::UniformBuffer* pVB, const D3D::BufferAlloc& InVBAlloc, const SSpriteGeometryData& InGeometry)
+		void ReallocSprite(D3D::UniformBuffer* pVB, const D3D::BufferAlloc& InVBAlloc, Spr::SpriteId InSpriteId, const SSpriteGeometryData& InGeometry)
 		{
 			D3D::SD3D11SpriteGeometryVertex Vertices[4];
-			const size_t SZ = FillSpriteGeometry_ReturnSizeInBytes(Vertices, InGeometry);
+			const size_t SZ = FillSpriteGeometry_ReturnSizeInBytes(Vertices, InSpriteId, InGeometry);
 			return pVB->OverwriteAlloc(InVBAlloc, Vertices, SZ);
 		}
 
@@ -142,7 +143,7 @@ namespace QRen
 	void SpriteManager::CreateSprite(const SCreateSpriteArgs& InArgs)
 	{
 		T_LOG("SpriteManager::CreateSprite...");
-		D3D::BufferAlloc const Alloc = AllocSprite(pVB.get(), InArgs.GetRenderLayerGeometryData());
+		D3D::BufferAlloc const Alloc = AllocSprite(pVB.get(), InArgs.GetTargetSpriteId(), InArgs.GetRenderLayerGeometryData());
 
 		Sprite* const pSpr = NewSpriteObject(Alloc, InArgs);
 		SpriteStorageList::iterator It_SpriteInStorage = Sprites.emplace(Sprites.end(), pSpr);
@@ -155,12 +156,8 @@ namespace QRen
 		auto [ItById, bRegistered] = SpritesById.insert(std::make_pair(InArgs.GetTargetSpriteId(), pSpr));
 		BOOST_ASSERT_MSG(bRegistered, "SpriteManager::CreateSprite: sprite with the given id must not be registered yet");
 				
+		pSpr->BindStorageIterator(It_SpriteInStorage);
 		SpriteList::iterator It_ByZOrder = Register_InZOrderList(pSpr, InArgs.GetZBeforeSpriteId());
-
-		SpriteIterator SpriteIt;
-		SpriteIt.It_Storage = It_SpriteInStorage;
-		SpriteIt.It_ByZOrder = It_ByZOrder;
-		pSpr->BindIterator(SpriteIt);
 
 		T_LOG("SpriteManager::CreateSprite DONE");
 	}
@@ -187,7 +184,9 @@ namespace QRen
 			It_ZAfterSprite = SpritesByZOrder.end();
 			
 		}
-		return SpritesByZOrder.insert(It_ZAfterSprite, pSprite);
+		SpriteList::iterator it = SpritesByZOrder.insert(It_ZAfterSprite, pSprite);
+		pSprite->BindIteratorByZOrder(it);
+		return it; 
 	}
 
 	Sprite* SpriteManager::GetSpriteById(SpriteId InId) const
@@ -239,7 +238,7 @@ namespace QRen
 		Sprite* const pSprite = GetSpriteById(InId);
 		BOOST_ASSERT_MSG(pSprite, "SpriteManager::SetSpriteGeometry: sprite with the given Id must exist");
 		D3D::BufferAlloc Alloc = pSprite->GetVBAlloc();
-		ReallocSprite(pVB.get(), /*Out*/Alloc, InGeometry);
+		ReallocSprite(pVB.get(), /*Out*/Alloc, InId, InGeometry);
 		pSprite->SetVBAlloc(Alloc);
 		pSprite->SetGeometry(InGeometry);
 	}
@@ -297,6 +296,11 @@ namespace QRen
 	{
 		NumVisibleSprites++;
 		T_LOG("Now THERE're VISIBLE sprites");
+	}
+
+	int SpriteManager::GetCapacityInSprites() const
+	{
+		return pVB->GetNumSlots();
 	}
 } // Dv::Spr::QRen::IMPL
 

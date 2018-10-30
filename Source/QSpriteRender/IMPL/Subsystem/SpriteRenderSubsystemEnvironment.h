@@ -41,16 +41,6 @@ public:
 	AmbientContext* GetAmbientContext() { return &_ambientContext; }
 
 	/**
-	* Vertex buffer that contains all sprites.
-	*/
-	//const SpriteGeometryBuffer* GetSpriteGeometryBuffer() const { return &_spriteGeometryBuffer; }
-
-	/**
-	* Vertex buffer that contains all sprites.
-	*/
-	//SpriteGeometryBuffer* GetSpriteGeometryBuffer() { return &_spriteGeometryBuffer; }
-
-	/**
 	* Render-related resources.
 	*/
 	const D3D::RenResources* GetRenResources() const { return &_renResources; }

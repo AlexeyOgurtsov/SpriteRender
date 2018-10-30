@@ -138,6 +138,7 @@
     <ClInclude Include="..\..\ISpriteRender\SpriteCommandInitializers.h" />
     <ClInclude Include="..\..\ISpriteRender\SpriteMaterialInstanceRenderState.h" />
     <ClInclude Include="..\..\Test\ISpriteRender\AllTests.h" />
+    <ClInclude Include="..\..\Test\ISpriteRender\FeatureManyCanvasSmokeTests.h" />
     <ClInclude Include="..\..\Test\ISpriteRender\ISprGlobalFixtureBase.h" />
     <ClInclude Include="..\..\Test\ISpriteRender\ISprPerTestFixture_SingleCanvas.h" />
     <ClInclude Include="..\..\Test\ISpriteRender\ISprPerTestFixtureBase.h" />

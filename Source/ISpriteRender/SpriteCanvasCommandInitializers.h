@@ -2,6 +2,7 @@
 
 #include "ISprite/SpriteCanvasProps.h"
 #include "ISprite/SpriteCanvasTypedefs.h"
+#include <string>
 
 namespace Dv
 {
@@ -27,6 +28,16 @@ struct SSpriteCanvasCommandInitializerBase
 };
 
 /**
+* @see: SSpriteCanvasCreateCommandInitializer
+*/
+constexpr int DEFAULT_CAPACITY_IN_SPRITES = 0;
+
+/**
+* @see: SSpriteCanvasCreateCommandInitializer
+*/
+const std::string DEFAULT_CANVAS_NAME = "{UNNAMED}";
+
+/**
 * Initializer of the create command
 */
 struct SSpriteCanvasCreateCommandInitializer : public SSpriteCanvasCommandInitializerBase
@@ -43,17 +54,47 @@ struct SSpriteCanvasCreateCommandInitializer : public SSpriteCanvasCommandInitia
 	SpriteCanvasId ZBeforeSpriteCanvasId = NULL_SPRITE_CANVAS_ID;
 
 	/**
+	* Name of the canvas
+	*/
+	std::string Name = DEFAULT_CANVAS_NAME;
+
+	/**
+	* Initial capacity of this canvas in sprites.
+	*
+	* If zero (DEFAULT), then corresponds to the system default.
+	*/
+	int InitialCapacityInSprites = DEFAULT_CAPACITY_IN_SPRITES;
+
+	/**
+	* Can be automatically resized?
+	*/
+	bool bAutoResize = false;
+
+	/**
 	* Should the sprite canvas to be initially visible.
 	*/
 	bool bShow = false;
 
+	/**
+	* Should we perform any debugging on this canvas (should we log its state etc.)
+	*/
+	bool bDebug = false;
+
 	SSpriteCanvasCreateCommandInitializer() :
 		ZBeforeSpriteCanvasId(NULL_SPRITE_CANVAS_ID)
-	,	bShow(false) {}
-	SSpriteCanvasCreateCommandInitializer(SpriteCanvasId InTargetSpriteCanvasId, const SSpriteCanvasProps& InProps) :
+	,	Name(DEFAULT_CANVAS_NAME)
+	,	bShow(false)
+	,	InitialCapacityInSprites(DEFAULT_CAPACITY_IN_SPRITES)
+	,	bAutoResize(false)
+	,	bDebug(false) {}
+	SSpriteCanvasCreateCommandInitializer(SpriteCanvasId InTargetSpriteCanvasId, const std::string& InName, const SSpriteCanvasProps& InProps) :
 		SSpriteCanvasCommandInitializerBase(InTargetSpriteCanvasId)
+	,	Name(InName)
 	,	Props(InProps)
-	,	bShow(false) {}
+	,	InitialCapacityInSprites(DEFAULT_CAPACITY_IN_SPRITES)
+	,	bAutoResize(false)
+	,	bShow(false) 
+	,	bDebug(false) {}
 
 };
 

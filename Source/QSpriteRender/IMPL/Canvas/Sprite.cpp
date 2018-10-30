@@ -64,13 +64,17 @@ namespace IMPL
 
 	const SpriteIterator& Sprite::GetIterator() const
 	{
-		BOOST_ASSERT_MSG(Iterator.has_value(), "Sprite::GetIterator: iterator is not binded");
-		return Iterator.value();
+		return Iterator;
 	}
 
-	void Sprite::BindIterator(const SpriteIterator& InIterator)
+	void Sprite::BindStorageIterator(SpriteStorageList::iterator InItStorage)
 	{
-		Iterator = InIterator;
+		Iterator.It_Storage = InItStorage;
+	}
+
+	void Sprite::BindIteratorByZOrder(SpriteList::iterator InItByZOrder)
+	{
+		Iterator.It_ByZOrder = InItByZOrder;
 	}
 } // Dv::Spr::QRen::IMPL
 

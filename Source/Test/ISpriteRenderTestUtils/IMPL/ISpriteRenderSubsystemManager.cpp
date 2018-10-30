@@ -4,12 +4,12 @@
 
 namespace Test
 {
-	CanvasHandle ISpriteRenderSubsystemManager::CreateCanvas(CanvasId InId, unsigned int InWidth, unsigned int InHeight)
+	CanvasHandle ISpriteRenderSubsystemManager::CreateCanvas(CanvasId InId, const std::string& InName, unsigned int InWidth, unsigned int InHeight)
 	{
-		T_LOG("ISpriteRenderSubsystemManager::CreateCanvas, Id = " << InId);
+		T_LOG("ISpriteRenderSubsystemManager::CreateCanvas, Name=" << InName << ", Id = " << InId);
 		T_LOG("Width*Height=" << InWidth << "*" << InHeight);
 
-		MySprRen::SSpriteCanvasCreateCommandInitializer Initializer = MySprRen::GetCanvasInit(InId, InWidth, InHeight);
+		MySprRen::SSpriteCanvasCreateCommandInitializer Initializer = MySprRen::GetCanvasInit(/*bDebug=*/true, InId, InName, InWidth, InHeight);
 
 		BOOST_ASSERT_MSG(GetSpriteRender(), "ISpriteRenderSubsystemManager::CreateCanvas Sprite render must be initialized");
 		GetSpriteRender()->CreateCanvas(Initializer);

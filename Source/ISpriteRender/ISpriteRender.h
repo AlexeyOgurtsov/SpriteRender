@@ -11,9 +11,9 @@ namespace Spr
 namespace Ren
 {
 
-SSpriteCanvasCreateCommandInitializer GetCanvasInit(SpriteCanvasId InCanvasId, const SSpriteCanvasProps& InCanvasProps);
-SSpriteCanvasCreateCommandInitializer GetCanvasInit(SpriteCanvasId InCanvasId, const SCanvasRect& InRect);
-SSpriteCanvasCreateCommandInitializer GetCanvasInit(SpriteCanvasId InCanvasId, int InWidth, int InHeight, int InLeft = 0, int InTop = 0);
+SSpriteCanvasCreateCommandInitializer GetCanvasInit(bool bInDebug, SpriteCanvasId InCanvasId, const std::string& InName, const SSpriteCanvasProps& InCanvasProps, int InInitialCapacityInSprites = DEFAULT_CAPACITY_IN_SPRITES, bool bInAutoResize  = false);
+SSpriteCanvasCreateCommandInitializer GetCanvasInit(bool bInDebug, SpriteCanvasId InCanvasId, const std::string& InName, const SCanvasRect& InRect, int InInitialCapacityInSprites = DEFAULT_CAPACITY_IN_SPRITES, bool bInAutoResize = false);
+SSpriteCanvasCreateCommandInitializer GetCanvasInit(bool bInDebug, SpriteCanvasId InCanvasId, const std::string& InName, int InWidth, int InHeight, int InLeft = 0, int InTop = 0, int InInitialCapacityInSprites = DEFAULT_CAPACITY_IN_SPRITES, bool bInAutoResize = false);
 
 class ISpriteRender
 {
@@ -25,19 +25,19 @@ public:
 	* Registers a canvas (helper).
 	* Calling during rendering exhibits an undefined behaviour.
 	*/
-	void CreateCanvas(SpriteCanvasId InCanvasId, const SSpriteCanvasProps& InCanvasProps);
+	void CreateCanvas(bool bInDebug, SpriteCanvasId InCanvasId, const std::string& InName, const SSpriteCanvasProps& InCanvasProps, int InInitialCapacityInSprites = DEFAULT_CAPACITY_IN_SPRITES, bool bInAutoResize = false);
 
 	/**
 	* Registers a canvas (helper).
 	* Calling during rendering exhibits an undefined behaviour.
 	*/
-	void CreateCanvas(SpriteCanvasId InCanvasId, const SCanvasRect& InRect);
+	void CreateCanvas(bool bInDebug, SpriteCanvasId InCanvasId, const std::string& InName,  const SCanvasRect& InRect, int InInitialCapacityInSprites = DEFAULT_CAPACITY_IN_SPRITES, bool bInAutoResize = false);
 
 	/**
 	* Registers a canvas (helper).
 	* Calling during rendering exhibits an undefined behaviour.
 	*/
-	void CreateCanvas(SpriteCanvasId InCanvasId, int InWidth, int InHeight, int InLeft = 0, int InTop = 0);
+	void CreateCanvas(bool bInDebug, SpriteCanvasId InCanvasId, const std::string& InName, int InWidth, int InHeight, int InLeft = 0, int InTop = 0, int InInitialCapacityInSprites = DEFAULT_CAPACITY_IN_SPRITES, bool bInAutoResize = false);
 	// ~ Helper interface End
 	
 
@@ -124,7 +124,47 @@ public:
 	* (if null, the canvas is to be moved on top of the ZOrder).
 	*/
 	virtual void MoveCanvasZOrderAfter(SpriteCanvasId InCanvasId, SpriteCanvasId InZBeforeCanvasId) = 0;
+
+	/**
+	* Capacity of the canvas in sprites.
+	*/
+	virtual int GetCapacityInSprites_ForCanvas(SpriteCanvasId InCanvasId) const = 0;
+
+	/**
+	* Total number of sprites (both visible and hidden) for the given canvas.
+	*/
+	virtual int GetNumSprites_ForCanvas(SpriteCanvasId InCanvasId) const = 0;
+
+	/**
+	* Number of visible sprites for the given canvas
+	*/
+	virtual int GetNumVisibleSprites_ForCanvas(SpriteCanvasId InCanvasId) const = 0;
+
+	/**
+	* Max count of canvasses.
+	*/
+	virtual int GetMaxCanvasLimit() const = 0;
+
+	/**
+	* Count of visible canvasses
+	*/
+	virtual int GetNumCanvasses() const = 0;
+
+	/**
+	* Count of visible canvasses
+	*/
+	virtual int GetNumVisibleCanvasses() const = 0;
 	// ~ Virtual interface End
+
+	/**
+	* Count of hidden canvasses
+	*/
+	int GetNumHiddenCanvasses() const;
+
+	/**
+	* Number of hidden sprites for the given canvas
+	*/
+	int GetNumHiddenSprites_ForCanvas(SpriteCanvasId InCanvasId) const;	
 };
 
 } // Dv::Spr::Ren

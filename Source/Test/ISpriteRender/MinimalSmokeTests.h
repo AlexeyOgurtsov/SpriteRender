@@ -46,7 +46,7 @@ namespace Test::ISpr
 		// because not necessarily that concrete SpriteRender implementation 
 		// supports more than once canvas!
 		BOOST_TEST_CHECKPOINT("Create");
-		BOOST_REQUIRE_NO_THROW(GetSprRen()->CreateCanvas(CanvId, GetRTWidth(), GetRTHeight()));
+		BOOST_REQUIRE_NO_THROW(GetSprRen()->CreateCanvas(/*bDebug=*/true, CanvId, std::string("Canvas"), GetRTWidth(), GetRTHeight()));
 		
 		BOOST_TEST_CHECKPOINT("Show/Hide");
 		{
@@ -82,7 +82,7 @@ namespace Test::ISpr
 		// because not necessarily that concrete SpriteRender implementation 
 		// supports more than once canvas!
 		BOOST_TEST_CHECKPOINT("CreateCanvas");
-		BOOST_REQUIRE_NO_THROW(GetSprRen()->CreateCanvas(CanvId, GetRTWidth(), GetRTHeight()));
+		BOOST_REQUIRE_NO_THROW(GetSprRen()->CreateCanvas(/*bDebug=*/true, CanvId, std::string("Canvas"), GetRTWidth(), GetRTHeight()));
 
 		BOOST_TEST_CHECKPOINT("ShowCanvas");
 		BOOST_REQUIRE_NO_THROW(GetSprRen()->ShowCanvas(CanvId));

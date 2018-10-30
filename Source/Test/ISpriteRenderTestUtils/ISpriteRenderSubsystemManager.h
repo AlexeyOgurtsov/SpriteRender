@@ -93,7 +93,7 @@ namespace Test
 		virtual std::ofstream& GetLog() const = 0;
 
 		// ~Canvas operations Begin
-		CanvasHandle CreateCanvas(CanvasId InId, unsigned int InWidth, unsigned int InHeight);
+		CanvasHandle CreateCanvas(CanvasId InId, const std::string& InName, unsigned int InWidth, unsigned int InHeight);
 		void DeleteCanvas(CanvasHandle InHandle);
 		void ShowCanvas(CanvasHandle InHandle);
 		void HideCanvas(CanvasHandle InHandle);

@@ -276,6 +276,12 @@
     <ClInclude Include="..\..\QSpriteRender\IMPL\Canvas\SpriteSetRenderUtils.h">
       <Filter>IMPL\Canvas</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\QSpriteRender\IMPL\Render\CanvasManager.h">
+      <Filter>IMPL\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\QSpriteRender\IMPL\Render\CanvasManagerContainerTypes.h">
+      <Filter>IMPL\Render</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\QSpriteRender\INTERFACE\CONFIG\SpriteRenderConfig.cpp">
@@ -403,6 +409,12 @@
     </ClCompile>
     <ClCompile Include="..\..\QSpriteRender\IMPL\Canvas\SpriteSetRenderUtils.cpp">
       <Filter>IMPL\Canvas</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\QSpriteRender\IMPL\Render\CanvasManager.cpp">
+      <Filter>IMPL\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\QSpriteRender\IMPL\Render\CanvasManagerContainerTypes.cpp">
+      <Filter>IMPL\Render</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

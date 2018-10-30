@@ -1,6 +1,5 @@
-#include "SpriteContainerTypes.h"
-#include "Sprite.h"
-#include <boost/assert.hpp>
+#include "CanvasManagerContainerTypes.h"
+#include "../Canvas/Canvas.h"
 
 namespace Dv
 {
@@ -10,25 +9,25 @@ namespace QRen
 {
 namespace IMPL
 {
-	SpriteListIterator::SpriteListIterator() :
+	SpriteCanvasListIterator::SpriteCanvasListIterator() :
 		pCont{ nullptr }
-		, Visibility{ ESpriteVisibilityFilter::None }
+		, Visibility{ ESpriteCanvasVisibilityFilter::None }
 	{
 	}
 
-	SpriteListIterator::SpriteListIterator(const ContType* InCont, ConstIteratorType InIt, ESpriteVisibilityFilter InVisibility) :
+	SpriteCanvasListIterator::SpriteCanvasListIterator(const ContType* InCont, ConstIteratorType InIt, ESpriteCanvasVisibilityFilter InVisibility) :
 		It{ InIt }
 		, pCont{ InCont }
 		, Visibility{ InVisibility }
 	{
 		MakeEnd_IfIteratorEnd();
-		if (IsNotEnd() && false == SpriteValidForIterator())
+		if (IsNotEnd() && false == CanvasValidForIterator())
 		{
 			++*this;
 		}
 	}
 
-	bool SpriteListIterator::MakeEnd_IfIteratorEnd()
+	bool SpriteCanvasListIterator::MakeEnd_IfIteratorEnd()
 	{
 		if (It == pCont->cend())
 		{
@@ -38,24 +37,24 @@ namespace IMPL
 		return false;
 	}
 
-	const Sprite* SpriteListIterator::operator*() const
+	Canvas* SpriteCanvasListIterator::operator*() const
 	{
 		return GetPtr();
 	}
 
-	const Sprite* SpriteListIterator::GetPtr() const
+	Canvas* SpriteCanvasListIterator::GetPtr() const
 	{
 		BOOST_ASSERT(IsNotEnd());
 		return *It;
 	}
 
-	const Sprite* SpriteListIterator::operator->() const
+	Canvas* SpriteCanvasListIterator::operator->() const
 	{
 		BOOST_ASSERT(IsNotEnd());
 		return GetPtr();
 	}
 
-	SpriteListIterator SpriteListIterator::operator++()
+	SpriteCanvasListIterator SpriteCanvasListIterator::operator++()
 	{
 		BOOST_ASSERT(IsNotEnd());
 		while (true)
@@ -65,7 +64,7 @@ namespace IMPL
 			{
 				return *this;
 			}
-			if (SpriteValidForIterator())
+			if (CanvasValidForIterator())
 			{
 				break;
 			}
@@ -73,31 +72,31 @@ namespace IMPL
 		return *this;
 	}
 
-	bool SpriteListIterator::SpriteValidForIterator() const
+	bool SpriteCanvasListIterator::CanvasValidForIterator() const
 	{
 		BOOST_ASSERT(IsNotEnd());
 		switch (Visibility)
 		{
-		case ESpriteVisibilityFilter::None:
+		case ESpriteCanvasVisibilityFilter::None:
 			return true;
 
-		case ESpriteVisibilityFilter::OnlyHidden:
+		case ESpriteCanvasVisibilityFilter::OnlyHidden:
 			return (false == (*It)->IsVisible());
 
-		case ESpriteVisibilityFilter::OnlyVisible:
+		case ESpriteCanvasVisibilityFilter::OnlyVisible:
 			return (*It)->IsVisible();
 		}
 		return true;
 	}
 
-	SpriteListIterator SpriteListIterator::operator++(int)
+	SpriteCanvasListIterator SpriteCanvasListIterator::operator++(int)
 	{
 		auto It = *this;
 		++It;
 		return It;
 	}
 
-	SpriteListIterator SpriteListIterator::operator--()
+	SpriteCanvasListIterator SpriteCanvasListIterator::operator--()
 	{
 		while (true)
 		{
@@ -106,7 +105,7 @@ namespace IMPL
 			{
 				return *this;
 			}
-			if (SpriteValidForIterator())
+			if (CanvasValidForIterator())
 			{
 				break;
 			}
@@ -114,19 +113,19 @@ namespace IMPL
 		return *this;
 	}
 
-	SpriteListIterator SpriteListIterator::operator--(int)
+	SpriteCanvasListIterator SpriteCanvasListIterator::operator--(int)
 	{
 		auto It = *this;
 		--It;
 		return It;
 	}
 
-	bool SpriteListIterator::IsNotEnd() const
+	bool SpriteCanvasListIterator::IsNotEnd() const
 	{
 		return !IsEnd();
 	}
 
-	bool SpriteListIterator::operator==(const SpriteListIterator& InOther)
+	bool SpriteCanvasListIterator::operator==(const SpriteCanvasListIterator& InOther)
 	{
 		if (IsEnd() || InOther.IsEnd())
 		{
@@ -144,11 +143,10 @@ namespace IMPL
 		return It == InOther.It;
 	}
 
-	bool SpriteListIterator::operator!=(const SpriteListIterator& InOther)
+	bool SpriteCanvasListIterator::operator!=(const SpriteCanvasListIterator& InOther)
 	{
 		return !(operator==(InOther));
 	}
-
 } // Dv::Spr::QRen::IMPL
 } // Dv::Spr::QRen
 } // Dv::Spr

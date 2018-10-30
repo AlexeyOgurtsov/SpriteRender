@@ -19,6 +19,7 @@ class AmbientContext;
 
 struct SSpriteManagerInitializer
 {
+	std::string CanvasName;
 	AmbientContext* pAmbientContext = nullptr;
 	ID3D11Device* pDev = nullptr;
 	ID3D11DeviceContext* pDevCon = nullptr;
@@ -26,7 +27,7 @@ struct SSpriteManagerInitializer
 	UINT MaxSprites = 100;
 	bool bAutoResizeable = false;
 
-	SSpriteManagerInitializer(AmbientContext* pInAmbientContext, ID3D11Device* pInDev, ID3D11DeviceContext* pInDevCon, bool bInDebug);
+	SSpriteManagerInitializer(const std::string& InCanvasName, AmbientContext* pInAmbientContext, ID3D11Device* pInDev, ID3D11DeviceContext* pInDevCon, bool bInDebug);
 };
 
 /**
@@ -47,6 +48,11 @@ public:
 	* Flushes all managed d3d resources (typically to be called each frame).
 	*/
 	void FlushD3D();
+
+	/**
+	* Name of the canvas
+	*/
+	const std::string& GetCanvasName() const { return CanvasName; }
 
 	/**
 	* Returns the vertex buffer: must always be valid.
@@ -72,6 +78,11 @@ public:
 	* Number of visible sprites.
 	*/
 	UINT GetNumVisibleSprites() const { return NumVisibleSprites; }
+
+	/**
+	* Current capacity in sprites (may be resized if auto-resize is enabled).
+	*/
+	int GetCapacityInSprites() const;
 
 	SpriteIteratorType Iterator_SpriteByZOrder() const;
 	VisibleSpriteIteratorType Iterator_VisibleSpriteByZOrder() const;
@@ -129,6 +140,7 @@ public:
 private:
 	using SpriteByIdCont = std::unordered_map<SpriteId, Sprite*>;
 
+	std::string CanvasName;
 	bool bDebug = false;
 	AmbientContext* pAmbientContext = nullptr;
 	ID3D11Device* pDev = nullptr;
@@ -150,6 +162,8 @@ private:
 
 	/**
 	* Registers in the SpritesByZOrder list.
+	* Updates the Z-order iterator of the sprite automatically.
+	*
 	* @returns: iterator to the inserted element in the list.
 	*/
 	SpriteList::iterator Register_InZOrderList(Sprite* pSprite, SpriteId InZBeforeSpriteId);

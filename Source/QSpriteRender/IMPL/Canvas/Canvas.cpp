@@ -20,10 +20,11 @@ Canvas::Canvas(const SCanvasInitializer& InInitializer) :
 	// SpriteManager
 	SSpriteManagerInitializer SpriteManagerInitializer 
 	{
+		InInitializer.CreateArgs.GetName(),
 		InInitializer.pAmbientContext, 
 		InInitializer.pRenResources->GetDev(),
 		InInitializer.pRenResources->GetDevCon(),
-		InInitializer.bDebug,
+		InInitializer.bDebug
 	};
 	SpriteManagerInitializer.bAutoResizeable = InInitializer.bAutoResizeable;
 	SpriteManagerInitializer.MaxSprites = InInitializer.MaxSprites;
@@ -34,9 +35,34 @@ Canvas::Canvas(const SCanvasInitializer& InInitializer) :
 	pRender.reset(new SpriteSetRender(RenderInitializer));
 }
 
+int Canvas::GetCapacityInSprites() const
+{
+	return pSprites->GetCapacityInSprites();
+}
+
+void Canvas::BindStorageIterator(CanvasStorage::iterator InIt)
+{
+	Iterator.It_CanvasStorage = InIt;
+}
+
+void Canvas::BindZOrderIterator(CanvasList::iterator InIt)
+{
+	Iterator.It_CanvasList = InIt;
+}
+
 void Canvas::UpdateRect(const SRenderLayerCanvasRect& InNewRect)
 {
 	_props.RTRect = InNewRect;
+}
+
+bool Canvas::IsHidden() const
+{
+	return false == IsVisible();
+}
+
+void Canvas::SetVisibility(bool bInVisible)
+{
+	_bVisible = bInVisible;
 }
 
 void Canvas::Show()

@@ -24,5 +24,7 @@ namespace Test::ISpr
 	std::string const SuitePath_MinimalTransparency { "SuiteMinimalTransparency" };
 	std::string const SuitePath_MinimalHeavyLoad { "SuiteMinimalHeavyLoad" };
 	std::string const SuitePath_MinimalExtraChecks { "SuiteMinimalExtraChecks" };
+
+	std::string const SuitePath_FeatureManyCanvassesSmoke { "Suite_FeatureManyCanvasSmoke" };
 	// ~ Sprite render test suite paths End
 } // Test::ISpr

@@ -5,8 +5,10 @@
 #include "ISprite/SpriteCanvasTypedefs.h"
 #include "ISpriteRender/SpriteCommandInitializers.h"
 #include "CanvasCommands.h"
+#include "../Render/CanvasManagerContainerTypes.h"
 #include <memory>
 #include <d3d11.h>
+#include <optional>
 
 namespace Dv
 {
@@ -33,7 +35,7 @@ struct SCanvasInitializer
 
 	bool bDebug = false;
 	UINT MaxSprites = 100;
-	bool bAutoResizeable = false;
+	bool bAutoResizeable = false;	
 
 	SCanvasInitializer(AmbientContext* pInAmbientContext, const SCreateCanvasArgs& InCreateArgs, const D3D::RenResources* pInRenResources) :
 		CreateArgs(InCreateArgs)
@@ -53,6 +55,21 @@ public:
 	Canvas(const SCanvasInitializer& InInitializer);
 
 	/**
+	* Iterator in the canvas container.
+	*/
+	const CanvasIterator& GetIterator() const { return Iterator; }
+
+	/**
+	* Binds new canvas storage iterator
+	*/
+	void BindStorageIterator(CanvasStorage::iterator InIt);
+
+	/**
+	* Binds iterator to the list by Z-order.
+	*/
+	void BindZOrderIterator(CanvasList::iterator InIt);
+
+	/**
 	* Unique id of the canvas.
 	*/
 	SpriteCanvasId GetId() const { return _id; }
@@ -61,6 +78,16 @@ public:
 	* Should the canvas be rendered by default.
 	*/
 	bool IsVisible() const { return _bVisible; }
+
+	/**
+	* Opposite to IsVisible.
+	*/
+	bool IsHidden() const;
+
+	/**
+	* Sets visibility variable (to be called only from the CanvasManager!)
+	*/
+	void SetVisibility(bool bInVisible);
 
 	/**
 	* Returns all properties of the canvas as one struct.
@@ -86,6 +113,11 @@ public:
 	* Makes the given canvas hidden.
 	*/
 	void Hide();
+
+	/**
+	* Capacity in sprites.
+	*/
+	int GetCapacityInSprites() const;
 
 	/**
 	* Returns count of sprites in the visible state.
@@ -170,6 +202,7 @@ private:
 	SRenderLayerCanvasProps _props;
 	std::unique_ptr<SpriteManager> pSprites;
 	std::unique_ptr<SpriteSetRender> pRender;
+	CanvasIterator Iterator;
 };
 
 } // Dv::Spr::QRen::IMPL

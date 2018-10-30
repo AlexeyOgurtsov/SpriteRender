@@ -22,7 +22,7 @@ namespace Test::ISpr
 		T_LOG("Fixture: SingleCanvas: OnPostSetupTestUser...");
 
 		T_LOG("Fixture SingleCanvas: Creating canvas...");
-		CanvHandle = GetSpriteRenderSubsystemManager()->CreateCanvas(CANV_ID, GetRTWidth(), GetRTHeight());
+		CanvHandle = GetSpriteRenderSubsystemManager()->CreateCanvas(CANV_ID, std::string("Canvas"), GetRTWidth(), GetRTHeight());
 		T_LOG("Fixture SingleCanvas: Creating canvas DONE");
 
 		T_LOG("Fixture SingleCanvas: Showing canvas...");

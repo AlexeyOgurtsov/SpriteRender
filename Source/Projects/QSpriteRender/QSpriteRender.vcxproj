@@ -144,6 +144,8 @@
     <ClInclude Include="..\..\QSpriteRender\IMPL\Canvas\SpriteSetRenderUtils.h" />
     <ClInclude Include="..\..\QSpriteRender\IMPL\Environment\AmbientContext.h" />
     <ClInclude Include="..\..\QSpriteRender\IMPL\Glue\Glue_InterfaceToImpl.h" />
+    <ClInclude Include="..\..\QSpriteRender\IMPL\Render\CanvasManager.h" />
+    <ClInclude Include="..\..\QSpriteRender\IMPL\Render\CanvasManagerContainerTypes.h" />
     <ClInclude Include="..\..\QSpriteRender\IMPL\Render\SpriteRender.h" />
     <ClInclude Include="..\..\QSpriteRender\IMPL\Render\SpriteUpdater.h" />
     <ClInclude Include="..\..\QSpriteRender\IMPL\RenUtils\BufferAlloc.h" />
@@ -210,6 +212,8 @@
     <ClCompile Include="..\..\QSpriteRender\IMPL\Canvas\SpriteSetRenderUtils.cpp" />
     <ClCompile Include="..\..\QSpriteRender\IMPL\Environment\AmbientContext.cpp" />
     <ClCompile Include="..\..\QSpriteRender\IMPL\Glue\Glue_InterfaceToImpl.cpp" />
+    <ClCompile Include="..\..\QSpriteRender\IMPL\Render\CanvasManager.cpp" />
+    <ClCompile Include="..\..\QSpriteRender\IMPL\Render\CanvasManagerContainerTypes.cpp" />
     <ClCompile Include="..\..\QSpriteRender\IMPL\Render\SpriteRender.cpp" />
     <ClCompile Include="..\..\QSpriteRender\IMPL\Render\SpriteUpdater.cpp" />
     <ClCompile Include="..\..\QSpriteRender\IMPL\RenUtils\BufferAlloc.cpp" />

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "ISpriteRender/SpriteCanvasCommandInitializers.h"
+#include <string>
 
 namespace Dv
 {
@@ -34,6 +35,11 @@ struct SCreateCanvasArgs
 	SpriteCanvasId GetTargetCanvasId() const { return _InterfaceInitializer.TargetSpriteCanvasId; }
 
 	/**
+	* Name of the canvas
+	*/
+	const std::string& GetName() const { return _InterfaceInitializer.Name; }
+
+	/**
 	* See the sprite render interface library sprite initializer command help for details.
 	*/
 	bool ShouldShow() const { return _InterfaceInitializer.bShow; }
@@ -48,6 +54,20 @@ struct SCreateCanvasArgs
 	*/
 	const SRenderLayerCanvasProps& GetProps() const { return _InterfaceInitializer.Props; }
 
+	/**
+	* See the sprite render interface library sprite initializer command help for details.
+	*/
+	int GetInitialCapacityInSprites() const { return _InterfaceInitializer.InitialCapacityInSprites; }
+
+	/**
+	* See the sprite render interface library sprite initializer command help for details.
+	*/
+	bool IsAutoResizeable() const { return _InterfaceInitializer.bAutoResize; }
+
+	/**
+	* See the sprite render interface library sprite initializer command help for details.
+	*/
+	bool ShouldDebug() const { return _InterfaceInitializer.bDebug; }
 	/**
 	* @param InInterfaceInitializer: Arguments those were passed dirrectly from the ISpriteRender interface,
 	*/

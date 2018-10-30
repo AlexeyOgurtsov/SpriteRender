@@ -11,6 +11,10 @@
 #include "MinimalHeavyLoadTests.h"
 #include "MinimalExtraChecks.h"
 
+#ifdef TEST_FEATURE_MANY_CANVASSES
+#include "FeatureManyCanvasSmokeTests.h"
+#endif // TEST_FEATURE_MANY_CANVASSES
+
 namespace Test::ISpr
 {
 } // Test::ISpr

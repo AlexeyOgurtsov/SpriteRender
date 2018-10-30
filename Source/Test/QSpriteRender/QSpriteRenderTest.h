@@ -10,6 +10,11 @@ namespace Test::ISpr::QSpr
 	BOOST_GLOBAL_FIXTURE(QGlobFixture);
 }
 
+// ~ Test control macros Begin
+// Our render supports many canvasses simultaneosly
+#define TEST_FEATURE_MANY_CANVASSES
+// ~ Test control macros End
+
 #include "IMPL_TEST/ImplTests.h"
 #include "ISpriteRender/AllTests.h"
 

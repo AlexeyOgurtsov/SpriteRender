@@ -1,6 +1,7 @@
 #include "SpriteGeometryVertex_InputLayout.h"
 #include "QSpriteRender/IMPL/RenUtils/ShaderCompileUtils.h"
 #include "QSpriteRender/INTERFACE/CONFIG/SpriteRenderShadersConfig.h"
+#include "ISprite/SpriteTypedefs.h"
 #include <fstream>
 #include <cstdlib>
 
@@ -17,8 +18,9 @@ namespace D3D
 
 constexpr const UINT SPRITE_VB_SLOT_INDEX = 0;
 
-constexpr const char* INPUT_LAYOUT_ELEMENT_POSITION = "Position";
-constexpr const char* INPUT_LAYOUT_ELEMENT_TEXCOORD = "TexCoord";
+constexpr const char* INPUT_LAYOUT_ELEMENT_SPRID = "SPR_ID";
+constexpr const char* INPUT_LAYOUT_ELEMENT_POSITION = "POSITION";
+constexpr const char* INPUT_LAYOUT_ELEMENT_TEXCOORD = "TEXCOORD";
 
 InputLayoutHandle RegisterInputLayout_SpriteGeometryVertex(ID3D11Device* pDev, const void* pShaderBytecode, UINT InShaderBytecodeLength)
 {
@@ -36,10 +38,18 @@ InputLayoutHandle RegisterInputLayout_SpriteGeometryVertex(ID3D11Device* pDev, c
 	texCoord.InputSlot = SPRITE_VB_SLOT_INDEX;
 	texCoord.InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA;
 
-	const UINT NUM_ELEMENTS = 2;
+	D3D11_INPUT_ELEMENT_DESC spriteId;
+	ZeroMemory(&spriteId, sizeof(D3D11_INPUT_ELEMENT_DESC));
+	spriteId.SemanticName = INPUT_LAYOUT_ELEMENT_SPRID;
+	BOOST_ASSERT_MSG(sizeof(Spr::SpriteId) == sizeof(uint32_t), "RegisterInputLayout_SpriteGeometryVertex: Warning!!! This layout is working only if Spr::SpriteId has sizeof(uint32_t)!");
+	spriteId.Format = DXGI_FORMAT_R32_UINT;
+	spriteId.InputSlot = SPRITE_VB_SLOT_INDEX;
+	spriteId.InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA;
+
+	const UINT NUM_ELEMENTS = 3;
 	D3D11_INPUT_ELEMENT_DESC inputLayoutDesc[NUM_ELEMENTS] =
 	{
-		position, texCoord
+		position, texCoord, spriteId
 	};
 
 	ID3D11InputLayout* pInputLayout = nullptr;
@@ -55,6 +65,7 @@ InputLayoutHandle RegisterInputLayout_SpriteGeometryVertex(ID3D11Device* pDev, c
 {
 	const char* ShaderSource =
 	"struct VS_INPUT {\n"
+	"	uint sprId : SPR_ID;\n"
 	"	float3 position : POSITION;\n"
 	"	float2 tex : TEXCOORD; \n"
 	"};\n"
