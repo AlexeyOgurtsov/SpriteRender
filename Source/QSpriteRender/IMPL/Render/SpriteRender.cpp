@@ -2,6 +2,7 @@
 #include "SpriteUpdater.h"
 #include "QSpriteRender/IMPL/Canvas/Canvas.h"
 #include "QSpriteRender/IMPL/Subsystem/SpriteRenderSubsystemEnvironment.h"
+#include "QSpriteRender/IMPL/Render/Resources/RSLayout.h"
 #include <boost/assert.hpp>
 
 namespace Dv
@@ -24,6 +25,7 @@ void SetupCommonRS(D3D::RenResources* pRenResources)
 	pDevCon->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP);
 	pDevCon->RSSetState(pRenResources->GetRasterizerState());
 
+	// Sampler
 	ID3D11SamplerState* const pSamplerState = pRenResources->GetDefaultSampler();
 	pDevCon->VSSetSamplers(0, 1, &pSamplerState);
 	pDevCon->PSSetSamplers(0, 1, &pSamplerState);

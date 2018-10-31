@@ -76,6 +76,12 @@
     <Filter Include="IMPL\RenUtils\Geometry">
       <UniqueIdentifier>{4965c998-e2d2-4be5-a872-be386058401e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="IMPL\Render\Resources">
+      <UniqueIdentifier>{d3068157-8553-44ea-87f1-68a851bc28bb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="IMPL\RenUtils\ShaderText">
+      <UniqueIdentifier>{1cab4733-0bf9-4ab8-975a-155a76909ca5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\QSpriteRender\INTERFACE\CONFIG\LoggingConfig.h">
@@ -282,6 +288,30 @@
     <ClInclude Include="..\..\QSpriteRender\IMPL\Render\CanvasManagerContainerTypes.h">
       <Filter>IMPL\Render</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\QSpriteRender\IMPL\RenUtils\BlobBuffer.h">
+      <Filter>IMPL\RenUtils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\QSpriteRender\IMPL\Render\Resources\CanvasCB.h">
+      <Filter>IMPL\Render\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\QSpriteRender\IMPL\Render\Resources\CanvasCBLayout.h">
+      <Filter>IMPL\Render\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\QSpriteRender\IMPL\RenUtils\CBLayoutSystem.h">
+      <Filter>IMPL\RenUtils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\QSpriteRender\IMPL\Render\Resources\RSLayout.h">
+      <Filter>IMPL\Render\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\QSpriteRender\IMPL\RenUtils\ShaderText\ShaderText_CB.h">
+      <Filter>IMPL\RenUtils\ShaderText</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\QSpriteRender\IMPL\Render\Resources\RSShaderText.h">
+      <Filter>IMPL\Render\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\QSpriteRender\IMPL\RenUtils\ShaderText\ShaderText.h">
+      <Filter>IMPL\RenUtils\ShaderText</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\QSpriteRender\INTERFACE\CONFIG\SpriteRenderConfig.cpp">
@@ -415,6 +445,27 @@
     </ClCompile>
     <ClCompile Include="..\..\QSpriteRender\IMPL\Render\CanvasManagerContainerTypes.cpp">
       <Filter>IMPL\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\QSpriteRender\IMPL\RenUtils\BlobBuffer.cpp">
+      <Filter>IMPL\RenUtils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\QSpriteRender\IMPL\Render\Resources\CanvasCB.cpp">
+      <Filter>IMPL\Render\Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\QSpriteRender\IMPL\Render\Resources\RSLayout.cpp">
+      <Filter>IMPL\Render\Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\QSpriteRender\IMPL\RenUtils\ShaderText\ShaderText_CB.cpp">
+      <Filter>IMPL\RenUtils\ShaderText</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\QSpriteRender\IMPL\Render\Resources\CanvasCBLayout.cpp">
+      <Filter>IMPL\Render\Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\QSpriteRender\IMPL\Render\Resources\RSShaderText.cpp">
+      <Filter>IMPL\Render\Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\QSpriteRender\IMPL\RenUtils\ShaderText\ShaderText.cpp">
+      <Filter>IMPL\RenUtils\ShaderText</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

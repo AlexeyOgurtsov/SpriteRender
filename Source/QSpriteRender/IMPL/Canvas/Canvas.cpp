@@ -1,6 +1,7 @@
 #include "Canvas.h"
 #include "../RenUtils/RenResources.h"
 #include "../Utils/CommonSystem.h"
+#include "../Environment/AmbientContext.h"
 
 namespace Dv
 {
@@ -31,7 +32,12 @@ Canvas::Canvas(const SCanvasInitializer& InInitializer) :
 	pSprites.reset(new SpriteManager{ SpriteManagerInitializer });
 
 	// Render
-	SpriteSetRenderInitializer RenderInitializer { InInitializer.pAmbientContext, pSprites.get(), InInitializer.pRenResources };
+	SpriteSetRenderInitializer RenderInitializer
+	{
+		InInitializer.bDebug, 
+		InInitializer.CreateArgs.GetName(), 
+		InInitializer.pAmbientContext, pSprites.get(), InInitializer.pRenResources 
+	};
 	pRender.reset(new SpriteSetRender(RenderInitializer));
 }
 
@@ -78,6 +84,7 @@ void Canvas::Hide()
 void Canvas::FlushD3D()
 {
 	pSprites->FlushD3D();
+	pRender->FlushD3D();
 }
 
 void Canvas::Render(ID3D11DeviceContext* pInDevCon, UINT InVBSlot)

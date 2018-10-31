@@ -1,7 +1,9 @@
 #include "SpriteSetRender.h"
 #include "../Environment/AmbientContext.h"
+#include "../RenUtils/RenResources.h"
 #include "../Utils/CommonSystem.h"
 #include "../RenUtils/RenDrawCallUtils.h"
+#include "../Render//Resources/RSLayout.h"
 #include "SpriteSetRenderUtils.h"
 #include "SpriteManager.h"
 
@@ -21,11 +23,29 @@ namespace IMPL
 		BOOST_ASSERT(pAmbientContext);
 		BOOST_ASSERT(pSprites);
 		BOOST_ASSERT(pRenResources);
+
+		// Canvas buffer
+		D3D::CanvasCBInitializer CanvasCBInitializer
+		{
+			InInitializer.bDebug,
+			InInitializer.Name + std::string("_CB"),
+			&InInitializer.pAmbientContext->GetLog(),
+			pRenResources->GetDev(),
+			pRenResources->GetDevCon()
+		};
+		pCB.reset(new D3D::CanvasCB(CanvasCBInitializer));
+	}
+
+
+	void SpriteSetRender::FlushD3D()
+	{
+		pCB->Flush();
 	}
 
 	void SpriteSetRender::Render(ID3D11DeviceContext* pInDevCon, UINT InVBSlot)
 	{		
 		pSprites->SetVB(pInDevCon, InVBSlot);
+		pCB->SetCB(pInDevCon, D3D::CBLayout::Slot_Canvas);
 		for (auto SpriteIt = pSprites->Iterator_VisibleSpriteByZOrder(); SpriteIt; ++SpriteIt)
 		{
 			RenderSprite(pInDevCon, *SpriteIt);

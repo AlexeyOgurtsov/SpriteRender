@@ -146,9 +146,15 @@
     <ClInclude Include="..\..\QSpriteRender\IMPL\Glue\Glue_InterfaceToImpl.h" />
     <ClInclude Include="..\..\QSpriteRender\IMPL\Render\CanvasManager.h" />
     <ClInclude Include="..\..\QSpriteRender\IMPL\Render\CanvasManagerContainerTypes.h" />
+    <ClInclude Include="..\..\QSpriteRender\IMPL\Render\Resources\CanvasCB.h" />
+    <ClInclude Include="..\..\QSpriteRender\IMPL\Render\Resources\CanvasCBLayout.h" />
+    <ClInclude Include="..\..\QSpriteRender\IMPL\Render\Resources\RSLayout.h" />
+    <ClInclude Include="..\..\QSpriteRender\IMPL\Render\Resources\RSShaderText.h" />
     <ClInclude Include="..\..\QSpriteRender\IMPL\Render\SpriteRender.h" />
     <ClInclude Include="..\..\QSpriteRender\IMPL\Render\SpriteUpdater.h" />
+    <ClInclude Include="..\..\QSpriteRender\IMPL\RenUtils\BlobBuffer.h" />
     <ClInclude Include="..\..\QSpriteRender\IMPL\RenUtils\BufferAlloc.h" />
+    <ClInclude Include="..\..\QSpriteRender\IMPL\RenUtils\CBLayoutSystem.h" />
     <ClInclude Include="..\..\QSpriteRender\IMPL\RenUtils\Geometry\SpriteGeometryVertex.h" />
     <ClInclude Include="..\..\QSpriteRender\IMPL\RenUtils\Geometry\SpriteGeometryVertex_InputLayout.h" />
     <ClInclude Include="..\..\QSpriteRender\IMPL\RenUtils\RenBufferTypes.h" />
@@ -164,6 +170,8 @@
     <ClInclude Include="..\..\QSpriteRender\IMPL\RenUtils\Shader.h" />
     <ClInclude Include="..\..\QSpriteRender\IMPL\RenUtils\ShaderCompileUtils.h" />
     <ClInclude Include="..\..\QSpriteRender\IMPL\RenUtils\ShaderProg.h" />
+    <ClInclude Include="..\..\QSpriteRender\IMPL\RenUtils\ShaderText\ShaderText.h" />
+    <ClInclude Include="..\..\QSpriteRender\IMPL\RenUtils\ShaderText\ShaderText_CB.h" />
     <ClInclude Include="..\..\QSpriteRender\IMPL\RenUtils\UniformBuffer.h" />
     <ClInclude Include="..\..\QSpriteRender\IMPL\RenUtils\BufferAllocManager.h" />
     <ClInclude Include="..\..\QSpriteRender\IMPL\Subsystem\SpriteRenderSubsystem.h" />
@@ -214,8 +222,13 @@
     <ClCompile Include="..\..\QSpriteRender\IMPL\Glue\Glue_InterfaceToImpl.cpp" />
     <ClCompile Include="..\..\QSpriteRender\IMPL\Render\CanvasManager.cpp" />
     <ClCompile Include="..\..\QSpriteRender\IMPL\Render\CanvasManagerContainerTypes.cpp" />
+    <ClCompile Include="..\..\QSpriteRender\IMPL\Render\Resources\CanvasCB.cpp" />
+    <ClCompile Include="..\..\QSpriteRender\IMPL\Render\Resources\CanvasCBLayout.cpp" />
+    <ClCompile Include="..\..\QSpriteRender\IMPL\Render\Resources\RSLayout.cpp" />
+    <ClCompile Include="..\..\QSpriteRender\IMPL\Render\Resources\RSShaderText.cpp" />
     <ClCompile Include="..\..\QSpriteRender\IMPL\Render\SpriteRender.cpp" />
     <ClCompile Include="..\..\QSpriteRender\IMPL\Render\SpriteUpdater.cpp" />
+    <ClCompile Include="..\..\QSpriteRender\IMPL\RenUtils\BlobBuffer.cpp" />
     <ClCompile Include="..\..\QSpriteRender\IMPL\RenUtils\BufferAlloc.cpp" />
     <ClCompile Include="..\..\QSpriteRender\IMPL\RenUtils\Geometry\SpriteGeometryVertex.cpp" />
     <ClCompile Include="..\..\QSpriteRender\IMPL\RenUtils\Geometry\SpriteGeometryVertex_InputLayout.cpp" />
@@ -226,6 +239,8 @@
     <ClCompile Include="..\..\QSpriteRender\IMPL\RenUtils\RenResources.cpp" />
     <ClCompile Include="..\..\QSpriteRender\IMPL\RenUtils\Shader.cpp" />
     <ClCompile Include="..\..\QSpriteRender\IMPL\RenUtils\ShaderCompileUtils.cpp" />
+    <ClCompile Include="..\..\QSpriteRender\IMPL\RenUtils\ShaderText\ShaderText.cpp" />
+    <ClCompile Include="..\..\QSpriteRender\IMPL\RenUtils\ShaderText\ShaderText_CB.cpp" />
     <ClCompile Include="..\..\QSpriteRender\IMPL\RenUtils\UniformBuffer.cpp" />
     <ClCompile Include="..\..\QSpriteRender\IMPL\RenUtils\BufferAllocManager.cpp" />
     <ClCompile Include="..\..\QSpriteRender\IMPL\Subsystem\SpriteRenderSubsystem.cpp" />

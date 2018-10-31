@@ -16,7 +16,7 @@ namespace D3D
 {
 	namespace
 	{
-		D3D11_BUFFER_DESC GetDescForCapacity(const UniformBuffer* InBuffer, UINT InNumSlots)
+		D3D11_BUFFER_DESC GetDescForCapacity(const UniformBuffer* InBuffer)
 		{
 			D3D11_BUFFER_DESC Desc;
 			ZeroMemory(&Desc, sizeof(Desc));
@@ -29,10 +29,10 @@ namespace D3D
 			return Desc;
 		}
 
-		BufferHandle CreateBuffer(const UniformBuffer* InBuffer, UINT InNumSlots) throw(SpriteRenderException)
+		BufferHandle CreateBuffer(const UniformBuffer* InBuffer) throw(SpriteRenderException)
 		{
 
-			D3D11_BUFFER_DESC const Desc = GetDescForCapacity(InBuffer, InNumSlots);
+			D3D11_BUFFER_DESC const Desc = GetDescForCapacity(InBuffer);
 			ID3D11Buffer* pBuffer = nullptr;
 			HRESULT hr = InBuffer->GetDev()->CreateBuffer(&Desc, nullptr, &pBuffer);
 			if (FAILED(hr))
@@ -182,7 +182,7 @@ namespace D3D
 
 		LogBufferState(GetLog(), this);
 
-		pBuffer = CreateBuffer(this, GetNumSlots());
+		pBuffer = CreateBuffer(this);
 		bD3DBufferUpToDate = false;
 		
 		T_LOG("UniformBuffer::ReCreateD3DBuffer DONE");
@@ -277,7 +277,7 @@ namespace D3D
 
 		if (bDebug)
 		{
-			T_LOG("UniformBuffer::FreeAlloc: Debug mode used - zeroing memory");
+			T_LOG("UniformBuffer::Clear: Debug mode used - zeroing memory");
 			// It's unnecessary to zero the data, but we do zero for debug purposes
 			ZeroMemory(Data.data(), Data.size());
 		}

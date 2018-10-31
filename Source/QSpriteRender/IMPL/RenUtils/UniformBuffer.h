@@ -86,7 +86,7 @@ public:
 	/**
 	* Creates buffer with the given default parameters.
 	*
-	* Vertex buffer is created with the given default capacity, but NOT automatically flushed.
+	* Buffer is created with the given default capacity, but NOT automatically flushed.
 	*/
 	UniformBuffer(const SUniformBufferInitializer& InInitializer);
 
@@ -154,7 +154,7 @@ public:
 	/**
 	* Ends storing of the data into the buffer.
 	* 
-	* WARNING!!! Does NOT update data in the d3d11 vertex buffer (@see Flush).
+	* WARNING!!! Does NOT update data in the d3d11 buffer (@see Flush).
 	*/
 	void EndStore() throw(SpriteRenderException);
 
