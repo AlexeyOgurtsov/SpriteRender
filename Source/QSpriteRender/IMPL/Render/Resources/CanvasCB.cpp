@@ -60,10 +60,10 @@ namespace D3D
 		Buffer.SetCB(pDevCon, InSlot);
 	}
 
-	void CanvasCB::SetMatrix(float InColumnFirstMatrix[4][4])
+	void CanvasCB::SetMatrix(const float* pInColumnFirstMatrix)
 	{
 		static_assert(sizeof(float[4][4]) == CanvasCBLayout::MATRIX_SIZE_IN_BYTES);
-		Buffer.SetMatrix4x4(CanvasCBLayout::MATRIX_OFFSET, &InColumnFirstMatrix[0][0]);
+		Buffer.SetMatrix4x4(CanvasCBLayout::MATRIX_OFFSET, pInColumnFirstMatrix);
 	}
 
 	void CanvasCB::SetCanvasId(Spr::SpriteCanvasId InSpriteId)

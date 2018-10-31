@@ -11,9 +11,25 @@ namespace Spr
 namespace Ren
 {
 
-SSpriteCanvasCreateCommandInitializer GetCanvasInit(bool bInDebug, SpriteCanvasId InCanvasId, const std::string& InName, const SSpriteCanvasProps& InCanvasProps, int InInitialCapacityInSprites = DEFAULT_CAPACITY_IN_SPRITES, bool bInAutoResize  = false);
-SSpriteCanvasCreateCommandInitializer GetCanvasInit(bool bInDebug, SpriteCanvasId InCanvasId, const std::string& InName, const SCanvasRect& InRect, int InInitialCapacityInSprites = DEFAULT_CAPACITY_IN_SPRITES, bool bInAutoResize = false);
-SSpriteCanvasCreateCommandInitializer GetCanvasInit(bool bInDebug, SpriteCanvasId InCanvasId, const std::string& InName, int InWidth, int InHeight, int InLeft = 0, int InTop = 0, int InInitialCapacityInSprites = DEFAULT_CAPACITY_IN_SPRITES, bool bInAutoResize = false);
+SSpriteCanvasCreateCommandInitializer GetCanvasInit
+(
+	bool bInDebug, SpriteCanvasId InCanvasId, const std::string& InName,
+	const SSpriteCanvasProps& InCanvasProps, 
+	int InInitialCapacityInSprites = DEFAULT_CAPACITY_IN_SPRITES, bool bInAutoResize  = false
+);
+SSpriteCanvasCreateCommandInitializer GetCanvasInit
+(
+	bool bInDebug, SpriteCanvasId InCanvasId, const std::string& InName, 
+	const SCanvasRect& InRect, const SCanvasCoordSystem& InCoordSystem = SCanvasCoordSystem(), 
+	int InInitialCapacityInSprites = DEFAULT_CAPACITY_IN_SPRITES, bool bInAutoResize = false
+);
+SSpriteCanvasCreateCommandInitializer GetCanvasInit
+(
+	bool bInDebug, SpriteCanvasId InCanvasId, const std::string& InName,
+	int InWidth, int InHeight, int InLeft = 0, int InTop = 0, 
+	const SCanvasCoordSystem& InCoordSystem = SCanvasCoordSystem(), 
+	int InInitialCapacityInSprites = DEFAULT_CAPACITY_IN_SPRITES, bool bInAutoResize = false
+);
 
 class ISpriteRender
 {
@@ -31,13 +47,13 @@ public:
 	* Registers a canvas (helper).
 	* Calling during rendering exhibits an undefined behaviour.
 	*/
-	void CreateCanvas(bool bInDebug, SpriteCanvasId InCanvasId, const std::string& InName,  const SCanvasRect& InRect, int InInitialCapacityInSprites = DEFAULT_CAPACITY_IN_SPRITES, bool bInAutoResize = false);
+	void CreateCanvas(bool bInDebug, SpriteCanvasId InCanvasId, const std::string& InName,  const SCanvasRect& InRect, const SCanvasCoordSystem& InCoordSystem = SCanvasCoordSystem(), int InInitialCapacityInSprites = DEFAULT_CAPACITY_IN_SPRITES, bool bInAutoResize = false);
 
 	/**
 	* Registers a canvas (helper).
 	* Calling during rendering exhibits an undefined behaviour.
 	*/
-	void CreateCanvas(bool bInDebug, SpriteCanvasId InCanvasId, const std::string& InName, int InWidth, int InHeight, int InLeft = 0, int InTop = 0, int InInitialCapacityInSprites = DEFAULT_CAPACITY_IN_SPRITES, bool bInAutoResize = false);
+	void CreateCanvas(bool bInDebug, SpriteCanvasId InCanvasId, const std::string& InName, int InWidth, int InHeight, int InLeft = 0, int InTop = 0, const SCanvasCoordSystem& InCoordSystem = SCanvasCoordSystem(), int InInitialCapacityInSprites = DEFAULT_CAPACITY_IN_SPRITES, bool bInAutoResize = false);
 	// ~ Helper interface End
 	
 

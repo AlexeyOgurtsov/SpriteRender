@@ -34,12 +34,25 @@ namespace IMPL
 			pRenResources->GetDevCon()
 		};
 		pCB.reset(new D3D::CanvasCB(CanvasCBInitializer));
+
+		pCB->StartStore();
+		pCB->SetCanvasId(InInitializer.CanvasId);
+		pCB->SetMinimumZ(0.0F); // @TODO: Setup minimum Z correctly if it will have a meaning someday
+		pCB->EndStore();
 	}
 
 
 	void SpriteSetRender::FlushD3D()
 	{
 		pCB->Flush();
+	}
+
+	void SpriteSetRender::UpdateCoordSystem(const float* pMatrix44, const Spr::SCanvasCoordSystem& InCoordSystem, const SCanvasRect& InRect)
+	{
+		pCB->StartStore();
+		pCB->SetMatrix(pMatrix44);
+		pCB->SetCanvasSizeInTexels(InRect.Width, InRect.Height);
+		pCB->EndStore();
 	}
 
 	void SpriteSetRender::Render(ID3D11DeviceContext* pInDevCon, UINT InVBSlot)

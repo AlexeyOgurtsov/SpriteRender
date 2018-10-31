@@ -171,7 +171,9 @@
     <ClInclude Include="..\..\QSpriteRender\IMPL\RenUtils\ShaderCompileUtils.h" />
     <ClInclude Include="..\..\QSpriteRender\IMPL\RenUtils\ShaderProg.h" />
     <ClInclude Include="..\..\QSpriteRender\IMPL\RenUtils\ShaderText\ShaderText.h" />
+    <ClInclude Include="..\..\QSpriteRender\IMPL\RenUtils\ShaderText\ShaderTextUtils.h" />
     <ClInclude Include="..\..\QSpriteRender\IMPL\RenUtils\ShaderText\ShaderText_CB.h" />
+    <ClInclude Include="..\..\QSpriteRender\IMPL\RenUtils\ShaderText\ShaderText_Operations.h" />
     <ClInclude Include="..\..\QSpriteRender\IMPL\RenUtils\UniformBuffer.h" />
     <ClInclude Include="..\..\QSpriteRender\IMPL\RenUtils\BufferAllocManager.h" />
     <ClInclude Include="..\..\QSpriteRender\IMPL\Subsystem\SpriteRenderSubsystem.h" />
@@ -241,6 +243,7 @@
     <ClCompile Include="..\..\QSpriteRender\IMPL\RenUtils\ShaderCompileUtils.cpp" />
     <ClCompile Include="..\..\QSpriteRender\IMPL\RenUtils\ShaderText\ShaderText.cpp" />
     <ClCompile Include="..\..\QSpriteRender\IMPL\RenUtils\ShaderText\ShaderText_CB.cpp" />
+    <ClCompile Include="..\..\QSpriteRender\IMPL\RenUtils\ShaderText\ShaderText_Operations.cpp" />
     <ClCompile Include="..\..\QSpriteRender\IMPL\RenUtils\UniformBuffer.cpp" />
     <ClCompile Include="..\..\QSpriteRender\IMPL\RenUtils\BufferAllocManager.cpp" />
     <ClCompile Include="..\..\QSpriteRender\IMPL\Subsystem\SpriteRenderSubsystem.cpp" />

@@ -17,6 +17,7 @@ Canvas::Canvas(const SCanvasInitializer& InInitializer) :
 	_id(InInitializer.CreateArgs.GetTargetCanvasId())
 ,	_bVisible(InInitializer.CreateArgs.ShouldShow())
 ,	_props(InInitializer.CreateArgs.GetProps())
+,	_coordSystem(InInitializer.CreateArgs.GetCoordSystem(), _props.RTRect.GetAspectWidthOverHeight())
 {
 	// SpriteManager
 	SSpriteManagerInitializer SpriteManagerInitializer 
@@ -34,11 +35,13 @@ Canvas::Canvas(const SCanvasInitializer& InInitializer) :
 	// Render
 	SpriteSetRenderInitializer RenderInitializer
 	{
+		InInitializer.CreateArgs.GetTargetCanvasId(),
 		InInitializer.bDebug, 
 		InInitializer.CreateArgs.GetName(), 
 		InInitializer.pAmbientContext, pSprites.get(), InInitializer.pRenResources 
 	};
 	pRender.reset(new SpriteSetRender(RenderInitializer));
+	UpdateRenderCoordSystem();
 }
 
 int Canvas::GetCapacityInSprites() const
@@ -59,6 +62,22 @@ void Canvas::BindZOrderIterator(CanvasList::iterator InIt)
 void Canvas::UpdateRect(const SRenderLayerCanvasRect& InNewRect)
 {
 	_props.RTRect = InNewRect;
+	_coordSystem.UpdateAspectWidthOverHeight(InNewRect.GetAspectWidthOverHeight());
+	UpdateRenderCoordSystem();
+}
+
+void Canvas::UpdateCoordSystem(const SCanvasCoordSystem& InCoordSystem)
+{
+	// It seams linke an excessive, but we update both props and coord system manager here
+	// (maybe we pass props somewhere as a struct).
+	_props.CoordSystem = InCoordSystem;
+	_coordSystem.UpdateCoordSystem(InCoordSystem);
+	UpdateRenderCoordSystem();
+}
+
+void Canvas::UpdateRenderCoordSystem()
+{
+	pRender->UpdateCoordSystem(_coordSystem.GetMatrix(), _coordSystem.GetCoordSystem(), _props.RTRect);
 }
 
 bool Canvas::IsHidden() const
@@ -130,6 +149,86 @@ void Canvas::SetMaterialInstance(SpriteId InId, MaterialInstanceRenderStateHandl
 void Canvas::SetSpriteGeometry(SpriteId InId, const SSpriteGeometryData& InGeometry)
 {
 	pSprites->SetSpriteGeometry(InId, InGeometry);
+}
+
+CanvasCoordSystemManager::CanvasCoordSystemManager(const SCanvasCoordSystem& InCoordSystem, float InAspectWidthOverHeight) :
+	AspectWidthOverHeight{InAspectWidthOverHeight}
+,	CoordSystem{ InCoordSystem }
+{
+	RecalculateMatrix();
+}
+
+void CanvasCoordSystemManager::UpdateCoordSystem(const SCanvasCoordSystem& InCoordSystem)
+{
+	CoordSystem = InCoordSystem;
+	RecalculateMatrix();
+}
+
+void CanvasCoordSystemManager::UpdateAspectWidthOverHeight(float InAspectWidthOverHeight)
+{
+	AspectWidthOverHeight = InAspectWidthOverHeight;
+	RecalculateMatrix();
+}
+
+void CanvasCoordSystemManager::RecalculateMatrix()
+{
+	// WARNING!!! known that matrix is in the column-first storage format:
+	Matrix[0][0] = 1.0F;	Matrix[1][0] = 0.0F;	Matrix[2][0] = 0.0F; 	Matrix[3][0] = 0.0F;
+	Matrix[0][1] = 0.0F;	Matrix[1][1] = 1.0F;	Matrix[2][1] = 0.0F; 	Matrix[3][1] = 0.0F;
+	Matrix[0][2] = 0.0F;	Matrix[1][2] = 0.0F;	Matrix[2][2] = 1.0F; 	Matrix[3][2] = 0.0F;
+	Matrix[0][3] = 0.0F;	Matrix[1][3] = 0.0F;	Matrix[2][3] = 0.0F; 	Matrix[3][3] = 1.0F;
+
+	// @TODO!!! WARNING!!! WARNING!!! WARNING!!: Update matrix here based on the aspect!
+	//Matrix[0][0] = 2.0F * GetWidth();
+	//Matrix[1][1] = 2.0F * GetHeight();
+	//Matrix[2][2] = 1.0F/(GetZFar()-GetZNear());
+
+	// Last line
+	//Matrix[0][3] = (GetLeftX()+GetRightX())/GetWidth();
+	//Matrix[1][3] = (GetTopY()+GetBottomY())/GetHeight();
+	//Matrix[2][3] = GetZNear()/(GetZNear()-GetZFar());
+	//Matrix[3][3] = 1.0F;
+}
+
+
+float CanvasCoordSystemManager::GetWidth() const
+{
+	return 2.0F * GetCoordSystem().GetHalfWidth(GetAspectWidthOverHeight());
+}
+
+float CanvasCoordSystemManager::GetHeight() const
+{
+	return 2.0F * GetCoordSystem().HalfHeight;
+}
+
+float CanvasCoordSystemManager::GetLeftX() const
+{
+	return GetCoordSystem().GetLeftX(GetAspectWidthOverHeight());
+}
+
+float CanvasCoordSystemManager::GetRightX() const
+{
+	return GetCoordSystem().GetRightX(GetAspectWidthOverHeight());
+}
+
+float CanvasCoordSystemManager::GetBottomY() const
+{
+	return GetCoordSystem().GetBottomY();
+}
+
+float CanvasCoordSystemManager::GetTopY() const
+{
+	return GetCoordSystem().GetTopY();
+}
+
+float CanvasCoordSystemManager::GetZNear() const
+{
+	return 0.01F; // @TODO: Provide correct ZNear
+}
+
+float CanvasCoordSystemManager::GetZFar() const
+{
+	return 1.0F; // @TODO: Provide correct ZFar
 }
 
 } // Dv::Spr::QRen::IMPL

@@ -22,7 +22,7 @@ void AppendShaderText_VertexShader(D3D::ShaderText* pOutResultText, const SShade
 	std::vector<std::string> VertexShaderText;
 	VertexShaderText.push_back("	VS_OUTPUT result;");
 	VertexShaderText.push_back("	result.sprId = InVert.sprId;");
-	VertexShaderText.push_back("	result.position = float4(InVert.position, 1.0F);");
+	D3D::AppendStmt_Assign_MulVec3ByMatrix44(&VertexShaderText, "result.position", "InVert.position", D3D::CanvasCBLayout::MATRIX_FIELD_NAME);
 	VertexShaderText.push_back("	result.texCoord = InVert.texCoord;");
 	VertexShaderText.push_back("	return result;");
 	pOutResultText->AppendVertexShaderText(VertexShaderText);

@@ -1,6 +1,8 @@
 #pragma once
 
 #include "ISprite/Math/IntVec.h"
+#include "ISprite/Math/Vec2.h"
+#include <iomanip>
 
 namespace Dv
 {
@@ -35,6 +37,8 @@ struct SCanvasRect
 	int GetRight() const { return Left + Width; }
 	int GetBottom() const { return Top + Height; }
 
+	float GetAspectWidthOverHeight() const;
+
 	/**
 	* Returns point at the canvas by lerping between its corners on each of the axes.
 	*
@@ -68,6 +72,43 @@ struct SCanvasRect
 	,	Left(InLeft)
 	,	Top(InTop) {}
 };
+template<class Strm>
+Strm& operator<<(Strm& S, const SCanvasRect& InRect)
+{
+	S << "{Left;Top}=" << "{" << InRect.Left << ";" << InRect.GetTop()<< "}" 
+	<< "; {Width*Height}=" << "{" << InRect.Width << "*" << InRect.Height << "}" << std::endl;
+	return S;
+}
+
+
+/**
+* Coord system where X and Y axes have the same scale.
+*
+* Y axis is always upward, X if always left-to-right;
+*/
+struct SCanvasCoordSystem
+{
+	Math::SVec2 Center;
+	float HalfHeight;
+
+	float GetHalfWidth(float InAspectWidthOverHeight) const;
+	float GetLeftX(float InAspectWidthOverHeight) const;
+	float GetRightX(float InAspectWidthOverHeight) const;
+	float GetBottomY() const;
+	float GetTopY() const;
+
+	SCanvasCoordSystem() :
+		Center{0.0F, 0.0F}
+	,	HalfHeight{1.0F} {}
+
+	SCanvasCoordSystem(const Math::SVec2& InCenter, float InHalfHeight);
+};
+template<class Strm>
+Strm& operator<<(Strm& S, const SCanvasCoordSystem& InSystem)
+{
+	S << "{Center=" << InSystem.Center << "; HalfHeight=" << InSystem.HalfHeight << "}";
+	return S;
+}
 
 /**
 * All properties of the sprite canvas.
@@ -80,10 +121,24 @@ struct SSpriteCanvasProps
 	*/
 	SCanvasRect RTRect;
 
+	/**
+	* Coord system.
+	*/
+	SCanvasCoordSystem CoordSystem;
+
 	SSpriteCanvasProps() = default;
-	explicit SSpriteCanvasProps(const SCanvasRect& InRTRect) :
-		RTRect(InRTRect) {}
+	explicit SSpriteCanvasProps(const SCanvasRect& InRTRect, const SCanvasCoordSystem& InCoordSystem) :
+		RTRect{InRTRect}
+	,	CoordSystem{InCoordSystem} {}
 };
+
+template<class Strm>
+Strm& operator<<(Strm& S, const SSpriteCanvasProps& InProps)
+{
+	S << "RTRect: " << InProps.RTRect << std::endl;
+	S << "CoordSystem: " << InProps.CoordSystem << std::endl;
+	return S;
+}
 
 } // Dv::Spr
 } // Dv

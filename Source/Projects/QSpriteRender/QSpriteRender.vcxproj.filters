@@ -312,6 +312,12 @@
     <ClInclude Include="..\..\QSpriteRender\IMPL\RenUtils\ShaderText\ShaderText.h">
       <Filter>IMPL\RenUtils\ShaderText</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\QSpriteRender\IMPL\RenUtils\ShaderText\ShaderText_Operations.h">
+      <Filter>IMPL\RenUtils\ShaderText</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\QSpriteRender\IMPL\RenUtils\ShaderText\ShaderTextUtils.h">
+      <Filter>IMPL\RenUtils\ShaderText</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\QSpriteRender\INTERFACE\CONFIG\SpriteRenderConfig.cpp">
@@ -465,6 +471,9 @@
       <Filter>IMPL\Render\Resources</Filter>
     </ClCompile>
     <ClCompile Include="..\..\QSpriteRender\IMPL\RenUtils\ShaderText\ShaderText.cpp">
+      <Filter>IMPL\RenUtils\ShaderText</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\QSpriteRender\IMPL\RenUtils\ShaderText\ShaderText_Operations.cpp">
       <Filter>IMPL\RenUtils\ShaderText</Filter>
     </ClCompile>
   </ItemGroup>

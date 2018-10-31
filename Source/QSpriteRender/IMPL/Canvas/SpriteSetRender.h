@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../Render/Resources/CanvasCB.h"
+#include "ISprite/SpriteCanvasProps.h"
 #include <fstream>
 #include <d3d11.h>
 
@@ -21,9 +22,10 @@ namespace IMPL
 	class Sprite;
 
 	struct SpriteSetRenderInitializer
-	{
+	{		
 		bool bDebug = false;
 		std::string Name;
+		Dv::Spr::SpriteCanvasId CanvasId;
 
 		AmbientContext* pAmbientContext = nullptr;
 		SpriteManager* pSpriteManager = nullptr;
@@ -31,13 +33,15 @@ namespace IMPL
 
 		SpriteSetRenderInitializer
 		(
+			Dv::Spr::SpriteCanvasId InCanvasId,
 			bool bInDebug,
 			const std::string& InName,
 			AmbientContext* pInAmbientContext,
 			SpriteManager* pInSpriteManager,
 			const D3D::RenResources* pInRenResources
 		) :
-			bDebug{bInDebug}
+			CanvasId{InCanvasId}
+		,	bDebug{bInDebug}
 		,	Name{InName}
 		,	pAmbientContext{pInAmbientContext}
 		,	pSpriteManager{pInSpriteManager}
@@ -51,6 +55,7 @@ namespace IMPL
 		void Render(ID3D11DeviceContext* pInDevCon, UINT InVBSlot);
 
 		void FlushD3D();
+		void UpdateCoordSystem(const float* pMatrix44, const Spr::SCanvasCoordSystem& InCoordSystem, const SCanvasRect& InRect);
 		
 		SpriteManager* GetSprites() const { return pSprites; }
 		const D3D::RenResources* GetRenResources() const { return pRenResources; }

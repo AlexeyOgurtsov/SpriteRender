@@ -110,14 +110,8 @@ namespace D3D
 				return BeginFlushResult{InBuffer, /*bWasMapped*/true, hr, Map};
 			}
 			else
-			{
-				D3D11_BOX Box;
-				ZeroMemory(&Box, sizeof(Box));
-				Box.bottom = 1;
-				Box.back = 1;
-				Box.left = 0;
-				Box.right = InBuffer->GetCapacityInBytes();
-				pDevCon->UpdateSubresource(pBuffer, 0, &Box, pInSourceData, 0, 0);
+			{				
+				pDevCon->UpdateSubresource(pBuffer, 0, nullptr, pInSourceData, 0, 0);
 				// UpdateSubresource never fails, so we should pass the HRESULT:
 				return BeginFlushResult{InBuffer, /*bWasMapped*/false};
 			}

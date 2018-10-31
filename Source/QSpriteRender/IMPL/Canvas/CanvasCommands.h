@@ -45,6 +45,11 @@ struct SCreateCanvasArgs
 	bool ShouldShow() const { return _InterfaceInitializer.bShow; }
 
 	/**
+	* Coord system of the canvas.
+	*/
+	const SCanvasCoordSystem& GetCoordSystem() const { return _InterfaceInitializer.Props.CoordSystem; }
+
+	/**
 	* See the sprite render interface library sprite initializer command help for details.
 	*/
 	SpriteCanvasId GetZBeforeCanvasId() const { return _InterfaceInitializer.ZBeforeSpriteCanvasId; }

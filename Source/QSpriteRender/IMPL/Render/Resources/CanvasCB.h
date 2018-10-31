@@ -74,7 +74,7 @@ namespace D3D
 		*
 		* WARNING!!! Column-first representation demanded!!!
 		*/
-		void SetMatrix(float InColumnFirstMatrix[4][4]);
+		void SetMatrix(const float* pInColumnFirstMatrix);
 
 		/**
 		* Sets id of the canvas

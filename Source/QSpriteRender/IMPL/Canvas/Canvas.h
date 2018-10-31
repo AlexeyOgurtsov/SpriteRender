@@ -44,6 +44,40 @@ struct SCanvasInitializer
 };
 
 /**
+* Caches precalculated values connected with the canvas coord system (like, matrix, for example), recalculates them.
+*/
+class CanvasCoordSystemManager
+{
+public:	
+	CanvasCoordSystemManager(const SCanvasCoordSystem& InCoordSystem, float InAspectWidthOverHeight);	
+
+	const SCanvasCoordSystem& GetCoordSystem() const { return CoordSystem; }
+	void UpdateCoordSystem(const SCanvasCoordSystem& InCoordSystem);	
+
+	float GetAspectWidthOverHeight() const { return AspectWidthOverHeight; }
+	void UpdateAspectWidthOverHeight(float InAspectWidthOverHeight);
+
+	float GetWidth() const;
+	float GetHeight() const;	
+	float GetLeftX() const;
+	float GetRightX() const;
+	float GetBottomY() const;
+	float GetTopY() const;
+
+	float GetZNear() const;
+	float GetZFar() const;
+
+	const float* GetMatrix() const { return &Matrix[0][0]; }
+
+private:
+	void RecalculateMatrix();
+
+	float AspectWidthOverHeight;
+	SCanvasCoordSystem CoordSystem;
+	float Matrix[4][4];
+};
+
+/**
 * Manages the sprites canvas entirely:
 * - Controls canvas properties;
 * - Manages sprites;
@@ -95,7 +129,7 @@ public:
 	const SRenderLayerCanvasProps& GetProps() const { return _props; }
 
 	/**
-	* Helper getter that returns the render target rect that canvas occupies.
+	* Helper getter that returns the render target rect that the canvas occupies.
 	*/
 	const SRenderLayerCanvasRect& GetRect() const { return _props.RTRect; }
 
@@ -103,6 +137,16 @@ public:
 	* Updates the rect on the render target that the canvas occupies.
 	*/
 	void UpdateRect(const SRenderLayerCanvasRect& InNewRect);
+
+	/**
+	* Canvas coord system.
+	*/
+	const SCanvasCoordSystem& GetCoordSystem() const { return _coordSystem.GetCoordSystem(); }
+
+	/**
+	* Updates the coord system of the canvas
+	*/
+	void UpdateCoordSystem(const SCanvasCoordSystem& InCoordSystem);
 
 	/**
 	* Makes the given canvas visible.
@@ -196,10 +240,13 @@ public:
 	void SetSpriteGeometry(SpriteId InId, const SSpriteGeometryData& InGeometry);
 
 private:
+	void UpdateRenderCoordSystem();
+
 	AmbientContext* _pAmbientContext;
 	SpriteCanvasId _id;
 	bool _bVisible;
 	SRenderLayerCanvasProps _props;
+	CanvasCoordSystemManager _coordSystem;
 	std::unique_ptr<SpriteManager> pSprites;
 	std::unique_ptr<SpriteSetRender> pRender;
 	CanvasIterator Iterator;
