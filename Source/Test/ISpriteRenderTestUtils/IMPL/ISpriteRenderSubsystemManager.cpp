@@ -4,12 +4,27 @@
 
 namespace Test
 {
-	CanvasHandle ISpriteRenderSubsystemManager::CreateCanvas(CanvasId InId, const std::string& InName, unsigned int InWidth, unsigned int InHeight)
+	CanvasHandle ISpriteRenderSubsystemManager::CreateCanvas
+	(
+		bool bInDebug,
+		CanvasId InId, const std::string& InName, 
+		unsigned int InWidth, unsigned int InHeight,
+		int InLeft, int InRight,
+		const MySpr::SCanvasCoordSystem& InCoordSystem,
+		int InInitialCapacityInSprites, bool bInAutoResize
+	)
 	{
 		T_LOG("ISpriteRenderSubsystemManager::CreateCanvas, Name=" << InName << ", Id = " << InId);
 		T_LOG("Width*Height=" << InWidth << "*" << InHeight);
 
-		MySprRen::SSpriteCanvasCreateCommandInitializer Initializer = MySprRen::GetCanvasInit(/*bDebug=*/true, InId, InName, InWidth, InHeight);
+		MySprRen::SSpriteCanvasCreateCommandInitializer Initializer = MySprRen::GetCanvasInit
+		(
+			/*bDebug=*/bInDebug, InId, InName, 
+			InWidth, InHeight, 
+			InLeft, InRight,
+			InCoordSystem,
+			InInitialCapacityInSprites, bInAutoResize
+		);
 
 		BOOST_ASSERT_MSG(GetSpriteRender(), "ISpriteRenderSubsystemManager::CreateCanvas Sprite render must be initialized");
 		GetSpriteRender()->CreateCanvas(Initializer);
@@ -28,21 +43,19 @@ namespace Test
 		T_LOG("ISpriteRenderSubsystemManager::DeleteCanvas DONE");
 	}
 
-	void ISpriteRenderSubsystemManager::ShowCanvas(CanvasHandle InHandle)
+	void ISpriteRenderSubsystemManager::ShowCanvas(MySpr::SpriteCanvasId InId)
 	{
-		SprId const Id = InHandle->GetId();
-		T_LOG("ISpriteRenderSubsystemManager::ShowCanvas, Id=" << Id << "...");
+		T_LOG("ISpriteRenderSubsystemManager::ShowCanvas, Id=" << InId << "...");
 		BOOST_ASSERT_MSG(GetSpriteRender(), "ISpriteRenderSubsystemManager::ShowCanvas: Sprite render must be initialized");
-		GetSpriteRender()->ShowCanvas(Id);
+		GetSpriteRender()->ShowCanvas(InId);
 		T_LOG("ISpriteRenderSubsystemManager::ShowCanvas DONE");
 	}
 
-	void ISpriteRenderSubsystemManager::HideCanvas(CanvasHandle InHandle)
+	void ISpriteRenderSubsystemManager::HideCanvas(MySpr::SpriteCanvasId InId)
 	{
-		SprId Id = InHandle->GetId();
-		T_LOG("ISpriteRenderSubsystemManager::HideCanvas, Id=" << Id << "...");
+		T_LOG("ISpriteRenderSubsystemManager::HideCanvas, Id=" << InId << "...");
 		BOOST_ASSERT_MSG(GetSpriteRender(), "ISpriteRenderSubsystemManager::HideCanvas: Sprite render must be initialized");
-		GetSpriteRender()->HideCanvas(Id);
+		GetSpriteRender()->HideCanvas(InId);
 		T_LOG("ISpriteRenderSubsystemManager::HideCanvas DONE");
 	}
 

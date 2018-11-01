@@ -89,11 +89,7 @@ namespace Test::ISpr::QSpr
 		}
 
 		// WARNING!!! We should NOT log most properties of the sprite render here,
-		// because it's already logged by the render itself.
-		T_LOG("ScreenCoordSystem:");
-		T_LOG(GetScreenCoordSystem());
-
-		T_LOG("SpriteRenderSubsystemManager::LogSubsystemState DONE");
+		// because it's already logged by the render itself.		
 	}
 
 	void SpriteRenderSubsystemManager::Shutdown()
@@ -193,26 +189,6 @@ namespace Test::ISpr::QSpr
 		OutInitializer.Render.InitialSpriteBufferCapacity = InitialSpriteBufferCapacity;
 		OutInitializer.Render.RenderTarget.ZFar = RenderTarget_ZFar;
 		OutInitializer.Render.Shaders = ShadersConfig;
-	}
-	
-	ScreenCoordSystemDesc SpriteRenderSubsystemManager::GetScreenCoordSystem() const
-	{
-		ScreenCoordSystemDesc Desc
-		{
-			/*Center*/Vec2{0.0F, 0.0F}, 
-			/*HalfWidth*/1.0F, 
-			/*HalfHeight*/1.0F 
-		};
-		return Desc;
-	}
-	
-	ScreenCoordSystemDesc SpriteRenderSubsystemManager::GetCanvasCoordSystem(CanvasId InCanvasId) const
-	{
-		BOOST_ASSERT_MSG(GetSpriteRender(), "SpriteRenderSubsystemManager::GetCanvasCoordSystem: the sprite render must be running");
-		BOOST_ASSERT(MySpr::IsValidCanvasId(InCanvasId));
-		// @TODO: WARNING!!! This implementation only works if the entire screen is used as a canvas.
-		T_LOG("WARNING!!! SpriteRenderSubsystemManager::GetCanvasCoordSystem: this implementation only works if the entire screen is used as a canvas!");
-		return GetScreenCoordSystem();
 	}
 
 	DXGI_FORMAT SpriteRenderSubsystemManager::GetDefaultTextureFormat_Diffuse() const

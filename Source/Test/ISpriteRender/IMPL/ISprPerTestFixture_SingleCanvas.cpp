@@ -22,11 +22,11 @@ namespace Test::ISpr
 		T_LOG("Fixture: SingleCanvas: OnPostSetupTestUser...");
 
 		T_LOG("Fixture SingleCanvas: Creating canvas...");
-		CanvHandle = GetSpriteRenderSubsystemManager()->CreateCanvas(CANV_ID, std::string("Canvas"), GetRTWidth(), GetRTHeight());
+		CanvHandle = GetSpriteRenderSubsystemManager()->CreateCanvas(/*bDebug=*/true, CANV_ID, std::string("Canvas"), GetRTWidth(), GetRTHeight());
 		T_LOG("Fixture SingleCanvas: Creating canvas DONE");
 
 		T_LOG("Fixture SingleCanvas: Showing canvas...");
-		GetSpriteRenderSubsystemManager()->ShowCanvas(CanvHandle);
+		GetSpriteRenderSubsystemManager()->ShowCanvas(CanvHandle->GetId());
 		T_LOG("Fixture SingleCanvas: showing canvas DONE");
 
 		BeginUpdates();
@@ -369,7 +369,7 @@ namespace Test::ISpr
 
 	SprVec2 ISprPerTestFixture_SingleCanvas::PointAt(float AlphaX, float AlphaY) const
 	{
-		return GetSpriteRenderSubsystemManager()->GetCanvasCoordSystem(CANV_ID).PointAt(AlphaX, AlphaY);
+		return CanvHandle->GetCoordSystem().PointAt(AlphaX, AlphaY);
 	}
 
 	SprVec2 ISprPerTestFixture_SingleCanvas::PointAt(const SprVec2& AlphaVec) const
@@ -379,7 +379,7 @@ namespace Test::ISpr
 	
 	SprSize ISprPerTestFixture_SingleCanvas::ScreenPart(float InWidthFactor, float InHeightFactor) const
 	{
-		return GetSpriteRenderSubsystemManager()->GetCanvasCoordSystem(CANV_ID).GetSizePart(InWidthFactor, InHeightFactor);
+		return CanvHandle->GetCoordSystem().GetSizePart(InWidthFactor, InHeightFactor);
 	}
 
 	TexelColor ISprPerTestFixture_SingleCanvas::ScreenColorAt(const IFrameCheckContextHandle& ContextHandle, const SprVec2& InCanvasPoint)

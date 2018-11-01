@@ -4,6 +4,7 @@
 #include "SprRenHelper/SprRenHelper_ISpriteRenderFwd.h"
 #include "SprRenHelper/SprRenHelper_ISpriteUpdaterFwd.h"
 #include "SprRenHelper/SprRenHelper_Transparency.h"
+#include "ISprite/SpriteCanvasProps.h"
 #include <fstream>
 #include <windows.h> // HWND
 
@@ -93,10 +94,19 @@ namespace Test
 		virtual std::ofstream& GetLog() const = 0;
 
 		// ~Canvas operations Begin
-		CanvasHandle CreateCanvas(CanvasId InId, const std::string& InName, unsigned int InWidth, unsigned int InHeight);
+		CanvasHandle CreateCanvas
+		(
+			bool bInDebug,
+			CanvasId InId, const std::string& InName, 
+			unsigned int InWidth, unsigned int InHeight,
+			int InLeft = 0, int InRight = 0,
+			const MySpr::SCanvasCoordSystem& InCoordSystem = MySpr::SCanvasCoordSystem(),
+			int InInitialCapacityInSprites = MySprRen::DEFAULT_CAPACITY_IN_SPRITES, bool bInAutoResize = false
+		);
 		void DeleteCanvas(CanvasHandle InHandle);
-		void ShowCanvas(CanvasHandle InHandle);
-		void HideCanvas(CanvasHandle InHandle);
+
+		void ShowCanvas(MySpr::SpriteCanvasId InId);
+		void HideCanvas(MySpr::SpriteCanvasId InId);
 		// ~Canvas operations End
 
 		// ~Sprite operations Begin
@@ -135,16 +145,6 @@ namespace Test
 		// ~Sprite operations End
 
 		// ~Info getters Begin
-		/**
-		* Description of coordinate system of the entire screen.
-		*/
-		virtual ScreenCoordSystemDesc GetScreenCoordSystem() const = 0;
-
-		/**
-		* Description of the coordinate system of the given canvas.
-		*/
-		virtual ScreenCoordSystemDesc GetCanvasCoordSystem(CanvasId InCanvasId) const = 0;
-
 		virtual DXGI_FORMAT GetDefaultTextureFormat_Diffuse() const = 0;
 		// ~Info getters End
 

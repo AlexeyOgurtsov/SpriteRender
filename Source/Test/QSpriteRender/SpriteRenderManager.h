@@ -32,15 +32,6 @@ namespace Test::ISpr::QSpr
 		void OnCustomSetup(const class SpriteRenderCustomSetuper& InSetuper);
 
 		// ~Info getters Begin
-		/**
-		* Description of coordinate system of the entire screen.
-		*/
-		virtual ScreenCoordSystemDesc GetScreenCoordSystem() const override;
-		/**
-		* Description of the coordinate system of the given canvas.
-		*/
-		virtual ScreenCoordSystemDesc GetCanvasCoordSystem(CanvasId InCanvasId) const override;
-
 		virtual DXGI_FORMAT GetDefaultTextureFormat_Diffuse() const override;
 		// ~Info getters End
 

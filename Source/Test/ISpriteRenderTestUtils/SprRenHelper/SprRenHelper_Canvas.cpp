@@ -12,6 +12,48 @@ Canvas::Canvas(ISpriteRenderSubsystemManager* pInSubsys, const MySprRen::SSprite
 	BOOST_ASSERT(pInSubsys);
 }
 
+const std::string& Canvas::GetName() const
+{
+	return Initializer.Name;
+}
+
+bool Canvas::IsDebug() const
+{
+	return Initializer.bDebug;
+}
+
+int Canvas::GetCapacityInSprites() const
+{
+	return Initializer.InitialCapacityInSprites;
+}
+
+bool Canvas::IsAutoResize() const
+{
+	return Initializer.bAutoResize;
+}
+
+bool Canvas::IsVisible() const
+{
+	return Initializer.bShow;
+}
+
+bool Canvas::IsHidden() const
+{
+	return false == IsVisible();
+}
+
+void Canvas::Show()
+{
+	Initializer.bShow = true;
+	pSubsys->ShowCanvas(GetId());
+}
+
+void Canvas::Hide()
+{
+	Initializer.bShow = false;
+	pSubsys->HideCanvas(GetId());
+}
+
 CanvasId Canvas::GetId() const 
 {
 	return Initializer.TargetSpriteCanvasId; 
@@ -22,44 +64,65 @@ const MySpr::SSpriteCanvasProps& Canvas::GetProps() const
 	return Initializer.Props; 
 }
 
-const MySpr::SCanvasRect& Canvas::GetRect() const
+const MySpr::SCanvasRect& Canvas::GetRTRect() const
 {
 	return GetProps().RTRect;
 }
 
+void Canvas::SetRTRect(const MySpr::SCanvasRect& InRect)
+{
+	Initializer.Props.RTRect = InRect;
+}
+
 ScreenCoordSystemDesc Canvas::GetCoordSystem() const
 {
-	return pSubsys->GetCanvasCoordSystem(GetId());
+	float const AspectWidthOverHeight = GetAspectWidthOverHeight();
+	return ScreenCoordSystemDesc
+	{
+		GetProps().CoordSystem.Center,
+		GetProps().CoordSystem.GetHalfWidth(AspectWidthOverHeight),
+		GetProps().CoordSystem.HalfHeight		
+	};
 }
 
-int Canvas::GetWidth() const
+void Canvas::SetCoordSystem(const MySpr::SCanvasCoordSystem& InCoordSystem)
 {
-	return GetRect().Width;
+	Initializer.Props.CoordSystem = InCoordSystem;
 }
 
-int Canvas::GetHeight() const
+float Canvas::GetAspectWidthOverHeight() const
 {
-	return GetRect().Height;
+	return GetRTRect().GetAspectWidthOverHeight();
 }
 
-int Canvas::GetLeft() const
+int Canvas::GetRTWidth() const
 {
-	return GetRect().Left;
+	return GetRTRect().Width;
 }
 
-int Canvas::GetTop() const
+int Canvas::GetRTHeight() const
 {
-	return GetRect().Top;
+	return GetRTRect().Height;
 }
 
-int Canvas::GetRight() const
+int Canvas::GetRTLeft() const
 {
-	return GetRect().GetRight();
+	return GetRTRect().Left;
 }
 
-int Canvas::GetBottom() const
+int Canvas::GetRTTop() const
 {
-	return GetRect().GetBottom();
+	return GetRTRect().Top;
+}
+
+int Canvas::GetRTRight() const
+{
+	return GetRTRect().GetRight();
+}
+
+int Canvas::GetRTBottom() const
+{
+	return GetRTRect().GetBottom();
 }
 
 } // Test

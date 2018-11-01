@@ -178,16 +178,24 @@ void CanvasCoordSystemManager::RecalculateMatrix()
 	Matrix[0][2] = 0.0F;	Matrix[1][2] = 0.0F;	Matrix[2][2] = 1.0F; 	Matrix[3][2] = 0.0F;
 	Matrix[0][3] = 0.0F;	Matrix[1][3] = 0.0F;	Matrix[2][3] = 0.0F; 	Matrix[3][3] = 1.0F;
 
-	// @TODO!!! WARNING!!! WARNING!!! WARNING!!: Update matrix here based on the aspect!
-	//Matrix[0][0] = 2.0F * GetWidth();
-	//Matrix[1][1] = 2.0F * GetHeight();
-	//Matrix[2][2] = 1.0F/(GetZFar()-GetZNear());
+	float const LeftX = GetLeftX();
+	float const RightX = GetRightX();
+	float const BottomY = GetBottomY();
+	float const TopY = GetTopY();
+	float const Width = GetWidth();
+	float const Height = GetHeight();
+	float const ZNear = GetZNear();
+	float const Diff_ZFar_ZNear = GetZFar()-GetZNear();
+
+	Matrix[0][0] = 2.0F / Width;
+	Matrix[1][1] = 2.0F / Height;
+	Matrix[2][2] = 1.0F / (Diff_ZFar_ZNear);
 
 	// Last line
-	//Matrix[0][3] = (GetLeftX()+GetRightX())/GetWidth();
-	//Matrix[1][3] = (GetTopY()+GetBottomY())/GetHeight();
-	//Matrix[2][3] = GetZNear()/(GetZNear()-GetZFar());
-	//Matrix[3][3] = 1.0F;
+	Matrix[0][3] = -(LeftX+RightX)/Width;
+	Matrix[1][3] = -(TopY+BottomY)/Height;
+	Matrix[2][3] = -ZNear/(Diff_ZFar_ZNear);
+	Matrix[3][3] = 1.0F;
 }
 
 
