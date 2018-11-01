@@ -15,6 +15,10 @@
 #include "FeatureManyCanvasSmokeTests.h"
 #endif // TEST_FEATURE_MANY_CANVASSES
 
+#ifdef TEST_FEATURE_PICK
+#include "FeaturePickSmokeTests.h"
+#endif // TEST_FEATURE_PICK
+
 namespace Test::ISpr
 {
 } // Test::ISpr

@@ -6,6 +6,11 @@ namespace Dv
 {
 namespace Spr
 { 
+	bool SCanvasPickProps::CanBePicked() const
+	{
+		return Mode != ECanvasPickMode::Disabled;
+	}
+
 	Math::IntVec SCanvasRect::PointAt(float InAlphaX, float InAlphaY) const
 	{
 		return Math::IntVec { Math::ClampLerp(Left, (GetRight() - 1), InAlphaX),  Math::ClampLerp(GetBottom()-1, Top, InAlphaY) };
@@ -47,5 +52,8 @@ namespace Spr
 	{
 		return Center.Y + HalfHeight;
 	}
+
+	const SCanvasPickProps SCanvasPickProps::Disabled { ECanvasPickMode::Disabled };
+	const SCanvasPickProps SCanvasPickProps::Enabled { ECanvasPickMode::Enabled };
 } // Dv::Spr
 } // Dv

@@ -131,6 +131,7 @@ namespace Test
 		TSSprite
 		(
 			TSSprite* InZBeforeSpriteId,
+			const MySpr::SSpritePickProps& InPickProps,
 			const TSMaterial& InMaterial,
 			const MySprMath::SSize& InInitSize,
 			const MySprMath::SVec2& InInitPos,
@@ -140,6 +141,7 @@ namespace Test
 		);
 		TSSprite
 		(
+			const MySpr::SSpritePickProps& InPickProps,
 			const TSMaterial& InMaterial,
 			const MySprMath::SSize& InInitSize,
 			const MySprMath::SVec2& InInitPos,
@@ -154,6 +156,9 @@ namespace Test
 		* If nullptr, then initially sprite was added on top of the ZOrder.
 		*/
 		TSSprite* GetInitZBeforeSprite() const { return InZBeforeSpriteId; }
+
+		const MySpr::SSpritePickProps& GetInitPickProps() const { return InitPickProps; }
+
 		SpriteHandle GetInitZBeforeSpriteHandle() const;
 		const TSMaterial& GetInitMaterial() const { return InitMaterial; }		
 
@@ -182,6 +187,7 @@ namespace Test
 		mutable SpriteHandle Handle;
 	
 		TSSprite* InZBeforeSpriteId = nullptr;
+		MySpr::SSpritePickProps InitPickProps;
 		TSMaterial InitMaterial;
 		MySprMath::SSize InitSize;
 		MySprMath::SVec2 InitPos;

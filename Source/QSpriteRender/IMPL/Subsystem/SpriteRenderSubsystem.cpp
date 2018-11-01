@@ -34,6 +34,11 @@ ISpriteMaterialManager* SpriteRenderSubsystem::GetMaterials()
 	return &_materials;
 }
 
+void SpriteRenderSubsystem::Tick(float InDeltaSeconds)
+{
+	// Nothing is to be done here yet
+}
+
 } // Dv::Spr::QRen::IMPL
 } // Dv::Spr::QRen
 } // Dv::Spr

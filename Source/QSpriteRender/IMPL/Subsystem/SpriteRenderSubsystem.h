@@ -28,6 +28,8 @@ public:
 	virtual Ren::ISpriteRender* GetRender() override { return &_render; }
 	virtual ISpriteMaterialManager* GetMaterials() override;
 
+	virtual void Tick(float InDeltaSeconds) override;
+
 private:
 	std::ofstream& GetLog() const { return _environment.GetAmbientContext()->GetLog(); }
 

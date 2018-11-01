@@ -22,6 +22,7 @@
     <ClCompile Include="..\..\ISprite\Core\IMPL\SpriteRenderException.cpp" />
     <ClCompile Include="..\..\ISprite\IMPL\RenUtils\RenHRUtils.cpp" />
     <ClCompile Include="..\..\ISprite\IMPL\SpriteCanvasProps.cpp" />
+    <ClCompile Include="..\..\ISprite\IMPL\SpriteProps.cpp" />
     <ClCompile Include="..\..\ISprite\Math\MathUtils.cpp" />
     <ClCompile Include="..\..\ISprite\Math\SpriteTransform.cpp" />
   </ItemGroup>

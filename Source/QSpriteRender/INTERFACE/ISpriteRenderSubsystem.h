@@ -27,6 +27,8 @@ public:
 
 	virtual ISpriteMaterialManager* GetMaterials() = 0;
 	const ISpriteMaterialManager* GetMaterials() const;
+
+	virtual void Tick(float InDeltaSeconds) = 0;
 };
 
 inline const Ren::ISpriteRender* ISpriteRenderSubsystem::GetRender() const

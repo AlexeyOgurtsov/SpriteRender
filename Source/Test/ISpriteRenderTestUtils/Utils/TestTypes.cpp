@@ -16,6 +16,7 @@ namespace Test
 
 	TSSprite::TSSprite
 	(
+		const MySpr::SSpritePickProps& InPickProps,
 		const TSMaterial& InMaterial,
 		const MySprMath::SSize& InInitSize,
 		const MySprMath::SVec2& InInitPos,
@@ -23,13 +24,14 @@ namespace Test
 		const MySprMath::SVec2& InInitOrigin,
 		float InInitRotationAngle
 	) :
-		TSSprite{nullptr, InMaterial, InInitSize, InInitPos, InInitTransparencyMode, InInitOrigin, InInitRotationAngle }
+		TSSprite{nullptr, InPickProps, InMaterial, InInitSize, InInitPos, InInitTransparencyMode, InInitOrigin, InInitRotationAngle }
 	{
 	}
 
 	TSSprite::TSSprite
 	(
 		TSSprite* InZBeforeSpriteId,
+		const MySpr::SSpritePickProps& InPickProps,
 		const TSMaterial& InMaterial,
 		const MySprMath::SSize& InInitSize,
 		const MySprMath::SVec2& InInitPos,
@@ -38,6 +40,7 @@ namespace Test
 		float InInitRotationAngle
 	) :
 		InZBeforeSpriteId{InZBeforeSpriteId}
+	,	InitPickProps{InPickProps}
 	,	InitMaterial{InMaterial}
 	,	InitSize{InInitSize}
 	,	InitPos{InInitPos}

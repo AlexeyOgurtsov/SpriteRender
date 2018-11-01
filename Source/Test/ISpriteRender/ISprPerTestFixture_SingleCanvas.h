@@ -27,6 +27,7 @@ namespace Test::ISpr
 		*/
 		SpriteHandle CreateSprite
 		(
+			const MySpr::SSpritePickProps& InPickProps,
 			const MySprMath::SVec2& InPosition,
 			float InWidth, float InHeight,
 			MySprRen::MaterialInstanceRenderStateInitializerPtr InRenderState,
@@ -37,6 +38,7 @@ namespace Test::ISpr
 		SpriteHandle CreateSprite_ZOrderAfter
 		(
 			const SpriteHandle& InZBeforeSpriteId,
+			const MySpr::SSpritePickProps& InPickProps,
 			const MySprMath::SVec2& InPosition,			
 			float InWidth, float InHeight,
 			MySprRen::MaterialInstanceRenderStateInitializerPtr InRenderState,
@@ -46,6 +48,7 @@ namespace Test::ISpr
 		);
 		SpriteHandle CreateSprite
 		(
+			const MySpr::SSpritePickProps& InPickProps,
 			const MySprMath::SVec2& InPosition,
 			const MySprMath::SSize& InSize,
 			MySprRen::MaterialInstanceRenderStateInitializerPtr InRenderState,
@@ -56,6 +59,7 @@ namespace Test::ISpr
 		SpriteHandle CreateSprite_ZOrderAfter
 		(
 			const SpriteHandle& InZBeforeSpriteId,
+			const MySpr::SSpritePickProps& InPickProps,
 			const MySprMath::SVec2& InPosition,
 			const MySprMath::SSize& InSize,
 			MySprRen::MaterialInstanceRenderStateInitializerPtr InRenderState,
@@ -187,13 +191,13 @@ namespace Test::ISpr
 		* Creates vector of TestSprite object with the given colors and assigns their positions, so they NOT overlapped;
 		* WARNING!!! CreateSprite is NOT called automatically!
 		*/
-		TSSpriteVector LayoutSprites(const TSMaterialVector& InMaterials);
+		TSSpriteVector LayoutSprites(const TSMaterialVector& InMaterials, const SpriteTransparencyMode& InInitTransparencyMode = SpriteTransparencyMode::Opaque, const MySpr::SSpritePickProps& InPickProps = MySpr::SSpritePickProps::Disabled);
 
 		/**
 		* Prepares sprites (creates, registers, optionally shows).
 		* By default shows sprites.
 		*/
-		TSSpriteVector PrepareSprites(const TSMaterialVector& InMaterials, bool bShouldShow = true);
+		TSSpriteVector PrepareSprites(const TSMaterialVector& InMaterials, const SpriteTransparencyMode& InInitTransparencyMode = SpriteTransparencyMode::Opaque, const MySpr::SSpritePickProps& InPickProps = MySpr::SSpritePickProps::Disabled, bool bShouldShow = true);
 
 		/**
 		* Creates all sprites in the vector (by default invisible).
@@ -217,6 +221,7 @@ namespace Test::ISpr
 		(
 			TSSpriteVector* pOutSprites,
 			TSSprite* pZBeforeSprite,
+			const MySpr::SSpritePickProps& InPickProps,
 			const TSMaterial& InMaterial,
 			const MySprMath::SVec2& InPosition = DEFAULT_SPRITE_CANV_SPACE_POSITION, const MySprMath::SSize& InSize = DEFAULT_SPRITE_CANV_SPACE_SIZE,
 			const MySprMath::SVec2& InOrigin = MySprMath::SVec2{ 0.0F, 0.0F },
@@ -232,6 +237,7 @@ namespace Test::ISpr
 		(
 			TSSpriteVector* pOutSprites, 
 			TSSprite* pZBeforeSprite,
+			const MySpr::SSpritePickProps& InPickProps,
 			const SpriteTransparencyMode& InTransparencyMode, 
 			const TSMaterial& InMaterial, 
 			const MySprMath::SVec2& InPosition = DEFAULT_SPRITE_CANV_SPACE_POSITION, const MySprMath::SSize& InSize = DEFAULT_SPRITE_CANV_SPACE_SIZE,
@@ -246,6 +252,7 @@ namespace Test::ISpr
 		int PrepareSprite
 		(
 			TSSpriteVector* pOutSprites,
+			const MySpr::SSpritePickProps& InPickProps,
 			const TSMaterial& InMaterial,
 			const MySprMath::SVec2& InPosition = DEFAULT_SPRITE_CANV_SPACE_POSITION, const MySprMath::SSize& InSize = DEFAULT_SPRITE_CANV_SPACE_SIZE,
 			const MySprMath::SVec2& InOrigin = MySprMath::SVec2{ 0.0F, 0.0F },
@@ -260,6 +267,7 @@ namespace Test::ISpr
 		int PrepareSprite
 		(
 			TSSpriteVector* pOutSprites,
+			const MySpr::SSpritePickProps& InPickProps,
 			const SpriteTransparencyMode& InTransparencyMode,
 			const TSMaterial& InMaterial,
 			const MySprMath::SVec2& InPosition = DEFAULT_SPRITE_CANV_SPACE_POSITION, const MySprMath::SSize& InSize = DEFAULT_SPRITE_CANV_SPACE_SIZE,

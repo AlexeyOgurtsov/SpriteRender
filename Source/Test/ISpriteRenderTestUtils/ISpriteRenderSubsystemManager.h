@@ -98,6 +98,7 @@ namespace Test
 		(
 			bool bInDebug,
 			CanvasId InId, const std::string& InName, 
+			const MySpr::SCanvasPickProps& InPickProps,
 			unsigned int InWidth, unsigned int InHeight,
 			int InLeft = 0, int InRight = 0,
 			const MySpr::SCanvasCoordSystem& InCoordSystem = MySpr::SCanvasCoordSystem(),
@@ -113,6 +114,7 @@ namespace Test
 		SpriteHandle CreateSprite
 		(
 			SprId InId,
+			const MySpr::SSpritePickProps& InPickProps,
 			MySprRen::ISpriteUpdater* pInUpdater,
 			CanvasHandle pInCanvas,
 			const MySprMath::SVec2& InPosition,
@@ -126,6 +128,7 @@ namespace Test
 		(
 			SprId InId,
 			SprId InZBeforeSpriteId,
+			const MySpr::SSpritePickProps& InPickProps,
 			MySprRen::ISpriteUpdater* pInUpdater,
 			CanvasHandle pInCanvas,
 			const MySprMath::SVec2& InPosition,

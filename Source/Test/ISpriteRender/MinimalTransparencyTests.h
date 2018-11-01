@@ -55,7 +55,7 @@ namespace Test::ISpr
 
 				for (int j = 0; j < static_cast<int>(TransparentMaterials.size()); j++)
 				{
-					int SprOpaqueIndex = PrepareSprite(&Sprites, *pOpaqueMaterial);
+					int SprOpaqueIndex = PrepareSprite(&Sprites, MySpr::SSpritePickProps::Disabled, *pOpaqueMaterial);
 
 					BOOST_TEST_CHECKPOINT("CommitFrame");
 					{
@@ -67,7 +67,7 @@ namespace Test::ISpr
 
 					const TSMaterial* pTransparentMaterial = &TransparentMaterials[j];
 
-					int SprTransparentIndex = PrepareSprite(&Sprites, SpriteTransparencyMode::AlphaBlend_Additive, *pTransparentMaterial);
+					int SprTransparentIndex = PrepareSprite(&Sprites, MySpr::SSpritePickProps::Disabled, SpriteTransparencyMode::AlphaBlend_Additive, *pTransparentMaterial);
 
 					BOOST_TEST_CHECKPOINT("CommitFrame");
 					{

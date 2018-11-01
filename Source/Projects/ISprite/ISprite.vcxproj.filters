@@ -36,6 +36,9 @@
     <ClCompile Include="..\..\ISprite\Math\SpriteTransform.cpp">
       <Filter>Core\Math</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\ISprite\IMPL\SpriteProps.cpp">
+      <Filter>Core\IMPL</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\ISprite\Core\SpriteRenderException.h">

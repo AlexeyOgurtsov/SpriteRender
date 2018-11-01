@@ -1,11 +1,38 @@
 #pragma once
 
 #include "SpriteTypes.h"
+#include <iomanip>
+#include <string>
+#include <boost/assert.hpp>
 
 namespace Dv
 {
 namespace Spr
 {
+
+/**
+* Pick properties of the sprite.
+*/
+struct SSpritePickProps
+{
+	PickObjectId PickId;
+
+	bool CanBePicked() const;
+
+	inline SSpritePickProps() :
+		SSpritePickProps{ZERO_PICK_OBJECT_ID} {}
+	inline SSpritePickProps(PickObjectId InPickId) :
+		PickId{ InPickId } {}
+
+	static const SSpritePickProps Disabled;
+};
+
+template<class Strm>
+Strm& operator<<(Strm& S, const SSpritePickProps& InProps)
+{
+	S << "PickId: " << InProps.PickId << "(" << GetPickObjectIdValidityStr(InProps.PickId) << ")" << std::endl;
+	return S;
+}
 
 /**
 * Describes geometry properties of the sprite.
@@ -49,10 +76,20 @@ struct SSpriteProps
 	*/
 	SSpriteRenderMode RenderMode;
 
+	/**
+	* Picking properties of the sprite.
+	*/
+	SSpritePickProps Pick;	
+
 	SSpriteProps() = default;
-	SSpriteProps(const SSpriteGeometryProps& InGeometry, const SSpriteRenderMode& InRenderMode) :
+	SSpriteProps
+	(
+		const SSpriteGeometryProps& InGeometry, const SSpriteRenderMode& InRenderMode, 
+		const SSpritePickProps& InPick = SSpritePickProps{}
+	) :
 		Geometry { InGeometry }
-	,	RenderMode { InRenderMode } {}
+	,	RenderMode { InRenderMode }
+	,	Pick{InPick} {}
 };
 
 } // Dv::Spr

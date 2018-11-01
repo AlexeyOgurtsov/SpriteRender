@@ -30,7 +30,7 @@ namespace Test::ISpr
 		SetupTest(TestPath_MinimalRotate_DefaultOrigin.c_str());
 		
 		TSSpriteVector Sprites;
-		int SpriteIndex = PrepareSprite(&Sprites, GetTestMat_Red());
+		int SpriteIndex = PrepareSprite(&Sprites, MySpr::SSpritePickProps::Disabled, GetTestMat_Red());
 		TSSprite* pS = &Sprites[SpriteIndex];
 
 		constexpr float NUM_TESTS_PER_90 = 2;
@@ -71,7 +71,7 @@ namespace Test::ISpr
 		TSSpriteVector Sprites;
 		int SpriteIndex = PrepareSprite
 		(
-			&Sprites, GetTestMat_Red(), 
+			&Sprites, MySpr::SSpritePickProps::Disabled, GetTestMat_Red(),
 			DEFAULT_SPRITE_CANV_SPACE_POSITION, DEFAULT_SPRITE_CANV_SPACE_SIZE,
 			MySprMath::SVec2(DEFAULT_SPRITE_CANV_SPACE_SIZE.Width / 2.0F, DEFAULT_SPRITE_CANV_SPACE_SIZE.Height / 2.0F) // Let's take point in the middle to rotate around
 		);

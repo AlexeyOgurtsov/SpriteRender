@@ -21,6 +21,21 @@ SprId Sprite::GetId() const
 	return Initializer.TargetSpriteId; 
 }
 
+void Sprite::UpdatePickProps(const MySpr::SSpritePickProps& InProps)
+{
+	Initializer.Props.Pick = InProps;
+}
+
+bool Sprite::CanBePicked() const
+{
+	return GetPickProps().CanBePicked();
+}
+
+const MySpr::SSpritePickProps& Sprite::GetPickProps() const
+{
+	return Initializer.Props.Pick;
+}
+
 const Handle_SprMaterialInstance& Sprite::GetInitMatInst()
 {
 	return Initializer.pRenderState; 

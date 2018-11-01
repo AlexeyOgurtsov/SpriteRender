@@ -46,7 +46,7 @@ namespace Test::ISpr
 		// because not necessarily that concrete SpriteRender implementation 
 		// supports more than once canvas!
 		BOOST_TEST_CHECKPOINT("Create");
-		BOOST_REQUIRE_NO_THROW(GetSprRen()->CreateCanvas(/*bDebug=*/true, CanvId, std::string("Canvas"), GetRTWidth(), GetRTHeight()));
+		BOOST_REQUIRE_NO_THROW(GetSprRen()->CreateCanvas(/*bDebug=*/true, CanvId, std::string("Canvas"), MySpr::SCanvasPickProps::Disabled, GetRTWidth(), GetRTHeight()));
 		
 		BOOST_TEST_CHECKPOINT("Show/Hide");
 		{
@@ -82,7 +82,7 @@ namespace Test::ISpr
 		// because not necessarily that concrete SpriteRender implementation 
 		// supports more than once canvas!
 		BOOST_TEST_CHECKPOINT("CreateCanvas");
-		BOOST_REQUIRE_NO_THROW(GetSprRen()->CreateCanvas(/*bDebug=*/true, CanvId, std::string("Canvas"), GetRTWidth(), GetRTHeight()));
+		BOOST_REQUIRE_NO_THROW(GetSprRen()->CreateCanvas(/*bDebug=*/true, CanvId, std::string("Canvas"), MySpr::SCanvasPickProps::Disabled, GetRTWidth(), GetRTHeight()));
 
 		BOOST_TEST_CHECKPOINT("ShowCanvas");
 		BOOST_REQUIRE_NO_THROW(GetSprRen()->ShowCanvas(CanvId));
@@ -140,7 +140,7 @@ namespace Test::ISpr
 		const MySprMath::SVec2 POSITION_TO_MOVE = PointAt(EIGHTH_FROM_LEFT, CENTER);
 		// ~Sprite params End
 
-		TSSprite Sprite( GetTestMat_Blue(), SPR_SIZE, INIT_POS );
+		TSSprite Sprite( MySpr::SSpritePickProps::Disabled, GetTestMat_Blue(), SPR_SIZE, INIT_POS );
 
 		BOOST_TEST_CHECKPOINT("CreateSprite");		
 		{

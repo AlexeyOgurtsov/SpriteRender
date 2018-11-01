@@ -106,8 +106,10 @@ namespace Test::ISpr::QSpr
 
 	void SpriteRenderSubsystemManager::Tick(float InDeltaSeconds)
 	{
-		// Nothing is to do here yet
-		// (if no tick function is the current sprite render manager subsystem)
+		if (pSubsys)
+		{
+			pSubsys->Tick(InDeltaSeconds);
+		}
 	}
 
 	void SpriteRenderSubsystemManager::BeginFrame(float InDeltaSeconds)

@@ -32,7 +32,7 @@ namespace Test::ISpr
 		TSSpriteVector Sprites;
 		int const spriteIndex = PrepareSprite
 		(
-			&Sprites, GetTestMat_Green(), DEFAULT_SPRITE_CANV_SPACE_POSITION, DEFAULT_SPRITE_CANV_SPACE_SIZE, MySprMath::SVec2{ 0,0 }, 
+			&Sprites, MySpr::SSpritePickProps::Disabled, GetTestMat_Green(), DEFAULT_SPRITE_CANV_SPACE_POSITION, DEFAULT_SPRITE_CANV_SPACE_SIZE, MySprMath::SVec2{ 0,0 },
 			/*RotationAngle=*/45.0F, 
 			/*bShow=*/false
 		);

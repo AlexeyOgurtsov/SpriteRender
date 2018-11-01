@@ -57,7 +57,7 @@ namespace Test::ISpr
 			{
 				// WARNING!!! Do check BEFORE
 				BOOST_REQUIRE_EQUAL(i, GetSprRen()->GetNumCanvasses());
-				BOOST_REQUIRE_NO_THROW(GetSprRen()->CreateCanvas(/*bDebug=*/true, Canvasses[i].CanvId, std::string("Canvas") + std::to_string(i), GetRTWidth(), GetRTHeight()));
+				BOOST_REQUIRE_NO_THROW(GetSprRen()->CreateCanvas(/*bDebug=*/true, Canvasses[i].CanvId, std::string("Canvas") + std::to_string(i), MySpr::SCanvasPickProps::Disabled, GetRTWidth(), GetRTHeight()));
 			}
 			BOOST_REQUIRE_EQUAL(Canvasses.size(), GetSprRen()->GetNumCanvasses());
 			BOOST_REQUIRE_EQUAL(Canvasses.size(), GetSprRen()->GetNumHiddenCanvasses());

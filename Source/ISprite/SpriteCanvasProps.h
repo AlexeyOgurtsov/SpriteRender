@@ -3,11 +3,71 @@
 #include "ISprite/Math/IntVec.h"
 #include "ISprite/Math/Vec2.h"
 #include <iomanip>
+#include <string>
+#include <boost/assert.hpp>
 
 namespace Dv
 {
 namespace Spr
 { 
+
+/**
+* Should picking feature be used for the sprites of the canvas?
+*/
+enum class ECanvasPickMode
+{
+	Disabled = 0,
+	Enabled,
+	Num
+};
+constexpr ECanvasPickMode DEFAULT_CANVAS_PICK_MODE = ECanvasPickMode::Disabled;
+
+inline std::string ToString(ECanvasPickMode InMode)
+{
+	switch (InMode)
+	{
+	case ECanvasPickMode::Disabled:
+		return std::string("Disabled");
+
+	case ECanvasPickMode::Enabled:
+		return std::string("Enabled");
+
+	default:
+		break;
+	}
+	BOOST_ASSERT_MSG(false, "ToString(ECanvasPickMode): Unknown constant value or not yet implemented");
+	return std::string("{SHOULD_NOT_GET_HERE}");
+}
+
+template<class Strm>
+Strm& operator<<(Strm& S, ECanvasPickMode InMode)
+{
+	return S << ToString(InMode);
+}
+
+struct SCanvasPickProps
+{
+	ECanvasPickMode Mode;
+
+	bool CanBePicked() const;
+
+	inline SCanvasPickProps() :
+		SCanvasPickProps{ DEFAULT_CANVAS_PICK_MODE } {}
+	inline SCanvasPickProps(ECanvasPickMode InMode) :
+		Mode{ InMode }
+	{
+		BOOST_ASSERT_MSG(static_cast<int>(InMode) < static_cast<int>(ECanvasPickMode::Num), "SCanvasPickProps: wrong pick mode");
+	}
+	static const SCanvasPickProps Disabled;
+	static const SCanvasPickProps Enabled;
+};
+
+template<class Strm>
+Strm& operator<<(Strm& S, const SCanvasPickProps& InProps)
+{
+	S << InProps.Mode << std::endl;
+	return S;
+}
 
 /**
 * Rect that canvas takes on the render target.
@@ -126,10 +186,20 @@ struct SSpriteCanvasProps
 	*/
 	SCanvasCoordSystem CoordSystem;
 
+	/**
+	* Picking properties of the canvas.
+	*/
+	SCanvasPickProps Pick;
+
 	SSpriteCanvasProps() = default;
-	explicit SSpriteCanvasProps(const SCanvasRect& InRTRect, const SCanvasCoordSystem& InCoordSystem) :
+	explicit SSpriteCanvasProps
+	(
+		const SCanvasRect& InRTRect, const SCanvasCoordSystem& InCoordSystem,
+		const SCanvasPickProps& InPick = SCanvasPickProps{}
+	) :
 		RTRect{InRTRect}
-	,	CoordSystem{InCoordSystem} {}
+	,	CoordSystem{InCoordSystem}
+	,	Pick(InPick) {}
 };
 
 template<class Strm>

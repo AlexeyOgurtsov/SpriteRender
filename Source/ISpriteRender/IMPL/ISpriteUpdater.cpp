@@ -13,23 +13,23 @@ namespace Ren
 		return Initializer;
 	}
 
-	SSpriteCreateCommandInitializer GetSprInit_ZOrderAfter(SpriteId InSpriteId, SpriteId InZBeforeSpriteId, const SSpriteGeometryProps& InGeometry, MaterialInstanceRenderStateInitializerPtr InRenderState, ESpriteTransparency InTransparency)
+	SSpriteCreateCommandInitializer GetSprInit_ZOrderAfter(SpriteId InSpriteId, SpriteId InZBeforeSpriteId, const SSpritePickProps& InPickProps, const SSpriteGeometryProps& InGeometry, MaterialInstanceRenderStateInitializerPtr InRenderState, ESpriteTransparency InTransparency)
 	{
-		SSpriteCreateCommandInitializer Initializer = GetSprInit(InSpriteId, InGeometry, InRenderState, InTransparency);
+		SSpriteCreateCommandInitializer Initializer = GetSprInit(InSpriteId, InPickProps, InGeometry, InRenderState, InTransparency);
 		Initializer.ZBeforeSpriteId = InZBeforeSpriteId;
 		return Initializer;
 	}
 
-	SSpriteCreateCommandInitializer GetSprInit_ZOrderAfter(SpriteId InSpriteId, SpriteId InZBeforeSpriteId, const Math::SSpriteTransform& InTransform, const Math::SSize& InSize, MaterialInstanceRenderStateInitializerPtr InRenderState, ESpriteTransparency InTransparency)
+	SSpriteCreateCommandInitializer GetSprInit_ZOrderAfter(SpriteId InSpriteId, SpriteId InZBeforeSpriteId, const SSpritePickProps& InPickProps, const Math::SSpriteTransform& InTransform, const Math::SSize& InSize, MaterialInstanceRenderStateInitializerPtr InRenderState, ESpriteTransparency InTransparency)
 	{
-		SSpriteCreateCommandInitializer Initializer = GetSprInit(InSpriteId, InTransform, InSize, InRenderState, InTransparency);
+		SSpriteCreateCommandInitializer Initializer = GetSprInit(InSpriteId, InPickProps, InTransform, InSize, InRenderState, InTransparency);
 		Initializer.ZBeforeSpriteId = InZBeforeSpriteId;
 		return Initializer;
 	}
 
-	SSpriteCreateCommandInitializer GetSprInit_ZOrderAfter(SpriteId InSpriteId, SpriteId InZBeforeSpriteId, const Math::SVec2& InPosition, float InWidth, float InHeight, MaterialInstanceRenderStateInitializerPtr InRenderState, ESpriteTransparency InTransparency, const Math::SVec2& InOrigin, float InAngleDegs)
+	SSpriteCreateCommandInitializer GetSprInit_ZOrderAfter(SpriteId InSpriteId, SpriteId InZBeforeSpriteId, const SSpritePickProps& InPickProps, const Math::SVec2& InPosition, float InWidth, float InHeight, MaterialInstanceRenderStateInitializerPtr InRenderState, ESpriteTransparency InTransparency, const Math::SVec2& InOrigin, float InAngleDegs)
 	{
-		SSpriteCreateCommandInitializer Initializer = GetSprInit(InSpriteId, InPosition, InWidth, InHeight, InRenderState, InTransparency, InOrigin, InAngleDegs);
+		SSpriteCreateCommandInitializer Initializer = GetSprInit(InSpriteId, InPickProps, InPosition, InWidth, InHeight, InRenderState, InTransparency, InOrigin, InAngleDegs);
 		Initializer.ZBeforeSpriteId = InZBeforeSpriteId;
 		return Initializer;
 	}	
@@ -50,51 +50,51 @@ namespace Ren
 	}
 
 
-	SSpriteCreateCommandInitializer GetSprInit(SpriteId InSpriteId, const SSpriteGeometryProps& InGeometry, MaterialInstanceRenderStateInitializerPtr InRenderState, ESpriteTransparency InTransparency)
+	SSpriteCreateCommandInitializer GetSprInit(SpriteId InSpriteId, const SSpritePickProps& InPickProps, const SSpriteGeometryProps& InGeometry, MaterialInstanceRenderStateInitializerPtr InRenderState, ESpriteTransparency InTransparency)
 	{
-		SSpriteProps Props { InGeometry, SSpriteRenderMode { InTransparency } };
+		SSpriteProps Props { InGeometry, SSpriteRenderMode { InTransparency }, InPickProps };
 		return GetSprInit(InSpriteId, Props, InRenderState);
 	}
 
-	void ISpriteUpdater::CreateSprite_ZOrderAfter(SpriteId InSpriteId, SpriteId InZBeforeSpriteId, const SSpriteGeometryProps& InGeometry, MaterialInstanceRenderStateInitializerPtr InRenderState, ESpriteTransparency InTransparency)
+	void ISpriteUpdater::CreateSprite_ZOrderAfter(SpriteId InSpriteId, SpriteId InZBeforeSpriteId, const SSpritePickProps& InPickProps, const SSpriteGeometryProps& InGeometry, MaterialInstanceRenderStateInitializerPtr InRenderState, ESpriteTransparency InTransparency)
 	{
-		return CreateSprite(GetSprInit_ZOrderAfter(InSpriteId, InZBeforeSpriteId, InGeometry, InRenderState, InTransparency));
+		return CreateSprite(GetSprInit_ZOrderAfter(InSpriteId, InZBeforeSpriteId, InPickProps, InGeometry, InRenderState, InTransparency));
 	}
 
-	void ISpriteUpdater::CreateSprite(SpriteId InSpriteId, const SSpriteGeometryProps& InGeometry, MaterialInstanceRenderStateInitializerPtr InRenderState, ESpriteTransparency InTransparency)
+	void ISpriteUpdater::CreateSprite(SpriteId InSpriteId, const SSpritePickProps& InPickProps, const SSpriteGeometryProps& InGeometry, MaterialInstanceRenderStateInitializerPtr InRenderState, ESpriteTransparency InTransparency)
 	{		
-		return CreateSprite(GetSprInit(InSpriteId, InGeometry, InRenderState, InTransparency));
+		return CreateSprite(GetSprInit(InSpriteId, InPickProps, InGeometry, InRenderState, InTransparency));
 	}
 
-	SSpriteCreateCommandInitializer GetSprInit(SpriteId InSpriteId, const Math::SSpriteTransform& InTransform, const Math::SSize& InSize, MaterialInstanceRenderStateInitializerPtr InRenderState, ESpriteTransparency InTransparency)
+	SSpriteCreateCommandInitializer GetSprInit(SpriteId InSpriteId, const SSpritePickProps& InPickProps, const Math::SSpriteTransform& InTransform, const Math::SSize& InSize, MaterialInstanceRenderStateInitializerPtr InRenderState, ESpriteTransparency InTransparency)
 	{
 		SSpriteGeometryProps Geometry { InTransform, InSize };
-		return GetSprInit(InSpriteId, Geometry, InRenderState, InTransparency);
+		return GetSprInit(InSpriteId, InPickProps, Geometry, InRenderState, InTransparency);
 	}
 
-	void ISpriteUpdater::CreateSprite_ZOrderAfter(SpriteId InSpriteId, SpriteId InZBeforeSpriteId, const Math::SSpriteTransform& InTransform, const Math::SSize& InSize, MaterialInstanceRenderStateInitializerPtr InRenderState, ESpriteTransparency InTransparency)
+	void ISpriteUpdater::CreateSprite_ZOrderAfter(SpriteId InSpriteId, SpriteId InZBeforeSpriteId, const SSpritePickProps& InPickProps, const Math::SSpriteTransform& InTransform, const Math::SSize& InSize, MaterialInstanceRenderStateInitializerPtr InRenderState, ESpriteTransparency InTransparency)
 	{
-		return CreateSprite(GetSprInit_ZOrderAfter(InSpriteId, InZBeforeSpriteId, InTransform, InSize, InRenderState, InTransparency));
+		return CreateSprite(GetSprInit_ZOrderAfter(InSpriteId, InZBeforeSpriteId, InPickProps, InTransform, InSize, InRenderState, InTransparency));
 	}
 
-	void ISpriteUpdater::CreateSprite(SpriteId InSpriteId, const Math::SSpriteTransform& InTransform, const Math::SSize& InSize, MaterialInstanceRenderStateInitializerPtr InRenderState, ESpriteTransparency InTransparency)
+	void ISpriteUpdater::CreateSprite(SpriteId InSpriteId, const SSpritePickProps& InPickProps, const Math::SSpriteTransform& InTransform, const Math::SSize& InSize, MaterialInstanceRenderStateInitializerPtr InRenderState, ESpriteTransparency InTransparency)
 	{
-		return CreateSprite(GetSprInit(InSpriteId, InTransform, InSize, InRenderState, InTransparency));
+		return CreateSprite(GetSprInit(InSpriteId, InPickProps, InTransform, InSize, InRenderState, InTransparency));
 	}
 
-	SSpriteCreateCommandInitializer GetSprInit(SpriteId InSpriteId, const Math::SVec2& InPosition, float InWidth, float InHeight, MaterialInstanceRenderStateInitializerPtr InRenderState, ESpriteTransparency InTransparency, const Math::SVec2& InOrigin, float InAngleDegs)
+	SSpriteCreateCommandInitializer GetSprInit(SpriteId InSpriteId, const SSpritePickProps& InPickProps, const Math::SVec2& InPosition, float InWidth, float InHeight, MaterialInstanceRenderStateInitializerPtr InRenderState, ESpriteTransparency InTransparency, const Math::SVec2& InOrigin, float InAngleDegs)
 	{
-		return GetSprInit(InSpriteId, Math::SSpriteTransform{InPosition, InOrigin, InAngleDegs }, Math::SSize{InWidth, InHeight}, InRenderState, InTransparency);
+		return GetSprInit(InSpriteId, InPickProps, Math::SSpriteTransform{InPosition, InOrigin, InAngleDegs }, Math::SSize{InWidth, InHeight}, InRenderState, InTransparency);
 	}
 
-	void ISpriteUpdater::CreateSprite_ZOrderAfter(SpriteId InSpriteId, SpriteId InZBeforeSpriteId, const Math::SVec2& InPosition, float InWidth, float InHeight, MaterialInstanceRenderStateInitializerPtr InRenderState, ESpriteTransparency InTransparency, const Math::SVec2& InOrigin, float InAngleDegs)
+	void ISpriteUpdater::CreateSprite_ZOrderAfter(SpriteId InSpriteId, SpriteId InZBeforeSpriteId, const SSpritePickProps& InPickProps, const Math::SVec2& InPosition, float InWidth, float InHeight, MaterialInstanceRenderStateInitializerPtr InRenderState, ESpriteTransparency InTransparency, const Math::SVec2& InOrigin, float InAngleDegs)
 	{
-		return CreateSprite(GetSprInit_ZOrderAfter(InSpriteId, InZBeforeSpriteId, InPosition, InWidth, InHeight, InRenderState, InTransparency, InOrigin, InAngleDegs));
+		return CreateSprite(GetSprInit_ZOrderAfter(InSpriteId, InZBeforeSpriteId, InPickProps, InPosition, InWidth, InHeight, InRenderState, InTransparency, InOrigin, InAngleDegs));
 	}
 
-	void ISpriteUpdater::CreateSprite(SpriteId InSpriteId, const Math::SVec2& InPosition, float InWidth, float InHeight, MaterialInstanceRenderStateInitializerPtr InRenderState, ESpriteTransparency InTransparency, const Math::SVec2& InOrigin, float InAngleDegs)
+	void ISpriteUpdater::CreateSprite(SpriteId InSpriteId, const SSpritePickProps& InPickProps, const Math::SVec2& InPosition, float InWidth, float InHeight, MaterialInstanceRenderStateInitializerPtr InRenderState, ESpriteTransparency InTransparency, const Math::SVec2& InOrigin, float InAngleDegs)
 	{
-		return CreateSprite(GetSprInit(InSpriteId, InPosition, InWidth, InHeight, InRenderState, InTransparency, InOrigin, InAngleDegs));
+		return CreateSprite(GetSprInit(InSpriteId, InPickProps, InPosition, InWidth, InHeight, InRenderState, InTransparency, InOrigin, InAngleDegs));
 	}
 
 	void ISpriteUpdater::DeleteSprite(SpriteId InSpriteId)	

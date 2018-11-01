@@ -8,6 +8,7 @@ namespace Test
 	(
 		bool bInDebug,
 		CanvasId InId, const std::string& InName, 
+		const MySpr::SCanvasPickProps& InPickProps,
 		unsigned int InWidth, unsigned int InHeight,
 		int InLeft, int InRight,
 		const MySpr::SCanvasCoordSystem& InCoordSystem,
@@ -20,6 +21,7 @@ namespace Test
 		MySprRen::SSpriteCanvasCreateCommandInitializer Initializer = MySprRen::GetCanvasInit
 		(
 			/*bDebug=*/bInDebug, InId, InName, 
+			InPickProps,
 			InWidth, InHeight, 
 			InLeft, InRight,
 			InCoordSystem,
@@ -63,6 +65,7 @@ namespace Test
 	(
 		SprId InId,
 		SprId InZBeforeSpriteId,
+		const MySpr::SSpritePickProps& InPickProps,
 		MySprRen::ISpriteUpdater* pInUpdater,
 		CanvasHandle pInCanvas,
 		const MySprMath::SVec2& InPosition,
@@ -77,12 +80,14 @@ namespace Test
 		BOOST_ASSERT(pInUpdater);
 		BOOST_ASSERT_MSG(GetSpriteRender(), "ISpriteRenderSubsystemManager::CreateSprite: Sprite render must be initialized");
 		T_LOG("ZBeforeSprite Id: " << InZBeforeSpriteId << (MySpr::IsValidSpriteId(InZBeforeSpriteId) ? "(valid)" : "(invalid=<OnTop>)"));
+		T_LOG("PickProps: ");
+		T_LOG(InPickProps);
 		T_LOG("Position: " << ToString(InPosition));
 		T_LOG("Origin (relative to left-bottom corner of the sprite)=" << InOrigin);
 		T_LOG("(Width*Height)=" << InWidth << "*" << InHeight);
 		T_LOG("RotationAngle=" << InRotationAngle);
 		T_LOG("Transparency=" << ToString(InTransparencyMode.GetTransparency()));		
-		MySprRen::SSpriteCreateCommandInitializer const Initializer = MySprRen::GetSprInit(InId, InPosition, InWidth, InHeight, InRenderState, InTransparencyMode.GetTransparency(), InOrigin, InRotationAngle);
+		MySprRen::SSpriteCreateCommandInitializer const Initializer = MySprRen::GetSprInit(InId, InPickProps, InPosition, InWidth, InHeight, InRenderState, InTransparencyMode.GetTransparency(), InOrigin, InRotationAngle);
 		pInUpdater->CreateSprite(Initializer);
 		T_LOG("ISpriteRenderSubsystemManager: Sprite " << InId << " Created");
 		return std::make_unique<Sprite>(this, pInCanvas, Initializer);
@@ -91,7 +96,8 @@ namespace Test
 	SpriteHandle ISpriteRenderSubsystemManager::CreateSprite
 	(
 		SprId InId,
-		MySprRen::ISpriteUpdater* pInUpdater,
+		const MySpr::SSpritePickProps& InPickProps,
+		MySprRen::ISpriteUpdater* pInUpdater,		
 		CanvasHandle pInCanvas,
 		const MySprMath::SVec2& InPosition,
 		float InWidth, float InHeight,
@@ -101,7 +107,7 @@ namespace Test
 		float InRotationAngle
 	)
 	{
-		return CreateSprite_ZOrderAfter(InId, MySpr::NULL_SPRITE_ID, pInUpdater, pInCanvas, InPosition, InWidth, InHeight, InRenderState, InTransparencyMode, InOrigin, InRotationAngle);
+		return CreateSprite_ZOrderAfter(InId, MySpr::NULL_SPRITE_ID, InPickProps, pInUpdater, pInCanvas, InPosition, InWidth, InHeight, InRenderState, InTransparencyMode, InOrigin, InRotationAngle);
 	}
 
 	void ISpriteRenderSubsystemManager::DeleteSprite(MySprRen::ISpriteUpdater* pInUpdater, SpriteHandle InHandle)

@@ -12,14 +12,14 @@ namespace Ren
 SSpriteCreateCommandInitializer GetSprInit_ZOrderAfter(SpriteId InSpriteId, SpriteId InZBeforeSpriteId, const SSpriteProps& InProps, MaterialInstanceRenderStateInitializerPtr InRenderState);
 SSpriteCreateCommandInitializer GetSprInit(SpriteId InSpriteId, const SSpriteProps& InProps, MaterialInstanceRenderStateInitializerPtr InRenderState);
 
-SSpriteCreateCommandInitializer GetSprInit_ZOrderAfter(SpriteId InSpriteId, SpriteId InZBeforeSpriteId, const SSpriteGeometryProps& InGeometry, MaterialInstanceRenderStateInitializerPtr InRenderState, ESpriteTransparency InTransparency = ESpriteTransparency::Opaque);
-SSpriteCreateCommandInitializer GetSprInit(SpriteId InSpriteId, const SSpriteGeometryProps& InGeometry, MaterialInstanceRenderStateInitializerPtr InRenderState, ESpriteTransparency InTransparency = ESpriteTransparency::Opaque);
+SSpriteCreateCommandInitializer GetSprInit_ZOrderAfter(SpriteId InSpriteId, SpriteId InZBeforeSpriteId, const SSpritePickProps& InPickProps, const SSpriteGeometryProps& InGeometry, MaterialInstanceRenderStateInitializerPtr InRenderState, ESpriteTransparency InTransparency = ESpriteTransparency::Opaque);
+SSpriteCreateCommandInitializer GetSprInit(SpriteId InSpriteId, const SSpritePickProps& InPickProps, const SSpriteGeometryProps& InGeometry, MaterialInstanceRenderStateInitializerPtr InRenderState, ESpriteTransparency InTransparency = ESpriteTransparency::Opaque);
 
-SSpriteCreateCommandInitializer GetSprInit_ZOrderAfter(SpriteId InSpriteId, SpriteId InZBeforeSpriteId, const Math::SSpriteTransform& InTransform, const Math::SSize& InSize, MaterialInstanceRenderStateInitializerPtr InRenderState, ESpriteTransparency InTransparency = ESpriteTransparency::Opaque);
-SSpriteCreateCommandInitializer GetSprInit(SpriteId InSpriteId, const Math::SSpriteTransform& InTransform, const Math::SSize& InSize, MaterialInstanceRenderStateInitializerPtr InRenderState, ESpriteTransparency InTransparency = ESpriteTransparency::Opaque);
+SSpriteCreateCommandInitializer GetSprInit_ZOrderAfter(SpriteId InSpriteId, SpriteId InZBeforeSpriteId, const SSpritePickProps& InPickProps, const Math::SSpriteTransform& InTransform, const Math::SSize& InSize, MaterialInstanceRenderStateInitializerPtr InRenderState, ESpriteTransparency InTransparency = ESpriteTransparency::Opaque);
+SSpriteCreateCommandInitializer GetSprInit(SpriteId InSpriteId, const SSpritePickProps& InPickProps, const Math::SSpriteTransform& InTransform, const Math::SSize& InSize, MaterialInstanceRenderStateInitializerPtr InRenderState, ESpriteTransparency InTransparency = ESpriteTransparency::Opaque);
 
-SSpriteCreateCommandInitializer GetSprInit_ZOrderAfter(SpriteId InSpriteId, SpriteId InZBeforeSpriteId, const Math::SVec2& InPosition, float InWidth, float InHeight, MaterialInstanceRenderStateInitializerPtr InRenderState, ESpriteTransparency InTransparency = ESpriteTransparency::Opaque, const Math::SVec2& InOrigin = { 0.0F, 0.0F }, float InAngleDegs = 0.0F);
-SSpriteCreateCommandInitializer GetSprInit(SpriteId InSpriteId, const Math::SVec2& InPosition, float InWidth, float InHeight, MaterialInstanceRenderStateInitializerPtr InRenderState, ESpriteTransparency InTransparency = ESpriteTransparency::Opaque, const Math::SVec2& InOrigin = { 0.0F, 0.0F }, float InAngleDegs = 0.0F);
+SSpriteCreateCommandInitializer GetSprInit_ZOrderAfter(SpriteId InSpriteId, SpriteId InZBeforeSpriteId, const SSpritePickProps& InPickProps, const Math::SVec2& InPosition, float InWidth, float InHeight, MaterialInstanceRenderStateInitializerPtr InRenderState, ESpriteTransparency InTransparency = ESpriteTransparency::Opaque, const Math::SVec2& InOrigin = { 0.0F, 0.0F }, float InAngleDegs = 0.0F);
+SSpriteCreateCommandInitializer GetSprInit(SpriteId InSpriteId, const SSpritePickProps& InPickProps, const Math::SVec2& InPosition, float InWidth, float InHeight, MaterialInstanceRenderStateInitializerPtr InRenderState, ESpriteTransparency InTransparency = ESpriteTransparency::Opaque, const Math::SVec2& InOrigin = { 0.0F, 0.0F }, float InAngleDegs = 0.0F);
 
 SSpriteSetGeometryCommandInitializer GetSprGeometryInit(SpriteId InTargetSpriteId, const SSpriteGeometryProps& InGeometry);
 SSpriteSetGeometryCommandInitializer GetSprGeometryInit(SpriteId InTargetSpriteId, const Math::SSpriteTransform& InTransform, const Math::SSize& InSize);
@@ -35,21 +35,21 @@ public:
 	void CreateSprite_ZOrderAfter(SpriteId InSpriteId, SpriteId InZBeforeSpriteId, const SSpriteProps& InProps, MaterialInstanceRenderStateInitializerPtr InRenderState);
 	void CreateSprite(SpriteId InSpriteId, const SSpriteProps& InProps, MaterialInstanceRenderStateInitializerPtr InRenderState);
 
-	void CreateSprite_ZOrderAfter(SpriteId InSpriteId, SpriteId InZBeforeSpriteId, const SSpriteGeometryProps& InGeometry, MaterialInstanceRenderStateInitializerPtr InRenderState, ESpriteTransparency InTransparency = ESpriteTransparency::Opaque);
-	void CreateSprite(SpriteId InSpriteId, const SSpriteGeometryProps& InGeometry, MaterialInstanceRenderStateInitializerPtr InRenderState, ESpriteTransparency InTransparency = ESpriteTransparency::Opaque);
+	void CreateSprite_ZOrderAfter(SpriteId InSpriteId, SpriteId InZBeforeSpriteId, const SSpritePickProps& InPickProps, const SSpriteGeometryProps& InGeometry, MaterialInstanceRenderStateInitializerPtr InRenderState, ESpriteTransparency InTransparency = ESpriteTransparency::Opaque);
+	void CreateSprite(SpriteId InSpriteId, const SSpritePickProps& InPickProps, const SSpriteGeometryProps& InGeometry, MaterialInstanceRenderStateInitializerPtr InRenderState, ESpriteTransparency InTransparency = ESpriteTransparency::Opaque);
 
-	void CreateSprite_ZOrderAfter(SpriteId InSpriteId, SpriteId InZBeforeSpriteId, const Math::SSpriteTransform& InTransform, const Math::SSize& InSize, MaterialInstanceRenderStateInitializerPtr InRenderState, ESpriteTransparency InTransparency = ESpriteTransparency::Opaque);
+	void CreateSprite_ZOrderAfter(SpriteId InSpriteId, SpriteId InZBeforeSpriteId, const SSpritePickProps& InPickProps, const Math::SSpriteTransform& InTransform, const Math::SSize& InSize, MaterialInstanceRenderStateInitializerPtr InRenderState, ESpriteTransparency InTransparency = ESpriteTransparency::Opaque);
 	/**
 	* Creates sprite with the given transform and size and default texture coordinates.
 	*/
-	void CreateSprite(SpriteId InSpriteId, const Math::SSpriteTransform& InTransform, const Math::SSize& InSize, MaterialInstanceRenderStateInitializerPtr InRenderState, ESpriteTransparency InTransparency = ESpriteTransparency::Opaque);
+	void CreateSprite(SpriteId InSpriteId, const SSpritePickProps& InPickProps, const Math::SSpriteTransform& InTransform, const Math::SSize& InSize, MaterialInstanceRenderStateInitializerPtr InRenderState, ESpriteTransparency InTransparency = ESpriteTransparency::Opaque);
 	
-	void CreateSprite_ZOrderAfter(SpriteId InSpriteId, SpriteId InZBeforeSpriteId, const Math::SVec2& InPosition, float InWidth, float InHeight, MaterialInstanceRenderStateInitializerPtr InRenderState, ESpriteTransparency InTransparency = ESpriteTransparency::Opaque, const Math::SVec2& InOrigin = { 0.0F, 0.0F }, float InAngleDegs = 0.0F);
+	void CreateSprite_ZOrderAfter(SpriteId InSpriteId, SpriteId InZBeforeSpriteId, const SSpritePickProps& InPickProps, const Math::SVec2& InPosition, float InWidth, float InHeight, MaterialInstanceRenderStateInitializerPtr InRenderState, ESpriteTransparency InTransparency = ESpriteTransparency::Opaque, const Math::SVec2& InOrigin = { 0.0F, 0.0F }, float InAngleDegs = 0.0F);
 	/**
 	* Creates sprite with the given position and size.
 	* The preferred method to create sprites quickly.
 	*/
-	void CreateSprite(SpriteId InSpriteId, const Math::SVec2& InPosition, float InWidth, float InHeight, MaterialInstanceRenderStateInitializerPtr InRenderState, ESpriteTransparency InTransparency = ESpriteTransparency::Opaque, const Math::SVec2& InOrigin = { 0.0F, 0.0F }, float InAngleDegs = 0.0F);
+	void CreateSprite(SpriteId InSpriteId, const SSpritePickProps& InPickProps, const Math::SVec2& InPosition, float InWidth, float InHeight, MaterialInstanceRenderStateInitializerPtr InRenderState, ESpriteTransparency InTransparency = ESpriteTransparency::Opaque, const Math::SVec2& InOrigin = { 0.0F, 0.0F }, float InAngleDegs = 0.0F);
 	void DeleteSprite(SpriteId InSpriteId);
 	void HideSprite(SpriteId InSpriteId);
 	void ShowSprite(SpriteId InSpriteId);

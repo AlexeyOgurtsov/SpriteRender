@@ -1,0 +1,43 @@
+** Rendering algorithm.
+
+All visibles canvasses are rendered back-to-front.
+
+Each canvas is rendered with the following settings:
+- Depth stencil is turned off;
+
+
+** Picking.
+Optional functionality that can be disabled.
+
+Pick buffer is a texture, where each texel contains an object id.
+Pick buffer is filled in a separate rendering pass.
+
+Separate pass is used because:
+- MRT could not be used if MSAA is enabled, because MSAA demands that all RT's are multisampled;
+- Can be skipped dynamically if no picking is to be done this frame 
+(e.g. inside keyboard-only game picking is performed only when menu is used, 
+and only for the menu layer);
+
+Special pixel shader version is used for rendering into the pick-buffer:
+- Outputs only object id;
+- Optionally discards pixels with alpha below a certain level;
+
+Render state differs from the main pass:
+- Blend state is always turned off;
+
+Special object id (zero value) is used to indicate that no pickable object is available at the point.
+Each sprite has an assigned object id, or special non-pickable object id, if it's a non-pickable sprite.
+Object id is provided by the user at the time of sprite creation.
+
+Each canvas has a flag, indicating whether its sprites can be picked or not.
+Non-pickable canvasses are just skipped on the picking pass.
+Pickable canvasses are rendered back-to-front as normal.
+
+Pick buffer clearing is performed once before rendering all canvasses by clearing with a special non-pickable object id.
+
+
+** Resources:
+* Rasterizer state:
+- Multisample enabled is turned on when MSAA is used.
+
+

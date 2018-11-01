@@ -23,6 +23,10 @@ namespace Test
 
 		SprId GetId() const;
 
+		void UpdatePickProps(const MySpr::SSpritePickProps& InProps);
+		const MySpr::SSpritePickProps& GetPickProps() const;
+		bool CanBePicked() const;
+
 		const Handle_SprMaterialInstance& GetMatInst();
 		const MySpr::SSpriteProps& GetProps() const;
 		const MySpr::SSpriteGeometryProps& GetGeometry() const;

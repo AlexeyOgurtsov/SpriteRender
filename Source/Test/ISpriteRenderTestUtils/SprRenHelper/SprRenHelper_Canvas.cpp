@@ -22,6 +22,22 @@ bool Canvas::IsDebug() const
 	return Initializer.bDebug;
 }
 
+
+const MySpr::SCanvasPickProps& Canvas::GetPickProps() const
+{
+	return Initializer.Props.Pick;
+}
+
+void Canvas::UpdatePickProps(const MySpr::SCanvasPickProps& InPickProps)
+{
+	Initializer.Props.Pick = InPickProps;
+}
+
+bool Canvas::CanBePicked() const
+{
+	return GetPickProps().CanBePicked();
+}
+
 int Canvas::GetCapacityInSprites() const
 {
 	return Initializer.InitialCapacityInSprites;

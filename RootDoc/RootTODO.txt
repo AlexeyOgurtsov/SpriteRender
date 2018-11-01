@@ -1,13 +1,4 @@
 This TODO file may contains any TODOs 
 (tasks to be moved to module TODOs if not DONE a long time).
 
-TODAY:
-1. Design test utils and set of tests for the SpriteRender
-
-TOMORROW:
-
-
-LATER:
-1) Move all test-related .cpp implementation of the SpriteRender 
-to the SpriteRenderTester implementation.
 

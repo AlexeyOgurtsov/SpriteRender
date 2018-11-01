@@ -48,6 +48,9 @@
     <ClInclude Include="..\..\Test\ISpriteRender\FeatureManyCanvasSmokeTests.h">
       <Filter>TEST</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Test\ISpriteRender\FeaturePickSmokeTests.h">
+      <Filter>TEST</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="IMPL">

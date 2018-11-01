@@ -13,6 +13,7 @@ namespace Test::ISpr::QSpr
 // ~ Test control macros Begin
 // Our render supports many canvasses simultaneosly
 #define TEST_FEATURE_MANY_CANVASSES
+#define TEST_FEATURE_PICK
 // ~ Test control macros End
 
 #include "IMPL_TEST/ImplTests.h"

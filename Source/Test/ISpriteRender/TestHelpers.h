@@ -26,5 +26,6 @@ namespace Test::ISpr
 	std::string const SuitePath_MinimalExtraChecks { "SuiteMinimalExtraChecks" };
 
 	std::string const SuitePath_FeatureManyCanvassesSmoke { "Suite_FeatureManyCanvasSmoke" };
+	std::string const SuitePath_FeaturePickSmoke { "Suite_FeaturePickSmoke" };
 	// ~ Sprite render test suite paths End
 } // Test::ISpr
