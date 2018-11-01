@@ -172,6 +172,7 @@
   <ItemGroup>
     <ClInclude Include="..\..\Test\ISpriteRenderTestUtils\CONFIG\D3DDeviceConfig.h" />
     <ClInclude Include="..\..\Test\ISpriteRenderTestUtils\CONFIG\TesterConfig_Logging.h" />
+    <ClInclude Include="..\..\Test\ISpriteRenderTestUtils\CONFIG\TesterConfig_Pick.h" />
     <ClInclude Include="..\..\Test\ISpriteRenderTestUtils\CONFIG\TesterConfig_Resources.h" />
     <ClInclude Include="..\..\Test\ISpriteRenderTestUtils\CONFIG\TesterConfig_Tester.h" />
     <ClInclude Include="..\..\Test\ISpriteRenderTestUtils\CONFIG\TesterConfig_Viewport.h" />

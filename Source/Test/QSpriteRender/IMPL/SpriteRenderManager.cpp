@@ -54,6 +54,33 @@ namespace Test::ISpr::QSpr
 			}
 			T_LOG_TO(InLog, "Configure_RenderDeviceConfig DONE");
 		}
+
+		void Configure_AntialiasingConfig(std::ofstream& InLog, Ren::SAntialiasingConfig& OutConfig, const D3DDevice* pInDevice)
+		{
+			T_LOG_TO(InLog, "Configure_AntialiasingConfig...");
+			if (pInDevice)
+			{
+				T_LOG_TO(InLog, "Configure_AntialiasingConfig: D3DDevice valid");
+				OutConfig.MSAA_SampleCount = pInDevice->GetConfig().MSAA.NumSamples;
+				OutConfig.MSAA_Quality = pInDevice->GetConfig().MSAA.NumQualityLevels;				
+			}
+			else
+			{
+				T_LOG_TO(InLog, "Configure_AntialiasingConfig: Resetting - D3D Device is nullptr");
+				OutConfig.MSAA_Quality = 0;
+				OutConfig.MSAA_SampleCount = 0;
+			}
+			T_LOG_TO(InLog, "Configure_AntialiasingConfig DONE");
+		}
+
+		void Configure_PickConfig(std::ofstream& InLog, Ren::SPickConfig& OutConfig, const TesterConfig_Pick& InConfig)
+		{
+			T_LOG_TO(InLog, "Configure_PickConfig...");
+			OutConfig.bEnabled = InConfig.bEnabled;
+			OutConfig.BufferWidth = InConfig.BufferWidth;
+			OutConfig.BufferHeight = InConfig.BufferHeight;
+			T_LOG_TO(InLog, "Configure_PickConfig DONE");
+		}
 	} // SubsysInitializerUtils
 
 	ISpriteRender* SpriteRenderSubsystemManager::GetSpriteRender() const
@@ -128,7 +155,7 @@ namespace Test::ISpr::QSpr
 	{
 		BOOST_ASSERT(pLog);
 		T_LOG("SpriteRenderSubsystemManager::OnDefaultTesterConfigUpdated...");
-		// Nothing is to be done here yet
+		SubsysInitializerUtils::Configure_PickConfig(GetLog(), SubsysInitializer.Render.Pick, InDefaultConfig.Pick);
 		bSettingsUpdated = true;
 		T_LOG("SpriteRenderSubsystemManager::OnDefaultTesterConfigUpdated DONE");
 	}
@@ -139,6 +166,7 @@ namespace Test::ISpr::QSpr
 		T_LOG("SpriteRenderSubsystemManager::OnD3DUpdated...");
 		SubsysInitializerUtils::Configure_RenderDeviceConfig(GetLog(), SubsysInitializer.Render.Device, pInDev);
 		SubsysInitializerUtils::Configure_RenderTargetAndDepthStencil(GetLog(), SubsysInitializer.Render.RenderTarget, pInDev);
+		SubsysInitializerUtils::Configure_AntialiasingConfig(GetLog(), SubsysInitializer.Render.Antialiasing, pInDev);
 		bSettingsUpdated = true;
 		T_LOG("SpriteRenderSubsystemManager::OnD3DUpdated DONE");
 	}
@@ -190,7 +218,7 @@ namespace Test::ISpr::QSpr
 	{
 		OutInitializer.Render.InitialSpriteBufferCapacity = InitialSpriteBufferCapacity;
 		OutInitializer.Render.RenderTarget.ZFar = RenderTarget_ZFar;
-		OutInitializer.Render.Shaders = ShadersConfig;
+		OutInitializer.Render.Shaders = ShadersConfig;		
 	}
 
 	DXGI_FORMAT SpriteRenderSubsystemManager::GetDefaultTextureFormat_Diffuse() const

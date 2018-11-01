@@ -37,11 +37,18 @@ namespace Test
 		bool bEnableDepthStencil = true;
 	};
 
+	struct TesterConfig_D3DDevice_MSAA
+	{
+		UINT NumSamples = 1;
+		UINT NumQualityLevels = 0;	
+	};
+
 	struct TesterConfig_D3DDevice
 	{
 		TesterConfig_D3DDevice_RenderTarget RenderTarget;
 		TesterConfig_D3DDevice_DepthStencil DepthStencil;
 		TesterConfig_D3DDevice_CopyBuffers CopyBuffers;
+		TesterConfig_D3DDevice_MSAA MSAA;
 
 		UINT GetDeviceFlags() const { return 0; }
 	};

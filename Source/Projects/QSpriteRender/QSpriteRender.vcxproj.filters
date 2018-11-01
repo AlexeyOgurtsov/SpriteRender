@@ -327,6 +327,12 @@
     <ClInclude Include="..\..\QSpriteRender\IMPL\RenUtils\TextureUtils.h">
       <Filter>IMPL\RenUtils</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\QSpriteRender\INTERFACE\CONFIG\SpriteRenderAntialiasingConfig.h">
+      <Filter>INTERFACE\CONFIG</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\QSpriteRender\INTERFACE\CONFIG\SpriteRenderPickConfig.h">
+      <Filter>INTERFACE\CONFIG</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\QSpriteRender\INTERFACE\CONFIG\SpriteRenderConfig.cpp">

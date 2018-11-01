@@ -267,5 +267,8 @@
     <ClInclude Include="..\..\Test\ISpriteRenderTestUtils\SprRenHelper\SprRenHelper_Transparency.h">
       <Filter>SprRenHelper</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Test\ISpriteRenderTestUtils\CONFIG\TesterConfig_Pick.h">
+      <Filter>Config</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

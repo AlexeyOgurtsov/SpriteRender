@@ -186,8 +186,8 @@ D3DDevice::D3DDevice(UINT InRTWidth, UINT InRTHeight, std::ofstream* pInLog, HWN
 
 	// SwapChainDesc
 	ZeroMemory(&_swapChainDesc, sizeof(_swapChainDesc));
-	_swapChainDesc.SampleDesc.Count = SAMPLE_COUNT;
-	_swapChainDesc.SampleDesc.Quality = SAMPLE_QUALITY;
+	_swapChainDesc.SampleDesc.Count = InConfig.MSAA.NumSamples;
+	_swapChainDesc.SampleDesc.Quality = InConfig.MSAA.NumQualityLevels;
 	_swapChainDesc.BufferDesc.Width = InRTWidth;
 	_swapChainDesc.BufferDesc.Height = InRTHeight;
 	_swapChainDesc.BufferDesc.RefreshRate.Numerator = DEFAULT_REFRESH_RATE;

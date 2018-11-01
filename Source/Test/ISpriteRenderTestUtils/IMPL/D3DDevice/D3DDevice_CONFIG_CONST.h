@@ -23,10 +23,4 @@ constexpr BOOL                             WINDOWED                             
 * Swap chain
 ****************************************************************************/
 constexpr DXGI_SWAP_EFFECT                 DEFAULT_SWAP_EFFECT                         = DXGI_SWAP_EFFECT_DISCARD;
-
-/****************************************************************************
-* Multisample
-****************************************************************************/
-constexpr unsigned int                     SAMPLE_COUNT                           = 1;
-constexpr unsigned int                     SAMPLE_QUALITY                         = 0;
 } // Test::IMPL

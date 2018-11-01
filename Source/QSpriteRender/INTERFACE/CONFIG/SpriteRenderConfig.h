@@ -4,6 +4,8 @@
 #include "RenTargetConfig.h"
 #include "RenderDeviceConfig.h"
 #include "SpriteRenderShadersConfig.h"
+#include "SpriteRenderAntialiasingConfig.h"
+#include "SpriteRenderPickConfig.h"
 #include <string>
 #include <iomanip>
 #include <boost/assert.hpp>
@@ -64,6 +66,16 @@ struct SConfig
 	SShadersConfig Shaders;
 
 	/**
+	* Antialiasing config.
+	*/
+	SAntialiasingConfig Antialiasing;
+
+	/**
+	* Pick buffer config.
+	*/
+	SPickConfig Pick;
+
+	/**
 	* Initial size of the sprite vertex buffer in sprites.
 	*/
 	int InitialSpriteBufferCapacity = INITIAL_SPRITE_BUFFER_CAPACITY;
@@ -92,6 +104,8 @@ inline void LogRenderConfig(Strm& strm, const SConfig& InConfig)
 {
 	LogRenderTargetConfig(strm, InConfig.RenderTarget);
 	LogShadersConfig(strm, InConfig.Shaders);
+	LogAntialiasingConfig(strm, InConfig.Antialiasing);
+	LogPickConfig(strm, InConfig.Pick);
 	strm << std::setw(32) << std::left << "Initial sprite buffer capacity: " << InConfig.InitialSpriteBufferCapacity << std::endl;
 	strm << std::setw(32) << std::left << "VB Slot: " << InConfig.VBSlot << std::endl;
 }
@@ -106,6 +120,8 @@ inline void AssertConfigValid(const SConfig& InConfig)
 	AssertDeviceConfigValid(InConfig.Device);
 	AssertRenderTargetConfigValid(InConfig.RenderTarget);
 	AssertShadersConfigValid(InConfig.Shaders);
+	AssertAntialiasingConfigValid(InConfig.Antialiasing);
+	AssertPickConfigValid(InConfig.Pick);
 	BOOST_ASSERT_MSG(InConfig.InitialSpriteBufferCapacity > 0, "SpriteRender config is invalid: sprite buffer capacity must be greater than zero");
 	BOOST_ASSERT_MSG(InConfig.VBSlot == 0, "SpriteRender config is invalid: at this time only ZERO slot can be used for binding the vertex buffer");
 }

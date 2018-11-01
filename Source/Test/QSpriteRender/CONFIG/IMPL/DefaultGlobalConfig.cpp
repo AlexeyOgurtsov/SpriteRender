@@ -15,7 +15,15 @@ namespace Test::ISpr::QSpr
 	void InitDefaultGlobalConfig_Tester(TesterConfig_Tester& OutDefaultConfig);
 	void InitDefaultGlobalConfig_Log(TesterConfig_Logging& OutDefaultConfig);
 	void InitDefaultGlobalConfig_Viewport(TesterConfig_Viewport& OutDefaultConfig);
-	void InitDefaultGlobalConfig_D3D(TesterConfig_D3DDevice& OutDefaultConfig);
+	void InitDefaultGlobalConfig_D3D(TesterConfig_D3DDevice& OutDefaultConfig);	
+
+
+	void InitDefaultGlobalConfig_Pick(TesterConfig_Pick& OutDefaultConfig)
+	{
+		OutDefaultConfig.bEnabled = false;
+		OutDefaultConfig.BufferWidth = 0;
+		OutDefaultConfig.BufferHeight = 0;
+	}
 
 	void InitDefaultCustomConfig_ShadersConfig(SpriteRenderCustomSetuper& OutDefaultConfig, const TesterConfig& InDefaultConfig);
 
@@ -44,6 +52,7 @@ namespace Test::ISpr::QSpr
 		InitDefaultGlobalConfig_Log(OutDefaultConfig.Log);
 		InitDefaultGlobalConfig_Viewport(OutDefaultConfig.Viewport);
 		InitDefaultGlobalConfig_D3D(OutDefaultConfig.D3D);
+		InitDefaultGlobalConfig_Pick(OutDefaultConfig.Pick);
 	}
 
 	void InitDefaultGlobalConfig_Tester(TesterConfig_Tester& OutDefaultConfig)
@@ -86,5 +95,11 @@ namespace Test::ISpr::QSpr
 		*/
 		OutDefaultConfig.CopyBuffers.bEnableRT = true;
 		OutDefaultConfig.CopyBuffers.bEnableDepthStencil = true;
+
+		/**
+		* MSAA
+		*/
+		OutDefaultConfig.MSAA.NumSamples = 1;
+		OutDefaultConfig.MSAA.NumQualityLevels = 0;
 	}
 } // Test::ISpr::QSpr

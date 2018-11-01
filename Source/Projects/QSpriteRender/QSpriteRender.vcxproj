@@ -186,7 +186,9 @@
     <ClInclude Include="..\..\QSpriteRender\INTERFACE\CONFIG\LoggingConfig.h" />
     <ClInclude Include="..\..\QSpriteRender\INTERFACE\CONFIG\RenderDeviceConfig.h" />
     <ClInclude Include="..\..\QSpriteRender\INTERFACE\CONFIG\RenTargetConfig.h" />
+    <ClInclude Include="..\..\QSpriteRender\INTERFACE\CONFIG\SpriteRenderAntialiasingConfig.h" />
     <ClInclude Include="..\..\QSpriteRender\INTERFACE\CONFIG\SpriteRenderConfig.h" />
+    <ClInclude Include="..\..\QSpriteRender\INTERFACE\CONFIG\SpriteRenderPickConfig.h" />
     <ClInclude Include="..\..\QSpriteRender\INTERFACE\CONFIG\SpriteRenderShadersConfig.h" />
     <ClInclude Include="..\..\QSpriteRender\INTERFACE\ISpriteRenderSubsystem.h" />
     <ClInclude Include="..\..\QSpriteRender\INTERFACE\Material\ISpriteMaterialManager.h" />
