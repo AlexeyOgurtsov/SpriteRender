@@ -21,19 +21,41 @@ SprId Sprite::GetId() const
 	return Initializer.TargetSpriteId; 
 }
 
-void Sprite::UpdatePickProps(const MySpr::SSpritePickProps& InProps)
-{
-	Initializer.Props.Pick = InProps;
-}
-
 bool Sprite::CanBePicked() const
 {
 	return GetPickProps().CanBePicked();
 }
 
+MySpr::PickObjectId Sprite::GetObjectId() const
+{
+	return GetPickProps().PickId;
+}
+
 const MySpr::SSpritePickProps& Sprite::GetPickProps() const
 {
 	return Initializer.Props.Pick;
+}
+
+void Sprite::EnablePick(MySprRen::ISpriteUpdater* pInUpdater)
+{
+	SetPickMode(pInUpdater, MySpr::ESpritePickMode::Enabled);
+}
+
+void Sprite::DisablePick(MySprRen::ISpriteUpdater* pInUpdater)
+{
+	SetPickMode(pInUpdater, MySpr::ESpritePickMode::Disabled);
+}
+
+void Sprite::SetPickMode(MySprRen::ISpriteUpdater* pInUpdater, MySpr::ESpritePickMode InPickMode)
+{
+	Initializer.Props.Pick.Mode = InPickMode;
+	pSubsys->SetSpritePickMode(pInUpdater, GetId(), InPickMode);
+}
+
+void Sprite::SetPickObjectId(MySprRen::ISpriteUpdater* pInUpdater, SprId InId, MySpr::PickObjectId InObjectId)
+{
+	Initializer.Props.Pick.PickId = InObjectId;
+	pSubsys->SetSpritePickObject(pInUpdater, GetId(), InObjectId);
 }
 
 const Handle_SprMaterialInstance& Sprite::GetInitMatInst()

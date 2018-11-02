@@ -75,7 +75,7 @@ namespace Test
 	const TesterConfig& FixtureBase::GetConfig()const
 	{
 		BOOST_ASSERT_MSG(IsDefaultConfigSet(), "FixtureBase::GetConfig: ever default config is NOT set yet");
-		return gConfigStack[0];
+		return gConfigStack.back();
 	}
 
 	bool FixtureBase::IsDefaultConfigSet() const
@@ -100,6 +100,38 @@ namespace Test
 		gConfigStack.pop_back();
 		UpdateEnvironment_BasedOnConfig(gConfigStack.back());	
 		T_LOG("ISpriteRenderTestUtils: FixtureBase::PopConfig DONE");
+	}
+
+	void FixtureBase::EnablePick()
+	{
+		if (GetConfig().Pick.bEnabled)
+		{
+			T_LOG("Pick already enabled in config");
+		}
+		else
+		{
+			T_LOG("Enable picking in config...");
+			TesterConfig* const pCfg = BeginUpdateConfig();
+			pCfg->Pick.bEnabled = true;
+			EndUpdateConfig(pCfg);
+			T_LOG("Enable picking in config DONE");
+		}
+	}
+
+	void FixtureBase::DisablePick()
+	{
+		if (false == GetConfig().Pick.bEnabled)
+		{
+			T_LOG("Pick already disabled in config");
+		}
+		else
+		{
+			T_LOG("Disable picking in config ...");
+			TesterConfig* const pCfg = BeginUpdateConfig();
+			pCfg->Pick.bEnabled = false;
+			EndUpdateConfig(pCfg);
+			T_LOG("Disable picking in config DONE");
+		}
 	}
 
 	void FixtureBase::UpdateEnvironment_BasedOnConfig(const TesterConfig& InConfig)

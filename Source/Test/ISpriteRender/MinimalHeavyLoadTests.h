@@ -45,7 +45,7 @@ namespace Test::ISpr
 			BOOST_TEST_CHECKPOINT("CommitFrame");
 			{
 				IFrameCheckContextHandle pChecker = CommitFrame();
-				BOOST_TEST(CheckVisibility(pChecker, Sprites));
+				BOOST_TEST(CheckInitialVisibility(pChecker, Sprites));
 			}
 		}
 
@@ -63,7 +63,7 @@ namespace Test::ISpr
 					BOOST_TEST_CHECKPOINT("CommitFrame");
 					{
 						IFrameCheckContextHandle pChecker = CommitFrame();
-						BOOST_TEST(CheckVisibility(pChecker, Sprites));
+						BOOST_TEST(CheckInitialVisibility(pChecker, Sprites));
 					}
 				}
 			}

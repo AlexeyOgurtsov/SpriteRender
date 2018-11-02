@@ -12,6 +12,7 @@
 #include "Utils/MathUtils.h"
 #include "SprRenHelper/SprRenHelper_Canvas.h"
 #include "SprRenHelper/SprRenHelper_Sprite.h"
+#include "SprRenHelper/SprRenHelper_Types.h"
 #include "IMPL/Utils/TextureElement.h"
 
 namespace Test
@@ -22,6 +23,11 @@ namespace Test
 	* Returns render target texel coordinates for the given canvas rect, using the given factors.
 	*/
 	IntVec RT_TexelCoordByFactor(IFrameCheckContext* pContext, CanvasHandle InCanvas, const Vec2& InFactor);
+
+	/**
+	* Returns vector of factors in range [0..1] from the point given in the coordinate system of the canvas.
+	*/
+	MySprMath::SVec2 GetCanvasFactorCoord(IFrameCheckContext* pContext, CanvasHandle InCanvas, const Vec2& InCoord);
 
 	/**
 	* Returns render target texel coordinates for the given canvas rect, 
@@ -81,8 +87,46 @@ namespace Test
 
 	/**
 	* Returns true if sprite is not visible.
+	*
+	* Canvas point is specified in the canvas coord system (NOT fract!).
 	*/
 	bool RT_SpriteHidden_AtCanvasPoint(IFrameCheckContext* pContext, CanvasHandle InCanvas, SpriteHandle InSprite, const SprVec2& InSpriteLBPosition_AsCanvasPoint, bool bMatchAlpha);
+
+	/**
+	* Returns pick result for for the given sprite returned by the pick request.
+	*/
+	MySprRen::SPickResult PickSprite(IFrameCheckContext* pContext, CanvasHandle InCanvas, SpriteHandle InSprite);
+
+	/**
+	* Returns pick result for the given sprite returned by the pick request at the given canvas point.
+	*
+	* Canvas point is specified in the canvas coord system (NOT fract!).
+	*/
+	MySprRen::SPickResult PickSprite_AtCanvasPoint(IFrameCheckContext* pContext, CanvasHandle InCanvas, SpriteHandle InSprite, const SprVec2& InSpriteLBPosition_AsCanvasPoint);
+
+	/**
+	* Returns true if sprite is picked at the given canvas point.
+	*/
+	bool SpritePickedAs(IFrameCheckContext* pContext, CanvasHandle InCanvas, SpriteHandle InSprite, MySpr::PickObjectId InObjId);
+
+	/**
+	* Returns true if sprite is picked at the given canvas point.
+	*
+	* Canvas point is specified in the canvas coord system (NOT fract!).
+	*/
+	bool SpritePickedAs_AtCanvasPoint(IFrameCheckContext* pContext, CanvasHandle InCanvas, SpriteHandle InSprite, MySpr::PickObjectId InObjId, const SprVec2& InSpriteLBPosition_AsCanvasPoint);
+
+	/**
+	* Returns true if sprite is not picked.
+	*/
+	bool SpriteNotPicked(IFrameCheckContext* pContext, CanvasHandle InCanvas, SpriteHandle InSprite);
+
+	/**
+	* Returns true if sprite is not picked at the given position.
+	*
+	* Canvas point is specified in the canvas coord system (NOT fract!).
+	*/
+	bool SpriteNotPickedAt(IFrameCheckContext* pContext, CanvasHandle InCanvas, SpriteHandle InSprite, const SprVec2& InSpriteLBPosition_AsCanvasPoint);
 
 	/**
 	* Returns true if render target texel with the given coordinates matches another one.

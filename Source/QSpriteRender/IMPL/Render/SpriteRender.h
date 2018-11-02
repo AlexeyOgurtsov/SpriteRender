@@ -42,7 +42,6 @@ public:
 	*/
 	virtual void BeginFrame() override;
 
-
 	/**
 	* @see: interface method comment
 	*/
@@ -57,6 +56,46 @@ public:
 	* @see: interface method comment
 	*/
 	virtual void RenderCanvas(SpriteCanvasId InCanvasId) override;
+
+	/**
+	* @see: interface method comment
+	*/
+	virtual void BeginPickFrame() override;
+
+	/**
+	* @see: interface method comment
+	*/
+	virtual void EndPickFrame() override;
+
+	/**
+	* @see: interface method comment
+	*/
+	virtual void RenderAllPickableCanvasses() override;
+
+	/**
+	* @see: interface method comment
+	*/
+	virtual void RenderPickableCanvas(SpriteCanvasId InCanvasId) override;
+
+	/**
+	* @see: interface method comment
+	*/
+	virtual void EnableCanvasPicking(SpriteCanvasId InId) override;
+
+	/**
+	* @see: interface method comment
+	*/
+	virtual void DisableCanvasPicking(SpriteCanvasId InId) override;
+
+	/**
+	* @see: interface method comment
+	*/
+	virtual Ren::SPickResult PickAtScreen(const Math::SVec2& InPoint) override;
+
+	/**
+	* @see: interface method comment
+	*/
+	virtual Ren::SPickResult PickAtCanvasPoint(SpriteCanvasId InCanvasId, const Math::SVec2& InCanvasPoint) override;
 
 	/**
 	* @see: interface method comment

@@ -67,6 +67,16 @@ void SpriteUpdater::SetSpriteZOrder(const Ren::SSpriteSetZOrderCommandInitialize
 	_pCanvas->MoveSpriteZOrderAfter(InCommand.TargetSpriteId, InCommand.ZBeforeSpriteId);
 }
 
+void SpriteUpdater::SetSpritePickMode(const Ren::SSpriteSetPickModeCommandInitializer& InCommand)
+{
+	BOOST_ASSERT_MSG(false, "SpriteUpdater::SetSpritePickMode: NOT yet impl");
+}
+
+void SpriteUpdater::SetSpritePickObject(const Ren::SSpriteSetPickObjectCommandInitializer& InCommand)
+{
+	BOOST_ASSERT_MSG(false, "SpriteUpdater::SetSpritePickObject: NOT yet impl");
+}
+
 } // Dv::Spr::QRen::IMPL
 } // Dv::Spr::QRen
 } // Dv::Spr

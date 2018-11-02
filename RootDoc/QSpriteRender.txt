@@ -32,6 +32,7 @@ Object id is provided by the user at the time of sprite creation.
 Each canvas has a flag, indicating whether its sprites can be picked or not.
 Non-pickable canvasses are just skipped on the picking pass.
 Pickable canvasses are rendered back-to-front as normal.
+ATTTENTION! Invisible canvasses DO may be pickable. It may be useful for creating pick proxies, for example.
 
 Pick buffer clearing is performed once before rendering all canvasses by clearing with a special non-pickable object id.
 

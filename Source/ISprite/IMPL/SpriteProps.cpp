@@ -7,9 +7,9 @@ namespace Spr
 { 
 	bool SSpritePickProps::CanBePicked() const
 	{
-		return IsValidPickObjectId(PickId);
+		return Mode != ESpritePickMode::Disabled;
 	}
 
-	const SSpritePickProps SSpritePickProps::Disabled { ZERO_PICK_OBJECT_ID };
+	const SSpritePickProps SSpritePickProps::Disabled { ZERO_PICK_OBJECT_ID, ESpritePickMode::Disabled };
 } // Dv::Spr
 } // Dv

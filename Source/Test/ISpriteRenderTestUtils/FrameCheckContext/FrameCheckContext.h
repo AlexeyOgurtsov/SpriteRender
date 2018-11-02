@@ -23,6 +23,7 @@ namespace Test::IMPL
 	protected:
 		std::ofstream& GetLog() const;
 		virtual const TesterConfig_D3DDevice& GetD3DConfig() const override;
+		virtual ISpriteRenderSubsystemManager *GetSubsys() const override;
 
 	private:
 		PerTestFixtureBase* TestFixture = nullptr;

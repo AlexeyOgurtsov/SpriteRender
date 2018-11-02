@@ -23,9 +23,15 @@ namespace Test
 
 		SprId GetId() const;
 
-		void UpdatePickProps(const MySpr::SSpritePickProps& InProps);
 		const MySpr::SSpritePickProps& GetPickProps() const;
 		bool CanBePicked() const;
+
+		MySpr::PickObjectId GetObjectId() const;
+
+		void EnablePick(MySprRen::ISpriteUpdater* pInUpdater);
+		void DisablePick(MySprRen::ISpriteUpdater* pInUpdater);
+		void SetPickMode(MySprRen::ISpriteUpdater* pInUpdater, MySpr::ESpritePickMode InPickMode);
+		void SetPickObjectId(MySprRen::ISpriteUpdater* pInUpdater, SprId InId, MySpr::PickObjectId InObjectId);
 
 		const Handle_SprMaterialInstance& GetMatInst();
 		const MySpr::SSpriteProps& GetProps() const;

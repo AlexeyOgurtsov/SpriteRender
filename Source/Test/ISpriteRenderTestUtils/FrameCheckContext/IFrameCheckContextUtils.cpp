@@ -16,10 +16,15 @@ namespace Test
 	{
 		return InCanvas->GetRTRect().PointAt(InFactor.X, InFactor.Y);
 	}
+
+	MySprMath::SVec2 GetCanvasFactorCoord(IFrameCheckContext* pContext, CanvasHandle InCanvas, const Vec2& InCoord)
+	{
+		return InCanvas->GetCoordSystem().PointFract(InCoord);
+	}
 	
 	IntVec RT_TexelCoordByCanvasPoint(IFrameCheckContext* pContext, CanvasHandle InCanvas, const Vec2& InCanvasPoint)
 	{
-		ScreenCoordSystemDesc CoordSystem = InCanvas->GetCoordSystem();
+		ScreenCoordSystemDesc const CoordSystem = InCanvas->GetCoordSystem();
 		return RT_TexelCoordByFactor(pContext, InCanvas, CoordSystem.PointFract(InCanvasPoint));
 	}
 
@@ -36,7 +41,7 @@ namespace Test
 
 	bool RT_TexelBlendedProperly(IFrameCheckContext* pContext, CanvasHandle InCanvas, const SprVec2& InCanvasPoint, const TexelColor& InSourceColor, const TexelColor& InDestColor, EBlendOp InOp)
 	{
-		TexelColor ColorToCheck = RT_ColorByCanvasPoint(pContext, InCanvas, InCanvasPoint);
+		TexelColor const ColorToCheck = RT_ColorByCanvasPoint(pContext, InCanvas, InCanvasPoint);
 		return CheckAlphaBlendResult(ColorToCheck, InDestColor, InSourceColor, InOp);
 	}
 
@@ -81,7 +86,40 @@ namespace Test
 
 	bool RT_SpriteHidden_AtCanvasPoint(IFrameCheckContext* pContext, CanvasHandle InCanvas, SpriteHandle InSprite, const SprVec2& InSpriteLBPosition_AsCanvasPoint, bool bMatchAlpha)
 	{		
-		SprVec2 SpriteCenter = MySprMath::GetCenterOfRotatedRect(InSpriteLBPosition_AsCanvasPoint, InSprite->GetSize(), InSprite->GetOrigin(), InSprite->GetRotationAngle());
+		SprVec2 const SpriteCenter = MySprMath::GetCenterOfRotatedRect(InSpriteLBPosition_AsCanvasPoint, InSprite->GetSize(), InSprite->GetOrigin(), InSprite->GetRotationAngle());
 		return RT_IsCanvasClear_AtCanvasPoint(pContext, InCanvas, SpriteCenter, bMatchAlpha);
+	}
+	
+	MySprRen::SPickResult PickSprite(IFrameCheckContext* pContext, CanvasHandle InCanvas, SpriteHandle InSprite)
+	{
+		return PickSprite_AtCanvasPoint(pContext, InCanvas, InSprite, InSprite->GetLBPosition());
+	}	
+
+	MySprRen::SPickResult PickSprite_AtCanvasPoint(IFrameCheckContext* pContext, CanvasHandle InCanvas, SpriteHandle InSprite, const SprVec2& InSpriteLBPosition_AsCanvasPoint)
+	{
+		SprVec2 const SpriteCenter = MySprMath::GetCenterOfRotatedRect(InSpriteLBPosition_AsCanvasPoint, InSprite->GetSize(), InSprite->GetOrigin(), InSprite->GetRotationAngle());
+		SprVec2 const FactorCoord = GetCanvasFactorCoord(pContext, InCanvas, SpriteCenter);
+		return pContext->PickAtCanvasPoint(InCanvas->GetId(), FactorCoord);
+	}
+	
+	bool SpritePickedAs(IFrameCheckContext* pContext, CanvasHandle InCanvas, SpriteHandle InSprite, MySpr::PickObjectId InObjId)
+	{
+		return SpritePickedAs_AtCanvasPoint(pContext, InCanvas, InSprite, InObjId, InSprite->GetLBPosition());
+	}
+
+	bool SpritePickedAs_AtCanvasPoint(IFrameCheckContext* pContext, CanvasHandle InCanvas, SpriteHandle InSprite, MySpr::PickObjectId InObjId, const SprVec2& InSpriteLBPosition_AsCanvasPoint)
+	{
+		MySprRen::SPickResult const Result = PickSprite_AtCanvasPoint(pContext, InCanvas, InSprite, InSpriteLBPosition_AsCanvasPoint);
+		return Result.ObjectId == InObjId;
+	}
+	
+	bool SpriteNotPicked(IFrameCheckContext* pContext, CanvasHandle InCanvas, SpriteHandle InSprite)
+	{
+		return SpritePickedAs(pContext, InCanvas, InSprite, MySpr::ZERO_PICK_OBJECT_ID);
+	}
+	
+	bool SpriteNotPickedAt(IFrameCheckContext* pContext, CanvasHandle InCanvas, SpriteHandle InSprite, const SprVec2& InSpriteLBPosition_AsCanvasPoint)
+	{
+		return SpritePickedAs_AtCanvasPoint(pContext, InCanvas, InSprite, MySpr::ZERO_PICK_OBJECT_ID, InSpriteLBPosition_AsCanvasPoint);
 	}
 } // Test

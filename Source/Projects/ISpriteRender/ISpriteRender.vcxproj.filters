@@ -51,6 +51,13 @@
     <ClInclude Include="..\..\Test\ISpriteRender\FeaturePickSmokeTests.h">
       <Filter>TEST</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\ISpriteRender\SpritePickTypes.h" />
+    <ClInclude Include="..\..\Test\ISpriteRender\ISprPerTestFixture_CustomPick.h">
+      <Filter>TEST</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Test\ISpriteRender\ISprPerTestFixture_SingleCanvas_SmokePick.h">
+      <Filter>TEST</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="IMPL">
@@ -83,6 +90,12 @@
       <Filter>TEST\IMPL</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Test\ISpriteRender\IMPL\ISprPerTestFixture_SingleCanvas_Smoke.cpp">
+      <Filter>TEST\IMPL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Test\ISpriteRender\IMPL\ISprPerTestFixture_CustomPick.cpp">
+      <Filter>TEST\IMPL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Test\ISpriteRender\IMPL\ISprPerTestFixture_SingleCanvas_SmokePick.cpp">
       <Filter>TEST\IMPL</Filter>
     </ClCompile>
   </ItemGroup>

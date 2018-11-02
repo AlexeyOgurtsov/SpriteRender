@@ -6,7 +6,8 @@
 
 namespace Test::ISpr
 {
-	ISprPerTestFixture_SingleCanvas::ISprPerTestFixture_SingleCanvas()
+	ISprPerTestFixture_SingleCanvas::ISprPerTestFixture_SingleCanvas() :
+		PickProps{ MySpr::SCanvasPickProps::Disabled }
 	{
 		T_LOG("Fixture: SingleCanvas per test fixture");
 	}
@@ -17,17 +18,26 @@ namespace Test::ISpr
 		EndUpdates();
 	}
 
+	void ISprPerTestFixture_SingleCanvas::SetPickProps(const MySpr::SCanvasPickProps& InPickProps)
+	{
+		T_LOG("Fixture: SingleCanvas: Setting pick props...");
+		PickProps = InPickProps;		
+		T_LOG("Fixture: SingleCanvas: Setting pick props DONE");
+	}
+
 	void ISprPerTestFixture_SingleCanvas::OnPostSetupTestUser()
 	{
 		T_LOG("Fixture: SingleCanvas: OnPostSetupTestUser...");
 
 		T_LOG("Fixture SingleCanvas: Creating canvas...");
-		CanvHandle = GetSpriteRenderSubsystemManager()->CreateCanvas(/*bDebug=*/true, CANV_ID, std::string("Canvas"), MySpr::SCanvasPickProps::Disabled, GetRTWidth(), GetRTHeight());
+		CanvHandle = GetSpriteRenderSubsystemManager()->CreateCanvas(/*bDebug=*/true, CANV_ID, std::string("Canvas"), PickProps, GetRTWidth(), GetRTHeight());
 		T_LOG("Fixture SingleCanvas: Creating canvas DONE");
 
 		T_LOG("Fixture SingleCanvas: Showing canvas...");
 		GetSpriteRenderSubsystemManager()->ShowCanvas(CanvHandle->GetId());
 		T_LOG("Fixture SingleCanvas: showing canvas DONE");
+
+		// WARNING!!! We should not make the canvas pickable, as it will be pickable according to its arguments, if it's enabled.
 
 		BeginUpdates();
 
@@ -589,7 +599,7 @@ namespace Test::ISpr
 		return index;
 	}
 
-	boost::test_tools::predicate_result ISprPerTestFixture_SingleCanvas::CheckVisibility(const IFrameCheckContextHandle& ContextHandle, const TSSpriteVector& InSprites)
+	boost::test_tools::predicate_result ISprPerTestFixture_SingleCanvas::CheckInitialVisibility(const IFrameCheckContextHandle& ContextHandle, const TSSpriteVector& InSprites)
 	{
 		for (int SpriteIndex = 0; SpriteIndex < static_cast<int>(InSprites.size()); SpriteIndex++)
 		{
@@ -613,6 +623,38 @@ namespace Test::ISpr
 					res.message() << "Sprite " << SpriteIndex << "must be hidden";
 					return res;
 				}
+			}
+		}
+		return true;
+	}
+
+	boost::test_tools::predicate_result ISprPerTestFixture_SingleCanvas::CheckAllHidden(const IFrameCheckContextHandle& ContextHandle, const TSSpriteVector& InSprites)
+	{
+		for (int SpriteIndex = 0; SpriteIndex < static_cast<int>(InSprites.size()); SpriteIndex++)
+		{
+			const TSSprite* pS = &(InSprites[SpriteIndex]);
+			if (false == SpriteHidden(ContextHandle, pS->GetHandle()))
+			{
+				boost::test_tools::predicate_result res{ false };
+				res.message() << "Sprite " << SpriteIndex << "must be hidden";
+				return res;
+			}
+		}
+		return true;
+	}
+
+	boost::test_tools::predicate_result ISprPerTestFixture_SingleCanvas::CheckAllVisible(const IFrameCheckContextHandle& ContextHandle, const TSSpriteVector& InSprites)
+	{
+		// WARNING!!! Here we must NOT check that color corresponds to the initial, because it may not be true if the color is changed,
+		// and the only we can do now is to check for the initial color!!!
+		for (int SpriteIndex = 0; SpriteIndex < static_cast<int>(InSprites.size()); SpriteIndex++)
+		{
+			const TSSprite* pS = &(InSprites[SpriteIndex]);
+			if (SpriteHidden(ContextHandle, pS->GetHandle()))
+			{
+				boost::test_tools::predicate_result res{ false };
+				res.message() << "Sprite " << SpriteIndex << "must be visible";
+				return res;
 			}
 		}
 		return true;

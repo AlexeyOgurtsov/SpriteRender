@@ -3,6 +3,7 @@
 #include "ISpriteRender/ISpriteUpdater.h"
 #include "ISprite/SpriteCanvasTypedefs.h"
 #include "SpriteCanvasCommandInitializers.h"
+#include "SpritePickTypes.h"
 
 namespace Dv
 {
@@ -80,6 +81,56 @@ public:
 	* Always Renders the particular canvas, independent of whether it's visible or not.
 	*/
 	virtual void RenderCanvas(SpriteCanvasId InCanvasId) = 0;
+
+	/**
+	* To be called before performing any pick-preparation operations.
+	*/
+	virtual void BeginPickFrame() = 0;
+
+	/**
+	* To be called after performing any pick-preparation operations.
+	*/
+	virtual void EndPickFrame() = 0;
+
+	/**
+	* Renders all pickable canvasses.
+	*
+	* To be called between BeginPickFrame()/EndPickFrame() only.
+	*/
+	virtual void RenderAllPickableCanvasses() = 0;
+
+	/**
+	* Renders only the given canvas for picking (no matter whether it's pickable or not).
+	*
+	* To be called between BeginPickFrame()/EndPickFrame() only.
+	*/
+	virtual void RenderPickableCanvas(SpriteCanvasId InCanvasId) = 0;
+
+	/**
+	* Enables picking on the given canvas.
+	*/
+	virtual void EnableCanvasPicking(SpriteCanvasId InId) = 0;
+
+	/**
+	* Disables picking on the given canvas.
+	*/
+	virtual void DisableCanvasPicking(SpriteCanvasId InId) = 0;
+
+	/**
+	* Picks from frame, that was constructed by BeginPickFrame()/.../EndPickFrame() commands.
+	*
+	* @argument InPoint: designates points on the entire viewport window, where entire rendering is clipped to.
+	* X = 0..1; Y = 0..1
+	*/
+	virtual SPickResult PickAtScreen(const Math::SVec2& InPoint) = 0;
+
+	/**
+	* Picks from frame, that was constructed by BeginPickFrame()/.../EndPickFrame() commands.
+	*
+	* @argument InPoint: designates points on the given canvas.
+	* X = 0..1; Y = 0..1;
+	*/
+	virtual SPickResult PickAtCanvasPoint(SpriteCanvasId InCanvasId, const Math::SVec2& InCanvasPoint) = 0;
 
 	/**
 	* To be called before performing any update calls.

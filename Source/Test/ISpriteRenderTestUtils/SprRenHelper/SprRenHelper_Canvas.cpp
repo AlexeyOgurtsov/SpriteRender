@@ -28,14 +28,21 @@ const MySpr::SCanvasPickProps& Canvas::GetPickProps() const
 	return Initializer.Props.Pick;
 }
 
-void Canvas::UpdatePickProps(const MySpr::SCanvasPickProps& InPickProps)
-{
-	Initializer.Props.Pick = InPickProps;
-}
-
 bool Canvas::CanBePicked() const
 {
 	return GetPickProps().CanBePicked();
+}
+
+void Canvas::EnablePicking()
+{
+	Initializer.Props.Pick.Mode = MySpr::ECanvasPickMode::Enabled;
+	pSubsys->EnableCanvasPick(GetId());
+}
+
+void Canvas::DisablePicking()
+{
+	Initializer.Props.Pick.Mode = MySpr::ECanvasPickMode::Disabled;
+	pSubsys->DisableCanvasPick(GetId());
 }
 
 int Canvas::GetCapacityInSprites() const

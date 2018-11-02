@@ -138,6 +138,47 @@ void SpriteRender::RenderCanvas(SpriteCanvasId InCanvasId)
 	SetRS_AndRenderCanvas_IfVisible(GetDevCon(), pCanvas, GetConfig().VBSlot, GetRenResources());
 }
 
+
+void SpriteRender::BeginPickFrame()
+{
+	BOOST_ASSERT_MSG(false, "SpriteRender::BeginPickFrame: NOT yet impl");
+}
+
+void SpriteRender::EndPickFrame()
+{
+	BOOST_ASSERT_MSG(false, "SpriteRender::EndPickFrame: NOT yet impl");
+}
+
+void SpriteRender::RenderAllPickableCanvasses()
+{
+	BOOST_ASSERT_MSG(false, "SpriteRender::RenderAllPickableCanvasses: NOT yet impl");
+}
+
+void SpriteRender::RenderPickableCanvas(SpriteCanvasId InCanvasId)
+{
+	BOOST_ASSERT_MSG(false, "SpriteRender::RenderPickableCanvas: NOT yet impl");
+}
+
+void SpriteRender::EnableCanvasPicking(SpriteCanvasId InId)
+{
+	BOOST_ASSERT_MSG(false, "SpriteRender::EnableCanvasPicking: NOT yet impl");
+}
+
+void SpriteRender::DisableCanvasPicking(SpriteCanvasId InId)
+{
+	BOOST_ASSERT_MSG(false, "SpriteRender::DisableCanvasPicking: NOT yet impl");
+}
+
+Ren::SPickResult SpriteRender::PickAtScreen(const Math::SVec2& InPoint)
+{
+	BOOST_ASSERT_MSG(false, "SpriteRender::PickAtScreen: NOT yet impl"); return Ren::SPickResult{};
+}
+
+Ren::SPickResult SpriteRender::PickAtCanvasPoint(SpriteCanvasId InCanvasId, const Math::SVec2& InCanvasPoint)
+{
+	BOOST_ASSERT_MSG(false, "SpriteRender::PickAtCanvasPoint: NOT yet impl"); return Ren::SPickResult{};
+}
+
 void SpriteRender::BeginUpdates()
 {
 	BOOST_ASSERT_MSG( ! IsUpdating(), "SpriteRender::BeginUpdates: BeginUpdates()/EndUpdates() calls cannot be nested");

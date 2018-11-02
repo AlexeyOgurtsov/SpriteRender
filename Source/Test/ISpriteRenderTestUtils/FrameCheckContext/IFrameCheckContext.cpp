@@ -1,5 +1,6 @@
 #include "../IFrameCheckContext.h"
 #include "../Utils/TestUtils.h"
+#include "../ISpriteRenderSubsystemManager.h"
 
 namespace Test
 {
@@ -43,5 +44,15 @@ namespace Test
 	{
 		GetDepthStencil()->GetDesc(&DepthStencilDesc);
 		return DepthStencilDesc;
+	}
+
+	MySprRen::SPickResult IFrameCheckContext::PickAtScreen(const MySprMath::SVec2& InPoint)
+	{
+		return GetSubsys()->PickAtScreen(InPoint);
+	}
+
+	MySprRen::SPickResult IFrameCheckContext::PickAtCanvasPoint(MySpr::SpriteCanvasId InId, const MySprMath::SVec2& InPoint)
+	{
+		return GetSubsys()->PickAtCanvasPoint(InId, InPoint);
 	}
 } // Test 

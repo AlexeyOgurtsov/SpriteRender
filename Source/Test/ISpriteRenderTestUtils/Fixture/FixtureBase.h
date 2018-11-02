@@ -46,6 +46,9 @@ namespace Test
 		TesterConfig* BeginUpdateConfig();
 		void EndUpdateConfig(const TesterConfig* pConfig);
 
+		void EnablePick();
+		void DisablePick();
+
 	protected:
 		/**
 		* Is environment globally ready for testing (still may be that individual test is NOT set up)

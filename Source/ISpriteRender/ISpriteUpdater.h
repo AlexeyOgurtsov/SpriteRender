@@ -63,6 +63,9 @@ public:
 	void SetSpriteGeometry(SpriteId InTargetSpriteId, const Math::SVec2& InPosition, const Math::SSize& InSize);
 	void SetSpriteGeometry(SpriteId InTargetSpriteId, const Math::SVec2& InPosition, float InWidth, float InHeight);
 
+	void SetSpritePickMode(SpriteId InSpriteId, ESpritePickMode InPickMode);
+	void SetSpritePickObject(SpriteId InSpriteId, PickObjectId InObjectId);
+
 	// ~Helper interface End
 
 	// ~Virtual interface Begin
@@ -105,6 +108,16 @@ public:
 	* Changes Z order of the sprite.
 	*/
 	virtual void SetSpriteZOrder(const SSpriteSetZOrderCommandInitializer& InCommand) = 0;
+
+	/**
+	* Changes pick mode of the sprite.
+	*/
+	virtual void SetSpritePickMode(const SSpriteSetPickModeCommandInitializer& InCommand) = 0;
+
+	/**
+	* Changes pick object id of the sprite.
+	*/
+	virtual void SetSpritePickObject(const SSpriteSetPickObjectCommandInitializer& InCommand) = 0;
 	// ~Virtual interface End
 };
 

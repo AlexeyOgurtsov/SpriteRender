@@ -61,6 +61,22 @@ namespace Test
 		T_LOG("ISpriteRenderSubsystemManager::HideCanvas DONE");
 	}
 
+	void ISpriteRenderSubsystemManager::EnableCanvasPick(MySpr::SpriteCanvasId InId)
+	{
+		T_LOG("ISpriteRenderSubsystemManager::EnableCanvasPick, Id=" << InId << "...");
+		BOOST_ASSERT_MSG(GetSpriteRender(), "ISpriteRenderSubsystemManager::EnableCanvasPick: Sprite render must be initialized");
+		GetSpriteRender()->EnableCanvasPicking(InId);
+		T_LOG("ISpriteRenderSubsystemManager::EnableCanvasPick DONE");
+	}
+
+	void ISpriteRenderSubsystemManager::DisableCanvasPick(MySpr::SpriteCanvasId InId)
+	{
+		T_LOG("ISpriteRenderSubsystemManager::DisableCanvasPick, Id=" << InId << "...");
+		BOOST_ASSERT_MSG(GetSpriteRender(), "ISpriteRenderSubsystemManager::DisableCanvasPick: Sprite render must be initialized");
+		GetSpriteRender()->DisableCanvasPicking(InId);
+		T_LOG("ISpriteRenderSubsystemManager::DisableCanvasPick DONE");
+	}
+
 	SpriteHandle ISpriteRenderSubsystemManager::CreateSprite_ZOrderAfter
 	(
 		SprId InId,
@@ -138,6 +154,26 @@ namespace Test
 		T_LOG("ISpriteRenderSubsystemManager::Sprite << " << InId << " Hidden");
 	}
 
+	void ISpriteRenderSubsystemManager::SetSpritePickMode(MySprRen::ISpriteUpdater* pInUpdater, SprId InId, MySpr::ESpritePickMode InPickMode)
+	{
+		T_LOG("ISpriteRenderSubsystemManager::SetSpritePickMode, Id=" << InId << "...");
+		T_LOG("New mode: " << InPickMode);
+		BOOST_ASSERT(pInUpdater);
+		BOOST_ASSERT_MSG(GetSpriteRender(), "ISpriteRenderSubsystemManager::SetSpritePickMode: Sprite render must be initialized");
+		pInUpdater->SetSpritePickMode(InId, InPickMode);
+		T_LOG("ISpriteRenderSubsystemManager::Sprite << " << InId << " pick mode changed");
+	}
+
+	void ISpriteRenderSubsystemManager::SetSpritePickObject(MySprRen::ISpriteUpdater* pInUpdater, SprId InId, MySpr::PickObjectId InObjectId)
+	{
+		T_LOG("ISpriteRenderSubsystemManager::SetSpritePickObject, Id=" << InId << "...");
+		T_LOG("New object id: " << InObjectId);
+		BOOST_ASSERT(pInUpdater);
+		BOOST_ASSERT_MSG(GetSpriteRender(), "ISpriteRenderSubsystemManager::SetSpritePickObject: Sprite render must be initialized");
+		pInUpdater->SetSpritePickObject(InId, InObjectId);
+		T_LOG("ISpriteRenderSubsystemManager::Sprite << " << InId << " pick object changed");
+	}
+
 	void ISpriteRenderSubsystemManager::SetMatInst(MySprRen::ISpriteUpdater* pInUpdater, SprId InId, MySprRen::MaterialInstanceRenderStateInitializerPtr InRenderState)
 	{
 		T_LOG("ISpriteRenderSubsystemManager::SetMatInst, Id=" << InId << "...");
@@ -174,5 +210,24 @@ namespace Test
 		BOOST_ASSERT_MSG(GetSpriteRender(), "ISpriteRenderSubsystemManager::SetSpriteGeometry: Sprite render must be initialized");
 		pInUpdater->SetSpriteGeometry(InId, InGeometry);
 		T_LOG("ISpriteRenderSubsystemManager::Sprite << " << InId << " geometry changed");
+	}
+
+	MySprRen::SPickResult ISpriteRenderSubsystemManager::PickAtScreen(const MySprMath::SVec2& InPoint)
+	{
+		T_LOG("ISpriteRenderSubsystemManager::PickAtScreen, Point=" << InPoint);
+		BOOST_ASSERT_MSG(GetSpriteRender(), "ISpriteRenderSubsystemManager::PickAtScreen: Sprite render must be initialized");
+		MySprRen::SPickResult result = GetSpriteRender()->PickAtScreen(InPoint);
+		T_LOG("ISpriteRenderSubsystemManager::PickAtScreen DONE");
+		return result;
+	}
+
+	MySprRen::SPickResult ISpriteRenderSubsystemManager::PickAtCanvasPoint(MySpr::SpriteCanvasId InId, const MySprMath::SVec2& InPoint)
+	{
+		T_LOG("ISpriteRenderSubsystemManager::PickAtCanvasPoint, Point=" << InPoint);
+		T_LOG("CanvasId: " << InId);
+		BOOST_ASSERT_MSG(GetSpriteRender(), "ISpriteRenderSubsystemManager::PickAtCanvasPoint: Sprite render must be initialized");
+		MySprRen::SPickResult result = GetSpriteRender()->PickAtCanvasPoint(InId, InPoint);
+		T_LOG("ISpriteRenderSubsystemManager::PickAtCanvasPoint DONE");
+		return result;
 	}
 } // Test

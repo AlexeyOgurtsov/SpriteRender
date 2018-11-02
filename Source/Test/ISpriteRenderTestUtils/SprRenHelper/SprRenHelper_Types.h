@@ -7,6 +7,8 @@
 #include "SprRenHelper_MathTypes.h"
 #include "SprRenHelper_Transparency.h"
 
+#include "ISpriteRender/SpritePickTypes.h"
+
 namespace Test
 {
 } // Test

@@ -38,11 +38,6 @@ namespace Test
 		const MySpr::SCanvasPickProps& GetPickProps() const;
 
 		/**
-		* Updates parameters of picking for the given canvas.
-		*/
-		void UpdatePickProps(const MySpr::SCanvasPickProps& InPickProps);
-
-		/**
 		* Can be picked according to settings.
 		*/
 		bool CanBePicked() const;
@@ -76,6 +71,16 @@ namespace Test
 		* Hide the canvas.
 		*/
 		void Hide();
+
+		/**
+		* Enable picking.
+		*/
+		void EnablePicking();
+
+		/**
+		* Disable picking.
+		*/
+		void DisablePicking();
 
 		const MySpr::SSpriteCanvasProps& GetProps() const;
 

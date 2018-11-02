@@ -137,14 +137,17 @@
     <ClInclude Include="..\..\ISpriteRender\SpriteCanvasCommandInitializers.h" />
     <ClInclude Include="..\..\ISpriteRender\SpriteCommandInitializers.h" />
     <ClInclude Include="..\..\ISpriteRender\SpriteMaterialInstanceRenderState.h" />
+    <ClInclude Include="..\..\ISpriteRender\SpritePickTypes.h" />
     <ClInclude Include="..\..\Test\ISpriteRender\AllTests.h" />
     <ClInclude Include="..\..\Test\ISpriteRender\FeatureManyCanvasSmokeTests.h" />
     <ClInclude Include="..\..\Test\ISpriteRender\FeaturePickSmokeTests.h" />
     <ClInclude Include="..\..\Test\ISpriteRender\ISprGlobalFixtureBase.h" />
+    <ClInclude Include="..\..\Test\ISpriteRender\ISprPerTestFixture_CustomPick.h" />
     <ClInclude Include="..\..\Test\ISpriteRender\ISprPerTestFixture_SingleCanvas.h" />
     <ClInclude Include="..\..\Test\ISpriteRender\ISprPerTestFixtureBase.h" />
     <ClInclude Include="..\..\Test\ISpriteRender\ISprPerTestFixture_Custom.h" />
     <ClInclude Include="..\..\Test\ISpriteRender\ISprPerTestFixture_SingleCanvas_Smoke.h" />
+    <ClInclude Include="..\..\Test\ISpriteRender\ISprPerTestFixture_SingleCanvas_SmokePick.h" />
     <ClInclude Include="..\..\Test\ISpriteRender\MinimalExtraChecks.h" />
     <ClInclude Include="..\..\Test\ISpriteRender\MinimalHeavyLoadTests.h" />
     <ClInclude Include="..\..\Test\ISpriteRender\MinimalMoveZOrderTests.h" />
@@ -159,8 +162,10 @@
     <ClCompile Include="..\..\Test\ISpriteRender\IMPL\ISprGlobalFixtureBase.cpp" />
     <ClCompile Include="..\..\Test\ISpriteRender\IMPL\ISprPerTestFixtureBase.cpp" />
     <ClCompile Include="..\..\Test\ISpriteRender\IMPL\ISprPerTestFixture_Custom.cpp" />
+    <ClCompile Include="..\..\Test\ISpriteRender\IMPL\ISprPerTestFixture_CustomPick.cpp" />
     <ClCompile Include="..\..\Test\ISpriteRender\IMPL\ISprPerTestFixture_SingleCanvas.cpp" />
     <ClCompile Include="..\..\Test\ISpriteRender\IMPL\ISprPerTestFixture_SingleCanvas_Smoke.cpp" />
+    <ClCompile Include="..\..\Test\ISpriteRender\IMPL\ISprPerTestFixture_SingleCanvas_SmokePick.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

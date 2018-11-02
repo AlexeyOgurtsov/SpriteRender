@@ -108,6 +108,9 @@ namespace Test
 
 		void ShowCanvas(MySpr::SpriteCanvasId InId);
 		void HideCanvas(MySpr::SpriteCanvasId InId);
+
+		void EnableCanvasPick(MySpr::SpriteCanvasId InId);
+		void DisableCanvasPick(MySpr::SpriteCanvasId InId);
 		// ~Canvas operations End
 
 		// ~Sprite operations Begin
@@ -145,6 +148,12 @@ namespace Test
 		void SetSpriteGeometry(MySprRen::ISpriteUpdater* pInUpdater, SprId InId, const MySpr::SSpriteGeometryProps& InGeometry);
 		void SetMatInst(MySprRen::ISpriteUpdater* pInUpdater, SprId InId, MySprRen::MaterialInstanceRenderStateInitializerPtr InRenderState);
 		void MoveSpriteZOrderAfter(MySprRen::ISpriteUpdater* pInUpdater, SprId InId, SprId InZBeforeSpriteId);
+
+		void SetSpritePickMode(MySprRen::ISpriteUpdater* pInUpdater, SprId InId, MySpr::ESpritePickMode InPickMode);
+		void SetSpritePickObject(MySprRen::ISpriteUpdater* pInUpdater, SprId InId, MySpr::PickObjectId InObjectId);
+
+		MySprRen::SPickResult PickAtScreen(const MySprMath::SVec2& InPoint);
+		MySprRen::SPickResult PickAtCanvasPoint(MySpr::SpriteCanvasId InId, const MySprMath::SVec2& InPoint);
 		// ~Sprite operations End
 
 		// ~Info getters Begin

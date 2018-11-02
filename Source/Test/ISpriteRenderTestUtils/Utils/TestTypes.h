@@ -158,6 +158,7 @@ namespace Test
 		TSSprite* GetInitZBeforeSprite() const { return InZBeforeSpriteId; }
 
 		const MySpr::SSpritePickProps& GetInitPickProps() const { return InitPickProps; }
+		MySpr::PickObjectId GetInitObjectId() const { return GetInitPickProps().PickId; }
 
 		SpriteHandle GetInitZBeforeSpriteHandle() const;
 		const TSMaterial& GetInitMaterial() const { return InitMaterial; }		

@@ -25,7 +25,16 @@ namespace Test::ISpr
 	std::string const SuitePath_MinimalHeavyLoad { "SuiteMinimalHeavyLoad" };
 	std::string const SuitePath_MinimalExtraChecks { "SuiteMinimalExtraChecks" };
 
-	std::string const SuitePath_FeatureManyCanvassesSmoke { "Suite_FeatureManyCanvasSmoke" };
-	std::string const SuitePath_FeaturePickSmoke { "Suite_FeaturePickSmoke" };
+	/**
+	* Suite that contains all tests of the Pick feature.
+	*/
+	std::string const SuitePath_FeaturePick = "Suite_FeaturePick";
+	std::string const SuitePath_FeaturePickSmoke { SuitePath_FeaturePick + std::string("/") + std::string("Suite_FeaturePickSmoke") };
+	std::string const SuiteName_PickRender = "SuitePickRender";
+	std::string const SuitePath_FeaturePick_Render = SuitePath_FeaturePickSmoke + std::string("/") + SuiteName_PickRender;
+	std::string const SuiteName_PickResult = "SuitePickResult";
+	std::string const SuitePath_FeaturePick_PickResult = SuitePath_FeaturePickSmoke + std::string("/") + SuiteName_PickResult;
+
+	std::string const SuitePath_FeatureManyCanvassesSmoke { std::string("Suite_FeatureManyCanvasSmoke") };
 	// ~ Sprite render test suite paths End
 } // Test::ISpr

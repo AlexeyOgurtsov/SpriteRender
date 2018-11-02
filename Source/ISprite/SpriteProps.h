@@ -10,19 +10,58 @@ namespace Dv
 namespace Spr
 {
 
+enum class ESpritePickMode
+{
+	Enabled,
+	Disabled
+};
+inline std::string ToString(ESpritePickMode InMode)
+{
+	switch (InMode)
+	{
+	case ESpritePickMode::Enabled:
+		return "{Enabled}";
+
+	case ESpritePickMode::Disabled:
+		return "{Disabled}";
+
+	default:
+		break;
+	}
+	BOOST_ASSERT_MSG(false, "ToString(ESpritePickMode): unknown pick mode");
+	return std::string("SHOULD_NOT_GET_HERE");
+}
+
+template<class Strm> Strm& operator<<(Strm& S, ESpritePickMode InMode)
+{
+	return S << ToString(InMode);
+}
+
 /**
 * Pick properties of the sprite.
 */
 struct SSpritePickProps
 {
+	/**
+	* Associated object id.
+	*/
 	PickObjectId PickId;
+
+	/**
+	* Pick mode.
+	*
+	* (we provided mode variable instead of just assigning invalid id to allow dynamically switch between "pickable"/"non-pickable" states
+	* without losing the associated id).
+	*/
+	ESpritePickMode Mode;
 
 	bool CanBePicked() const;
 
 	inline SSpritePickProps() :
-		SSpritePickProps{ZERO_PICK_OBJECT_ID} {}
-	inline SSpritePickProps(PickObjectId InPickId) :
-		PickId{ InPickId } {}
+		SSpritePickProps{ ZERO_PICK_OBJECT_ID, ESpritePickMode::Disabled } {}
+	inline SSpritePickProps(PickObjectId InPickId, ESpritePickMode InMode) :
+		PickId{ InPickId }
+	,	Mode{ InMode } {}
 
 	static const SSpritePickProps Disabled;
 };
@@ -30,6 +69,7 @@ struct SSpritePickProps
 template<class Strm>
 Strm& operator<<(Strm& S, const SSpritePickProps& InProps)
 {
+	S << "Mode: " << InProps.Mode << std::endl;
 	S << "PickId: " << InProps.PickId << "(" << GetPickObjectIdValidityStr(InProps.PickId) << ")" << std::endl;
 	return S;
 }

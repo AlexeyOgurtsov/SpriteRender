@@ -75,6 +75,16 @@ public:
 	*/
 	virtual void SetSpriteZOrder(const Ren::SSpriteSetZOrderCommandInitializer& InCommand) override;
 
+	/**
+	* @see: interface method comment.
+	*/
+	virtual void SetSpritePickMode(const Ren::SSpriteSetPickModeCommandInitializer& InCommand) override;
+
+	/**
+	* @see: interface method comment.
+	*/
+	virtual void SetSpritePickObject(const Ren::SSpriteSetPickObjectCommandInitializer& InCommand) override;
+
 private:
 	Canvas* _pCanvas;
 };

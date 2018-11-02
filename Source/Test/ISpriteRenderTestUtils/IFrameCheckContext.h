@@ -3,10 +3,13 @@
 #include <memory>
 #include <d3d11.h>
 #include "CONFIG/D3DDeviceConfig.h"
+#include "SprRenHelper/SprRenHelper_Types.h"
 
 namespace Test
 {
 	class PerTestFixtureBase;
+
+	class ISpriteRenderSubsystemManager;
 
 	/**
 	* Render result check methods.
@@ -25,6 +28,9 @@ namespace Test
 		DXGI_FORMAT GetDepthStencilFormat() const;
 		const TesterConfig_D3DDevice_RenderTarget& GetRTConfig() const;
 		const TesterConfig_D3DDevice_DepthStencil& GetDepthStencilConfig() const;
+
+		MySprRen::SPickResult PickAtScreen(const MySprMath::SVec2& InPoint);
+		MySprRen::SPickResult PickAtCanvasPoint(MySpr::SpriteCanvasId InId, const MySprMath::SVec2& InPoint);
 
 		/**
 		* Width of the render target in texels.
@@ -55,6 +61,7 @@ namespace Test
 
 	protected:
 		virtual const TesterConfig_D3DDevice& GetD3DConfig() const = 0;
+		virtual ISpriteRenderSubsystemManager *GetSubsys() const =0;
 
 	private:
 		const D3D11_TEXTURE2D_DESC& GetRTDesc() const;

@@ -141,6 +141,26 @@ struct SSpriteSetZOrderCommandInitializer : public SSpriteCommandInitializerBase
 	,	ZBeforeSpriteId(InZBeforeSpriteId) {}
 };
 
+struct SSpriteSetPickModeCommandInitializer : public SSpriteCommandInitializerBase
+{
+	ESpritePickMode Mode = ESpritePickMode::Disabled;
+
+	SSpriteSetPickModeCommandInitializer() {}
+	SSpriteSetPickModeCommandInitializer(SpriteId InTargetSpriteId, ESpritePickMode InMode) :
+		SSpriteCommandInitializerBase(InTargetSpriteId)
+	,	Mode{InMode} {}
+};
+
+struct SSpriteSetPickObjectCommandInitializer : public SSpriteCommandInitializerBase
+{
+	PickObjectId ObjectId = ZERO_PICK_OBJECT_ID;
+
+	SSpriteSetPickObjectCommandInitializer() {}
+	SSpriteSetPickObjectCommandInitializer(SpriteId InTargetSpriteId, PickObjectId InObjectId) :
+		SSpriteCommandInitializerBase(InTargetSpriteId)
+	,	ObjectId{ InObjectId } {}
+};
+
 } // Dv::Spr::Ren
 } // Dv::Spr
 } // Dv

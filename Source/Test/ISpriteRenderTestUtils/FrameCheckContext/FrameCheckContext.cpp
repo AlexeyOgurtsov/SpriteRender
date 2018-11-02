@@ -54,4 +54,9 @@ namespace Test::IMPL
 	{
 		return GetEnv()->GetD3DDevice()->GetConfig();
 	}
+
+	ISpriteRenderSubsystemManager *FrameCheckContext::GetSubsys() const
+	{
+		return GetEnv()->GetSpriteRenderManager();
+	}
 } // Test::IMPL

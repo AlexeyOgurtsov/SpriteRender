@@ -46,6 +46,11 @@ namespace Test::ISpr
 		void RenderFrame();
 		void TickN(int InTickCount);
 
+		/**
+		* Render all pickable canvasses.
+		*/
+		void RenderPickFrame_IfPickEnabled();
+
 		// ~ Screen check helpers Begin
 		/*
 		* Returns canvas texel color at the given point.

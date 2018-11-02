@@ -161,6 +161,18 @@ namespace Ren
 		return SetSpriteGeometry(GetSprGeometryInit(InSpriteId, InPosition, InWidth, InHeight));
 	}
 
+	void ISpriteUpdater::SetSpritePickMode(SpriteId InSpriteId, ESpritePickMode InPickMode)
+	{
+		SSpriteSetPickModeCommandInitializer Initializer{ InSpriteId, InPickMode };
+		SetSpritePickMode(Initializer);
+	}
+
+	void ISpriteUpdater::SetSpritePickObject(SpriteId InSpriteId, PickObjectId InObjectId)
+	{
+		SSpriteSetPickObjectCommandInitializer Initializer { InSpriteId, InObjectId };
+		SetSpritePickObject(Initializer);
+	}
+
 	void ISpriteUpdater::SetSpriteMaterial(SpriteId InSpriteId, MaterialInstanceRenderStateInitializerPtr pInRenderState)
 	{
 		SSpriteSetMaterialCommandInitializer Initializer { InSpriteId, pInRenderState };

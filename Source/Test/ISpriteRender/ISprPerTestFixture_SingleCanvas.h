@@ -21,6 +21,18 @@ namespace Test::ISpr
 
 		MySprRen::ISpriteUpdater* GetUpdater() const;
 
+		/**
+		* Sets pick properties of the canvas.
+		*
+		* To be called before SetupTest!
+		*/
+		void SetPickProps(const MySpr::SCanvasPickProps& InPickProps);
+
+		/**
+		* Returns current pick props of the canvas!
+		*/
+		const MySpr::SCanvasPickProps& GetPickProps() const { return PickProps; }
+
 		// ~ Sprite render helpers Begin
 		/**
 		* Creates sprite and returns its id.
@@ -279,7 +291,10 @@ namespace Test::ISpr
 		/**
 		* Returns true if all sprites are either visible or not, according to current state;
 		*/
-		boost::test_tools::predicate_result CheckVisibility(const IFrameCheckContextHandle& ContextHandle, const TSSpriteVector& InSprites);
+		boost::test_tools::predicate_result CheckInitialVisibility(const IFrameCheckContextHandle& ContextHandle, const TSSpriteVector& InSprites);
+		boost::test_tools::predicate_result CheckAllHidden(const IFrameCheckContextHandle& ContextHandle, const TSSpriteVector& InSprites);
+		boost::test_tools::predicate_result CheckAllVisible(const IFrameCheckContextHandle& ContextHandle, const TSSpriteVector& InSprites);
+
 		// ~ TestSprite helpers End
 
 	protected:
@@ -287,15 +302,20 @@ namespace Test::ISpr
 		virtual void OnFrameCheckContextReleasedUser(IFrameCheckContext* pInSender) override;
 		virtual void OnPreCommitFrameUser() override;
 
+		const CanvasHandle& GetCanvHandle() const { return CanvHandle; }
+		CanvasId GetCanvId() const { return CANV_ID; }
+
 	private:
 		MySprRen::ISpriteUpdater* pUpdater = nullptr;		
 
 		CanvasHandle CanvHandle;
 		constexpr static CanvasId CANV_ID = 0;
 		void BeginUpdates();
-		void EndUpdates();
+		void EndUpdates();		
 
 		SprId GetSprId() { return NextSprId++; } 
 		SprId NextSprId = SprId { 0 };
+
+		MySpr::SCanvasPickProps PickProps;
 	};
 } // Test::ISpr

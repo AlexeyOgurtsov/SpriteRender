@@ -65,8 +65,7 @@ struct SCanvasPickProps
 template<class Strm>
 Strm& operator<<(Strm& S, const SCanvasPickProps& InProps)
 {
-	S << InProps.Mode << std::endl;
-	return S;
+	return S << InProps.Mode << std::endl;
 }
 
 /**

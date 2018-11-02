@@ -54,6 +54,7 @@ namespace Test::ISpr
 			if (bCallRender)
 			{
 				RenderFrame();
+				RenderPickFrame_IfPickEnabled();
 			}
 			TickN(InTickCount);
 		}
@@ -83,6 +84,27 @@ namespace Test::ISpr
 		EndFrame();
 
 		T_LOG("ISpr PerTest: RenderingFrame DONE");
+	}
+
+	void ISprPerTestFixtureBase::RenderPickFrame_IfPickEnabled()
+	{
+		ISpriteRender* pRen = GetSprRen();
+		BOOST_ASSERT(pRen);
+
+		T_LOG("ISpr PerTest: RenderPickFrame_IfPickEnabled...");
+		if (false == GetConfig().Pick.bEnabled)		
+		{
+			T_LOG("ISpr PerTest: Pick is disabled, skipping rendering pick frame");
+		}
+		else
+		{
+			T_LOG("ISpr PerTest: Render pick frame...");
+			pRen->BeginPickFrame();
+			pRen->RenderAllPickableCanvasses();
+			pRen->EndPickFrame();
+			T_LOG("ISpr PerTest: Render pick frame DONE");
+		}
+		T_LOG("ISpr PerTest: RenderPickFrame_IfPickEnabled DONE");
 	}
 
 	void ISprPerTestFixtureBase::TickN(int InTickCount)
