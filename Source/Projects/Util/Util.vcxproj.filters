@@ -345,6 +345,9 @@
     <ClInclude Include="..\..\Util\Core\Cont\TVector.h">
       <Filter>Core\Cont</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Util\Core\Exception.h">
+      <Filter>Core</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Util\ServiceContainer\ServiceContainerAccess.cpp">

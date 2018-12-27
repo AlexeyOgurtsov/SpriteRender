@@ -173,6 +173,7 @@
     <ClInclude Include="..\..\Util\Core\CoreSysCommon.h" />
     <ClInclude Include="..\..\Util\Core\CoreSysMinimal.h" />
     <ClInclude Include="..\..\Util\Core\CoreSysTypes.h" />
+    <ClInclude Include="..\..\Util\Core\Exception.h" />
     <ClInclude Include="..\..\Util\Core\Math\MathUtils.h" />
     <ClInclude Include="..\..\Util\Core\Math\MathUtilsMinimal.h" />
     <ClInclude Include="..\..\Util\Core\Math\Matrix.h" />

@@ -4,6 +4,12 @@
     <Filter Include="App">
       <UniqueIdentifier>{0e5c8de5-d559-4b3f-a524-7837878ee6ad}</UniqueIdentifier>
     </Filter>
+    <Filter Include="HelperSubsys">
+      <UniqueIdentifier>{f66b158a-6545-4fce-aea1-19b0db2b97fc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="HelperSubsys\Log">
+      <UniqueIdentifier>{77fdc6d5-9d70-4b4c-b5cf-73449a124953}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\Proj\Tet\App\App.cpp">
@@ -15,6 +21,9 @@
     <ClCompile Include="..\..\..\Proj\Tet\App\Main.cpp">
       <Filter>App</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\Proj\Tet\HelperSubsys\Log\Log.cpp">
+      <Filter>HelperSubsys\Log</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\Proj\Tet\App\App.h">
@@ -22,6 +31,12 @@
     </ClInclude>
     <ClInclude Include="..\..\..\Proj\Tet\App\EnvironmentContainer.h">
       <Filter>App</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Proj\Tet\HelperSubsys\Log\ILog.h">
+      <Filter>HelperSubsys\Log</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Proj\Tet\HelperSubsys\Log\Log.h">
+      <Filter>HelperSubsys\Log</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

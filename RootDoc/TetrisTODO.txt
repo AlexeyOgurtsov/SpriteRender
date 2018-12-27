@@ -34,3 +34,9 @@ Environment objects:
 Gameplay objects
 
 ------------------------------------------------
+Log:
+1) Add to project
+2) Service name
+3) TServiceFactory
+
+------------------------------------------------
