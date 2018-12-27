@@ -1,0 +1,378 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="ServiceContainer">
+      <UniqueIdentifier>{2d8e6644-719f-4331-ae18-92ffc841e917}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ServiceContainer\IMPL">
+      <UniqueIdentifier>{5b89fc75-3223-491d-8411-a6d35d17ffbc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core">
+      <UniqueIdentifier>{4e52f9ea-b2dc-4054-84f9-dc69edbe77c7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Templ">
+      <UniqueIdentifier>{c1c19880-29f6-4ead-b19f-6bbd896cb583}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Templ\Priv">
+      <UniqueIdentifier>{32950bfd-4957-48bb-8c94-801cac62dab6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Templ\Test">
+      <UniqueIdentifier>{dca8de8b-e4fe-4564-bf01-ab049cd84235}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Stream">
+      <UniqueIdentifier>{3c38332e-4732-452b-9354-102f29fce1a7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Serialization">
+      <UniqueIdentifier>{b7a33f7f-6be1-4c49-a9f5-b10d0a966c97}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Mem">
+      <UniqueIdentifier>{e54109e4-1435-445d-af69-75940d522cae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Mem\Helper">
+      <UniqueIdentifier>{2a420ee6-23a2-43b2-898d-575baa5188b6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Mem\Helper\Priv">
+      <UniqueIdentifier>{f75afd0d-a21b-4b5d-a373-fdf1c03b5760}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Mem\Helper\Test">
+      <UniqueIdentifier>{b268f4b5-0aa6-44ac-8608-e118017aed7a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Mem\Priv">
+      <UniqueIdentifier>{5393750a-6907-4d7b-9e97-cba7ca8f774d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Mem\Test">
+      <UniqueIdentifier>{d501d5eb-0078-4a63-983e-b6c1eb85ed17}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Math">
+      <UniqueIdentifier>{7cd13fef-adb4-44a1-9e63-45f26ac8114b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Math\Priv">
+      <UniqueIdentifier>{b5748703-4af8-45f7-ba1b-779f748a047f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Math\Test">
+      <UniqueIdentifier>{40fab8df-6276-4fd4-88ad-c475bac8d535}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Cont">
+      <UniqueIdentifier>{6072df94-c88b-4df8-a393-9f640d3bbd18}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Cont\Priv">
+      <UniqueIdentifier>{47a4bccd-6503-49bb-9d10-58a91709c28b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Cont\UT">
+      <UniqueIdentifier>{3d32ce61-5a1a-45af-b171-709f6b6fc028}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Cont\UT\Test">
+      <UniqueIdentifier>{c7427861-0164-4e84-a113-9bcdc9ac4752}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Cont\Test">
+      <UniqueIdentifier>{d56a730f-2a57-4310-aa1f-e5cb4f699010}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Cont\Test\TRBTree">
+      <UniqueIdentifier>{14b9fe81-754f-4e45-8fe5-448a5698a38c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Cont\Test\Vector">
+      <UniqueIdentifier>{895b1c53-314e-47b5-b5c3-c81f2a42fb42}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\Util\ServiceContainer\IResolvedService.h">
+      <Filter>ServiceContainer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Util\ServiceContainer\IService.h">
+      <Filter>ServiceContainer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Util\ServiceContainer\IServiceContainer.h">
+      <Filter>ServiceContainer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Util\ServiceContainer\IServiceContainerFactoryAPI.h">
+      <Filter>ServiceContainer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Util\ServiceContainer\IServiceFactory.h">
+      <Filter>ServiceContainer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Util\ServiceContainer\ServiceContainer.h">
+      <Filter>ServiceContainer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Util\ServiceContainer\ServiceContainerAccess.h">
+      <Filter>ServiceContainer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Util\ServiceContainer\ServiceContainerFactoryInterface.h">
+      <Filter>ServiceContainer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Util\ServiceContainer\ServiceContainerInitializer.h">
+      <Filter>ServiceContainer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Util\ServiceContainer\ServiceContainerInterface.h">
+      <Filter>ServiceContainer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Util\ServiceContainer\ServiceContainerTypedInterface.h">
+      <Filter>ServiceContainer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Util\ServiceContainer\ServiceProps.h">
+      <Filter>ServiceContainer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Util\ServiceContainer\ServiceTypeId.h">
+      <Filter>ServiceContainer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Util\ServiceContainer\ServiceTypeTraits.h">
+      <Filter>ServiceContainer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Util\ServiceContainer\TypedResolvedService.h">
+      <Filter>ServiceContainer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Util\ServiceContainer\IMPL\ServiceContainer.h">
+      <Filter>ServiceContainer\IMPL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Util\Core\Assert.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Util\Core\CoreSysCommon.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Util\Core\CoreSysMinimal.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Util\Core\CoreSysTypes.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Util\Core\Templ\Priv\TypeTraitsImpl.h">
+      <Filter>Core\Templ\Priv</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Util\Core\Templ\Priv\TypeTraitsMinimalImpl.h">
+      <Filter>Core\Templ\Priv</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Util\Core\Templ\Test\ComparerTest.h">
+      <Filter>Core\Templ\Test</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Util\Core\Templ\Test\PointerTest.h">
+      <Filter>Core\Templ\Test</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Util\Core\Templ\Test\TemplTest.h">
+      <Filter>Core\Templ\Test</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Util\Core\Templ\Test\TypeTraitsTest.h">
+      <Filter>Core\Templ\Test</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Util\Core\Templ\Pointer.h">
+      <Filter>Core\Templ</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Util\Core\Templ\TComparer.h">
+      <Filter>Core\Templ</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Util\Core\Templ\TypeTraits.h">
+      <Filter>Core\Templ</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Util\Core\Templ\TypeTraitsMinimal.h">
+      <Filter>Core\Templ</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Util\Core\Stream\StreamTraits.h">
+      <Filter>Core\Stream</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Util\Core\Serialization\ArchiveTraits.h">
+      <Filter>Core\Serialization</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Util\Core\Mem\Helper\Test\LinearAllocHelperTest.h">
+      <Filter>Core\Mem\Helper\Test</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Util\Core\Mem\Helper\LinearAllocHelper.h">
+      <Filter>Core\Mem\Helper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Util\Core\Mem\Priv\BlockHeapImpl.h">
+      <Filter>Core\Mem\Priv</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Util\Core\Mem\Test\BlockHeapTest.h">
+      <Filter>Core\Mem\Test</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Util\Core\Mem\BlockHeap.h">
+      <Filter>Core\Mem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Util\Core\Mem\MemUtils.h">
+      <Filter>Core\Mem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Util\Core\Mem\TComPtr.h">
+      <Filter>Core\Mem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Util\Core\Mem\TSharedPtr.h">
+      <Filter>Core\Mem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Util\Core\Mem\TUniquePtr.h">
+      <Filter>Core\Mem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Util\Core\Math\Test\BLASMatrixTest.h">
+      <Filter>Core\Math\Test</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Util\Core\Math\Test\BLASTest.h">
+      <Filter>Core\Math\Test</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Util\Core\Math\Test\BLASVectorTest.h">
+      <Filter>Core\Math\Test</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Util\Core\Math\MathUtils.h">
+      <Filter>Core\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Util\Core\Math\MathUtilsMinimal.h">
+      <Filter>Core\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Util\Core\Math\Matrix.h">
+      <Filter>Core\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Util\Core\Math\Vector.h">
+      <Filter>Core\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Util\Core\Cont\Priv\TRBTreeImpl.h">
+      <Filter>Core\Cont\Priv</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Util\Core\Cont\UT\Test\IteratorUtilsTester.h">
+      <Filter>Core\Cont\UT\Test</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Util\Core\Cont\UT\Test\TKeValueIteratorTester.h">
+      <Filter>Core\Cont\UT\Test</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Util\Core\Cont\UT\Test\TKeyValueTester.h">
+      <Filter>Core\Cont\UT\Test</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Util\Core\Cont\UT\Test\UTTester.h">
+      <Filter>Core\Cont\UT\Test</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Util\Core\Cont\UT\InsertIterator.h">
+      <Filter>Core\Cont\UT</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Util\Core\Cont\UT\IteratorUtils.h">
+      <Filter>Core\Cont\UT</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Util\Core\Cont\UT\TKeyValue.h">
+      <Filter>Core\Cont\UT</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Util\Core\Cont\UT\TKeyValueIterator.h">
+      <Filter>Core\Cont\UT</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Util\Core\Cont\Test\TRBTree\TRBTreeTestCustomCompare.h">
+      <Filter>Core\Cont\Test\TRBTree</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Util\Core\Cont\Test\TRBTree\TRBTreeTestExtraOps.h">
+      <Filter>Core\Cont\Test\TRBTree</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Util\Core\Cont\Test\TRBTree\TRBTreeTestFindSuite.h">
+      <Filter>Core\Cont\Test\TRBTree</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Util\Core\Cont\Test\TRBTree\TRBTreeTestMemorySuite.h">
+      <Filter>Core\Cont\Test\TRBTree</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Util\Core\Cont\Test\TRBTree\TRBTreeTestMinimalAddSuite.h">
+      <Filter>Core\Cont\Test\TRBTree</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Util\Core\Cont\Test\TRBTree\TRBTreeTestMinimalCopySuite.h">
+      <Filter>Core\Cont\Test\TRBTree</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Util\Core\Cont\Test\TRBTree\TRBTreeTestMinimalIterationSuite.h">
+      <Filter>Core\Cont\Test\TRBTree</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Util\Core\Cont\Test\TRBTree\TRBTreeTestMinimalMain.h">
+      <Filter>Core\Cont\Test\TRBTree</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Util\Core\Cont\Test\TRBTree\TRBTreeTestMinimalRemoveSuite.h">
+      <Filter>Core\Cont\Test\TRBTree</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Util\Core\Cont\Test\TRBTree\TRBTreeTestMoving.h">
+      <Filter>Core\Cont\Test\TRBTree</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Util\Core\Cont\Test\TRBTree\TRBTreeTestSerialization.h">
+      <Filter>Core\Cont\Test\TRBTree</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Util\Core\Cont\Test\TRBTree\TRBTreeTestSet.h">
+      <Filter>Core\Cont\Test\TRBTree</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Util\Core\Cont\Test\TRBTree\TRBTreeTestUtils.h">
+      <Filter>Core\Cont\Test\TRBTree</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Util\Core\Cont\Test\Vector\TVectorTestExtraOps.h">
+      <Filter>Core\Cont\Test\Vector</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Util\Core\Cont\Test\Vector\TVectorTestIteratorSuite.h">
+      <Filter>Core\Cont\Test\Vector</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Util\Core\Cont\Test\Vector\TVectorTestMoveOnlyConstructOrAssign.h">
+      <Filter>Core\Cont\Test\Vector</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Util\Core\Cont\Test\Vector\TVectorTestMoveOnlyMain.h">
+      <Filter>Core\Cont\Test\Vector</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Util\Core\Cont\Test\Vector\TVectorTestPODConstructOrAssign.h">
+      <Filter>Core\Cont\Test\Vector</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Util\Core\Cont\Test\Vector\TVectorTestPODMain.h">
+      <Filter>Core\Cont\Test\Vector</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Util\Core\Cont\Test\Vector\TVectorTestPODMemory.h">
+      <Filter>Core\Cont\Test\Vector</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Util\Core\Cont\Test\Vector\TVectorTestPODRemove.h">
+      <Filter>Core\Cont\Test\Vector</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Util\Core\Cont\Test\Vector\TVectorTestSerializationSuite.h">
+      <Filter>Core\Cont\Test\Vector</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Util\Core\Cont\Test\Vector\TVectorTestUtils.h">
+      <Filter>Core\Cont\Test\Vector</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Util\Core\Cont\Test\TRBTreeTest.h">
+      <Filter>Core\Cont\Test</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Util\Core\Cont\Test\TSortedSetTest.h">
+      <Filter>Core\Cont\Test</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Util\Core\Cont\Test\TVectorTest.h">
+      <Filter>Core\Cont\Test</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Util\Core\Cont\ContainerSystem.h">
+      <Filter>Core\Cont</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Util\Core\Cont\TMap.h">
+      <Filter>Core\Cont</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Util\Core\Cont\TRBTree.h">
+      <Filter>Core\Cont</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Util\Core\Cont\TSet.h">
+      <Filter>Core\Cont</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Util\Core\Cont\TSortedMap.h">
+      <Filter>Core\Cont</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Util\Core\Cont\TSortedSet.h">
+      <Filter>Core\Cont</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Util\Core\Cont\TVector.h">
+      <Filter>Core\Cont</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\Util\ServiceContainer\ServiceContainerAccess.cpp">
+      <Filter>ServiceContainer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Util\ServiceContainer\IMPL\ServiceContainer.cpp">
+      <Filter>ServiceContainer\IMPL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Util\Core\Mem\Helper\Priv\LinearAllocHelper.cpp">
+      <Filter>Core\Mem\Helper\Priv</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Util\Core\Mem\Priv\BlockHeapImpl.cpp">
+      <Filter>Core\Mem\Priv</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Util\Core\Mem\Priv\MemUtils.cpp">
+      <Filter>Core\Mem\Priv</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Util\Core\Math\Priv\MathUtils.cpp">
+      <Filter>Core\Math\Priv</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Util\Core\Math\Priv\Matrix.cpp">
+      <Filter>Core\Math\Priv</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Util\Core\Math\Priv\Vector.cpp">
+      <Filter>Core\Math\Priv</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Util\Core\Cont\Priv\TRBTreeImpl.cpp">
+      <Filter>Core\Cont\Priv</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

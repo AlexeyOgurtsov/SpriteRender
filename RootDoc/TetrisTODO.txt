@@ -1,0 +1,36 @@
+Environment
+------------------------------------------------
+1. Integrate Dependency framework
+2. Provide environment initialization
+3. Windows application support
+
+------------------------------------------------
+Windows application support
+1. Message handling
+2. Main loop object
+3. Initialize viewport window
+
+------------------------------------------------
+Dependency injection container
+1. Define ServiceContainer in the main object
+2. Define environment objects as dependency services
+3. Register dependency services
+4. See "Provide environment for the application"
+
+------------------------------------------------
+Provide environment for the application
+1. Provide environment container structure as argument of the Application
+
+------------------------------------------------
+Primary environment objects:
+1. Log
+
+Extra primary environment objects:
+1. Config manager
+
+Environment objects:
+1. SpriteRender wrapper
+
+Gameplay objects
+
+------------------------------------------------

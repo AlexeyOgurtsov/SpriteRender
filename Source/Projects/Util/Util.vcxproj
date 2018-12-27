@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>15.0</VCProjectVersion>
+    <ProjectGuid>{346ECF03-7D13-47BC-9A66-3A40A9A786D3}</ProjectGuid>
+    <RootNamespace>Util</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>C:\SpriteRender\Out\Lib\</OutDir>
+    <IntDir>C:\SpriteRender\Out\Intermediate\Util\</IntDir>
+    <TargetName>LibUtil_debug</TargetName>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);C:\SpriteRender\Source\;C:\SpriteRender\Source\Util\;C:\SpriteRender\Source\ThirdParty\boost_1_67_0\</IncludePath>
+    <LibraryPath>$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(NETFXKitsDir)Lib\um\x86;C:\SpriteRender\Source\ThirdParty\boost_1_67_0\</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>C:\SpriteRender\Out\Lib\</OutDir>
+    <IntDir>C:\SpriteRender\Out\Intermediate\Util\</IntDir>
+    <TargetName>LibUtil</TargetName>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\Util\Core\Assert.h" />
+    <ClInclude Include="..\..\Util\Core\Cont\ContainerSystem.h" />
+    <ClInclude Include="..\..\Util\Core\Cont\Priv\TRBTreeImpl.h" />
+    <ClInclude Include="..\..\Util\Core\Cont\Test\TRBTreeTest.h" />
+    <ClInclude Include="..\..\Util\Core\Cont\Test\TRBTree\TRBTreeTestCustomCompare.h" />
+    <ClInclude Include="..\..\Util\Core\Cont\Test\TRBTree\TRBTreeTestExtraOps.h" />
+    <ClInclude Include="..\..\Util\Core\Cont\Test\TRBTree\TRBTreeTestFindSuite.h" />
+    <ClInclude Include="..\..\Util\Core\Cont\Test\TRBTree\TRBTreeTestMemorySuite.h" />
+    <ClInclude Include="..\..\Util\Core\Cont\Test\TRBTree\TRBTreeTestMinimalAddSuite.h" />
+    <ClInclude Include="..\..\Util\Core\Cont\Test\TRBTree\TRBTreeTestMinimalCopySuite.h" />
+    <ClInclude Include="..\..\Util\Core\Cont\Test\TRBTree\TRBTreeTestMinimalIterationSuite.h" />
+    <ClInclude Include="..\..\Util\Core\Cont\Test\TRBTree\TRBTreeTestMinimalMain.h" />
+    <ClInclude Include="..\..\Util\Core\Cont\Test\TRBTree\TRBTreeTestMinimalRemoveSuite.h" />
+    <ClInclude Include="..\..\Util\Core\Cont\Test\TRBTree\TRBTreeTestMoving.h" />
+    <ClInclude Include="..\..\Util\Core\Cont\Test\TRBTree\TRBTreeTestSerialization.h" />
+    <ClInclude Include="..\..\Util\Core\Cont\Test\TRBTree\TRBTreeTestSet.h" />
+    <ClInclude Include="..\..\Util\Core\Cont\Test\TRBTree\TRBTreeTestUtils.h" />
+    <ClInclude Include="..\..\Util\Core\Cont\Test\TSortedSetTest.h" />
+    <ClInclude Include="..\..\Util\Core\Cont\Test\TVectorTest.h" />
+    <ClInclude Include="..\..\Util\Core\Cont\Test\Vector\TVectorTestExtraOps.h" />
+    <ClInclude Include="..\..\Util\Core\Cont\Test\Vector\TVectorTestIteratorSuite.h" />
+    <ClInclude Include="..\..\Util\Core\Cont\Test\Vector\TVectorTestMoveOnlyConstructOrAssign.h" />
+    <ClInclude Include="..\..\Util\Core\Cont\Test\Vector\TVectorTestMoveOnlyMain.h" />
+    <ClInclude Include="..\..\Util\Core\Cont\Test\Vector\TVectorTestPODConstructOrAssign.h" />
+    <ClInclude Include="..\..\Util\Core\Cont\Test\Vector\TVectorTestPODMain.h" />
+    <ClInclude Include="..\..\Util\Core\Cont\Test\Vector\TVectorTestPODMemory.h" />
+    <ClInclude Include="..\..\Util\Core\Cont\Test\Vector\TVectorTestPODRemove.h" />
+    <ClInclude Include="..\..\Util\Core\Cont\Test\Vector\TVectorTestSerializationSuite.h" />
+    <ClInclude Include="..\..\Util\Core\Cont\Test\Vector\TVectorTestUtils.h" />
+    <ClInclude Include="..\..\Util\Core\Cont\TMap.h" />
+    <ClInclude Include="..\..\Util\Core\Cont\TRBTree.h" />
+    <ClInclude Include="..\..\Util\Core\Cont\TSet.h" />
+    <ClInclude Include="..\..\Util\Core\Cont\TSortedMap.h" />
+    <ClInclude Include="..\..\Util\Core\Cont\TSortedSet.h" />
+    <ClInclude Include="..\..\Util\Core\Cont\TVector.h" />
+    <ClInclude Include="..\..\Util\Core\Cont\UT\InsertIterator.h" />
+    <ClInclude Include="..\..\Util\Core\Cont\UT\IteratorUtils.h" />
+    <ClInclude Include="..\..\Util\Core\Cont\UT\Test\IteratorUtilsTester.h" />
+    <ClInclude Include="..\..\Util\Core\Cont\UT\Test\TKeValueIteratorTester.h" />
+    <ClInclude Include="..\..\Util\Core\Cont\UT\Test\TKeyValueTester.h" />
+    <ClInclude Include="..\..\Util\Core\Cont\UT\Test\UTTester.h" />
+    <ClInclude Include="..\..\Util\Core\Cont\UT\TKeyValue.h" />
+    <ClInclude Include="..\..\Util\Core\Cont\UT\TKeyValueIterator.h" />
+    <ClInclude Include="..\..\Util\Core\CoreSysCommon.h" />
+    <ClInclude Include="..\..\Util\Core\CoreSysMinimal.h" />
+    <ClInclude Include="..\..\Util\Core\CoreSysTypes.h" />
+    <ClInclude Include="..\..\Util\Core\Math\MathUtils.h" />
+    <ClInclude Include="..\..\Util\Core\Math\MathUtilsMinimal.h" />
+    <ClInclude Include="..\..\Util\Core\Math\Matrix.h" />
+    <ClInclude Include="..\..\Util\Core\Math\Test\BLASMatrixTest.h" />
+    <ClInclude Include="..\..\Util\Core\Math\Test\BLASTest.h" />
+    <ClInclude Include="..\..\Util\Core\Math\Test\BLASVectorTest.h" />
+    <ClInclude Include="..\..\Util\Core\Math\Vector.h" />
+    <ClInclude Include="..\..\Util\Core\Mem\BlockHeap.h" />
+    <ClInclude Include="..\..\Util\Core\Mem\Helper\LinearAllocHelper.h" />
+    <ClInclude Include="..\..\Util\Core\Mem\Helper\Test\LinearAllocHelperTest.h" />
+    <ClInclude Include="..\..\Util\Core\Mem\MemUtils.h" />
+    <ClInclude Include="..\..\Util\Core\Mem\Priv\BlockHeapImpl.h" />
+    <ClInclude Include="..\..\Util\Core\Mem\TComPtr.h" />
+    <ClInclude Include="..\..\Util\Core\Mem\Test\BlockHeapTest.h" />
+    <ClInclude Include="..\..\Util\Core\Mem\TSharedPtr.h" />
+    <ClInclude Include="..\..\Util\Core\Mem\TUniquePtr.h" />
+    <ClInclude Include="..\..\Util\Core\Serialization\ArchiveTraits.h" />
+    <ClInclude Include="..\..\Util\Core\Stream\StreamTraits.h" />
+    <ClInclude Include="..\..\Util\Core\Templ\Pointer.h" />
+    <ClInclude Include="..\..\Util\Core\Templ\Priv\TypeTraitsImpl.h" />
+    <ClInclude Include="..\..\Util\Core\Templ\Priv\TypeTraitsMinimalImpl.h" />
+    <ClInclude Include="..\..\Util\Core\Templ\TComparer.h" />
+    <ClInclude Include="..\..\Util\Core\Templ\Test\ComparerTest.h" />
+    <ClInclude Include="..\..\Util\Core\Templ\Test\PointerTest.h" />
+    <ClInclude Include="..\..\Util\Core\Templ\Test\TemplTest.h" />
+    <ClInclude Include="..\..\Util\Core\Templ\Test\TypeTraitsTest.h" />
+    <ClInclude Include="..\..\Util\Core\Templ\TypeTraits.h" />
+    <ClInclude Include="..\..\Util\Core\Templ\TypeTraitsMinimal.h" />
+    <ClInclude Include="..\..\Util\ServiceContainer\IMPL\ServiceContainer.h" />
+    <ClInclude Include="..\..\Util\ServiceContainer\IResolvedService.h" />
+    <ClInclude Include="..\..\Util\ServiceContainer\IService.h" />
+    <ClInclude Include="..\..\Util\ServiceContainer\IServiceContainer.h" />
+    <ClInclude Include="..\..\Util\ServiceContainer\IServiceContainerFactoryAPI.h" />
+    <ClInclude Include="..\..\Util\ServiceContainer\IServiceFactory.h" />
+    <ClInclude Include="..\..\Util\ServiceContainer\ServiceContainer.h" />
+    <ClInclude Include="..\..\Util\ServiceContainer\ServiceContainerAccess.h" />
+    <ClInclude Include="..\..\Util\ServiceContainer\ServiceContainerFactoryInterface.h" />
+    <ClInclude Include="..\..\Util\ServiceContainer\ServiceContainerInitializer.h" />
+    <ClInclude Include="..\..\Util\ServiceContainer\ServiceContainerInterface.h" />
+    <ClInclude Include="..\..\Util\ServiceContainer\ServiceContainerTypedInterface.h" />
+    <ClInclude Include="..\..\Util\ServiceContainer\ServiceProps.h" />
+    <ClInclude Include="..\..\Util\ServiceContainer\ServiceTypeId.h" />
+    <ClInclude Include="..\..\Util\ServiceContainer\ServiceTypeTraits.h" />
+    <ClInclude Include="..\..\Util\ServiceContainer\TypedResolvedService.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\Util\Core\Cont\Priv\TRBTreeImpl.cpp" />
+    <ClCompile Include="..\..\Util\Core\Math\Priv\MathUtils.cpp" />
+    <ClCompile Include="..\..\Util\Core\Math\Priv\Matrix.cpp" />
+    <ClCompile Include="..\..\Util\Core\Math\Priv\Vector.cpp" />
+    <ClCompile Include="..\..\Util\Core\Mem\Helper\Priv\LinearAllocHelper.cpp" />
+    <ClCompile Include="..\..\Util\Core\Mem\Priv\BlockHeapImpl.cpp" />
+    <ClCompile Include="..\..\Util\Core\Mem\Priv\MemUtils.cpp" />
+    <ClCompile Include="..\..\Util\ServiceContainer\IMPL\ServiceContainer.cpp" />
+    <ClCompile Include="..\..\Util\ServiceContainer\ServiceContainerAccess.cpp" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
