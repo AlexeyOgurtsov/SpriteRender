@@ -134,15 +134,21 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\Proj\Tet\App\App.cpp" />
-    <ClCompile Include="..\..\..\Proj\Tet\App\EnvironmentContainer.cpp" />
     <ClCompile Include="..\..\..\Proj\Tet\App\Main.cpp" />
+    <ClCompile Include="..\..\..\Proj\Tet\HelperSubsys\AmbientContext.cpp" />
     <ClCompile Include="..\..\..\Proj\Tet\HelperSubsys\Log\Log.cpp" />
+    <ClCompile Include="..\..\..\Proj\Tet\HelperSubsys\Log\LogServiceRegister.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\Proj\Tet\App\App.h" />
-    <ClInclude Include="..\..\..\Proj\Tet\App\EnvironmentContainer.h" />
+    <ClInclude Include="..\..\..\Proj\Tet\App\AppEnvironment.h" />
+    <ClInclude Include="..\..\..\Proj\Tet\HelperSubsys\AmbientContext.h" />
     <ClInclude Include="..\..\..\Proj\Tet\HelperSubsys\Log\ILog.h" />
     <ClInclude Include="..\..\..\Proj\Tet\HelperSubsys\Log\Log.h" />
+    <ClInclude Include="..\..\..\Proj\Tet\HelperSubsys\Log\LogServiceFactory.h" />
+    <ClInclude Include="..\..\..\Proj\Tet\HelperSubsys\Log\LogServiceRegister.h" />
+    <ClInclude Include="..\..\..\Proj\Tet\HelperSubsys\Log\LogServiceTypes.h" />
+    <ClInclude Include="..\..\..\Proj\Tet\HelperSubsys\Log\LogServiceTypeTraits.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

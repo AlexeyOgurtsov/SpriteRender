@@ -1,6 +1,7 @@
 #pragma once
 
 #include <windows.h>
+#include "AppEnvironment.h"
 
 namespace Tet
 {
@@ -10,7 +11,7 @@ namespace Tet
 		App();
 		~App();
 	
-		void Run(LPSTR lpCmdLine);
+		void Run(LPSTR lpCmdLine, const AppEnvironment& InEnvironment);
 		LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 
 		static LRESULT CALLBACK StaticWndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
@@ -18,5 +19,6 @@ namespace Tet
 		static App& Get();
 
 	private:
+		AppEnvironment Environment;
 	};
 } // Tet

@@ -10,8 +10,10 @@ namespace Tet
 	{
 	}
 	
-	void App::Run(LPSTR lpCmdLine)	
+	void App::Run(LPSTR lpCmdLine, const AppEnvironment& InEnvironment)
 	{
+		Environment = InEnvironment;
+
 		// @TODO
 	}
 

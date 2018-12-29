@@ -3,6 +3,7 @@ Environment
 1. Integrate Dependency framework
 2. Provide environment initialization
 3. Windows application support
+4. Exception handler
 
 ------------------------------------------------
 Windows application support
@@ -12,14 +13,19 @@ Windows application support
 
 ------------------------------------------------
 Dependency injection container
-1. Define ServiceContainer in the main object
 2. Define environment objects as dependency services
 3. Register dependency services
 4. See "Provide environment for the application"
 
 ------------------------------------------------
-Provide environment for the application
-1. Provide environment container structure as argument of the Application
+Deployment
+1. Refactor deployer as a separate module rather than main
+
+- Service registration function:
+  1) Stores factory as static std::unique_ptr<Factory*>.
+  2) Registers factory in the service container
+
+------------------------------------------------
 
 ------------------------------------------------
 Primary environment objects:
@@ -32,11 +38,4 @@ Environment objects:
 1. SpriteRender wrapper
 
 Gameplay objects
-
-------------------------------------------------
-Log:
-1) Add to project
-2) Service name
-3) TServiceFactory
-
 ------------------------------------------------

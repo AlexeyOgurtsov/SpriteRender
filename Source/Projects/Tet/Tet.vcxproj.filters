@@ -15,21 +15,21 @@
     <ClCompile Include="..\..\..\Proj\Tet\App\App.cpp">
       <Filter>App</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Proj\Tet\App\EnvironmentContainer.cpp">
-      <Filter>App</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\Proj\Tet\App\Main.cpp">
       <Filter>App</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\Proj\Tet\HelperSubsys\Log\Log.cpp">
       <Filter>HelperSubsys\Log</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\Proj\Tet\HelperSubsys\Log\LogServiceRegister.cpp">
+      <Filter>HelperSubsys\Log</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Proj\Tet\HelperSubsys\AmbientContext.cpp">
+      <Filter>HelperSubsys</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\Proj\Tet\App\App.h">
-      <Filter>App</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\Proj\Tet\App\EnvironmentContainer.h">
       <Filter>App</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\Proj\Tet\HelperSubsys\Log\ILog.h">
@@ -37,6 +37,24 @@
     </ClInclude>
     <ClInclude Include="..\..\..\Proj\Tet\HelperSubsys\Log\Log.h">
       <Filter>HelperSubsys\Log</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Proj\Tet\HelperSubsys\Log\LogServiceFactory.h">
+      <Filter>HelperSubsys\Log</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Proj\Tet\HelperSubsys\Log\LogServiceTypes.h">
+      <Filter>HelperSubsys\Log</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Proj\Tet\HelperSubsys\Log\LogServiceTypeTraits.h">
+      <Filter>HelperSubsys\Log</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Proj\Tet\HelperSubsys\Log\LogServiceRegister.h">
+      <Filter>HelperSubsys\Log</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Proj\Tet\App\AppEnvironment.h">
+      <Filter>App</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Proj\Tet\HelperSubsys\AmbientContext.h">
+      <Filter>HelperSubsys</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
