@@ -73,6 +73,24 @@
     <Filter Include="Core\Cont\Test\Vector">
       <UniqueIdentifier>{895b1c53-314e-47b5-b5c3-c81f2a42fb42}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Core\APP">
+      <UniqueIdentifier>{aa5edd56-fb21-40d8-946b-393474558464}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\BYTES">
+      <UniqueIdentifier>{b96fb89f-7321-4f16-bc25-10c9fc520326}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ConfigManager">
+      <UniqueIdentifier>{2bb5b165-eba8-4d6f-8674-b28545283ae5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ConfigManager\CFG">
+      <UniqueIdentifier>{e0b5a533-1482-4a72-bb81-be82e59b00cb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ConfigManager\LOADERS">
+      <UniqueIdentifier>{8ebc0ca1-d4d5-4798-b468-271f66c3990b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ConfigManager\CORE">
+      <UniqueIdentifier>{f1b46948-1cc2-4c9d-892b-2d5d8fbc9f2e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Util\ServiceContainer\IResolvedService.h">
@@ -348,6 +366,75 @@
     <ClInclude Include="..\..\Util\Core\Exception.h">
       <Filter>Core</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Util\Core\APP\APP_INFO.h">
+      <Filter>Core\APP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Util\Core\APP\APP_INFO_EXTENDED.h">
+      <Filter>Core\APP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Util\Core\APP\APP_MASTER.h">
+      <Filter>Core\APP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Util\Core\APP\APP_MASTER_FWD.h">
+      <Filter>Core\APP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Util\Core\APP\APP_MASTER_LEAN_AND_MEAN.h">
+      <Filter>Core\APP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Util\Core\APP\APP_MASTER_LEAN_AND_MEAN_FWD.h">
+      <Filter>Core\APP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Util\Core\APP\APP_VERSION.h">
+      <Filter>Core\APP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Util\Core\APP\APP_VERSION_FWD.h">
+      <Filter>Core\APP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Util\Core\BYTES\Bytes_Hash.h">
+      <Filter>Core\BYTES</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Util\Core\BYTES\Bytes_Ptr.h">
+      <Filter>Core\BYTES</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Util\ConfigManager\CFG\CFG.h">
+      <Filter>ConfigManager\CFG</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Util\ConfigManager\CFG\IValueType.h">
+      <Filter>ConfigManager\CFG</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Util\ConfigManager\CFG\ValueType_Types.h">
+      <Filter>ConfigManager\CFG</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Util\ConfigManager\CORE\ConfigManagerSystem.h">
+      <Filter>ConfigManager\CORE</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Util\ConfigManager\CORE\InputStream.h">
+      <Filter>ConfigManager\CORE</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Util\ConfigManager\CORE\InputStreamLexTypes.h">
+      <Filter>ConfigManager\CORE</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Util\ConfigManager\CORE\SourceLocation.h">
+      <Filter>ConfigManager\CORE</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Util\ConfigManager\LOADERS\CfgLoader.h">
+      <Filter>ConfigManager\LOADERS</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Util\ConfigManager\LOADERS\CfgLoader_IMPL.h">
+      <Filter>ConfigManager\LOADERS</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Util\ConfigManager\LOADERS\CfgLoader_Types.h">
+      <Filter>ConfigManager\LOADERS</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Util\ConfigManager\ConfigManager.h">
+      <Filter>ConfigManager</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Util\ConfigManager\ConfigManager_AppInfo.h">
+      <Filter>ConfigManager</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Util\ConfigManager\ConfigManager_Fwd.h">
+      <Filter>ConfigManager</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Util\ServiceContainer\ServiceContainerAccess.cpp">
@@ -376,6 +463,36 @@
     </ClCompile>
     <ClCompile Include="..\..\Util\Core\Cont\Priv\TRBTreeImpl.cpp">
       <Filter>Core\Cont\Priv</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Util\Core\APP\APP_INFO_EXTENDED.cpp">
+      <Filter>Core\APP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Util\Core\APP\APP_MISC.cpp">
+      <Filter>Core\APP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Util\Core\APP\APP_VERSION.cpp">
+      <Filter>Core\APP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Util\Core\BYTES\Bytes_Hash.cpp">
+      <Filter>Core\BYTES</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Util\ConfigManager\CFG\CFG.cpp">
+      <Filter>ConfigManager\CFG</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Util\ConfigManager\CORE\InputStream.cpp">
+      <Filter>ConfigManager\CORE</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Util\ConfigManager\CORE\SourceLocation.cpp">
+      <Filter>ConfigManager\CORE</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Util\ConfigManager\LOADERS\CfgLoader.cpp">
+      <Filter>ConfigManager\LOADERS</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Util\ConfigManager\LOADERS\CfgLoader_IMPL.cpp">
+      <Filter>ConfigManager\LOADERS</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Util\ConfigManager\ConfigManager.cpp">
+      <Filter>ConfigManager</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

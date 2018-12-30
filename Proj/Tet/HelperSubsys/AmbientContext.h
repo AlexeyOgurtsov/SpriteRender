@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Log/ILog.h"
+#include "ConfigManager/ConfigManager.h"
 #include <boost/assert.hpp>
 
 namespace Tet
@@ -12,15 +13,23 @@ namespace Tet
 	{
 	public:
 		AmbientContext() = default;
-		AmbientContext(ILog* pInLog)
+		AmbientContext
+		(
+			ILog* pInLog,
+			CfgManager* pInCfgManager
+		)
 		:	pLog{pInLog} 
+		,	pCfgManager{pInCfgManager}
 		{
 			BOOST_ASSERT(pLog);
+			BOOST_ASSERT(pCfgManager);
 		}
 
 		ILog* GetLog() const { return pLog; }
+		CfgManager* GetCfgManager() const { return pCfgManager; }
 
 	private:
 		ILog* pLog = nullptr;
+		CfgManager* pCfgManager = nullptr;
 	};
 } // Tet

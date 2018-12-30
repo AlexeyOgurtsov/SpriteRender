@@ -19,8 +19,6 @@ Dependency injection container
 
 ------------------------------------------------
 Deployment
-1. Refactor deployer as a separate module rather than main
-
 - Service registration function:
   1) Stores factory as static std::unique_ptr<Factory*>.
   2) Registers factory in the service container
@@ -28,12 +26,6 @@ Deployment
 ------------------------------------------------
 
 ------------------------------------------------
-Primary environment objects:
-1. Log
-
-Extra primary environment objects:
-1. Config manager
-
 Environment objects:
 1. SpriteRender wrapper
 

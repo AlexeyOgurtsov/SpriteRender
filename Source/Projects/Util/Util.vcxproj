@@ -127,7 +127,30 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\Util\ConfigManager\CFG\CFG.h" />
+    <ClInclude Include="..\..\Util\ConfigManager\CFG\IValueType.h" />
+    <ClInclude Include="..\..\Util\ConfigManager\CFG\ValueType_Types.h" />
+    <ClInclude Include="..\..\Util\ConfigManager\ConfigManager.h" />
+    <ClInclude Include="..\..\Util\ConfigManager\ConfigManager_AppInfo.h" />
+    <ClInclude Include="..\..\Util\ConfigManager\ConfigManager_Fwd.h" />
+    <ClInclude Include="..\..\Util\ConfigManager\CORE\ConfigManagerSystem.h" />
+    <ClInclude Include="..\..\Util\ConfigManager\CORE\InputStream.h" />
+    <ClInclude Include="..\..\Util\ConfigManager\CORE\InputStreamLexTypes.h" />
+    <ClInclude Include="..\..\Util\ConfigManager\CORE\SourceLocation.h" />
+    <ClInclude Include="..\..\Util\ConfigManager\LOADERS\CfgLoader.h" />
+    <ClInclude Include="..\..\Util\ConfigManager\LOADERS\CfgLoader_IMPL.h" />
+    <ClInclude Include="..\..\Util\ConfigManager\LOADERS\CfgLoader_Types.h" />
+    <ClInclude Include="..\..\Util\Core\APP\APP_INFO.h" />
+    <ClInclude Include="..\..\Util\Core\APP\APP_INFO_EXTENDED.h" />
+    <ClInclude Include="..\..\Util\Core\APP\APP_MASTER.h" />
+    <ClInclude Include="..\..\Util\Core\APP\APP_MASTER_FWD.h" />
+    <ClInclude Include="..\..\Util\Core\APP\APP_MASTER_LEAN_AND_MEAN.h" />
+    <ClInclude Include="..\..\Util\Core\APP\APP_MASTER_LEAN_AND_MEAN_FWD.h" />
+    <ClInclude Include="..\..\Util\Core\APP\APP_VERSION.h" />
+    <ClInclude Include="..\..\Util\Core\APP\APP_VERSION_FWD.h" />
     <ClInclude Include="..\..\Util\Core\Assert.h" />
+    <ClInclude Include="..\..\Util\Core\BYTES\Bytes_Hash.h" />
+    <ClInclude Include="..\..\Util\Core\BYTES\Bytes_Ptr.h" />
     <ClInclude Include="..\..\Util\Core\Cont\ContainerSystem.h" />
     <ClInclude Include="..\..\Util\Core\Cont\Priv\TRBTreeImpl.h" />
     <ClInclude Include="..\..\Util\Core\Cont\Test\TRBTreeTest.h" />
@@ -220,6 +243,16 @@
     <ClInclude Include="..\..\Util\ServiceContainer\TypedResolvedService.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\Util\ConfigManager\CFG\CFG.cpp" />
+    <ClCompile Include="..\..\Util\ConfigManager\ConfigManager.cpp" />
+    <ClCompile Include="..\..\Util\ConfigManager\CORE\InputStream.cpp" />
+    <ClCompile Include="..\..\Util\ConfigManager\CORE\SourceLocation.cpp" />
+    <ClCompile Include="..\..\Util\ConfigManager\LOADERS\CfgLoader.cpp" />
+    <ClCompile Include="..\..\Util\ConfigManager\LOADERS\CfgLoader_IMPL.cpp" />
+    <ClCompile Include="..\..\Util\Core\APP\APP_INFO_EXTENDED.cpp" />
+    <ClCompile Include="..\..\Util\Core\APP\APP_MISC.cpp" />
+    <ClCompile Include="..\..\Util\Core\APP\APP_VERSION.cpp" />
+    <ClCompile Include="..\..\Util\Core\BYTES\Bytes_Hash.cpp" />
     <ClCompile Include="..\..\Util\Core\Cont\Priv\TRBTreeImpl.cpp" />
     <ClCompile Include="..\..\Util\Core\Math\Priv\MathUtils.cpp" />
     <ClCompile Include="..\..\Util\Core\Math\Priv\Matrix.cpp" />

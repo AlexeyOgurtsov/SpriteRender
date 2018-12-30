@@ -10,6 +10,9 @@
     <Filter Include="HelperSubsys\Log">
       <UniqueIdentifier>{77fdc6d5-9d70-4b4c-b5cf-73449a124953}</UniqueIdentifier>
     </Filter>
+    <Filter Include="HelperSubsys\ConfigManager">
+      <UniqueIdentifier>{3456fbc5-ea23-413f-b2c1-4c167a4f346d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\Proj\Tet\App\App.cpp">
@@ -26,6 +29,12 @@
     </ClCompile>
     <ClCompile Include="..\..\..\Proj\Tet\HelperSubsys\AmbientContext.cpp">
       <Filter>HelperSubsys</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Proj\Tet\App\AppDeployer.cpp">
+      <Filter>App</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Proj\Tet\HelperSubsys\ConfigManager\ConfigManagerServiceRegister.cpp">
+      <Filter>HelperSubsys\ConfigManager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -55,6 +64,24 @@
     </ClInclude>
     <ClInclude Include="..\..\..\Proj\Tet\HelperSubsys\AmbientContext.h">
       <Filter>HelperSubsys</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Proj\Tet\App\AppDeployer.h">
+      <Filter>App</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Proj\Tet\HelperSubsys\ConfigManager\ConfigManager.h">
+      <Filter>HelperSubsys\ConfigManager</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Proj\Tet\HelperSubsys\ConfigManager\ConfigManagerServiceTypes.h">
+      <Filter>HelperSubsys\ConfigManager</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Proj\Tet\HelperSubsys\ConfigManager\ConfigManagerServiceTypeTraits.h">
+      <Filter>HelperSubsys\ConfigManager</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Proj\Tet\HelperSubsys\ConfigManager\ConfigManagerServiceFactory.h">
+      <Filter>HelperSubsys\ConfigManager</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Proj\Tet\HelperSubsys\ConfigManager\ConfigManagerServiceRegister.h">
+      <Filter>HelperSubsys\ConfigManager</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -72,14 +72,14 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <OutDir>C:\SpriteRender\Out\Exe\Tet\</OutDir>
     <IntDir>C:\SpriteRender\Out\Intermediate\Tet\</IntDir>
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(VC_IncludePath);$(WindowsSDK_IncludePath);C:\SpriteRender\Source\;C:\SpriteRender\Source\ThirdParty\boost_1_67_0\</IncludePath>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);C:\SpriteRender\Source\;C:\SpriteRender\Proj\;C:\SpriteRender\Source\ThirdParty\boost_1_67_0\</IncludePath>
     <LibraryPath>$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(NETFXKitsDir)Lib\um\x86;C:\SpriteRender\Out\Lib\</LibraryPath>
     <TargetName>Tet_debug</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <OutDir>C:\SpriteRender\Out\Exe\Tet\</OutDir>
     <IntDir>C:\SpriteRender\Out\Intermediate\Tet\</IntDir>
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(VC_IncludePath);$(WindowsSDK_IncludePath);C:\SpriteRender\Source\;C:\SpriteRender\Source\ThirdParty\boost_1_67_0\</IncludePath>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);C:\SpriteRender\Source\;C:\SpriteRender\Proj\;C:\SpriteRender\Source\ThirdParty\boost_1_67_0\</IncludePath>
     <LibraryPath>$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(NETFXKitsDir)Lib\um\x86;C:\SpriteRender\Out\Lib\</LibraryPath>
     <TargetName>Tet</TargetName>
   </PropertyGroup>
@@ -134,15 +134,23 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\Proj\Tet\App\App.cpp" />
+    <ClCompile Include="..\..\..\Proj\Tet\App\AppDeployer.cpp" />
     <ClCompile Include="..\..\..\Proj\Tet\App\Main.cpp" />
     <ClCompile Include="..\..\..\Proj\Tet\HelperSubsys\AmbientContext.cpp" />
+    <ClCompile Include="..\..\..\Proj\Tet\HelperSubsys\ConfigManager\ConfigManagerServiceRegister.cpp" />
     <ClCompile Include="..\..\..\Proj\Tet\HelperSubsys\Log\Log.cpp" />
     <ClCompile Include="..\..\..\Proj\Tet\HelperSubsys\Log\LogServiceRegister.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\Proj\Tet\App\App.h" />
+    <ClInclude Include="..\..\..\Proj\Tet\App\AppDeployer.h" />
     <ClInclude Include="..\..\..\Proj\Tet\App\AppEnvironment.h" />
     <ClInclude Include="..\..\..\Proj\Tet\HelperSubsys\AmbientContext.h" />
+    <ClInclude Include="..\..\..\Proj\Tet\HelperSubsys\ConfigManager\ConfigManager.h" />
+    <ClInclude Include="..\..\..\Proj\Tet\HelperSubsys\ConfigManager\ConfigManagerServiceFactory.h" />
+    <ClInclude Include="..\..\..\Proj\Tet\HelperSubsys\ConfigManager\ConfigManagerServiceRegister.h" />
+    <ClInclude Include="..\..\..\Proj\Tet\HelperSubsys\ConfigManager\ConfigManagerServiceTypes.h" />
+    <ClInclude Include="..\..\..\Proj\Tet\HelperSubsys\ConfigManager\ConfigManagerServiceTypeTraits.h" />
     <ClInclude Include="..\..\..\Proj\Tet\HelperSubsys\Log\ILog.h" />
     <ClInclude Include="..\..\..\Proj\Tet\HelperSubsys\Log\Log.h" />
     <ClInclude Include="..\..\..\Proj\Tet\HelperSubsys\Log\LogServiceFactory.h" />
