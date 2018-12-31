@@ -31,3 +31,8 @@ Environment objects:
 
 Gameplay objects
 ------------------------------------------------
+QSpriteRender:
+1. Service objects (+DONE)
+2. Register factory
+3. Initialize service
+4. Provide to environment

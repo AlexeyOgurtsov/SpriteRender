@@ -140,6 +140,8 @@
     <ClCompile Include="..\..\..\Proj\Tet\HelperSubsys\ConfigManager\ConfigManagerServiceRegister.cpp" />
     <ClCompile Include="..\..\..\Proj\Tet\HelperSubsys\Log\Log.cpp" />
     <ClCompile Include="..\..\..\Proj\Tet\HelperSubsys\Log\LogServiceRegister.cpp" />
+    <ClCompile Include="..\..\..\Proj\Tet\Render\QSpriteRender\QSpriteRenderServiceFactory.cpp" />
+    <ClCompile Include="..\..\..\Proj\Tet\Render\QSpriteRender\QSpriteRenderServiceRegister.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\Proj\Tet\App\App.h" />
@@ -157,6 +159,11 @@
     <ClInclude Include="..\..\..\Proj\Tet\HelperSubsys\Log\LogServiceRegister.h" />
     <ClInclude Include="..\..\..\Proj\Tet\HelperSubsys\Log\LogServiceTypes.h" />
     <ClInclude Include="..\..\..\Proj\Tet\HelperSubsys\Log\LogServiceTypeTraits.h" />
+    <ClInclude Include="..\..\..\Proj\Tet\Render\QSpriteRender\QSpriteRender.h" />
+    <ClInclude Include="..\..\..\Proj\Tet\Render\QSpriteRender\QSpriteRenderServiceFactory.h" />
+    <ClInclude Include="..\..\..\Proj\Tet\Render\QSpriteRender\QSpriteRenderServiceRegister.h" />
+    <ClInclude Include="..\..\..\Proj\Tet\Render\QSpriteRender\QSpriteRenderServiceTypes.h" />
+    <ClInclude Include="..\..\..\Proj\Tet\Render\QSpriteRender\QSpriteRenderServiceTypeTraits.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

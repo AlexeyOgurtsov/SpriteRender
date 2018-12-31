@@ -6,6 +6,7 @@
 // Services
 #include "../HelperSubsys/Log/LogServiceRegister.h"
 #include "../HelperSubsys/ConfigManager/ConfigManagerServiceRegister.h"
+#include "../Render/QSpriteRender/QSpriteRenderServiceRegister.h"
 
 namespace Tet
 {

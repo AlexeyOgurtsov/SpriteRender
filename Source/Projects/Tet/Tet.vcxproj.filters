@@ -13,6 +13,12 @@
     <Filter Include="HelperSubsys\ConfigManager">
       <UniqueIdentifier>{3456fbc5-ea23-413f-b2c1-4c167a4f346d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Render">
+      <UniqueIdentifier>{3b648763-59a2-4ab7-bbd7-935a06b28889}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\QSpriteRender">
+      <UniqueIdentifier>{64e96ee3-76d3-4862-9bfc-8bf8f787c28b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\Proj\Tet\App\App.cpp">
@@ -35,6 +41,12 @@
     </ClCompile>
     <ClCompile Include="..\..\..\Proj\Tet\HelperSubsys\ConfigManager\ConfigManagerServiceRegister.cpp">
       <Filter>HelperSubsys\ConfigManager</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Proj\Tet\Render\QSpriteRender\QSpriteRenderServiceRegister.cpp">
+      <Filter>Render\QSpriteRender</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Proj\Tet\Render\QSpriteRender\QSpriteRenderServiceFactory.cpp">
+      <Filter>Render\QSpriteRender</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -82,6 +94,21 @@
     </ClInclude>
     <ClInclude Include="..\..\..\Proj\Tet\HelperSubsys\ConfigManager\ConfigManagerServiceRegister.h">
       <Filter>HelperSubsys\ConfigManager</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Proj\Tet\Render\QSpriteRender\QSpriteRender.h">
+      <Filter>Render\QSpriteRender</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Proj\Tet\Render\QSpriteRender\QSpriteRenderServiceTypes.h">
+      <Filter>Render\QSpriteRender</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Proj\Tet\Render\QSpriteRender\QSpriteRenderServiceTypeTraits.h">
+      <Filter>Render\QSpriteRender</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Proj\Tet\Render\QSpriteRender\QSpriteRenderServiceFactory.h">
+      <Filter>Render\QSpriteRender</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Proj\Tet\Render\QSpriteRender\QSpriteRenderServiceRegister.h">
+      <Filter>Render\QSpriteRender</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
