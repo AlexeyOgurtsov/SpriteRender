@@ -1,11 +1,9 @@
 #pragma once
 
+#include "D3DSubsysInitializer.h"
+
 namespace Tet
 {
-	struct D3DSubsysInitializer
-	{
-	};
-
 	class D3DSubsys
 	{
 	public:

@@ -5,6 +5,7 @@ namespace Tet
 {	
 	QSpriteRenderServiceFactory::ServiceObjectType* QSpriteRenderServiceFactory::CreateTyped(ResolvedServiceType pInThisService, Eng::Svc::IServiceContainerFactoryAPI* pInSvcContainer)
 	{
+		// @TODO: Build sprite QSpriteRenderInitializer structure here!
 		return Dv::Spr::QRen::CreateSpriteRenderSubsystem(Initializer).release();
 	}
 

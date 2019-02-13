@@ -7,11 +7,13 @@
 #include "../HelperSubsys/Log/LogServiceRegister.h"
 #include "../HelperSubsys/ConfigManager/ConfigManagerServiceRegister.h"
 #include "../Render/QSpriteRender/QSpriteRenderServiceRegister.h"
+#include "../D3DSubsys/D3DSubsysServiceRegister.h"
 
 namespace Tet
 {
 	Eng::Svc::ServiceContainerHandle CreatedInitializedServiceContainer(HINSTANCE hInstance, LPSTR lpCmdLine);
 	void DeploySubsystemFactories(HINSTANCE hInstance, LPSTR lpCmdLine, Eng::Svc::IServiceContainer* pInSvcCont);
+	void DeployD3DSubsys(HINSTANCE hInstance, LPSTR lpCmdLine, Eng::Svc::IServiceContainer* pInSvcCont);
 	//void DeploySpriteRender(HINSTANCE hInstance, LPSTR lpCmdLine, Eng::Svc::IServiceContainer* pInSvcCont);
 } // Tet
 
@@ -39,12 +41,20 @@ namespace Tet
 	{
 		RegSvc_Log(std::string("C:\\SpriteRender\\Out\\Log\\Tet\\TetLog.txt"), pInSvcCont);
 		RegSvc_ConfigManager("ConfigManager", pInSvcCont);
-		DeploySpriteRender(hInstance, lpCmdLine, pInSvcCont);
+		DeployD3DSubsys(hInstance, lpCmdLine, pInSvcCont);
+		// @TODO:
+		//DeploySpriteRender(hInstance, lpCmdLine, pInSvcCont);
+	}
+
+	void DeployD3DSubsys(HINSTANCE hInstance, LPSTR lpCmdLine, Eng::Svc::IServiceContainer* pInSvcCont)
+	{
+		D3DSubsysInitializer Initializer; // @TODO
+		RegSvc_D3DSubsys(Initializer, pInSvcCont);
 	}
 
 	//void DeploySpriteRender(HINSTANCE hInstance, LPSTR lpCmdLine, Eng::Svc::IServiceContainer* pInSvcCont)
 	//{
-	//	::Dv::Spr::QRen::SSpriteRenderSubsystemInitializer Initializer; // @TODO
+	//	QSpriteRenderSubsysInitializer Initializer; // @TODO
 	//	RegSvc_QSpriteRender(Initializer, pInSvcCont);
 	//}
 } // Tet
