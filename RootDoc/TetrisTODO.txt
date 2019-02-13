@@ -34,5 +34,7 @@ Gameplay objects
 QSpriteRender:
 1. Service objects (+DONE)
 2. Register factory
+2.1. D3D11 Device object
+2.2. Sprite Render
 3. Initialize service
 4. Provide to environment

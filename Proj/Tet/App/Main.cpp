@@ -12,6 +12,7 @@ namespace Tet
 {
 	Eng::Svc::ServiceContainerHandle CreatedInitializedServiceContainer(HINSTANCE hInstance, LPSTR lpCmdLine);
 	void DeploySubsystemFactories(HINSTANCE hInstance, LPSTR lpCmdLine, Eng::Svc::IServiceContainer* pInSvcCont);
+	//void DeploySpriteRender(HINSTANCE hInstance, LPSTR lpCmdLine, Eng::Svc::IServiceContainer* pInSvcCont);
 } // Tet
 
 int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nShowCmd)
@@ -38,5 +39,12 @@ namespace Tet
 	{
 		RegSvc_Log(std::string("C:\\SpriteRender\\Out\\Log\\Tet\\TetLog.txt"), pInSvcCont);
 		RegSvc_ConfigManager("ConfigManager", pInSvcCont);
+		DeploySpriteRender(hInstance, lpCmdLine, pInSvcCont);
 	}
+
+	//void DeploySpriteRender(HINSTANCE hInstance, LPSTR lpCmdLine, Eng::Svc::IServiceContainer* pInSvcCont)
+	//{
+	//	::Dv::Spr::QRen::SSpriteRenderSubsystemInitializer Initializer; // @TODO
+	//	RegSvc_QSpriteRender(Initializer, pInSvcCont);
+	//}
 } // Tet
