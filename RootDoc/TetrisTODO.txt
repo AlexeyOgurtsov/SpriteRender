@@ -30,6 +30,11 @@ Environment objects:
 1. SpriteRender wrapper
 
 Gameplay objects
+
+------------------------------------------------
+D3D subsystem:
+1. Deploy
+
 ------------------------------------------------
 QSpriteRender:
 1. Service objects (+DONE)
