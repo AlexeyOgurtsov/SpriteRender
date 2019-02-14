@@ -136,6 +136,9 @@
     <ClCompile Include="..\..\..\Proj\Tet\App\App.cpp" />
     <ClCompile Include="..\..\..\Proj\Tet\App\AppDeployer.cpp" />
     <ClCompile Include="..\..\..\Proj\Tet\App\Main.cpp" />
+    <ClCompile Include="..\..\..\Proj\Tet\D3DSubsys\D3DSubsys.cpp" />
+    <ClCompile Include="..\..\..\Proj\Tet\D3DSubsys\D3DSubsysServiceFactory.cpp" />
+    <ClCompile Include="..\..\..\Proj\Tet\D3DSubsys\D3DSubsysServiceRegister.cpp" />
     <ClCompile Include="..\..\..\Proj\Tet\HelperSubsys\AmbientContext.cpp" />
     <ClCompile Include="..\..\..\Proj\Tet\HelperSubsys\ConfigManager\ConfigManagerServiceRegister.cpp" />
     <ClCompile Include="..\..\..\Proj\Tet\HelperSubsys\Log\Log.cpp" />
@@ -147,6 +150,12 @@
     <ClInclude Include="..\..\..\Proj\Tet\App\App.h" />
     <ClInclude Include="..\..\..\Proj\Tet\App\AppDeployer.h" />
     <ClInclude Include="..\..\..\Proj\Tet\App\AppEnvironment.h" />
+    <ClInclude Include="..\..\..\Proj\Tet\D3DSubsys\D3DSubsys.h" />
+    <ClInclude Include="..\..\..\Proj\Tet\D3DSubsys\D3DSubsysInitializer.h" />
+    <ClInclude Include="..\..\..\Proj\Tet\D3DSubsys\D3DSubsysServiceFactory.h" />
+    <ClInclude Include="..\..\..\Proj\Tet\D3DSubsys\D3DSubsysServiceRegister.h" />
+    <ClInclude Include="..\..\..\Proj\Tet\D3DSubsys\D3DSubsysServiceTypes.h" />
+    <ClInclude Include="..\..\..\Proj\Tet\D3DSubsys\D3DSubsysServiceTypeTraits.h" />
     <ClInclude Include="..\..\..\Proj\Tet\HelperSubsys\AmbientContext.h" />
     <ClInclude Include="..\..\..\Proj\Tet\HelperSubsys\ConfigManager\ConfigManager.h" />
     <ClInclude Include="..\..\..\Proj\Tet\HelperSubsys\ConfigManager\ConfigManagerServiceFactory.h" />
@@ -164,6 +173,7 @@
     <ClInclude Include="..\..\..\Proj\Tet\Render\QSpriteRender\QSpriteRenderServiceRegister.h" />
     <ClInclude Include="..\..\..\Proj\Tet\Render\QSpriteRender\QSpriteRenderServiceTypes.h" />
     <ClInclude Include="..\..\..\Proj\Tet\Render\QSpriteRender\QSpriteRenderServiceTypeTraits.h" />
+    <ClInclude Include="..\..\..\Proj\Tet\Render\QSpriteRender\QSpriteRenderSubsysInitializer.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

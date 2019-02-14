@@ -33,14 +33,12 @@ Gameplay objects
 
 ------------------------------------------------
 D3D subsystem:
-0. Add files to proj
 1. Deploy
 
 ------------------------------------------------
 QSpriteRender:
 1. Refactors:
 1.0. Substitute Initializer with QSpriteRenderSubsysInitializer (see @TODOs in the header file)
-1.0.0. Add initializer header file to project
 1.0.1. Initializer should NOT depend on other subsystems
 1.0.2.
 1.2. Resolves

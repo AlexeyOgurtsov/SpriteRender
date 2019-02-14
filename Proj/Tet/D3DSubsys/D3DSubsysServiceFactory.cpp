@@ -2,7 +2,7 @@
 
 namespace Tet
 {	
-	D3DSubsysServiceFactory::ServiceObjectType* QSpriteRenderServiceFactory::CreateTyped(ResolvedServiceType pInThisService, Eng::Svc::IServiceContainerFactoryAPI* pInSvcContainer)
+	D3DSubsysServiceFactory::ServiceObjectType* D3DSubsysServiceFactory::CreateTyped(ResolvedServiceType pInThisService, Eng::Svc::IServiceContainerFactoryAPI* pInSvcContainer)
 	{
 		return new D3DSubsys(Initializer);
 	}
